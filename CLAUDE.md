@@ -33,6 +33,8 @@ claude-skills/
       SKILL.md                  # required: frontmatter + instructions
       references/*.md           # optional: loaded on demand (progressive disclosure)
       scripts/*                 # optional: helper scripts a skill can run
+      evals/evals.json          # required: eval cases (prompts + expected behavior)
+      evals/benchmark.json      # generated: with-skill vs without-skill results
 ```
 
 ## Skill authoring conventions
@@ -63,9 +65,10 @@ Every skill in `skills/` MUST follow these rules. The `skill-creator` and
    detail into `references/*.md` that the skill tells Claude to read only when
    needed. This keeps the default context small.
 
-4. **Token-frugal / single context window.** Do NOT mandate spawning subagents.
-   Skills should be executable in a single context window. Agents are allowed
-   only when explicitly worth it, and never as a hard requirement.
+4. **Token-frugal / single context window.** Do NOT mandate spawning subagents
+   during normal skill *use*. Skills should be executable in a single context
+   window. Agents are allowed only when explicitly worth it, never as a hard
+   requirement. (The one sanctioned exception is dev-time evals — see rule 8.)
 
 5. **Imperative and concrete.** Write instructions to Claude, not prose about
    the topic. Prefer checklists, tables, decision trees, and short examples.
@@ -86,6 +89,16 @@ Every skill in `skills/` MUST follow these rules. The `skill-creator` and
    deviate (e.g. skipping tests, inventing requirements, over-engineering) with
    the correction. When in doubt, the skill tells Claude to stop and ask rather
    than guess.
+
+8. **Eval-backed (baseline comparison).** Each skill MUST ship an
+   `evals/evals.json` with realistic test cases (prompt, optional input files,
+   expected behavior). Before a skill is considered done, prove it helps by a
+   **baseline comparison**: run the cases in a fresh session *with* the skill vs.
+   *with it disabled*, and compare pass rate against the token/time overhead
+   (aggregate into `evals/benchmark.json`). This is the ONLY place isolated /
+   subagent runs are expected — it is a dev-time verification step, never part
+   of normal skill use. `skill-reviewer` drives this loop. Eval file format and
+   workflow: https://agentskills.io/skill-creation/evaluating-skills.
 
 ## Core principles baked into the skills
 

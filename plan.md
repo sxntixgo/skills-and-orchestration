@@ -33,18 +33,12 @@ See CLAUDE.md rules 6–7 for the authoritative wording.
 - **Guardrails against drift** — explicit scope ("does / does NOT do"),
   required-steps checklist surfaced via TodoWrite, STOP/checkpoint gates, and a
   "red flags" list; stop-and-ask over guessing.
-- **Testable / comparable** — each skill ships with a way to verify it behaves
-  as expected. **OPEN QUESTION:** clarify what "compared with `/test`" means
-  (see below) before designing this.
-
-## Open questions
-
-- **`/test` comparison**: what does "I want the skills compared with `/test`"
-  mean? Candidates: (a) a project `/test` skill/command that runs each skill
-  against fixture scenarios and diffs actual vs. expected output; (b) evaluate
-  new skills against the existing `superpowers`/other skills as a baseline;
-  (c) each skill embeds test scenarios the `skill-reviewer` executes. Resolve
-  before Phase 1.
+- **Eval-backed (baseline comparison)** — each skill ships `evals/evals.json`
+  (realistic prompts + expected behavior). "Done" requires a baseline
+  comparison: run cases in a fresh session *with* the skill vs. *disabled*, and
+  aggregate pass-rate + token/time overhead into `evals/benchmark.json`. This is
+  dev-time only (the one sanctioned use of isolated/subagent runs) and is driven
+  by `skill-reviewer`. Format: https://agentskills.io/skill-creation/evaluating-skills
 
 ## Skill catalog
 
@@ -77,9 +71,11 @@ React/Flask): `code-reviewer` (has `backend.md`/`frontend.md`), `qa-tester`,
 - [ ] Verify dev loading works: `claude --plugin-dir .`, `/reload-plugins`, invoke a namespaced skill
 
 ### Phase 1 — Skill tooling (build first, cross-validate)
-- [ ] `skills/skill-creator/SKILL.md`
-- [ ] `skills/skill-reviewer/SKILL.md`
-- [ ] Use `skill-reviewer` on `skill-creator` and vice versa; refine both
+- [ ] `skills/skill-creator/SKILL.md` — must enforce rules 1–8 (incl. evals + guardrails + checkpointing)
+- [ ] `skills/skill-reviewer/SKILL.md` — must drive the baseline-comparison eval loop
+      (with-skill vs disabled → `evals/benchmark.json`) and blind A/B between versions
+- [ ] Author `evals/evals.json` for both tooling skills
+- [ ] Use `skill-reviewer` on `skill-creator` and vice versa; run baseline evals; refine both
 
 ### Phase 2 — Core development loop
 - [ ] `skills/software-development/SKILL.md` (TDD red→green→refactor + DRY/YAGNI/KISS + workflow)
