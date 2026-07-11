@@ -49,7 +49,10 @@ React/Flask): `code-reviewer` (has `backend.md`/`frontend.md`), `qa-tester`,
 - [x] Create `plan.md`
 - [x] `git init` + `.gitignore` + first commit
 - [ ] Add plugin scaffolding: `.claude-plugin/plugin.json` + `.claude-plugin/marketplace.json`
+      (set an explicit `version` in plugin.json; bump on releases, don't rely on SHA-based versioning)
+- [ ] Add `LICENSE` (and mirror in plugin.json `license` field)
 - [ ] Add `README.md` (what it is, install, skill index)
+- [ ] Verify dev loading works: `claude --plugin-dir .`, `/reload-plugins`, invoke a namespaced skill
 
 ### Phase 1 — Skill tooling (build first, cross-validate)
 - [ ] `skills/skill-creator/SKILL.md`
@@ -75,6 +78,8 @@ React/Flask): `code-reviewer` (has `backend.md`/`frontend.md`), `qa-tester`,
 ### Phase 5 — Finalize
 - [ ] Update `README.md` skill index
 - [ ] Final pass with `skill-reviewer` across all skills
+- [ ] `claude plugin validate .` passes
+- [ ] End-to-end local install test: `/plugin marketplace add ./` then install + invoke a skill
 - [ ] Commit; push to `github.com/sxntixgo/claude-skills` (only when asked)
 
 ## Out of scope (YAGNI)

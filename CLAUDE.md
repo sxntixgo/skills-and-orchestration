@@ -9,8 +9,10 @@ packaged as a **Claude Code plugin** so it can be installed with:
 
 ```bash
 /plugin marketplace add sxntixgo/claude-skills
-/plugin install claude-skills
+/plugin install claude-skills@claude-skills   # plugin@marketplace
 ```
+
+Once installed, skills are namespaced by the plugin, e.g. `claude-skills:skill-creator`.
 
 The skills cover authoring skills, researching, building software, and reviewing
 software. They are designed to be **self-contained** and **token-frugal** (see
@@ -38,19 +40,24 @@ claude-skills/
 Every skill in `skills/` MUST follow these rules. The `skill-creator` and
 `skill-reviewer` skills enforce them — use them.
 
-1. **Frontmatter is required.** Each `SKILL.md` starts with YAML frontmatter:
+1. **Frontmatter.** Each `SKILL.md` starts with YAML frontmatter:
    ```yaml
    ---
-   name: kebab-case-name        # matches the directory name
-   description: Use when <trigger> - <what it does>. Third person, starts with "Use when".
+   name: kebab-case-name        # optional for plugin skills (dir name wins);
+                                #   HOUSE RULE: include it and keep it == dir name
+   description: <what it does>. Use when <concrete trigger>.   # third person
    ---
    ```
-   The `description` is the ONLY thing Claude sees when deciding whether to load
-   the skill. Make the trigger explicit and concrete.
+   The `name` + `description` are what Claude sees when deciding whether to load
+   the skill (the body is loaded only after it triggers). So the `description`
+   must carry an explicit, concrete trigger. House style is "what it does. Use
+   when <trigger>." — matches the official docs' third-person format.
 
-2. **Self-contained.** A skill must work with zero dependency on other plugins
-   (do not require `superpowers` or any external skill to be installed). If a
-   skill references another skill in THIS repo, keep that reference optional.
+2. **Self-contained.** A skill must work with zero dependency on anything
+   *outside this plugin* (do not require `superpowers` or any external skill).
+   Cross-references *within* this plugin are fine — all skills ship together —
+   but do it via the trigger `description`, not a hard "you must invoke X" step,
+   so each skill still degrades gracefully on its own.
 
 3. **Progressive disclosure.** Keep `SKILL.md` lean (aim < ~500 lines). Push
    detail into `references/*.md` that the skill tells Claude to read only when
@@ -70,6 +77,24 @@ Every skill in `skills/` MUST follow these rules. The `skill-creator` and
   skill points to it rather than duplicating it.
 - **Review is layered** — `code-review` (correctness + quality) and
   `security-review` (vuln classes, authz, secrets) are separate skills.
+
+## Developing skills in this repo
+
+Claude Code does **not** auto-load a bare `skills/` directory at a repo root —
+only `.claude/skills/` and *installed* plugins load. So to exercise the skills
+while building them (e.g. running `skill-reviewer` on `skill-creator`):
+
+- Launch Claude Code with this repo as a live plugin dir:
+  ```bash
+  claude --plugin-dir .
+  ```
+- After editing a skill, run `/reload-plugins` to pick up changes.
+- Skills are namespaced: invoke `claude-skills:skill-reviewer`, etc.
+- Before publishing, validate and test locally:
+  ```bash
+  claude plugin validate .          # check plugin.json / marketplace.json
+  /plugin marketplace add ./        # add this repo as a local marketplace
+  ```
 
 ## Working agreements for Claude in this repo
 
