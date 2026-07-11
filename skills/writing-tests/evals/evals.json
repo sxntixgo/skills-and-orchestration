@@ -1,0 +1,29 @@
+{
+  "skill_name": "writing-tests",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write tests for a function isValidPassword(pw) that requires 8+ chars, at least one digit and one letter.",
+      "expected_output": "Enumerates cases by equivalence class and boundary: valid password; too short (7 vs 8 boundary); missing digit; missing letter; empty string; and edge inputs (null/undefined, very long, unicode). Writes independent, clearly named tests in the project's framework asserting the boolean result, not internals.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Add tests for this checkout function that charges a payment provider and emails a receipt.",
+      "expected_output": "Covers happy path plus error paths (provider declines, provider timeout/throws, invalid cart). Uses test doubles at the payment/email seams so tests are deterministic, and asserts on observable behavior/outcome — treating 'a receipt email was sent' as a legitimate interaction to verify while not over-asserting on incidental mock calls.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Our getUser test just checks that the internal _cache.get method was called. Improve it.",
+      "expected_output": "Flags that asserting on a private method / mock call tests implementation, not behavior. Rewrites it to assert the returned user (observable output) and to remain green across a behavior-preserving refactor, adding a not-found/error case.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Please get us to 100% coverage on the utils file.",
+      "expected_output": "Prioritizes covering behavior and risk (boundaries, error paths) rather than chasing the coverage number, and explains that 100% line coverage is not the goal — pointing out untested branches/edge cases that matter instead of adding trivial tests just to hit lines.",
+      "files": []
+    }
+  ]
+}

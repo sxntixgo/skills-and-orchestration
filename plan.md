@@ -81,11 +81,15 @@ React/Flask): `code-reviewer` (has `backend.md`/`frontend.md`), `qa-tester`,
 - [ ] Use `skill-reviewer` on `skill-creator` and vice versa; run baseline evals; refine both
 
 ### Phase 2 — Core development loop
-- [ ] `skills/software-development/SKILL.md` (TDD red→green→refactor + DRY/YAGNI/KISS + workflow)
-- [ ] `skills/software-development/references/backend.md`
-- [ ] `skills/software-development/references/frontend.md`
-- [ ] `skills/writing-tests/SKILL.md`
-- [ ] Review both with `skill-reviewer`
+- [x] `skills/software-development/SKILL.md` (5-stage lifecycle: understand→plan→TDD→refactor→verify)
+- [x] `skills/software-development/references/backend.md`
+- [x] `skills/software-development/references/frontend.md`
+- [x] `skills/software-development/evals/evals.json` — 4 cases
+- [x] `skills/writing-tests/SKILL.md` (enumerate cases → author them)
+- [x] `skills/writing-tests/references/test-design.md`
+- [x] `skills/writing-tests/evals/evals.json` — 4 cases
+- [x] Static rubric cross-check (both clean, self-contained)
+- [ ] Baseline eval runs with `skill-reviewer` (gated; deferred for token cost)
 
 ### Phase 3 — Review skills
 - [ ] `skills/code-review/SKILL.md`
