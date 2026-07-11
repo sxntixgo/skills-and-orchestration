@@ -1,0 +1,24 @@
+{
+  "name": "claude-skills",
+  "owner": {
+    "name": "Santiago",
+    "email": "18380937+sxntixgo@users.noreply.github.com"
+  },
+  "description": "A collection of reusable Claude Code skills by sxntixgo.",
+  "plugins": [
+    {
+      "name": "claude-skills",
+      "source": "./",
+      "description": "Reusable skills for authoring skills, research, software development (TDD + DRY/YAGNI/KISS), testing, code review, and security review.",
+      "category": "development",
+      "keywords": [
+        "skills",
+        "code-review",
+        "security-review",
+        "tdd",
+        "software-development",
+        "research"
+      ]
+    }
+  ]
+}

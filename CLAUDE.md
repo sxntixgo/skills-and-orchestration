@@ -70,6 +70,23 @@ Every skill in `skills/` MUST follow these rules. The `skill-creator` and
 5. **Imperative and concrete.** Write instructions to Claude, not prose about
    the topic. Prefer checklists, tables, decision trees, and short examples.
 
+6. **Checkpointed / resumable.** Any multi-step skill MUST write its
+   intermediate outputs to disk (a predictable working file/dir, e.g.
+   `./.claude-skills-work/<skill>/<step>.md` or a path the user names) as it
+   goes — not only a final answer. Each step states where it wrote its output
+   and how to resume from it, so work can be paused and continued from any
+   intermediate step in a later session. This also keeps the live context
+   small (write it down, don't hold it in context).
+
+7. **Guardrails against drift.** Each skill MUST keep Claude on the expected
+   task. Include: an explicit scope ("what this skill does / does NOT do"), a
+   checklist of the required steps (surfaced as TodoWrite items so progress is
+   tracked and visible), STOP/checkpoint gates where Claude pauses for the user
+   instead of expanding scope, and a short "red flags" list of common ways to
+   deviate (e.g. skipping tests, inventing requirements, over-engineering) with
+   the correction. When in doubt, the skill tells Claude to stop and ask rather
+   than guess.
+
 ## Core principles baked into the skills
 
 - **DRY / YAGNI / KISS** drive the `software-development` skill.

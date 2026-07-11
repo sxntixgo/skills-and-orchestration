@@ -1,0 +1,22 @@
+{
+  "name": "claude-skills",
+  "displayName": "Claude Skills",
+  "version": "0.1.0",
+  "description": "Reusable Claude Code skills for authoring skills, research, software development (TDD + DRY/YAGNI/KISS), testing, code review, and security review.",
+  "author": {
+    "name": "Santiago",
+    "email": "18380937+sxntixgo@users.noreply.github.com",
+    "url": "https://github.com/sxntixgo"
+  },
+  "homepage": "https://github.com/sxntixgo/claude-skills",
+  "repository": "https://github.com/sxntixgo/claude-skills",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "code-review",
+    "security-review",
+    "tdd",
+    "software-development",
+    "research"
+  ]
+}

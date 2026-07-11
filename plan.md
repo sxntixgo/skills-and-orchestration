@@ -24,6 +24,28 @@ Build a set of self-contained, token-frugal skills covering:
 | Distribution | **Claude Code plugin** (`.claude-plugin/`) | Installable via `/plugin marketplace add sxntixgo/claude-skills` |
 | Token budget | **No mandatory subagents; single context window** | User cost concern; use `references/*.md` progressive disclosure instead |
 
+## Cross-cutting requirements (apply to EVERY skill)
+
+See CLAUDE.md rules 6–7 for the authoritative wording.
+
+- **Checkpointed / resumable** — write intermediate outputs to disk each step so
+  work can pause and resume from any step (also keeps live context small).
+- **Guardrails against drift** — explicit scope ("does / does NOT do"),
+  required-steps checklist surfaced via TodoWrite, STOP/checkpoint gates, and a
+  "red flags" list; stop-and-ask over guessing.
+- **Testable / comparable** — each skill ships with a way to verify it behaves
+  as expected. **OPEN QUESTION:** clarify what "compared with `/test`" means
+  (see below) before designing this.
+
+## Open questions
+
+- **`/test` comparison**: what does "I want the skills compared with `/test`"
+  mean? Candidates: (a) a project `/test` skill/command that runs each skill
+  against fixture scenarios and diffs actual vs. expected output; (b) evaluate
+  new skills against the existing `superpowers`/other skills as a baseline;
+  (c) each skill embeds test scenarios the `skill-reviewer` executes. Resolve
+  before Phase 1.
+
 ## Skill catalog
 
 | Skill | Purpose | Key content |
