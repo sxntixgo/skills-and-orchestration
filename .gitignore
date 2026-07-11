@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Node / tooling (if any skill scripts add them later)
+node_modules/
+__pycache__/
+*.pyc
