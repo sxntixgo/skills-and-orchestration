@@ -99,8 +99,11 @@ React/Flask): `code-reviewer` (has `backend.md`/`frontend.md`), `qa-tester`,
 - [ ] Baseline eval runs with `skill-reviewer` (gated; deferred for token cost)
 
 ### Phase 4 — Research
-- [ ] `skills/online-research/SKILL.md`
-- [ ] Review with `skill-reviewer`
+- [x] `skills/online-research/SKILL.md` (plan→gather→evaluate→triangulate→cite; tool-agnostic)
+- [x] `skills/online-research/references/source-evaluation.md`
+- [x] `skills/online-research/evals/evals.json` — 4 cases
+- [x] Static rubric cross-check (clean, self-contained)
+- [ ] Baseline eval runs with `skill-reviewer` (gated; deferred for token cost)
 
 ### Phase 5 — Finalize
 - [ ] Update `README.md` skill index

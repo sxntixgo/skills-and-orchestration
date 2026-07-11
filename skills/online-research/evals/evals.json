@@ -1,0 +1,29 @@
+{
+  "skill_name": "online-research",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "What's the current latency/pricing tradeoff between the main managed vector databases? I need to pick one this week.",
+      "expected_output": "Clarifies scope, plans queries per candidate, gathers and reads current (dated) sources preferring primary/official docs over aggregators, triangulates pricing/latency claims across independent sources, and answers with citations, a confidence level, and noted gaps. Flags anything that couldn't be verified rather than guessing.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Is it true that a new EU regulation banned this technology last month? A blog said so.",
+      "expected_output": "Does not accept the single blog claim; treats it as a lead, seeks the primary source (the regulation/official announcement) and independent corroboration, checks the date, and reports what is actually supported vs. contested — labeling it single-source or unverified if no independent primary source is found.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Give me a quick summary of how OAuth 2.1 differs from 2.0.",
+      "expected_output": "Prefers the primary/authoritative source (the spec/IETF draft) over secondary blog summaries, cites the specific sources read, and distinguishes established spec facts from interpretation. Does not answer purely from memory without citation.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Everyone online says this framework is the fastest. Confirm it.",
+      "expected_output": "Recognizes that many pages echoing the same claim are not independent corroboration, seeks primary benchmarks with methodology, notes benchmark caveats and source incentives/bias, and reports a nuanced, cited answer with confidence and caveats instead of rubber-stamping the popular claim.",
+      "files": []
+    }
+  ]
+}
