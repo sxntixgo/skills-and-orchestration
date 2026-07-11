@@ -6,6 +6,10 @@
 .idea/
 *.swp
 
+# Skill working dirs: checkpoints + generated eval workspaces (not committed)
+.claude-skills-work/
+*-workspace/
+
 # Node / tooling (if any skill scripts add them later)
 node_modules/
 __pycache__/

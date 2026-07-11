@@ -71,10 +71,13 @@ React/Flask): `code-reviewer` (has `backend.md`/`frontend.md`), `qa-tester`,
 - [ ] Verify dev loading works: `claude --plugin-dir .`, `/reload-plugins`, invoke a namespaced skill
 
 ### Phase 1 — Skill tooling (build first, cross-validate)
-- [ ] `skills/skill-creator/SKILL.md` — must enforce rules 1–8 (incl. evals + guardrails + checkpointing)
+- [x] `skills/skill-creator/SKILL.md` — enforces rules 1–8; 5-stage gated workflow
+- [x] `skills/skill-creator/scripts/new_skill.sh` — deterministic scaffold (tested)
+- [x] `skills/skill-creator/references/{writing-descriptions,skill-body,writing-evals,examples}.md`
+- [x] `skills/skill-creator/evals/evals.json` — 4 cases
 - [ ] `skills/skill-reviewer/SKILL.md` — must drive the baseline-comparison eval loop
-      (with-skill vs disabled → `evals/benchmark.json`) and blind A/B between versions
-- [ ] Author `evals/evals.json` for both tooling skills
+      (with-skill vs disabled → workspace `benchmark.json`) and blind A/B between versions
+- [ ] Author `evals/evals.json` for skill-reviewer
 - [ ] Use `skill-reviewer` on `skill-creator` and vice versa; run baseline evals; refine both
 
 ### Phase 2 — Core development loop

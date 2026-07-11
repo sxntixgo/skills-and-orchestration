@@ -33,9 +33,12 @@ claude-skills/
       SKILL.md                  # required: frontmatter + instructions
       references/*.md           # optional: loaded on demand (progressive disclosure)
       scripts/*                 # optional: helper scripts a skill can run
-      evals/evals.json          # required: eval cases (prompts + expected behavior)
-      evals/benchmark.json      # generated: with-skill vs without-skill results
+      evals/evals.json          # required: hand-authored cases (skill_name, evals[])
+      evals/files/*             # optional: input fixtures referenced by cases
 ```
+
+Eval runs and their aggregated `benchmark.json` are generated into a gitignored
+workspace (`.claude-skills-work/evals/<skill>/iteration-N/`), not committed.
 
 ## Skill authoring conventions
 
@@ -95,7 +98,7 @@ Every skill in `skills/` MUST follow these rules. The `skill-creator` and
    expected behavior). Before a skill is considered done, prove it helps by a
    **baseline comparison**: run the cases in a fresh session *with* the skill vs.
    *with it disabled*, and compare pass rate against the token/time overhead
-   (aggregate into `evals/benchmark.json`). This is the ONLY place isolated /
+   (aggregate into a workspace `benchmark.json`; see below). This is the ONLY place isolated /
    subagent runs are expected — it is a dev-time verification step, never part
    of normal skill use. `skill-reviewer` drives this loop. Eval file format and
    workflow: https://agentskills.io/skill-creation/evaluating-skills.
