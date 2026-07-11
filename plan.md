@@ -92,9 +92,11 @@ React/Flask): `code-reviewer` (has `backend.md`/`frontend.md`), `qa-tester`,
 - [ ] Baseline eval runs with `skill-reviewer` (gated; deferred for token cost)
 
 ### Phase 3 — Review skills
-- [ ] `skills/code-review/SKILL.md`
-- [ ] `skills/security-review/SKILL.md`
-- [ ] Review both with `skill-reviewer`
+- [x] `skills/code-review/SKILL.md` (correctness/quality; + references/checklist.md; 4 evals)
+- [x] `skills/security-review/SKILL.md` (vuln classes; + references/vuln-classes.md; 4 evals)
+- [x] Decision: code-review and security-review are fully independent (no cross-reference)
+- [x] Static rubric cross-check (both clean, self-contained)
+- [ ] Baseline eval runs with `skill-reviewer` (gated; deferred for token cost)
 
 ### Phase 4 — Research
 - [ ] `skills/online-research/SKILL.md`

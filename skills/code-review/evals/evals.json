@@ -1,0 +1,29 @@
+{
+  "skill_name": "code-review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Review this diff for my PR that adds a discount calculation to the cart.",
+      "expected_output": "Reads the change and surrounding context, then reports findings anchored to file:line and rated Must/Should/Consider with concrete fixes, prioritizing correctness (edge cases like empty cart, negative/zero, rounding, off-by-one) over style. Notes genuine strengths under Good. Does not rewrite the whole change.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "def get(u): d=db.q(u); return d[0]  — review this.",
+      "expected_output": "Flags correctness risks first (empty result -> index error on d[0], no not-found handling), then naming (get/u/d are vague), and missing error handling — each with a concrete fix. Severity-ordered with the correctness bug as Must fix.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Review this — does it look okay?  try: charge(card) except: pass",
+      "expected_output": "Identifies the silent exception swallow as a Must-fix: failures are hidden, payment errors are ignored. Recommends handling or propagating with context and narrowing the except. Does not treat it as merely a style nit.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Can you review my code? Mostly I want to know if the variable names and indentation match our Prettier config.",
+      "expected_output": "Focuses the review on correctness, design, and consistency rather than formatter-enforced style, noting that Prettier/lint already handles indentation. Still surfaces any real naming problems that affect readability, with line references and fixes.",
+      "files": []
+    }
+  ]
+}
