@@ -9,8 +9,9 @@ Judge a skill. `skill-creator` builds; you review. Always run the static rubric,
 then always proceed toward the baseline evals — but STOP for approval before
 spawning any isolated runs, because they cost tokens and time.
 
-Read `CLAUDE.md` at the repo root first — it defines the 8 authoring rules this
-rubric scores against.
+The 8 authoring rules this rubric scores against are detailed in
+`references/rubric.md`. (When working inside this repo, the same rules are also
+documented in `CLAUDE.md`.)
 
 ## Scope
 This skill DOES:

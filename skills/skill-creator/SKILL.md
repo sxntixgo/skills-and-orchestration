@@ -8,8 +8,9 @@ description: Authors a new Claude Code skill or edits an existing one in this re
 Build a skill through 5 gated stages. You BUILD the skill; you do NOT judge it —
 `skill-reviewer` runs the rubric and baseline evals. End by handing off.
 
-Read `CLAUDE.md` at the repo root first — it holds the 8 authoring rules every
-skill must satisfy. This skill enforces them.
+This skill enforces 8 authoring rules. The full checklist is in
+`references/skill-body.md`. (When working inside this repo, the same rules are
+also documented in `CLAUDE.md`.)
 
 ## Scope
 This skill DOES:
@@ -51,7 +52,8 @@ checklist. Show it.
 
 ### Stage 4 — Scaffold + evals
 For a NEW skill, run `scripts/new_skill.sh <skill-name>` to create the directory
-and stubs, then move your Stage 2–3 drafts into the generated `SKILL.md`. For an
+and stubs, then replace the generated `SKILL.md` skeleton with your approved
+Stage 2–3 drafts (the skeleton's TODO placeholders get overwritten). For an
 EDIT, skip scaffolding. Then write 3–5 realistic cases in `evals/evals.json`.
 Read `references/writing-evals.md` for the format and how to pick cases. Show them.
 
