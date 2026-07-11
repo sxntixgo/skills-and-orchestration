@@ -1,29 +1,54 @@
 {
   "skill_name": "security-review",
+  "note": "Cases chosen to be NON-obvious so a strong base model does not trivially catch them without the skill. Assertions include breadth and the exploit+fix+severity format, not just 'named the one bug'. iteration-1 used canonical vulns and showed 0 lift (base model caught them all); see .claude-skills-work benchmark.",
   "evals": [
     {
       "id": 1,
-      "prompt": "Security review this endpoint:  query(\"SELECT * FROM users WHERE email = '\" + req.body.email + \"'\")",
-      "expected_output": "Flags SQL injection as Critical with a concrete exploit (email = \"' OR '1'='1\" dumps all users / can alter data), states the impact, and gives the fix (parameterized query / prepared statement). Maps the source (req.body.email) to the sink (SQL query).",
-      "files": []
+      "prompt": "Security review this auth check:\n  const payload = jwt.decode(req.headers.authorization);\n  if (payload.role === 'admin') { grantAdmin(); }",
+      "expected_output": "Identifies that jwt.decode does NOT verify the signature, so an attacker can forge a token with role=admin (or use alg=none) and the server trusts it — an auth bypass, not merely 'trusting a client value'. Gives the exploit and the fix (jwt.verify with the key, check signature+expiry, then authorize).",
+      "files": [],
+      "assertions": [
+        "States that jwt.decode does not verify the signature (token is forgeable) — distinct from just 'trusting the role claim'",
+        "Describes the exploit: forge/modify a token to role=admin (or alg=none) to bypass auth",
+        "Fix: verify the signature with jwt.verify (key + expiry) before trusting any claim",
+        "Rates it Critical/High and follows the exploit + impact + fix format"
+      ]
     },
     {
       "id": 2,
-      "prompt": "Can you check GET /api/orders/:id for security issues? It requires a logged-in user and returns the order for that id.",
-      "expected_output": "Identifies a broken-authorization / IDOR issue: authentication is present but there is no per-resource check that the order belongs to the current user, so any user can read others' orders by changing :id. Rates it High, gives the exploit, and the fix (authorize the object against the authenticated principal).",
-      "files": []
+      "prompt": "Review this. Signup stores the username with a parameterized insert. Later, an audit job runs:\n  db.query(\"SELECT * FROM logs WHERE actor = '\" + user.username + \"'\")\nwhere user.username was read back from the users table.",
+      "expected_output": "Identifies second-order (stored) SQL injection: although the insert is parameterized, the username is later concatenated into another query, and it is still attacker-controlled data. A username like  ' OR '1'='1  injects when the audit job runs. Fix: parameterize the second query too; never trust DB-sourced strings as safe.",
+      "files": [],
+      "assertions": [
+        "Identifies second-order / stored SQL injection (not 'safe because it comes from the DB')",
+        "Explains the payload was planted at signup and fires later in the audit query",
+        "Fix: parameterize the second query; treat DB-sourced values as untrusted",
+        "Rates it High/Critical with exploit + fix"
+      ]
     },
     {
       "id": 3,
-      "prompt": "Review this webhook handler that fetches whatever URL the user configures and returns the body.",
-      "expected_output": "Identifies SSRF: a user-controlled URL fetched server-side lets an attacker hit cloud metadata (169.254.169.254) or internal services. Rates it High/Critical depending on environment, and recommends an allowlist, blocking private/link-local ranges, and disabling internal redirects. Does not write a working exploit payload.",
-      "files": []
+      "prompt": "Review this profile update handler:\n  app.put('/profile', requireLogin, (req, res) => { User.update(req.user.id, req.body); res.json({ok:true}); })\nThe User model has fields: name, email, bio, role, isVerified.",
+      "expected_output": "Identifies mass assignment / privilege escalation: req.body is passed wholesale to User.update, so a user can include role='admin' or isVerified=true and escalate. Exploit: PUT /profile with {\"role\":\"admin\"}. Fix: allowlist the updatable fields (name, email, bio) and never bind sensitive fields from client input.",
+      "files": [],
+      "assertions": [
+        "Identifies mass assignment allowing privilege escalation via extra body fields (role/isVerified)",
+        "Gives the concrete exploit: include role=admin (or isVerified=true) in the request body",
+        "Fix: allowlist updatable fields; never bind sensitive fields from client input",
+        "Rates it High/Critical with exploit + fix"
+      ]
     },
     {
       "id": 4,
-      "prompt": "Quick review — we log the full request including the Authorization header and store passwords with md5(password). Fine?",
-      "expected_output": "Flags two findings: secrets/sensitive-data exposure (logging Authorization tokens) and crypto misuse (unsalted MD5 for passwords). Gives severities, the impact on breach, and fixes (redact secrets from logs; use a slow salted hash like bcrypt/argon2). Does not do a general quality review.",
-      "files": []
+      "prompt": "Review this internal endpoint:\n  if (req.query.apiKey === process.env.API_KEY) { return res.redirect(req.query.next); }\n  return res.status(403).end();",
+      "expected_output": "Finds BOTH issues: (1) open redirect — req.query.next is used unvalidated, enabling phishing / token leakage; (2) non-constant-time comparison of the API key with === enables a timing side-channel to recover the key. Fixes: validate/allowlist the redirect target; use a constant-time comparison for the secret.",
+      "files": [],
+      "assertions": [
+        "Identifies the open redirect (unvalidated req.query.next)",
+        "Identifies the non-constant-time secret comparison (=== on API key -> timing attack)",
+        "Provides fixes for BOTH: allowlist/validate redirect target AND constant-time compare",
+        "Follows the severity-rated exploit + fix format (breadth: does not stop at the first issue)"
+      ]
     }
   ]
 }
