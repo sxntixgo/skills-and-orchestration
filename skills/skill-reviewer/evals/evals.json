@@ -1,0 +1,29 @@
+{
+  "skill_name": "skill-reviewer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I just finished the writing-tests skill. Review it.",
+      "expected_output": "Runs the static rubric against all 8 rules and reports findings rated Must/Should/Consider with file:line references. Then reports the eval run count and STOPS to ask for approval before spawning any isolated runs. Does not edit the skill.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Review this skill: it has a description 'Helps with stuff', no scope section, and no evals/evals.json.",
+      "expected_output": "Flags 🔴 Rule 1 (no concrete trigger), 🔴 Rule 7 (no scope/guardrails), and 🔴 Rule 8 (no evals/evals.json), and explains that the baseline eval run cannot proceed until eval cases exist. Verdict: ITERATE with those fixes.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I tightened the description on my code-review skill. Confirm the new version is actually better than the old one.",
+      "expected_output": "Recognizes this is an edit, so the baseline is a snapshot of the previous version (not 'no skill'). After the approval gate, runs a blind A/B comparing the two versions' outputs and reports which is better on the eval delta plus holistic quality.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Review and benchmark my online-research skill — run the full eval comparison.",
+      "expected_output": "Runs the rubric, then computes cases × 2 runs and reports the token/time cost, and STOPS to ask for explicit approval before spawning subagents — it does not start the isolated runs on its own even though the user asked to benchmark.",
+      "files": []
+    }
+  ]
+}

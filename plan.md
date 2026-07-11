@@ -75,9 +75,9 @@ React/Flask): `code-reviewer` (has `backend.md`/`frontend.md`), `qa-tester`,
 - [x] `skills/skill-creator/scripts/new_skill.sh` — deterministic scaffold (tested)
 - [x] `skills/skill-creator/references/{writing-descriptions,skill-body,writing-evals,examples}.md`
 - [x] `skills/skill-creator/evals/evals.json` — 4 cases
-- [ ] `skills/skill-reviewer/SKILL.md` — must drive the baseline-comparison eval loop
-      (with-skill vs disabled → workspace `benchmark.json`) and blind A/B between versions
-- [ ] Author `evals/evals.json` for skill-reviewer
+- [x] `skills/skill-reviewer/SKILL.md` — 3-stage flow: rubric + gated baseline evals + verdict
+- [x] `skills/skill-reviewer/references/{rubric,running-evals}.md`
+- [x] `skills/skill-reviewer/evals/evals.json` — 4 cases
 - [ ] Use `skill-reviewer` on `skill-creator` and vice versa; run baseline evals; refine both
 
 ### Phase 2 — Core development loop
