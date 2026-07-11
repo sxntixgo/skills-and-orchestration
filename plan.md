@@ -67,7 +67,7 @@ React/Flask): `code-reviewer` (has `backend.md`/`frontend.md`), `qa-tester`,
 - [ ] Add plugin scaffolding: `.claude-plugin/plugin.json` + `.claude-plugin/marketplace.json`
       (set an explicit `version` in plugin.json; bump on releases, don't rely on SHA-based versioning)
 - [ ] Add `LICENSE` (and mirror in plugin.json `license` field)
-- [ ] Add `README.md` (what it is, install, skill index)
+- [x] Add `README.md` (what it is, install, skill index)
 - [ ] Verify dev loading works: `claude --plugin-dir .`, `/reload-plugins`, invoke a namespaced skill
 
 ### Phase 1 — Skill tooling (build first, cross-validate)
