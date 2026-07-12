@@ -49,6 +49,18 @@
         "Provides fixes for BOTH: allowlist/validate redirect target AND constant-time compare",
         "Follows the severity-rated exploit + fix format (breadth: does not stop at the first issue)"
       ]
+    },
+    {
+      "id": 5,
+      "prompt": "Security review this Python (Flask) handler:\n  @app.route('/export')\n  def export():\n      name = request.args.get('file')\n      return open('/var/exports/' + name).read()",
+      "expected_output": "Identifies path traversal: request.args['file'] is concatenated into a filesystem path, so ?file=../../etc/passwd escapes /var/exports and reads arbitrary files. Fix: canonicalize and confine to the base dir (e.g. os.path.realpath then verify it starts with the base), or use a safe join and reject '..'/absolute paths. Non-JS case to exercise the framework-agnostic claim.",
+      "files": [],
+      "assertions": [
+        "Identifies path traversal via the unvalidated 'file' parameter",
+        "Gives the concrete exploit: ?file=../../etc/passwd (or similar) escapes /var/exports",
+        "Fix: canonicalize/confine the path to the base directory; reject .. and absolute paths",
+        "Rates it High/Critical with exploit + fix (and does not require JS-specific knowledge)"
+      ]
     }
   ]
 }

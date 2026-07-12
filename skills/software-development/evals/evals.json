@@ -4,26 +4,47 @@
     {
       "id": 1,
       "prompt": "Add a POST /api/users endpoint that creates a user from {email, name} and returns 201 with the new id. Reject duplicates and invalid emails.",
-      "expected_output": "Restates the contract (inputs/outputs/status codes), then works test-first: writes failing tests for the happy path, invalid email, and duplicate (409) before implementation. Validates input at the boundary, parameterizes the DB write, returns meaningful status codes, and finally runs the endpoint to confirm it works. No speculative fields or config.",
-      "files": []
+      "expected_output": "Restates the contract, then works test-first: failing tests for the happy path, invalid email, and duplicate (409) before implementation. Validates input at the boundary, parameterizes the DB write, returns meaningful status codes, and runs the endpoint to confirm. No speculative fields or config.",
+      "files": [],
+      "assertions": [
+        "Writes failing tests BEFORE the implementation (TDD order), including invalid-email and duplicate cases",
+        "Validates input at the boundary and returns meaningful status codes (201/400/409)",
+        "Actually runs/exercises the endpoint to confirm, not just typecheck",
+        "Adds no speculative fields, config, or abstraction (YAGNI/KISS)"
+      ]
     },
     {
       "id": 2,
       "prompt": "Build a UserList component that fetches users from /api/users and shows them.",
-      "expected_output": "Handles all four states explicitly (loading, empty, error, success), not just the happy path. Writes tests first for each state and the fetch behavior, uses semantic/accessible markup, and renders/exercises the component to confirm. Keeps the component small and follows existing patterns.",
-      "files": []
+      "expected_output": "Handles all four states explicitly (loading, empty, error, success), writes tests first for each state and the fetch behavior, uses semantic/accessible markup, and renders/exercises the component to confirm. Keeps the component small and follows existing patterns.",
+      "files": [],
+      "assertions": [
+        "Handles loading, empty, error, and success states explicitly (not just the happy path)",
+        "Writes tests first for the states and fetch behavior",
+        "Uses semantic/accessible markup and keeps the component small"
+      ]
     },
     {
       "id": 3,
       "prompt": "Write a function to parse a date string. Make it configurable and extensible so we can support any future format we might need.",
       "expected_output": "Applies YAGNI: builds the smallest function that satisfies the actual current requirement and declines to add speculative configuration/extensibility for hypothetical formats, explaining why. Still test-first and simple (KISS).",
-      "files": []
+      "files": [],
+      "assertions": [
+        "Declines to build speculative configuration/extensibility for hypothetical future formats (YAGNI), explaining why",
+        "Implements the smallest function meeting the current requirement",
+        "Still writes tests first and keeps it simple (KISS)"
+      ]
     },
     {
       "id": 4,
       "prompt": "There's a bug: calculateTotal returns NaN when the cart is empty. Fix it.",
       "expected_output": "Reproduces the bug with a failing test for the empty-cart case FIRST, then makes the minimal change to pass, checks nearby boundaries (single item, null), and reruns/exercises to confirm the fix without breaking existing behavior.",
-      "files": []
+      "files": [],
+      "assertions": [
+        "Writes a failing test reproducing the empty-cart NaN before fixing",
+        "Makes the minimal change to pass and checks nearby boundaries (single item, null)",
+        "Reruns tests / exercises the code to confirm without breaking existing behavior"
+      ]
     }
   ]
 }

@@ -26,8 +26,11 @@ This skill does NOT:
 
 ## Workflow
 
-Create a TodoWrite item per stage. Checkpoint each stage's output to
+Create a TodoWrite item per stage. Checkpoint the Stage A rubric findings to
 `./.claude-skills-work/<skill>/review/` so a review can resume if interrupted.
+(The Stage B eval RUNS use a separate workspace,
+`./.claude-skills-work/evals/<skill>/iteration-N/` — see `references/running-evals.md`.
+The two paths are intentionally distinct: review findings vs. generated runs.)
 
 ### Stage A — Static rubric (always)
 Read the skill's `SKILL.md`, references, scripts, and `evals/evals.json`. Score
