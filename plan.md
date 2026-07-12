@@ -116,7 +116,7 @@ React/Flask): `code-reviewer` (has `backend.md`/`frontend.md`), `qa-tester`,
 
 ### Phase 5 — Finalize
 - [x] Update `README.md` skill index
-- [x] Final pass with `skill-reviewer` across all 7 skills (all PASS; findings fixed)
+- [x] Final pass with `skill-reviewer` across all skills (all PASS; findings fixed) — every skill added since is reviewed the same way before release
 - [x] `claude plugin validate .` passes
 - [x] Local validation via subagents reading the skills from this folder
 - [x] Commit + push to `github.com/sxntixgo/claude-skills`
@@ -127,7 +127,8 @@ React/Flask): `code-reviewer` (has `backend.md`/`frontend.md`), `qa-tester`,
 - [x] Re-scope `security-review`/`code-review` around consistency/coverage (measured no detection lift)
 - [x] Add objective `assertions` to every eval case; improve eval reproducibility
 - [x] Set repo description + topics
-- [x] Bump plugin.json to **1.0.0** and tag **v1.0.0**
+- [x] Version + tag each release: **v1.0.0** (7 skills) → **v1.1.0** (+`writing-plans`)
+      → **v1.2.0** (+`debugging`) → **v1.3.0** (+`brainstorming`, = 10 skills)
 
 ## Backlog — candidate future skills (post-v1.0.0)
 
