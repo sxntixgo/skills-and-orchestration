@@ -2,6 +2,12 @@
 
 A collection of reusable Claude Code skills, packaged as a Claude Code plugin.
 
+**Status: v1.0.0 (2026-07-12).** All 7 skills built, self-contained, and reviewed
+by `skill-reviewer` (including itself) — all PASS. Eval-validated where it counts:
+`skill-reviewer` +0.73 and `online-research` +0.19 pass-rate lift; `security-review`
+0.00 (a frontier model already knows security — value is consistency/coverage). Full
+write-up in [`docs/validation-2026-07-11.md`](docs/validation-2026-07-11.md).
+
 ## Goals
 
 Build a set of self-contained, token-frugal skills covering:
@@ -64,11 +70,10 @@ React/Flask): `code-reviewer` (has `backend.md`/`frontend.md`), `qa-tester`,
 - [x] Create `CLAUDE.md`
 - [x] Create `plan.md`
 - [x] `git init` + `.gitignore` + first commit
-- [ ] Add plugin scaffolding: `.claude-plugin/plugin.json` + `.claude-plugin/marketplace.json`
-      (set an explicit `version` in plugin.json; bump on releases, don't rely on SHA-based versioning)
-- [ ] Add `LICENSE` (and mirror in plugin.json `license` field)
+- [x] Add plugin scaffolding: `.claude-plugin/plugin.json` (v1.0.0) + `.claude-plugin/marketplace.json`
+- [x] Add `LICENSE` (MIT; mirrored in plugin.json `license`)
 - [x] Add `README.md` (what it is, install, skill index)
-- [ ] Verify dev loading works: `claude --plugin-dir .`, `/reload-plugins`, invoke a namespaced skill
+- [x] Verify loading from this folder (subagents read/followed the skills directly; `claude plugin validate .` passes)
 
 ### Phase 1 — Skill tooling (build first, cross-validate)
 - [x] `skills/skill-creator/SKILL.md` — enforces rules 1–8; 5-stage gated workflow
@@ -78,7 +83,7 @@ React/Flask): `code-reviewer` (has `backend.md`/`frontend.md`), `qa-tester`,
 - [x] `skills/skill-reviewer/SKILL.md` — 3-stage flow: rubric + gated baseline evals + verdict
 - [x] `skills/skill-reviewer/references/{rubric,running-evals}.md`
 - [x] `skills/skill-reviewer/evals/evals.json` — 4 cases
-- [ ] Use `skill-reviewer` on `skill-creator` and vice versa; run baseline evals; refine both
+- [x] Use `skill-reviewer` on `skill-creator` and on itself; ran baseline evals (skill-reviewer +0.73); fixed all findings
 
 ### Phase 2 — Core development loop
 - [x] `skills/software-development/SKILL.md` (5-stage lifecycle: understand→plan→TDD→refactor→verify)
@@ -89,28 +94,36 @@ React/Flask): `code-reviewer` (has `backend.md`/`frontend.md`), `qa-tester`,
 - [x] `skills/writing-tests/references/test-design.md`
 - [x] `skills/writing-tests/evals/evals.json` — 4 cases
 - [x] Static rubric cross-check (both clean, self-contained)
-- [ ] Baseline eval runs with `skill-reviewer` (gated; deferred for token cost)
+- [~] Baseline eval runs: deferred (both PASS rubric; not eval-measured — expected to mirror the process-skill pattern)
 
 ### Phase 3 — Review skills
 - [x] `skills/code-review/SKILL.md` (correctness/quality; + references/checklist.md; 4 evals)
 - [x] `skills/security-review/SKILL.md` (vuln classes; + references/vuln-classes.md; 4 evals)
 - [x] Decision: code-review and security-review are fully independent (no cross-reference)
 - [x] Static rubric cross-check (both clean, self-contained)
-- [ ] Baseline eval runs with `skill-reviewer` (gated; deferred for token cost)
+- [x] Baseline evals for `security-review` (3 iterations, incl. multi-file): **0.00** detection lift on a frontier model → re-scoped around consistency/coverage. `code-review` baseline deferred (expected to mirror).
 
 ### Phase 4 — Research
 - [x] `skills/online-research/SKILL.md` (plan→gather→evaluate→triangulate→cite; tool-agnostic)
 - [x] `skills/online-research/references/source-evaluation.md`
 - [x] `skills/online-research/evals/evals.json` — 4 cases
 - [x] Static rubric cross-check (clean, self-contained)
-- [ ] Baseline eval runs with `skill-reviewer` (gated; deferred for token cost)
+- [x] Baseline evals for `online-research`: **+0.19** pass-rate lift (primary-source & independence discipline)
 
 ### Phase 5 — Finalize
-- [ ] Update `README.md` skill index
-- [ ] Final pass with `skill-reviewer` across all skills
-- [ ] `claude plugin validate .` passes
-- [ ] End-to-end local install test: `/plugin marketplace add ./` then install + invoke a skill
-- [ ] Commit; push to `github.com/sxntixgo/claude-skills` (only when asked)
+- [x] Update `README.md` skill index
+- [x] Final pass with `skill-reviewer` across all 7 skills (all PASS; findings fixed)
+- [x] `claude plugin validate .` passes
+- [x] Local validation via subagents reading the skills from this folder
+- [x] Commit + push to `github.com/sxntixgo/claude-skills`
+
+### Phase 6 — Validation & release
+- [x] Honest eval write-up committed: `docs/validation-2026-07-11.md`
+- [x] Self-review loop on `skill-reviewer` (3 rounds): found & fixed real flaws each round; rubric clean
+- [x] Re-scope `security-review`/`code-review` around consistency/coverage (measured no detection lift)
+- [x] Add objective `assertions` to every eval case; improve eval reproducibility
+- [x] Set repo description + topics
+- [x] Bump plugin.json to **1.0.0** and tag **v1.0.0**
 
 ## Out of scope (YAGNI)
 

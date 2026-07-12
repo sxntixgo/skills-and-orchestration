@@ -38,8 +38,9 @@ e.g. `claude-skills:skill-creator`.
 | `code-review` | reviewing code for correctness and quality |
 | `security-review` | reviewing code for security vulnerabilities |
 
-> Status: under active development. See [`plan.md`](./plan.md) for the roadmap
-> and which skills exist yet.
+> Status: **v1.0.0** — all 7 skills shipped and reviewed. See [`plan.md`](./plan.md)
+> for the roadmap and [`docs/validation-2026-07-11.md`](./docs/validation-2026-07-11.md)
+> for the honest eval results.
 
 ## Developing / contributing
 

@@ -1,7 +1,7 @@
 {
   "name": "claude-skills",
   "displayName": "Claude Skills",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Reusable Claude Code skills for authoring skills, research, software development (TDD + DRY/YAGNI/KISS), testing, code review, and security review.",
   "author": {
     "name": "Santiago",
