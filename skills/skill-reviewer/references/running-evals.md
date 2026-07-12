@@ -24,8 +24,12 @@ For each eval case, do two runs:
 - **with_skill**: give the agent the skill path, the case `prompt`, its `files`,
   and an output dir under `with_skill/outputs/`.
 - **without_skill** (baseline): same prompt and files, NO skill path, output to
-  `without_skill/outputs/`. For an EDIT, snapshot the previous version
-  (`cp -r <skill> <workspace>/skill-snapshot/`), point this run at the snapshot,
+  `without_skill/outputs/`. For an EDIT, the baseline is the PREVIOUS version —
+  and you must recover it from git, NOT `cp` the working directory (which is
+  already edited and would compare the new version against itself). Extract the
+  pre-edit version, e.g.
+  `git archive HEAD skills/<skill> | tar -x -C <workspace>/skill-snapshot/`
+  (or snapshot the dir BEFORE applying the edit). Point this run at the snapshot
   and save to `old_skill/` instead.
 
 Example run instruction:
