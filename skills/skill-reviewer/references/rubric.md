@@ -49,7 +49,8 @@ Cite `file:line` where you can. Do not rewrite anything — report only.
 
 **Rule 8 — Eval-backed**
 - `evals/evals.json` exists with ≥3 realistic cases in the correct format
-  (`skill_name`, `evals[]`, each with `id`/`prompt`/`expected_output`/`files`).
+  (`skill_name`, `evals[]`, each with `id`/`prompt`/`expected_output`/`files` —
+  `files` may be empty when the target/input is embedded inline in the prompt).
   🔴 if missing — Stage B cannot run.
 - Prompts are realistic and would plausibly trigger THIS skill.
 

@@ -25,10 +25,12 @@ For each eval case, do two runs:
   and an output dir under `with_skill/outputs/`.
 - **without_skill** (baseline): same prompt and files, NO skill path, output to
   `without_skill/outputs/`. For an EDIT, the baseline is the PREVIOUS version —
-  and you must recover it from git, NOT `cp` the working directory (which is
-  already edited and would compare the new version against itself). Extract the
-  pre-edit version, e.g.
-  `git archive HEAD skills/<skill> | tar -x -C <workspace>/skill-snapshot/`
+  recover it from git, NOT by `cp`-ing the working directory (which is already
+  edited and would compare the new version against itself). Extract whatever
+  revision PRE-DATES the edit: if the edit is not yet committed, that is `HEAD`;
+  if it is already committed, that is the parent (`HEAD~1`, or the specific
+  commit before the edit). E.g.
+  `git archive <pre-edit-rev> skills/<skill> | tar -x -C <workspace>/skill-snapshot/`
   (or snapshot the dir BEFORE applying the edit). Point this run at the snapshot
   and save to `old_skill/` instead.
 
