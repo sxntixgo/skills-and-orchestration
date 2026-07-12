@@ -1,4 +1,4 @@
-# claude-skills
+# frugal-skills
 
 A collection of reusable [Claude Code](https://code.claude.com/docs) skills,
 packaged as a Claude Code plugin. The skills cover authoring skills, online
@@ -19,12 +19,12 @@ Every skill is designed to be:
 ## Install
 
 ```bash
-/plugin marketplace add sxntixgo/claude-skills
-/plugin install claude-skills@claude-skills
+/plugin marketplace add sxntixgo/frugal-skills
+/plugin install frugal-skills@frugal-skills
 ```
 
 After installing, run `/reload-plugins`. Skills are namespaced by the plugin,
-e.g. `claude-skills:skill-creator`.
+e.g. `frugal-skills:skill-creator`.
 
 ## Skills
 

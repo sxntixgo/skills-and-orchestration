@@ -1,4 +1,4 @@
-# claude-skills — Plan
+# frugal-skills — Plan
 
 A collection of reusable Claude Code skills, packaged as a Claude Code plugin.
 
@@ -28,7 +28,7 @@ Build a set of self-contained, token-frugal skills covering:
 | Test cases | **Separate `writing-tests` skill** | Reusable on its own; keeps dev skill focused |
 | Relationship to `superpowers` | **Standalone / self-contained** | Portable to any machine; no external plugin dependency |
 | "Software review" | **`security-review`** skill, separate from `code-review` | Distinct concern (vuln classes, authz, secrets); fits security focus |
-| Distribution | **Claude Code plugin** (`.claude-plugin/`) | Installable via `/plugin marketplace add sxntixgo/claude-skills` |
+| Distribution | **Claude Code plugin** (`.claude-plugin/`) | Installable via `/plugin marketplace add sxntixgo/frugal-skills` |
 | Token budget | **No mandatory subagents; single context window** | User cost concern; use `references/*.md` progressive disclosure instead |
 
 ## Cross-cutting requirements (apply to EVERY skill)
@@ -119,7 +119,7 @@ React/Flask): `code-reviewer` (has `backend.md`/`frontend.md`), `qa-tester`,
 - [x] Final pass with `skill-reviewer` across all skills (all PASS; findings fixed) — every skill added since is reviewed the same way before release
 - [x] `claude plugin validate .` passes
 - [x] Local validation via subagents reading the skills from this folder
-- [x] Commit + push to `github.com/sxntixgo/claude-skills`
+- [x] Commit + push to `github.com/sxntixgo/frugal-skills`
 
 ### Phase 6 — Validation & release
 - [x] Honest eval write-up committed: `docs/validation-2026-07-11.md`

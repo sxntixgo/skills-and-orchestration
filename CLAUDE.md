@@ -4,15 +4,15 @@ Guidance for Claude Code when working in this repository.
 
 ## What this repo is
 
-`claude-skills` is a collection of reusable [Claude Code skills](https://docs.claude.com/en/docs/claude-code/skills),
+`frugal-skills` is a collection of reusable [Claude Code skills](https://docs.claude.com/en/docs/claude-code/skills),
 packaged as a **Claude Code plugin** so it can be installed with:
 
 ```bash
-/plugin marketplace add sxntixgo/claude-skills
-/plugin install claude-skills@claude-skills   # plugin@marketplace
+/plugin marketplace add sxntixgo/frugal-skills
+/plugin install frugal-skills@frugal-skills   # plugin@marketplace
 ```
 
-Once installed, skills are namespaced by the plugin, e.g. `claude-skills:skill-creator`.
+Once installed, skills are namespaced by the plugin, e.g. `frugal-skills:skill-creator`.
 
 The skills cover authoring skills, researching, building software, and reviewing
 software. They are designed to be **self-contained** and **token-frugal** (see
@@ -30,7 +30,7 @@ coverage). Prefer process/discipline over re-explaining what the model knows.
 ## Repository layout
 
 ```
-claude-skills/
+frugal-skills/
   CLAUDE.md                     # this file
   plan.md                       # roadmap and task list
   README.md                     # install + usage docs
@@ -131,7 +131,7 @@ while building them (e.g. running `skill-reviewer` on `skill-creator`):
   claude --plugin-dir .
   ```
 - After editing a skill, run `/reload-plugins` to pick up changes.
-- Skills are namespaced: invoke `claude-skills:skill-reviewer`, etc.
+- Skills are namespaced: invoke `frugal-skills:skill-reviewer`, etc.
 - Before publishing, validate and test locally:
   ```bash
   claude plugin validate .          # check plugin.json / marketplace.json
