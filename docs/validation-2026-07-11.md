@@ -107,6 +107,7 @@ Likely implications for the suite (to verify by eval later):
 | Skill | Type | pass-rate delta |
 |-------|------|:---:|
 | skill-reviewer | process/discipline | **+0.73** |
+| brainstorming | process/discipline | **+0.71** |
 | writing-plans | process/discipline | **+0.67** |
 | online-research | process/discipline | **+0.19** |
 | debugging | process | **+0.08** prose → **+0.25** code fixtures |
@@ -157,6 +158,18 @@ explicitly; baselines jumped straight to the correct fix). Against a frontier
 model on small fixtures, fix *quality* doesn't separate; only *process* does.
 Surfacing a larger lift would need bugs subtle enough that read-and-guess yields
 a wrong or symptom fix — genuinely hard to construct for a strong model.
+
+**Addendum 2026-07-12c — `brainstorming` (added in v1.3.0).** Stage A PASS (no
+🔴/🟡; one 🟢 on the dual checkpoint path, fixed). Stage B baseline: with-skill
+**1.00** (4/4) vs without-skill **0.29**, **+0.71** — and ~14s *faster*. Clean
+behavioral split: every with-skill run led with one clarifying question and
+deferred the design; every baseline dumped a full framework and batched 5–6
+questions at once (and on the plugin case, built the maximal architecture YAGNI
+is meant to prevent). This is the strongest confirmation of the thesis: the
+skill enforces a *process the model actively skips* (ask-first, explore
+alternatives, validate incrementally), so it lifts a lot — and, since a short
+question is cheaper than a long design dump, it's faster too. Artifacts:
+`.claude-skills-work/evals/brainstorming/iteration-1/`.
 
 ## Recommended follow-ups
 1. ~~Re-scope security-review / code-review value claims around consistency and

@@ -21,8 +21,9 @@ This skill does NOT:
 - Add features nobody asked for → keep the design minimal (YAGNI).
 
 ## Steps
-Surface these as TodoWrite items. Checkpoint the evolving design to
-`./.claude-skills-work/brainstorming/<topic>/design.md` so a long session resumes.
+Surface these as TodoWrite items. Checkpoint the *work-in-progress* design to
+`./.claude-skills-work/brainstorming/<topic>/design.md` so a long session
+resumes; the *final validated* design is written to `docs/plans/` in step 5.
 
 ### 1. Understand the context
 Read the current project state (files, docs, recent commits) before asking

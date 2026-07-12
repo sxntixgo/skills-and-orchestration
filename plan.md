@@ -145,8 +145,9 @@ Front-of-workflow trio (pairs with `software-development`):
       Pairs with `software-development`.
 - [x] **`brainstorming`** — BUILT (v1.3.0). Vague idea → validated design via
       one-question-at-a-time dialogue, 2–3 approaches with trade-offs, and
-      section-by-section validation. Hands off to `writing-plans`. (Eval results
-      folded in once the `skill-reviewer` pass completes.)
+      section-by-section validation. Hands off to `writing-plans`. Reviewed by
+      `skill-reviewer`: Stage A PASS (🟢 fixed); Stage B **+0.71** (1.00 vs 0.29)
+      and ~14s faster.
 - [x] **`debugging`** — BUILT (v1.2.0). Reproduce → isolate → hypothesize →
       verify → fix → confirm. Pairs with `software-development`. Reviewed by
       `skill-reviewer`: Stage A PASS; Stage B **+0.08** prose (1.00 vs 0.92).
