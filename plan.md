@@ -151,9 +151,11 @@ Front-of-workflow trio (pairs with `software-development`):
       this repo.)
 - [x] **`debugging`** — BUILT (v1.2.0). Reproduce → isolate → hypothesize →
       verify → fix → confirm. Pairs with `software-development`. Reviewed by
-      `skill-reviewer`: Stage A PASS; Stage B **+0.08** (1.00 vs 0.92) — small,
-      because the prose eval under-measures it (real value is the reproduce/bisect
-      loop on actual code). Follow-up: add a code-based eval with a planted bug.
+      `skill-reviewer`: Stage A PASS; Stage B **+0.08** prose (1.00 vs 0.92).
+      Follow-up done: added planted-bug fixtures (cache-key, pagination off-by-one);
+      code-based measurement **+0.25** (8/8 vs 6/8) — larger than prose, but still
+      modest because a frontier model root-causes these unaided; the gap is the
+      "reproduce before editing" discipline.
 
 Further candidates (process-oriented; build only if a real need appears):
 - [ ] **`threat-modeling`** — systematic trust-boundary / data-flow / STRIDE pass

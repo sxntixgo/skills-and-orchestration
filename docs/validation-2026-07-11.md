@@ -109,7 +109,7 @@ Likely implications for the suite (to verify by eval later):
 | skill-reviewer | process/discipline | **+0.73** |
 | writing-plans | process/discipline | **+0.67** |
 | online-research | process/discipline | **+0.19** |
-| debugging | process (eval under-measures) | **+0.08** |
+| debugging | process | **+0.08** prose → **+0.25** code fixtures |
 | security-review | knowledge-restating | **0.00** |
 
 **Addendum 2026-07-12 — `writing-plans` (added in v1.1.0).** Confirming Stage A
@@ -135,6 +135,28 @@ This mirrors the `security-review` lesson: abstract/prose cases can't surface a
 process skill whose payoff is in *doing*, not *describing*. Follow-up: add
 code-based eval cases (a repo with a planted bug) to measure the real loop.
 Artifacts: `.claude-skills-work/evals/debugging/iteration-1/`.
+
+**Addendum 2026-07-12b — code-fixture eval (the follow-up, done).** Added two
+planted-bug fixtures with failing tests where the tempting symptom-patch differs
+from the root fix: a cache keyed on `player` only (drops `season`) and an
+off-by-one 1-indexed pagination. Focused with/without measurement (2 cases × 2
+runs, agents actually edit + run the code):
+
+| Config | Assertions passed |
+|--------|:---:|
+| with-skill | 8/8 (1.00) |
+| without-skill | 6/8 (0.75) |
+| **delta** | **+0.25** |
+
+So the code-based eval reveals **more** lift than the prose one (+0.25 vs +0.08),
+confirming the prose cases under-measured. But honestly it's still modest, and
+the reason is precise: **both configs correctly root-caused and fixed the actual
+cause — neither took a symptom patch.** The entire gap came from the skill's
+*"reproduce the failing test before editing"* discipline (with-skill did it
+explicitly; baselines jumped straight to the correct fix). Against a frontier
+model on small fixtures, fix *quality* doesn't separate; only *process* does.
+Surfacing a larger lift would need bugs subtle enough that read-and-guess yields
+a wrong or symptom fix — genuinely hard to construct for a strong model.
 
 ## Recommended follow-ups
 1. ~~Re-scope security-review / code-review value claims around consistency and
