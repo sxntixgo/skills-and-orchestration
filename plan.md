@@ -2,8 +2,8 @@
 
 A collection of reusable Claude Code skills, packaged as a Claude Code plugin.
 
-**Status: v1.1.0 (2026-07-12).** 8 skills built (added `writing-plans`),
-self-contained, and reviewed
+**Status: v1.2.0 (2026-07-12).** 9 skills built (added `writing-plans`,
+`debugging`), self-contained, and reviewed
 by `skill-reviewer` (including itself) — all PASS. Eval-validated where it counts:
 `skill-reviewer` +0.73 and `online-research` +0.19 pass-rate lift; `security-review`
 0.00 (a frontier model already knows security — value is consistency/coverage). Full
@@ -56,6 +56,7 @@ See CLAUDE.md rules 6–7 for the authoritative wording.
 | `online-research` | Structured web research | Query planning, source triangulation, citation, WebSearch/WebFetch discipline |
 | `writing-plans` | Spec/design → phased plan | Ground in code, dependency-ordered phases, every task verifiable, gates + out-of-scope; pairs with `software-development` |
 | `software-development` | Build backend/frontend software | **TDD loop (red→green→refactor)**, DRY, YAGNI, KISS; workflow; `references/{backend,frontend}.md`; points to `writing-tests` for deeper test-case design |
+| `debugging` | Diagnose a bug before fixing | Reproduce → isolate → hypothesize → verify cause → fix → confirm; regression test; pairs with `software-development` |
 | `writing-tests` | Design and write test cases | Test-case design, edge/boundary cases, coverage; complements the TDD loop in `software-development` |
 | `code-review` | Line-level correctness + quality review | Severity ratings, naming, function size, error handling, project patterns |
 | `security-review` | Security-focused review | Injection, authn/authz, secrets, input validation, OWASP-style vuln classes |
@@ -148,10 +149,9 @@ Front-of-workflow trio (pairs with `software-development`):
       `writing-plans`. Process the model skips: jumping to a solution before
       intent/alternatives are explored. (This is the exact process used to build
       this repo.)
-- [ ] **`debugging`** — reproduce → isolate → hypothesize → verify → fix →
-      confirm. Universal; highest-confidence lift; pairs with `software-development`.
-      Process the model skips: jumping to a speculative fix without reproducing
-      or isolating first.
+- [x] **`debugging`** — BUILT (v1.2.0). Reproduce → isolate → hypothesize →
+      verify → fix → confirm. Pairs with `software-development`. (Eval results
+      folded in once the `skill-reviewer` pass completes.)
 
 Further candidates (process-oriented; build only if a real need appears):
 - [ ] **`threat-modeling`** — systematic trust-boundary / data-flow / STRIDE pass

@@ -1,0 +1,50 @@
+{
+  "skill_name": "debugging",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Users say the export button sometimes does nothing. Fix it.",
+      "expected_output": "Does not jump to a speculative fix. First works to reproduce the intermittent behavior (asks for/derives exact steps, inputs, environment, browser console/network, and what 'sometimes' correlates with), then isolates and forms a root-cause hypothesis, verifies it, fixes the cause, and adds a regression test. Treats 'sometimes' as a signal of nondeterminism to pin down.",
+      "files": [],
+      "assertions": [
+        "Seeks a reliable reproduction (exact steps/inputs/conditions) before proposing a fix",
+        "Treats the intermittency as something to pin down (state/timing/error), not ignore",
+        "Forms and verifies a root-cause hypothesis before fixing",
+        "Plans a regression test / way to confirm the fix"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "This throws \"TypeError: cannot read properties of undefined (reading 'id')\" at:  return user.id;  Fix it.",
+      "expected_output": "Does not merely slap on optional chaining (user?.id) as a symptom patch. Asks/investigates WHY user is undefined at that point (fetch not awaited, lookup returned nothing, auth/session missing, wrong branch) — the root cause — then fixes that cause and adds a test. If a guard is appropriate it is a deliberate, explained choice, not a reflex.",
+      "files": [],
+      "assertions": [
+        "Investigates WHY user is undefined (root cause) rather than only adding a null guard",
+        "Distinguishes fixing the cause from masking the symptom (user?.id)",
+        "Proposes verifying the cause and adding regression coverage"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "The app crashed on checkout so I wrapped the whole handler in a try/catch and now it doesn't crash. Good enough?",
+      "expected_output": "Pushes back: the try/catch masks the symptom (the crash) while the root cause remains and errors are now swallowed, hiding future bugs and likely leaving checkout broken. Recommends removing/narrowing the catch, reproducing the original crash, finding and verifying the real cause, fixing that, and only then handling errors intentionally.",
+      "files": [],
+      "assertions": [
+        "Identifies that the try/catch masks the symptom without fixing the root cause",
+        "Warns that swallowing the error hides the real bug (checkout may still be broken)",
+        "Recommends reproducing and finding/verifying the actual cause before considering it fixed"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "This test passes sometimes and fails other times. Just make it pass.",
+      "expected_output": "Does not blindly rerun, add sleeps, or retry to force a pass. Investigates the source of nondeterminism (shared/leaking state, test ordering, real clock/network/random, async timing) via isolation, then fixes the determinism (inject clock/seed, control ordering, reset state) rather than masking it. Notes that a flaky test hidden, not fixed, will recur.",
+      "files": [],
+      "assertions": [
+        "Does NOT just rerun/retry or add arbitrary sleeps to force a pass",
+        "Investigates the source of nondeterminism (shared state, ordering, timing, clock/random)",
+        "Fixes the determinism / root cause rather than masking the flakiness"
+      ]
+    }
+  ]
+}

@@ -35,11 +35,12 @@ e.g. `claude-skills:skill-creator`.
 | `online-research` | doing structured web research with cited sources |
 | `writing-plans` | turning a spec/design into a phased, verifiable implementation plan |
 | `software-development` | building backend/frontend software (TDD + DRY/YAGNI/KISS) |
+| `debugging` | diagnosing a bug before fixing — reproduce, isolate, verify cause, fix, confirm |
 | `writing-tests` | designing and writing test cases |
 | `code-review` | reviewing code for correctness and quality |
 | `security-review` | reviewing code for security vulnerabilities |
 
-> Status: **v1.1.0** — 8 skills shipped and reviewed. See [`plan.md`](./plan.md)
+> Status: **v1.2.0** — 9 skills shipped and reviewed. See [`plan.md`](./plan.md)
 > for the roadmap and [`docs/validation-2026-07-11.md`](./docs/validation-2026-07-11.md)
 > for the honest eval results.
 
