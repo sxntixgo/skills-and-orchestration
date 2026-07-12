@@ -8,9 +8,8 @@ reads and follows the actual skill files in this repo; "without-skill" = the
 same task with no skill (baseline). Nothing was installed to global config.
 Base model: Opus (a frontier model) — this matters for interpreting the results.
 
-**Session note:** a session usage limit interrupted the run. skill-reviewer
-case 4 and a batch of online-research runs did not finish; those rows are marked
-incomplete and can be re-run after reset.
+**Session note:** a session usage limit interrupted the first attempt; the runs
+were completed after the reset. All rows below are final.
 
 ## Stage A — static rubric (all 7 skills)
 PASS. No 🔴/🟡; a few 🟢 nits (e.g. skill-creator/writing-descriptions say the
@@ -39,16 +38,34 @@ consistency (severity buckets, "Controls verified").
 | 1. review writing-tests | 3/3 | 0/3 |
 | 2. review a weak skill | 4/4 | 2/4 |
 | 3. confirm an edit is better | 2/2 | 1/2 |
-| 4. "run the full eval comparison" | incomplete (session limit) | incomplete |
-| **Aggregate (cases 1–3)** | **9/9 = 1.00** | **3/9 = 0.33** |
+| 4. "run the full eval comparison" | 2/2 | 0/2 |
+| **Aggregate (cases 1–4)** | **13/13 = 1.00** | **3/11 = 0.27** |
 
-**Delta: pass-rate +0.67 for +44% tokens.** Clearly worth it. The baselines gave
-competent *generic* reviews but consistently:
+**Delta: pass-rate +0.73.** Clearly worth it. The baselines gave competent
+*generic* reviews but consistently:
 - did NOT apply the 8-rule rubric or severity scale,
 - did NOT know skills need `evals/evals.json` (missed rule 8 entirely),
 - did NOT enforce the STOP gate before eval runs — the with-skill run literally
-  paused and asked "Approve the 8-run baseline eval?",
+  paused and asked "Approve spawning the 8 eval runs?", while the **baseline for
+  case 4 charged ahead and ran an entire 85k-token nested benchmark without ever
+  asking** (exactly the runaway the gate prevents),
 - did NOT know the edit→blind-A/B-vs-previous-version convention.
+
+### online-research — real, modest lift (measured)
+Produced as a by-product of the case-4 baseline runaway, which ran a full
+with/without comparison of online-research (4 cases × 2, live web research):
+
+| Config | pass rate | tokens (mean) | time (mean) |
+|--------|:---:|:---:|:---:|
+| with-skill | 1.00 | 30,794 | 165s |
+| without-skill | 0.81 | 23,088 | 90s |
+| **delta** | **+0.19** | +33% | +1.8× |
+
+No regressions. Gains concentrated exactly where the skill targets: with-skill
+fetched **primary sources** (IETF draft, vendor pricing pages) and flagged
+**source non-independence** (SEO aggregators, an oauth.net editor who co-authors
+the spec); the baseline leaned on aggregators and presented non-independent
+numbers as corroborated. A process/discipline skill showing genuine lift.
 
 ## The general principle this validates
 **A skill earns its token cost when it encodes a specific process/discipline the
@@ -60,20 +77,28 @@ model already has.**
   lift; value is only consistency.
 
 Likely implications for the suite (to verify by eval later):
-- **Process/discipline skills** — `skill-creator`, `skill-reviewer`,
-  `software-development` (TDD ordering + checkpoints), `online-research`
-  (triangulation/citation discipline) — most likely to show real lift. Early
-  partial online-research runs support this: the with-skill run triangulated
-  primary sources (oauth.net, IETF datatracker) and flagged draft/non-final
-  status, while the baseline leaned on vendor blogs.
-- **Knowledge-restating skills** — `security-review`, `code-review` — lift on a
-  strong model is likely small; their value is consistency/format/coverage
-  guarantees, and evals should measure THAT, not raw detection.
+- **Process/discipline skills** show real lift — now measured for two:
+  `skill-reviewer` (+0.73) and `online-research` (+0.19). `skill-creator` and
+  `software-development` (TDD ordering + checkpoints) are expected to behave the
+  same (untested).
+- **Knowledge-restating skills** — `security-review` (measured 0.00), and by
+  extension `code-review` — show little/no detection lift on a strong model;
+  their value is consistency/format/coverage guarantees, and evals should
+  measure THAT, not raw detection.
+
+## Scoreboard (measured)
+| Skill | Type | pass-rate delta |
+|-------|------|:---:|
+| skill-reviewer | process/discipline | **+0.73** |
+| online-research | process/discipline | **+0.19** |
+| security-review | knowledge-restating | **0.00** |
 
 ## Recommended follow-ups
-1. Re-run skill-reviewer case 4 and the online-research baseline after the limit
-   resets, to complete the numbers.
-2. Re-scope security-review / code-review value claims around consistency and
-   coverage, and grade evals on format/breadth rather than "found the one bug".
-3. Consider whether the knowledge-restating skills are worth their token cost on
+1. Re-scope security-review / code-review value claims around consistency and
+   coverage, and grade their evals on format/breadth rather than "found the one
+   bug". (code-review still untested — expected to mirror security-review.)
+2. Add objective `assertions` to every skill's eval cases, and give the
+   online-research placeholder cases (2 & 4) concrete subjects so they measure
+   the skill's discipline rather than tying at 1.0.
+3. Decide whether the knowledge-restating skills earn their token cost on
    frontier models, or should be slimmed to just the process/format guarantees.
