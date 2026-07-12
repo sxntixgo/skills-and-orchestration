@@ -9,6 +9,16 @@ Review for correctness and quality. Report findings with `file:line` and a fix,
 rated: 🔴 Must fix · 🟡 Should fix · 🟢 Consider · ✅ Good (call out real
 strengths too). This is a quality review, not a security audit.
 
+## Where this skill adds value
+Be honest about what this buys you. On a strong model, this skill does **not**
+catch bugs an unaided review would miss. Its value is **consistency and
+coverage**: it works through *every* review dimension (correctness, naming,
+complexity, error handling, duplication, consistency, tests) so none is skipped,
+applies one severity scale, and always anchors findings to `file:line` with a
+concrete fix. That reliability matters most for a team standard, a large diff,
+or a weaker model. So: deliver a *complete, uniformly rated* review, not just
+the first issue you spot.
+
 ## Scope
 This skill DOES:
 - Review correctness, readability, maintainability, simplicity, and consistency

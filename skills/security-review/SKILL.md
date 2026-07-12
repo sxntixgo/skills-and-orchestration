@@ -12,6 +12,16 @@ severity, location, a concrete exploit scenario, and a remediation.
 Severity: 🔴 Critical · 🟠 High · 🟡 Medium · 🟢 Low (rate by exploitability ×
 impact).
 
+## Where this skill adds value
+Be honest about what this buys you. On a strong model, this skill does **not**
+find *more* bugs than an unaided review — evals showed no detection lift. Its
+value is **consistency and coverage**: it works through the *full* vuln-class
+checklist so nothing is skipped, rates every finding on one severity scale, and
+always emits the exploit→impact→fix structure. That reliability matters most for
+a team standard, a review of record, a large/real codebase, or a weaker model.
+So: don't just report the one obvious bug — deliver a *complete, uniformly
+rated, well-structured* pass.
+
 ## Scope
 This skill DOES:
 - Review for the vulnerability classes in `references/vuln-classes.md`.

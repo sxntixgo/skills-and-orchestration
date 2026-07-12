@@ -111,9 +111,13 @@ Likely implications for the suite (to verify by eval later):
 | security-review | knowledge-restating | **0.00** |
 
 ## Recommended follow-ups
-1. Re-scope security-review / code-review value claims around consistency and
-   coverage, and grade their evals on format/breadth rather than "found the one
-   bug". (code-review still untested — expected to mirror security-review.)
+1. ~~Re-scope security-review / code-review value claims around consistency and
+   coverage~~ — **DONE.** Both skills now carry a "Where this skill adds value"
+   note stating plainly that on a strong model they add no detection lift; their
+   value is consistency + full-checklist coverage + uniform format. Evals grade
+   format/breadth (severity-rated, complete, line-anchored) rather than only
+   "found the one bug". (code-review detection still unmeasured — expected to
+   mirror security-review.)
 2. Add objective `assertions` to every skill's eval cases, and give the
    online-research placeholder cases (2 & 4) concrete subjects so they measure
    the skill's discipline rather than tying at 1.0.
