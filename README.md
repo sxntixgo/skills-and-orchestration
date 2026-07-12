@@ -33,6 +33,7 @@ e.g. `claude-skills:skill-creator`.
 | `skill-creator` | authoring a new skill or editing an existing one |
 | `skill-reviewer` | reviewing a skill and running its baseline evals |
 | `online-research` | doing structured web research with cited sources |
+| `brainstorming` | turning a vague idea into a validated design through dialogue |
 | `writing-plans` | turning a spec/design into a phased, verifiable implementation plan |
 | `software-development` | building backend/frontend software (TDD + DRY/YAGNI/KISS) |
 | `debugging` | diagnosing a bug before fixing — reproduce, isolate, verify cause, fix, confirm |
@@ -40,7 +41,7 @@ e.g. `claude-skills:skill-creator`.
 | `code-review` | reviewing code for correctness and quality |
 | `security-review` | reviewing code for security vulnerabilities |
 
-> Status: **v1.2.0** — 9 skills shipped and reviewed. See [`plan.md`](./plan.md)
+> Status: **v1.3.0** — 10 skills shipped and reviewed. See [`plan.md`](./plan.md)
 > for the roadmap and [`docs/validation-2026-07-11.md`](./docs/validation-2026-07-11.md)
 > for the honest eval results.
 

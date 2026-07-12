@@ -18,7 +18,7 @@ The skills cover authoring skills, researching, building software, and reviewing
 software. They are designed to be **self-contained** and **token-frugal** (see
 Principles below).
 
-**Status: v1.2.0.** All 9 skills are shipped, self-contained, and reviewed by
+**Status: v1.3.0.** All 10 skills are shipped, self-contained, and reviewed by
 `skill-reviewer` (including itself). Eval results are in
 [`docs/validation-2026-07-11.md`](docs/validation-2026-07-11.md). Key learning
 to keep in mind when adding or changing skills: **a skill earns its token cost

@@ -1,0 +1,51 @@
+{
+  "skill_name": "brainstorming",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want to add notifications to my app. Help me design it.",
+      "expected_output": "Does not dump a full design or jump to code. Restates the idea, then asks clarifying questions ONE at a time (multiple-choice where possible) about purpose, channels, constraints, and success criteria. Once intent is clear, proposes 2-3 approaches with trade-offs and a recommendation, and validates the design in sections. Hands off to writing-plans for the implementation plan.",
+      "files": [],
+      "assertions": [
+        "Asks clarifying questions ONE at a time rather than a big batch or an immediate full design",
+        "Focuses on purpose, constraints, and success criteria before proposing a solution",
+        "Explores 2-3 approaches with trade-offs and a recommendation before finalizing",
+        "Does not jump to writing implementation code"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Just build me a caching layer, whatever's best.",
+      "expected_output": "Slows down instead of immediately writing a cache. Clarifies what needs caching, invalidation needs, consistency/latency constraints, and success criteria (one question at a time), then proposes 2-3 approaches (e.g. in-process vs Redis vs HTTP cache) with trade-offs and a recommendation. Defers the actual implementation to writing-plans/software-development.",
+      "files": [],
+      "assertions": [
+        "Does NOT immediately write a caching implementation",
+        "Clarifies requirements (what to cache, invalidation, constraints) one question at a time",
+        "Proposes 2-3 approaches with trade-offs and a recommendation",
+        "Defers implementation to writing-plans / software-development"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Design a plugin system so we can add any future feature as a plugin.",
+      "expected_output": "Applies YAGNI: asks what concrete features are actually needed now rather than designing a maximal 'any future feature' architecture up front. Explores simpler approaches (and the plugin approach) with trade-offs, and validates the real need before committing to a heavy extensibility framework.",
+      "files": [],
+      "assertions": [
+        "Questions the speculative 'any future feature' scope and asks what is actually needed now (YAGNI)",
+        "Explores simpler alternatives alongside the plugin approach, with trade-offs",
+        "Does not immediately design a maximal plugin architecture without validating the need"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Should our new API be REST or GraphQL? Help me decide.",
+      "expected_output": "Does not just declare a winner. Asks about the deciding constraints (clients, query shapes, team familiarity, caching needs), then presents both options with concrete trade-offs tied to that context and leads with a reasoned recommendation, letting the user decide.",
+      "files": [],
+      "assertions": [
+        "Asks about the deciding constraints (clients, query patterns, team, caching) before deciding",
+        "Presents both options with concrete trade-offs tied to the user's context",
+        "Leads with a reasoned recommendation rather than declaring unilaterally or staying neutral"
+      ]
+    }
+  ]
+}

@@ -2,8 +2,8 @@
 
 A collection of reusable Claude Code skills, packaged as a Claude Code plugin.
 
-**Status: v1.2.0 (2026-07-12).** 9 skills built (added `writing-plans`,
-`debugging`), self-contained, and reviewed
+**Status: v1.3.0 (2026-07-12).** 10 skills built (added `writing-plans`,
+`debugging`, `brainstorming`), self-contained, and reviewed
 by `skill-reviewer` (including itself) — all PASS. Eval-validated where it counts:
 `skill-reviewer` +0.73 and `online-research` +0.19 pass-rate lift; `security-review`
 0.00 (a frontier model already knows security — value is consistency/coverage). Full
@@ -54,6 +54,7 @@ See CLAUDE.md rules 6–7 for the authoritative wording.
 | `skill-creator` | Author new skills correctly | Frontmatter/trigger rules, progressive disclosure, self-containment, checklist |
 | `skill-reviewer` | Review a skill against a rubric | Trigger clarity, scope, token weight, examples, structure — pairs with `skill-creator` |
 | `online-research` | Structured web research | Query planning, source triangulation, citation, WebSearch/WebFetch discipline |
+| `brainstorming` | Idea → validated design | One-question-at-a-time intent clarification, 2-3 approaches w/ trade-offs, section-by-section validation; hands off to `writing-plans` |
 | `writing-plans` | Spec/design → phased plan | Ground in code, dependency-ordered phases, every task verifiable, gates + out-of-scope; pairs with `software-development` |
 | `software-development` | Build backend/frontend software | **TDD loop (red→green→refactor)**, DRY, YAGNI, KISS; workflow; `references/{backend,frontend}.md`; points to `writing-tests` for deeper test-case design |
 | `debugging` | Diagnose a bug before fixing | Reproduce → isolate → hypothesize → verify cause → fix → confirm; regression test; pairs with `software-development` |
@@ -142,13 +143,10 @@ Front-of-workflow trio (pairs with `software-development`):
       plan with verifiable steps + gates. Reviewed by `skill-reviewer`: Stage A
       PASS (findings fixed) + Stage B baseline **+0.67** pass-rate (1.00 vs 0.33).
       Pairs with `software-development`.
-- [ ] **`brainstorming`** — turn a vague idea into a validated design through
-      dialogue: clarify intent one question at a time (multiple-choice preferred),
-      explore 2–3 approaches with trade-offs (lead with a recommendation), then
-      present the design in small sections and validate each. Hands off to
-      `writing-plans`. Process the model skips: jumping to a solution before
-      intent/alternatives are explored. (This is the exact process used to build
-      this repo.)
+- [x] **`brainstorming`** — BUILT (v1.3.0). Vague idea → validated design via
+      one-question-at-a-time dialogue, 2–3 approaches with trade-offs, and
+      section-by-section validation. Hands off to `writing-plans`. (Eval results
+      folded in once the `skill-reviewer` pass completes.)
 - [x] **`debugging`** — BUILT (v1.2.0). Reproduce → isolate → hypothesize →
       verify → fix → confirm. Pairs with `software-development`. Reviewed by
       `skill-reviewer`: Stage A PASS; Stage B **+0.08** prose (1.00 vs 0.92).
