@@ -138,8 +138,9 @@ Front-of-workflow trio (pairs with `software-development`):
 `brainstorming` → `writing-plans` → build.
 
 - [x] **`writing-plans`** — BUILT (v1.1.0). Spec/design → phased, checkpointed
-      plan with verifiable steps + gates. Reviewed by `skill-reviewer` (Stage A
-      PASS; findings fixed). Pairs with `software-development`.
+      plan with verifiable steps + gates. Reviewed by `skill-reviewer`: Stage A
+      PASS (findings fixed) + Stage B baseline **+0.67** pass-rate (1.00 vs 0.33).
+      Pairs with `software-development`.
 - [ ] **`brainstorming`** — turn a vague idea into a validated design through
       dialogue: clarify intent one question at a time (multiple-choice preferred),
       explore 2–3 approaches with trade-offs (lead with a recommendation), then

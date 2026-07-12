@@ -107,8 +107,18 @@ Likely implications for the suite (to verify by eval later):
 | Skill | Type | pass-rate delta |
 |-------|------|:---:|
 | skill-reviewer | process/discipline | **+0.73** |
+| writing-plans | process/discipline | **+0.67** |
 | online-research | process/discipline | **+0.19** |
 | security-review | knowledge-restating | **0.00** |
+
+**Addendum 2026-07-12 — `writing-plans` (added in v1.1.0).** Confirming Stage A
+re-review clean (no 🔴/🟡; the dangling `brainstorming` reference is fixed).
+Stage B baseline: with-skill **1.00** (14/14 assertions) vs without-skill
+**0.33** (5/14), **+0.67** pass-rate at +2.1k tokens / +7.5s. Decisive on: a
+vague spec (stopped and asked vs. fabricated an M1–M5 plan), YAGNI (deferred
+speculative features vs. baked them into v1), and "plan don't implement"
+(baseline wrote full implementation code). Another process skill with real lift.
+Artifacts: `.claude-skills-work/evals/writing-plans/iteration-1/`.
 
 ## Recommended follow-ups
 1. ~~Re-scope security-review / code-review value claims around consistency and
