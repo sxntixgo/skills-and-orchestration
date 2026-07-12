@@ -125,6 +125,41 @@ React/Flask): `code-reviewer` (has `backend.md`/`frontend.md`), `qa-tester`,
 - [x] Set repo description + topics
 - [x] Bump plugin.json to **1.0.0** and tag **v1.0.0**
 
+## Backlog — candidate future skills (post-v1.0.0)
+
+Filter, from the validation results: **only add skills that encode a *process the
+model skips* — those show lift** (e.g. `skill-reviewer` +0.73). Skills that
+restate what a frontier model already knows add token cost and ~0 lift
+(`security-review` 0.00) — don't add those.
+
+Front-of-workflow trio (pairs with `software-development`):
+`brainstorming` → `writing-plans` → build.
+
+- [ ] **`writing-plans`** — turn a spec/design into a phased, checkpointed
+      implementation plan with *verifiable* steps and review gates, before any
+      code. Pairs with `software-development` (which executes the plan). Process
+      the model skips: diving in without a plan.
+- [ ] **`brainstorming`** — turn a vague idea into a validated design through
+      dialogue: clarify intent one question at a time (multiple-choice preferred),
+      explore 2–3 approaches with trade-offs (lead with a recommendation), then
+      present the design in small sections and validate each. Hands off to
+      `writing-plans`. Process the model skips: jumping to a solution before
+      intent/alternatives are explored. (This is the exact process used to build
+      this repo.)
+
+Further candidates (process-oriented; build only if a real need appears):
+- [ ] **`debugging`** — reproduce → isolate → hypothesize → verify → fix →
+      confirm. Universal; highest-confidence lift; pairs with `software-development`.
+- [ ] **`threat-modeling`** — systematic trust-boundary / data-flow / STRIDE pass
+      over a design or change. (Aligned with the security focus.)
+- [ ] **`llm-red-teaming`** — structured prompt-injection / jailbreak testing:
+      attack taxonomy, systematic probes, evidence capture. (Aligned with the
+      AI-red-teaming direction.)
+
+Each future skill still ships the full package: lean `SKILL.md`, `references/`,
+`evals/evals.json` with objective `assertions`, checkpointing, guardrails; and is
+reviewed by `skill-reviewer` (rubric + baseline eval) before it's considered done.
+
 ## Out of scope (YAGNI)
 
 - Automated CI/testing harness for skills (revisit if the set grows large)
