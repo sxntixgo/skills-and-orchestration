@@ -11,10 +11,27 @@ Base model: Opus (a frontier model) — this matters for interpreting the result
 **Session note:** a session usage limit interrupted the first attempt; the runs
 were completed after the reset. All rows below are final.
 
-## Stage A — static rubric (all 7 skills)
-PASS. No 🔴/🟡; a few 🟢 nits (e.g. skill-creator/writing-descriptions say the
-description is "the ONLY thing Claude sees" — the `name` is seen too). Details in
-`.claude-skills-work/review/rubric-all.md`.
+## Stage A — static rubric (all 7 skills, genuine skill-reviewer runs)
+All 7 skills were reviewed by an actual `skill-reviewer` run (a subagent
+following the skill), not just a manual pass — including `skill-reviewer` on
+itself. Every run correctly STOPPED at the Stage B gate (no eval spawns).
+All PASS (no 🔴). Actionable findings the skill surfaced:
+
+| Skill | Verdict | Findings |
+|-------|:---:|----------|
+| writing-tests | PASS | 🟡 eval cases 2–4 reference code but `files:[]` |
+| online-research | PASS | 🟡 eval cases 2 & 4 use placeholder subjects; no `assertions` |
+| skill-creator | PASS | 🟢 trigger adjacency w/ skill-reviewer; fixture-less evals |
+| skill-reviewer (self) | PASS | 🟡 eval cases name siblings but `files:[]`; 🟡 checkpoint path differs (SKILL.md `…/review/` vs running-evals.md `…/evals/…`) |
+| software-development | PASS | 🟢 body-level delegation coupling; broad trigger |
+| security-review | PASS | 🟢 all eval cases JS — add a non-JS case |
+| code-review | PASS | 🟡 eval case 1 references a diff it never supplies |
+
+Recurring theme: eval cases use `expected_output` only (no objective
+`assertions`), and several reference artifacts without attaching fixture files —
+so with/without runs aren't fully reproducible. Manual consolidated pass is in
+`.claude-skills-work/review/rubric-all.md`; per-skill findings in each skill's
+`.claude-skills-work/<skill>/review/`.
 
 ## Stage B — baseline comparisons (with-skill vs without-skill)
 
