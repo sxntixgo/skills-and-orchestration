@@ -146,10 +146,12 @@ Front-of-workflow trio (pairs with `software-development`):
       `writing-plans`. Process the model skips: jumping to a solution before
       intent/alternatives are explored. (This is the exact process used to build
       this repo.)
-
-Further candidates (process-oriented; build only if a real need appears):
 - [ ] **`debugging`** — reproduce → isolate → hypothesize → verify → fix →
       confirm. Universal; highest-confidence lift; pairs with `software-development`.
+      Process the model skips: jumping to a speculative fix without reproducing
+      or isolating first.
+
+Further candidates (process-oriented; build only if a real need appears):
 - [ ] **`threat-modeling`** — systematic trust-boundary / data-flow / STRIDE pass
       over a design or change. (Aligned with the security focus.)
 - [ ] **`llm-red-teaming`** — structured prompt-injection / jailbreak testing:
