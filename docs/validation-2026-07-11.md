@@ -109,6 +109,7 @@ Likely implications for the suite (to verify by eval later):
 | skill-reviewer | process/discipline | **+0.73** |
 | writing-plans | process/discipline | **+0.67** |
 | online-research | process/discipline | **+0.19** |
+| debugging | process (eval under-measures) | **+0.08** |
 | security-review | knowledge-restating | **0.00** |
 
 **Addendum 2026-07-12 — `writing-plans` (added in v1.1.0).** Confirming Stage A
@@ -119,6 +120,21 @@ vague spec (stopped and asked vs. fabricated an M1–M5 plan), YAGNI (deferred
 speculative features vs. baked them into v1), and "plan don't implement"
 (baseline wrote full implementation code). Another process skill with real lift.
 Artifacts: `.claude-skills-work/evals/writing-plans/iteration-1/`.
+
+**Addendum 2026-07-12 — `debugging` (added in v1.2.0).** Stage A PASS (no 🔴; one
+🟡 trigger overlap with `superpowers:systematic-debugging`, accepted — namespaced
+and differentiated by the reproduce→verify loop). Stage B baseline: with-skill
+**1.00** (13/13) vs without-skill **0.92** (12/13), **+0.08**. Small — and the
+reason is instructive: the eval cases are *prose bug-reports*, and a frontier
+model already resists the symptom-patch traps (try/catch masking, blind retries,
+reflexive null-guards) when merely *describing* an approach; only one case
+differed (baseline skipped the regression test). **The eval under-measures this
+skill** — `debugging`'s value is the reproduce/isolate/bisect loop on *real code*
+(where models actually jump to fixes), not narrating practice on a paragraph.
+This mirrors the `security-review` lesson: abstract/prose cases can't surface a
+process skill whose payoff is in *doing*, not *describing*. Follow-up: add
+code-based eval cases (a repo with a planted bug) to measure the real loop.
+Artifacts: `.claude-skills-work/evals/debugging/iteration-1/`.
 
 ## Recommended follow-ups
 1. ~~Re-scope security-review / code-review value claims around consistency and

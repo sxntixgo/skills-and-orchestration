@@ -150,8 +150,10 @@ Front-of-workflow trio (pairs with `software-development`):
       intent/alternatives are explored. (This is the exact process used to build
       this repo.)
 - [x] **`debugging`** — BUILT (v1.2.0). Reproduce → isolate → hypothesize →
-      verify → fix → confirm. Pairs with `software-development`. (Eval results
-      folded in once the `skill-reviewer` pass completes.)
+      verify → fix → confirm. Pairs with `software-development`. Reviewed by
+      `skill-reviewer`: Stage A PASS; Stage B **+0.08** (1.00 vs 0.92) — small,
+      because the prose eval under-measures it (real value is the reproduce/bisect
+      loop on actual code). Follow-up: add a code-based eval with a planted bug.
 
 Further candidates (process-oriented; build only if a real need appears):
 - [ ] **`threat-modeling`** — systematic trust-boundary / data-flow / STRIDE pass
