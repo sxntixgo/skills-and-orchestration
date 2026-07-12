@@ -2,7 +2,8 @@
 
 A collection of reusable Claude Code skills, packaged as a Claude Code plugin.
 
-**Status: v1.0.0 (2026-07-12).** All 7 skills built, self-contained, and reviewed
+**Status: v1.1.0 (2026-07-12).** 8 skills built (added `writing-plans`),
+self-contained, and reviewed
 by `skill-reviewer` (including itself) — all PASS. Eval-validated where it counts:
 `skill-reviewer` +0.73 and `online-research` +0.19 pass-rate lift; `security-review`
 0.00 (a frontier model already knows security — value is consistency/coverage). Full
@@ -53,6 +54,7 @@ See CLAUDE.md rules 6–7 for the authoritative wording.
 | `skill-creator` | Author new skills correctly | Frontmatter/trigger rules, progressive disclosure, self-containment, checklist |
 | `skill-reviewer` | Review a skill against a rubric | Trigger clarity, scope, token weight, examples, structure — pairs with `skill-creator` |
 | `online-research` | Structured web research | Query planning, source triangulation, citation, WebSearch/WebFetch discipline |
+| `writing-plans` | Spec/design → phased plan | Ground in code, dependency-ordered phases, every task verifiable, gates + out-of-scope; pairs with `software-development` |
 | `software-development` | Build backend/frontend software | **TDD loop (red→green→refactor)**, DRY, YAGNI, KISS; workflow; `references/{backend,frontend}.md`; points to `writing-tests` for deeper test-case design |
 | `writing-tests` | Design and write test cases | Test-case design, edge/boundary cases, coverage; complements the TDD loop in `software-development` |
 | `code-review` | Line-level correctness + quality review | Severity ratings, naming, function size, error handling, project patterns |
@@ -135,10 +137,9 @@ restate what a frontier model already knows add token cost and ~0 lift
 Front-of-workflow trio (pairs with `software-development`):
 `brainstorming` → `writing-plans` → build.
 
-- [ ] **`writing-plans`** — turn a spec/design into a phased, checkpointed
-      implementation plan with *verifiable* steps and review gates, before any
-      code. Pairs with `software-development` (which executes the plan). Process
-      the model skips: diving in without a plan.
+- [x] **`writing-plans`** — BUILT (v1.1.0). Spec/design → phased, checkpointed
+      plan with verifiable steps + gates. Reviewed by `skill-reviewer` (Stage A
+      PASS; findings fixed). Pairs with `software-development`.
 - [ ] **`brainstorming`** — turn a vague idea into a validated design through
       dialogue: clarify intent one question at a time (multiple-choice preferred),
       explore 2–3 approaches with trade-offs (lead with a recommendation), then

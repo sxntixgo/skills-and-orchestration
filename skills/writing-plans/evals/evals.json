@@ -1,0 +1,51 @@
+{
+  "skill_name": "writing-plans",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Here's the spec: add password reset via email — user requests a reset link, clicks a tokenized link, and sets a new password. Write an implementation plan.",
+      "expected_output": "Restates the goal and success criteria, then decomposes into small dependency-ordered phases (e.g. token model + request endpoint -> email send -> reset endpoint + validation). Every task says what to change, where, and how to verify (a test or observable behavior). Lists risks (token expiry/entropy, single-use, rate limiting), assumptions, and out-of-scope. Does not write the implementation code. Writes the plan to docs/plans/.",
+      "files": [],
+      "assertions": [
+        "Decomposes into small phases ordered by dependency, each independently verifiable",
+        "Every task states what to change, where, and how to verify it (test or observable behavior)",
+        "Lists risks/assumptions and an explicit out-of-scope section",
+        "Does NOT write the implementation code"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Plan out the new dashboard.",
+      "expected_output": "Recognizes the ask is too vague to plan (no requirements, no success criteria, unknown data/audience) and STOPS to clarify scope and requirements rather than inventing a plan. Asks for the design/requirements to be nailed down first.",
+      "files": [],
+      "assertions": [
+        "Recognizes the spec is too vague/under-specified to plan",
+        "STOPS and asks for scope/requirements/success criteria instead of inventing a plan",
+        "Does not fabricate a detailed plan from nothing"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Plan a URL shortener, and make it future-proof for analytics, teams, custom domains, and billing we might add later.",
+      "expected_output": "Plans only the minimal current requirement (create short link, redirect) in small verifiable phases, and moves analytics/teams/custom-domains/billing to an explicit Out of scope (YAGNI) section rather than planning speculative future work. Each task has a verification step.",
+      "files": [],
+      "assertions": [
+        "Plans the minimal current requirement (shorten + redirect), not the speculative extras",
+        "Moves analytics/teams/custom-domains/billing to an explicit out-of-scope (YAGNI) section",
+        "Each task still has a concrete verification step"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "We need to add rate limiting to the POST /login endpoint. Plan it.",
+      "expected_output": "Grounds the plan by reading the existing login endpoint/middleware first, then produces small ordered phases each with a verification (e.g. a test asserting the Nth request is throttled), and notes risks (locking out legitimate users, shared-IP/NAT, distributed counters). Marks a review gate before shipping. Does not implement it.",
+      "files": [],
+      "assertions": [
+        "Says to read the existing endpoint/middleware/code before planning",
+        "Produces small ordered phases each with a concrete verification step",
+        "Notes risks such as false-positive lockout or shared-IP/distributed-counter concerns",
+        "Plans rather than implements"
+      ]
+    }
+  ]
+}
