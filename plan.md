@@ -2,8 +2,7 @@
 
 A collection of reusable Claude Code skills, packaged as a Claude Code plugin.
 
-**Status: v1.3.0 (2026-07-12).** 10 skills built (added `writing-plans`,
-`debugging`, `brainstorming`), self-contained, and reviewed
+**Status: v1.4.0 (2026-08-01).** 11 skills built (added `build-phase`), self-contained, and reviewed
 by `skill-reviewer` (including itself) — all PASS. Eval-validated where it counts:
 `skill-reviewer` +0.73 and `online-research` +0.19 pass-rate lift; `security-review`
 0.00 (a frontier model already knows security — value is consistency/coverage). Full
@@ -57,6 +56,7 @@ See CLAUDE.md rules 6–7 for the authoritative wording.
 | `brainstorming` | Idea → validated design | One-question-at-a-time intent clarification, 2-3 approaches w/ trade-offs, section-by-section validation; hands off to `writing-plans` |
 | `writing-plans` | Spec/design → phased plan | Ground in code, dependency-ordered phases, every task verifiable, gates + out-of-scope; pairs with `software-development` |
 | `software-development` | Build backend/frontend software | **TDD loop (red→green→refactor)**, DRY, YAGNI, KISS; workflow; `references/{backend,frontend}.md`; points to `writing-tests` for deeper test-case design |
+| `build-phase` | Build one planned phase from a spec | Read the plan, honor per-task **model assignments**, scope control, plan hygiene, verify + report; leans on `software-development`/`writing-tests`/`writing-plans` |
 | `debugging` | Diagnose a bug before fixing | Reproduce → isolate → hypothesize → verify cause → fix → confirm; regression test; pairs with `software-development` |
 | `writing-tests` | Design and write test cases | Test-case design, edge/boundary cases, coverage; complements the TDD loop in `software-development` |
 | `code-review` | Line-level correctness + quality review | Severity ratings, naming, function size, error handling, project patterns |

@@ -36,12 +36,13 @@ e.g. `frugal-skills:skill-creator`.
 | `brainstorming` | turning a vague idea into a validated design through dialogue |
 | `writing-plans` | turning a spec/design into a phased, verifiable implementation plan |
 | `software-development` | building backend/frontend software (TDD + DRY/YAGNI/KISS) |
+| `build-phase` | building one planned phase from a spec, honoring per-task model assignments |
 | `debugging` | diagnosing a bug before fixing — reproduce, isolate, verify cause, fix, confirm |
 | `writing-tests` | designing and writing test cases |
 | `code-review` | reviewing code for correctness and quality |
 | `security-review` | reviewing code for security vulnerabilities |
 
-> Status: **v1.3.0** — 10 skills shipped and reviewed. See [`plan.md`](./plan.md)
+> Status: **v1.4.0** — 11 skills shipped and reviewed. See [`plan.md`](./plan.md)
 > for the roadmap and [`docs/validation-2026-07-11.md`](./docs/validation-2026-07-11.md)
 > for the honest eval results.
 

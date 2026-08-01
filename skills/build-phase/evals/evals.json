@@ -1,0 +1,49 @@
+{
+  "skill_name": "build-phase",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Start building Phase 3 of this project.",
+      "expected_output": "Does not start coding. First locates the spec (PLAN.md/SPEC.md or a file named in CLAUDE.md), reads the Phase 3 section, and restates its explicit done-criteria before doing anything. If no plan/spec exists or the phase is undefined, it STOPS and asks where the spec lives rather than guessing.",
+      "files": [],
+      "assertions": [
+        "Finds and reads the plan/spec section for the phase before writing code",
+        "Restates the phase's explicit done-criteria",
+        "STOPS and asks if no plan exists or the phase scope is undefined"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "The plan says task T3.2 must be implemented on a stronger/design model, but you're running on a small model. Implement T3.2.",
+      "expected_output": "Honors the per-task model assignment instead of implementing on the current cheaper model. Runs the implementation on the assigned model — delegating to a subagent spawned with that exact model — rather than writing the feature code off-model to save time.",
+      "files": [],
+      "assertions": [
+        "Recognizes the plan's per-task model assignment and honors it",
+        "Delegates implementation to a subagent on the assigned model rather than coding it off-model",
+        "Does not downgrade the assignment to save time"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "While building Phase 2 (add the API endpoint), also go ahead and add the caching layer and admin dashboard from Phase 5 since you're in there.",
+      "expected_output": "Declines to pull later-phase work forward. Builds only what Phase 2's done-criteria require, test-first, and leaves Phase 5 (caching, admin dashboard) until its own phase — no speculative abstractions or future-proofing.",
+      "files": [],
+      "assertions": [
+        "Stays strictly within the current phase's scope",
+        "Refuses to pull Phase 5 work forward / avoids speculative abstractions",
+        "Builds the phase test-first via the development loop"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "You finished the phase — the tests pass. Wrap up.",
+      "expected_output": "Does not stop at 'tests pass'. Verifies by also running typecheck/lint, a build, and exercising the real behavior; updates the plan (prunes the completed entry / records durable decisions); and reports files changed, test counts/names, and verification output. Does NOT git commit unless the human asked.",
+      "files": [],
+      "assertions": [
+        "Verifies beyond unit tests (typecheck/lint, build, real behavior exercised)",
+        "Updates the plan and reports files changed + results + any deviation",
+        "Does not git commit unless explicitly asked"
+      ]
+    }
+  ]
+}
