@@ -37,7 +37,7 @@ description: Steps for researching one sub-question with the search, fetch-text 
 ```markdown
 ---
 id: <id from the task>
-status: done            # or: partial (couldn't find enough) / blocked (tools failing)
+status: done            # or: partial / blocked (see the status rule below)
 ---
 ## Answer
 2–4 sentences answering the sub-question, with [n] references.
@@ -63,7 +63,12 @@ status: done            # or: partial (couldn't find enough) / blocked (tools fa
 - Every claim cites at least one source you fetched; quotes are copied exactly.
 - Confidence **high** only with a primary source or two independent ones; a claim from a single
   blog post is **low** (or medium), and the blog is `secondary`.
-- Say `partial` honestly.
+- **Status:** `done` = every part of the sub-question answered from fetched pages; `partial` =
+  some parts answered, or only weak sources found (list the rest under Gaps); `blocked` = you
+  could not research at all (tools failing, or an input the task names is missing — say which,
+  and still try a web search for it by name/title before giving up). Say `partial` honestly.
+- Search results alone, or "I found no source saying X", are never **high**.
+- Slides, charts or on-screen text matter → always pass `--frames` to `fetch-media`.
 
 ## Don't
 - Claim anything you didn't read on a page you fetched (snippets alone aren't enough).

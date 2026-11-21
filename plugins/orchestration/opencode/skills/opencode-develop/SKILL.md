@@ -24,7 +24,9 @@ description: Steps for implementing one development task from an attached task.m
    fails, stop and report `blocked` with the failing output.
 7. **Self-check the diff** (`git diff`, `git status`): only listed files changed, no debug prints,
    no commented-out code, no unrelated formatting, nothing unused (YAGNI), no duplicated logic (DRY).
-   Changed a file that isn't listed? Revert it, and say so under Deviations.
+   Changed a file that isn't listed? Revert it, and say so under Deviations. One exception: an
+   empty support file the test command needs to find the tests at all (e.g. `tests/__init__.py`)
+   — keep it, and list it under Deviations with why.
 8. **Write RESULT.md** (below). Always, also when blocked.
 
 ## RESULT.md (at the worktree root)
