@@ -11,7 +11,9 @@ is `contract.md`.
 
 Rules in one breath: tasks are small with an exact test command; opencode edits only the
 listed files and never commits or pushes; Claude reruns the tests and reads the diff before
-merging; two send-backs, then Claude takes over; `concurrency` (default 1) caps parallel runs.
+merging; code follows TDD, YAGNI and DRY; after three rejections Claude takes over using the cheapest
+capable model (haiku → sonnet → opus); `concurrency` (default 2) runs tasks in parallel, each in its own
+git worktree.
 
 Install (Claude side): `/plugin install orchestration@frugal-skills` once this marketplace is added.
 In the homestack devcontainers the opencode side is installed by the `devcontainer` repo.

@@ -22,23 +22,32 @@ This skill does NOT:
 - Write each task's text (→ `write-task-spec`), run opencode (→ `dispatch-opencode`), or judge
   a result (→ `review-and-merge`). Use those.
 - Push, open PRs, or deploy. The user does that (or asks for it separately).
-- Invent requirements. Unclear plan → ask.
+- Ask the user to approve the task graph. Planning is your job: make it effective and efficient
+  and go. Ask only when the goal itself is ambiguous (two reasonable readings that lead to
+  different features).
 
 ## Required steps (one TodoWrite item each)
 1. **Set up the run.** Read the plan (or the user's request) and the repo's `CLAUDE.md`/`AGENTS.md`.
    Create `.orchestra/<run>/` (run = `YYYY-MM-DD-<slug>`), add `.orchestra/` and `.worktrees/`
    to `.git/info/exclude`, read or create `.orchestra/config.json` (contract defaults).
    Check: working tree clean on `base_branch`; the repo's test command works. ⛔ STOP if not.
-2. **Task graph.** Write `board.md`: a table `id | goal | implementer | depends_on | files | status`
-   (status: todo, dispatched, review, sent-back, merged, taken-over, dropped) and an empty `## Log`.
-   Tasks are small: one module or endpoint plus its tests; ≤ ~5 files; one test command.
-   ⛔ STOP: show the table to the user and wait for approval before dispatching anything.
+2. **Task graph** (no user approval: plan well and proceed). Write `board.md`: a table
+   `id | goal | implementer | depends_on | files | status` (status: todo, dispatched, review,
+   sent-back, merged, taken-over, dropped) and an empty `## Log`.
+   - Small tasks: one module or endpoint plus its tests; ≤ ~5 files; one test command.
+   - **Efficient:** as few tasks as the work allows; no task without a user-visible or tested
+     outcome (YAGNI); shared code is its own early task so later tasks reuse it (DRY).
+   - **Parallel:** give tasks disjoint files so up to `concurrency` run at once, each in its own
+     worktree; add a dependency only where one task truly needs another's code.
+   - Self-check before dispatching: every requirement maps to a task; no two concurrent tasks share
+     a file; every task has an exact test command. Fix the graph, then go.
 3. **Loop until every task is merged or dropped.**
    - Ready tasks = dependencies merged. Take up to `concurrency` of them whose files don't overlap
      with any task currently dispatched.
    - For each: `write-task-spec` → `dispatch-opencode` (or implement it yourself if marked Claude).
    - When a run finishes: `review-and-merge`. Rejected → back to dispatch with review notes
-     (attempt + 1). After `max_sendbacks` rejections: take it over yourself and mark `taken-over`.
+     (attempt + 1). After `max_rejections` (default 3) rejections: `review-and-merge` takes it
+     over with the cheapest capable Claude model and marks it `taken-over`.
    - After every state change: update `board.md` (table + one Log line with time and outcome).
 4. **Finish.** All tests pass on `base_branch`; worktrees and `orchestra/*` branches removed.
    Report: tasks by outcome (opencode first try / after send-back / taken over), commits,
@@ -51,12 +60,13 @@ process alive) or finished (RESULT.md in the worktree). Continue the loop from t
 ## Red flags
 | If you notice… | Do this |
 |---|---|
-| Dispatching before the user approved the task table | Stop; show the table |
+| Waiting for the user to approve the task table | Don't; plan carefully and dispatch |
+| A task with no test or no observable outcome | Merge it into another task or drop it (YAGNI) |
 | Two concurrent tasks list the same file | Serialize them (add a dependency) |
 | A task that needs "and also…" to describe | Split it |
-| More running tasks than `concurrency` | Wait; atlas serves one request at a time by default |
+| More running tasks than `concurrency` | Wait; more runs than atlas's slots only queue |
 | Merging on RESULT.md's word | Never; `review-and-merge` runs the tests itself |
-| A third attempt for the same task | Take it over yourself |
+| A fourth dispatch of the same task | Stop: after 3 rejections it's a takeover |
 | About to push or deploy | Don't; report it as a step for the user |
 
 ## Done when

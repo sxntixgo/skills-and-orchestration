@@ -19,11 +19,14 @@ Change it only with a version bump here and in every file that cites it.
 
 ## config.json
 ```json
-{ "implementer": "opencode", "model": "atlas/qwen3.8-flash-next", "concurrency": 1,
-  "task_timeout_min": 30, "max_sendbacks": 2, "base_branch": "main" }
+{ "implementer": "opencode", "model": "atlas/qwen3.8-flash-next", "concurrency": 2,
+  "task_timeout_min": 30, "max_rejections": 3, "base_branch": "main" }
 ```
-`concurrency` = how many opencode tasks may run at once (atlas serves one request at a time
-until tested otherwise). Missing file = these defaults.
+`concurrency` = how many opencode tasks may run at once, each in its own worktree. 2 is measured
+safe with atlas serving one request at a time (two runs fill each other's tool-running gaps:
+265 s vs 310 s for two tasks). Raise it only after LM Studio gets more parallel slots.
+`max_rejections` = rejected attempts before Claude takes the task over (3 → opencode gets 3 tries).
+Missing file = these defaults.
 
 ## <id>.task.md
 ```markdown
@@ -86,4 +89,8 @@ outcome: N passed, M failed
   repo's formatter/linter if the task names it), never commits, pushes, deploys, or touches
   `.git/`, `.orchestra/`, other worktrees, secrets or the network.
 - Claude never trusts RESULT.md alone: it reads the diff and runs the test command itself.
-- After `max_sendbacks` rejected attempts, Claude implements the task itself.
+- Code follows **TDD** (failing test first, then the simplest code that passes), **YAGNI** (nothing
+  the task doesn't need: no extra options, params, abstractions or "just in case" branches) and
+  **DRY** (reuse existing helpers; no copy-pasted logic; but don't merge things that only look alike).
+- After `max_rejections` rejected attempts, Claude takes the task over, delegating it to the
+  cheapest Claude model that can do it (see `review-and-merge`).

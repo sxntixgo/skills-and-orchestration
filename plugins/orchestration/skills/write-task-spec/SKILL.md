@@ -21,8 +21,9 @@ Does NOT: split the plan (→ `orchestrate`), run anything (→ `dispatch-openco
 3. **Pin the check.** Write the exact test command that proves it (run it once now: it should
    fail or not exist yet, and must not fail for unrelated reasons). If the task needs new tests,
    say which cases (happy path, the edge, the error) — `writing-tests` helps pick them.
-4. **Write steps** as short imperatives in order, test-first when tests are listed. Name
-   functions, routes, fields exactly. Give types/signatures when they matter.
+4. **Write steps** as short imperatives in order, always test-first (TDD: "add test X, see it
+   fail, then implement"). Name functions, routes, fields exactly. Give types/signatures when
+   they matter. Point to existing helpers to reuse (DRY), and specify only what's needed (YAGNI).
 5. **Out of scope.** Name the tempting extras (refactors, renames, new deps, formatting other files).
 6. **Attempt ≥ 2:** add `## Notes from review` with each problem as `file:line — what is wrong —
    what to do instead`. Keep everything else; bump `attempt`.

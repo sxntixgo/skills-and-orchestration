@@ -13,13 +13,17 @@ description: Steps for implementing one orchestration task from an attached task
 3. **Run the test command once** before changing anything, to see where you start.
    If it fails for a reason unrelated to the task (missing tool, broken setup), stop: report
    `blocked` with the error.
-4. **Tests first** when the task lists tests: write them, run them, see them fail for the right
-   reason.
-5. **Make the smallest change** that satisfies the steps. Only the listed files.
+4. **TDD, one behaviour at a time.** Write the test for the next behaviour, run it, see it fail
+   for the right reason (not an import or syntax error). Then step 5. Repeat per behaviour.
+   No test-after: every behaviour change needs a test that would fail without it.
+5. **Simplest code that passes (YAGNI).** Only the listed files. No extra parameters, options,
+   config, abstractions, or "just in case" branches the task doesn't ask for.
+   **DRY:** before writing a helper, search the repo for one that exists and reuse it; don't
+   copy-paste logic. But don't merge two things that only look alike.
 6. **Run the test command.** Fix and rerun until it passes. If after 3 honest attempts it still
    fails, stop and report `blocked` with the failing output.
 7. **Self-check the diff** (`git diff`, `git status`): only listed files changed, no debug prints,
-   no commented-out code, no unrelated formatting.
+   no commented-out code, no unrelated formatting, nothing unused (YAGNI), no duplicated logic (DRY).
 8. Hand over to `report-result`.
 
 ## Don't

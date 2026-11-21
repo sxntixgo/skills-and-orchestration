@@ -22,7 +22,7 @@ mkdir -p "$dir/logs" "$dir/running"
 cfg=".orchestra/config.json"
 conf() { [[ -f "$cfg" ]] && jq -r --arg k "$1" '.[$k] // empty' "$cfg" 2>/dev/null; }
 model="$(conf model)";            model="${model:-atlas/qwen3.8-flash-next}"
-concurrency="$(conf concurrency)"; concurrency="${concurrency:-1}"
+concurrency="$(conf concurrency)"; concurrency="${concurrency:-2}"
 timeout_min="$(conf task_timeout_min)"; timeout_min="${timeout_min:-30}"
 base="$(conf base_branch)";       base="${base:-main}"
 

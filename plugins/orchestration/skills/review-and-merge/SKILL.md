@@ -10,7 +10,7 @@ Formats: `../../contract.md` (relative to this skill's base directory).
 
 ## Scope
 DOES: verify one task's worktree; accept → commit and merge into `base_branch`; reject → write
-review notes into the task and hand it back; after `max_sendbacks` rejections → take it over.
+review notes into the task and hand it back; after `max_rejections` (default 3) rejections → take it over with the cheapest capable model.
 Does NOT: push, deploy, or widen the task. Does not fix the implementer's code silently on accept.
 
 ## Required steps
@@ -25,7 +25,14 @@ Does NOT: push, deploy, or widen the task. Does not fix the implementer's code s
    Compare with what RESULT.md claims.
 4. **Read the diff** with a code-review lens (`code-review` helps): correctness, edge cases from
    the spec, error handling, matches the existing pattern, no dead code, no secrets, no new deps
-   the task didn't name. `security-review` when it touches auth, input, files or the network.
+   the task didn't name. Check the three principles:
+   - **TDD:** every behaviour change has a test that would fail without it (tests not written
+     after the fact to fit the code; no assertion-free tests).
+   - **YAGNI:** nothing beyond the task: no unused params/options, speculative abstractions,
+     config, or "just in case" branches.
+   - **DRY:** existing helpers reused; no copy-pasted logic (3+ similar blocks) — but things that
+     only look alike may stay separate.
+   A clear violation is a rejection reason. `security-review` when it touches auth, input, files or the network.
 5. **Decide.**
    - **Accept** when every "Done when" holds, tests pass, scope is clean, nothing important
      wrong. Remove RESULT.md, commit in the worktree (`<type>: <goal> (orchestra <run>/<id>)`
@@ -33,9 +40,11 @@ Does NOT: push, deploy, or widen the task. Does not fix the implementer's code s
      run the tests on `base_branch` again, then `git worktree remove` and delete the branch.
    - **Reject** otherwise: write `## Notes from review` into the task (each `file:line — problem —
      what to do`), bump `attempt`, and send it back with `dispatch-opencode --continue`.
-   - **Take over** when this would be rejection number `max_sendbacks + 1`, or the problem is
-     beyond the implementer (design flaw in the spec, cross-cutting change): fix it yourself in
-     the worktree, then accept as above, marking `taken-over`.
+   - **Take over** when this is rejection number `max_rejections` (default 3), or the problem is
+     beyond the implementer (design flaw in the spec, cross-cutting change). Pick the cheapest
+     model that can do it (`references/takeover.md`), have it implement in the same worktree,
+     then review its work exactly like opencode's (steps 2–5) and accept, marking `taken-over`
+     and the model used.
    Small nits only (naming, a comment) → accept and note them; don't spend a round-trip.
 6. **Log** the verdict, test numbers and reason in `board.md`.
 

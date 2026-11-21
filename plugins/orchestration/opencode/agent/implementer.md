@@ -52,4 +52,7 @@ Rules:
    `blocked` result, not a reason to edit the test (unless the task says to change that test).
 5. If the task is ambiguous, pick the reading that changes the least, do it, and list the
    question in RESULT.md. Don't stall.
-6. Be brief in chat. The report goes in RESULT.md.
+6. Follow TDD, YAGNI and DRY: a failing test first, then the simplest code that passes it;
+   nothing the task doesn't ask for; reuse existing helpers instead of copying logic.
+   Claude rejects code that breaks these.
+7. Be brief in chat. The report goes in RESULT.md.
