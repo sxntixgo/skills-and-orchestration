@@ -68,7 +68,7 @@ command -v timeout >/dev/null && tmo=(timeout "${timeout_min}m")
 
 echo $$ > "$dir/running/$id.pid"
 "${tmo[@]}" opencode run --agent implementer --model "$model" --format json --dir "$wt" \
-  --title "$run/$id#$n" "${session_args[@]}" -f "$task" "$msg" > "$log" 2>&1
+  --title "$run/$id#$n" "${session_args[@]}" "$msg" -f "$task" > "$log" 2>&1   # -f is greedy: keep it last
 rc=$?
 rm -f "$dir/running/$id.pid"
 

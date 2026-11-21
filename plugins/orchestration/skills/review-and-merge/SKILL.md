@@ -18,7 +18,8 @@ Does NOT: push, deploy, or widen the task. Does not fix the implementer's code s
    Read it and the task file.
 2. **Scope check.** `git -C .worktrees/<id> status --porcelain` and `git -C .worktrees/<id> diff`
    (plus untracked files). Every changed file must be in the task's "may change/create" list.
-   RESULT.md itself must not be committed.
+   RESULT.md itself must not be committed. Build artifacts (`__pycache__/`, `node_modules/`, coverage)
+   are not scope violations: delete them before committing.
 3. **Run the check yourself** in the worktree: the task's exact test command, then the repo's
    full test suite (or the relevant part if it's slow) and its lint/typecheck if the repo has them.
    Compare with what RESULT.md claims.
