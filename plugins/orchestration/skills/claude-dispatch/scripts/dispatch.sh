@@ -7,7 +7,8 @@
 # Run it from anywhere inside the target repo, in the background (it can take many minutes).
 # Last line printed is always:  DISPATCH <id> exit=<rc> result=<yes|no> log=<path>
 # Exit codes: 0 opencode finished (check result=), 2 usage/setup error, 3 no free slot,
-#             4 llm endpoint unreachable, 124 timed out, other = opencode's own exit code.
+#             4 llm endpoint unreachable, 124 timed out, 125 stalled (no log output, after retries),
+#             other = opencode's own exit code.
 set -uo pipefail
 
 run="${1:-}"; id="${2:-}"; mode="${3:-}"
@@ -24,6 +25,13 @@ conf() { [[ -f "$cfg" ]] && jq -r --arg k "$1" '.[$k] // empty' "$cfg" 2>/dev/nu
 model="$(conf model)";            model="${model:-atlas/qwen3.8-flash-next}"
 concurrency="$(conf concurrency)"; concurrency="${concurrency:-2}"
 timeout_min="$(conf task_timeout_min)"; timeout_min="${timeout_min:-30}"
+# Hang watchdog: kill a run whose log stays EMPTY for stall_empty_s (opencode never started a
+# session: the 2026-11-21 T4 hang sat 30 min with an empty log), or stops GROWING for stall_s (long
+# enough for a quiet npm install or test run). Then retry once (continuing the session if one exists).
+stall_empty_s="$(conf stall_empty_s)"; stall_empty_s="${stall_empty_s:-180}"
+stall_s="$(conf stall_s)";             stall_s="${stall_s:-600}"
+stall_retries="$(conf stall_retries)"; stall_retries="${stall_retries:-1}"
+poll_s="${DISPATCH_POLL_S:-15}"
 base="$(conf base_branch)";       base="${base:-main}"
 
 # Free slot? (pid files of dispatches still alive)
@@ -67,14 +75,51 @@ tmo=()
 command -v timeout >/dev/null && tmo=(timeout "${timeout_min}m")
 
 echo $$ > "$dir/running/$id.pid"
-# opencode keeps its state in SQLite: two runs starting at the same moment can fail with
-# "database is locked" before a session exists. Retry those (only those) after a random pause.
-for try in 1 2 3; do
-  "${tmo[@]}" opencode run --agent implementer --model "$model" --format json --dir "$wt" \
-  --title "$run/$id#$n" "${session_args[@]}" "$msg" -f "$task" > "$log" 2>&1   # -f is greedy: keep it last
-  rc=$?
-  grep -q '"sessionID"' "$log" || ! grep -q "database is locked" "$log" || [[ $try == 3 ]] && break
-  sleep $((3 + RANDOM % 8))
+
+fsize()  { stat -c %s "$1" 2>/dev/null || stat -f %z "$1"; }
+fmtime() { stat -c %Y "$1" 2>/dev/null || stat -f %m "$1"; }
+# Run opencode once in the background and watch its log. Sets rc (125 = killed as stalled).
+run_once() {
+  local start now size grp=()
+  command -v setsid >/dev/null && grp=(setsid)     # own process group: the kill reaches its tools too
+  "${grp[@]}" "${tmo[@]}" opencode run --agent implementer --model "$model" --format json --dir "$wt" \
+    --title "$run/$id#$n" "${session_args[@]}" "$msg" -f "$task" > "$log" 2>&1 &   # -f is greedy: keep it last
+  local opid=$! stalled=0
+  start=$(date +%s)
+  while kill -0 "$opid" 2>/dev/null; do
+    sleep "$poll_s"; now=$(date +%s); size=$(fsize "$log")
+    if { [[ "$size" -eq 0 ]] && (( now - start >= stall_empty_s )); } ||
+       { [[ "$size" -gt 0 ]] && (( now - $(fmtime "$log") >= stall_s )); }; then
+      stalled=1
+      if [[ ${#grp[@]} -gt 0 ]]; then kill -TERM -- "-$opid" 2>/dev/null; else kill -TERM "$opid" 2>/dev/null; fi
+      sleep 5; kill -KILL -- "-$opid" 2>/dev/null || kill -KILL "$opid" 2>/dev/null
+      break
+    fi
+  done
+  wait "$opid" 2>/dev/null; rc=$?
+  (( stalled )) && rc=125
+  return 0
+}
+
+# Retries: opencode keeps its state in SQLite, so two runs starting at the same moment can fail with
+# "database is locked" before a session exists (up to 3 tries, random pause); a stalled run is
+# retried stall_retries times (its log kept as <log>.stalled-<k>).
+locked_tries=0; stalls=0
+while :; do
+  run_once
+  if [[ $rc -eq 125 ]]; then
+    stalls=$((stalls + 1))
+    echo "stalled (no log output: empty ${stall_empty_s}s / quiet ${stall_s}s), killed" >&2
+    (( stalls > stall_retries )) && break
+    mv "$log" "$log.stalled-$stalls"
+    sid=$(grep -o '"sessionID":"[^"]*"' "$log.stalled-$stalls" | head -1 | cut -d'"' -f4)
+    [[ -n "$sid" ]] && session_args=(--session "$sid")
+    continue
+  fi
+  if ! grep -q '"sessionID"' "$log" && grep -q "database is locked" "$log" && (( ++locked_tries < 3 )); then
+    sleep $((3 + RANDOM % 8)); continue
+  fi
+  break
 done
 rm -f "$dir/running/$id.pid"
 

@@ -30,6 +30,7 @@ Does NOT: write the task (â†’ `claude-write-task`), judge or merge the result (â
    | exit=3 (no free slot) | Wait for a running task to finish, then retry |
    | exit=4 (llm unreachable) | Check atlas/ops (Gatus); pause dispatching; tell the user |
    | exit=124 (timeout) | Read the log tail; split the task or take it over |
+   | exit=125 (stalled) | The script already killed a silent run and retried it (`stall_retries`); the stalled logs are `<log>.stalled-<k>`. Check atlas (`lms ps`, LM Studio log) before dispatching again; if atlas is fine, redispatch once more, else pause and tell the user |
    | other | Read the log tail (`tail -50 <log>`); fix setup or take it over |
    Log the outcome in `board.md`.
 
@@ -39,6 +40,7 @@ Does NOT: write the task (â†’ `claude-write-task`), judge or merge the result (â
 | Running dispatch.sh in the foreground | Background it; runs take minutes |
 | Starting more runs than `concurrency` | The script refuses (exit 3); respect it |
 | Editing files inside a worktree while opencode runs there | Don't; wait for the exit |
+| Editing dispatch.sh while a dispatch runs | Don't: bash reads the script as it runs; wait until no dispatch is alive |
 | Reading the whole JSONL log into context | Use `tail`/`grep` on it |
 | A new worktree for a send-back | Use `--continue` (same worktree, same session) |
 

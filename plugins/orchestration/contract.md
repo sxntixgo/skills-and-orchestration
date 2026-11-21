@@ -20,12 +20,16 @@ Change it only with a version bump here and in every file that cites it.
 ## config.json
 ```json
 { "implementer": "opencode", "model": "atlas/qwen3.8-flash-next", "concurrency": 2,
-  "task_timeout_min": 30, "max_rejections": 3, "base_branch": "main" }
+  "task_timeout_min": 30, "max_rejections": 3, "base_branch": "main",
+  "stall_empty_s": 180, "stall_s": 600, "stall_retries": 1 }
 ```
 `concurrency` = how many opencode tasks may run at once, each in its own worktree. 2 is measured
 the number of slots atlas serves at once: 2 since 2026-11-21 (GGUF on llama.cpp; before, one slot,
 where two runs still filled each other's tool-running gaps: 265 s vs 310 s). A third run only queues;
 chat and news share the same slots.
+`stall_empty_s` / `stall_s` = the dispatcher kills a run whose log is still empty after
+`stall_empty_s`, or has not grown for `stall_s` (long enough for a quiet install or test run), and
+retries it `stall_retries` times (continuing the session if one started); then exit 125.
 `max_rejections` = rejected attempts before Claude takes the task over (3 → opencode gets 3 tries).
 Missing file = these defaults.
 
