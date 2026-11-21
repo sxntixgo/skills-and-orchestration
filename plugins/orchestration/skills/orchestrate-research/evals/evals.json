@@ -4,7 +4,7 @@
     {
       "id": 1,
       "prompt": "Research the options for self-hosting a private search engine for my homelab: features, resource use, maintenance, privacy.",
-      "expected_output": "Writes brief.md and 4–6 non-overlapping sub-question tasks without asking for approval, dispatches researchers in parallel in the background (concurrency 3), reviews findings, re-checks the key claims with fetch-text, writes report.md (answer first, citations, verified marks, comparison table) and copies it to the vault Inbox.",
+      "expected_output": "Writes brief.md and 4–6 non-overlapping sub-question tasks without asking for approval, dispatches researchers in parallel in the background (concurrency 3), reviews findings, re-checks the key claims with fetch-text, writes report.md (answer first, citations, verified marks, comparison table) and copies it to the reports/ (for the vault Inbox).",
       "files": []
     },
     {

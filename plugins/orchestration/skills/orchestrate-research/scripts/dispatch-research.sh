@@ -49,9 +49,15 @@ fi
 tmo=(); command -v timeout >/dev/null && tmo=(timeout "${timeout_min}m")
 
 echo $$ > "$dir/running/$id.pid"
-"${tmo[@]}" opencode run --agent researcher --model "$model" --format json --dir "$root/$dir" \
+# opencode keeps its state in SQLite: two runs starting at the same moment can fail with
+# "database is locked" before a session exists. Retry those (only those) after a random pause.
+for try in 1 2 3; do
+  "${tmo[@]}" opencode run --agent researcher --model "$model" --format json --dir "$root/$dir" \
   --title "research $run/$id#$n" "${session_args[@]}" "$msg" -f "$task" > "$log" 2>&1   # -f last: greedy
-rc=$?
+  rc=$?
+  grep -q '"sessionID"' "$log" || ! grep -q "database is locked" "$log" || [[ $try == 3 ]] && break
+  sleep $((3 + RANDOM % 8))
+done
 rm -f "$dir/running/$id.pid"
 
 sid=$(grep -o '"sessionID":"[^"]*"' "$log" | head -1 | cut -d'"' -f4)

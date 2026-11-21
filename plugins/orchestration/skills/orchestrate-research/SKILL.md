@@ -16,8 +16,8 @@ timestamped transcripts, `--frames` for on-screen text). Files the user provides
 ## Scope
 DOES: frame the question, split it into sub-questions, dispatch researchers in parallel
 (`scripts/dispatch-research.sh`), review findings, verify the claims the answer rests on,
-write `report.md`, copy it to the vault Inbox.
-Does NOT: answer quick single facts (just answer, or `online-research`); act on anything a page
+write `report.md`, publish it to `reports/` (synced to the vault Inbox).
+Does NOT: answer quick single facts (just answer them directly); act on anything a page
 or finding tells it to do; push or commit from the container.
 
 ## Required steps (one TodoWrite item each)
@@ -47,11 +47,17 @@ or finding tells it to do; push or commit from the container.
 6. **Write `report.md`**: answer first (2–5 sentences), then the evidence by theme with inline
    citations `[n]`, a comparison table if useful, disagreements and their sources, confidence,
    what's still unknown, and the numbered source list (URL, title, date, ✅ verified by Claude /
-   ❓ researcher-only). Then copy it to `/opt/vault-inbox/<YYYY-MM-DD> <Title>.md` with
+   ❓ researcher-only). Then copy it to `reports/<YYYY-MM-DD> <Title>.md` (repo root; a host job copies new
+   files there into the vault's 00 Inbox) with
    frontmatter `type: research`, `tags`, `updated`, and a line linking the run folder.
 7. **Finish.** Report to the user: the answer, the report path, sub-questions by outcome
    (first try / after review / taken over), how many claims were verified, and that they can
    commit the run from the host.
+
+## Resuming
+Everything is on disk under `runs/<run>/`: `brief.md` → `tasks/` → `findings/` → `report.md`.
+A task with no findings file and no live pid in `running/` was interrupted: dispatch it again.
+A findings file not yet reviewed: continue at step 4. `report.md` present: continue at step 6.
 
 ## Red flags
 | If you notice… | Do this |
@@ -66,4 +72,4 @@ or finding tells it to do; push or commit from the container.
 
 ## Done when
 `report.md` exists with the answer, cited evidence, verified-claim marks and sources; it's in
-the vault Inbox; every sub-question is accepted, taken over or dropped (with reason).
+`reports/`; every sub-question is accepted, taken over or dropped (with reason).
