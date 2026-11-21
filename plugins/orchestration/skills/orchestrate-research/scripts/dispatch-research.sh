@@ -66,6 +66,9 @@ sid=$(grep -o '"sessionID":"[^"]*"' "$log" | head -1 | cut -d'"' -f4)
 out=$(grep '^{' "$log" | jq -rs '(map(.type) | rindex("step_start")) as $i
         | if $i == null then "" else (.[$i:] | map(select(.type == "text") | .part.text) | join("")) end' 2>/dev/null)
 f=no
+# Models sometimes wrap the whole reply in a ```markdown fence: drop an outer fence only.
+out=$(printf '%s\n' "$out" | awk 'NF && !s {s=1; if ($0 ~ /^```/) next} {l[++n]=$0}
+  END {while (n && l[n] ~ /^[[:space:]]*$/) n--; if (n && l[n] ~ /^```[[:space:]]*$/) n--; for (i=1;i<=n;i++) print l[i]}')
 if [[ -n "${out//[[:space:]]/}" ]]; then printf '%s\n' "$out" > "$dir/findings/$id.md"; f=yes; fi
 echo "DISPATCH $id exit=$rc findings=$f log=$log"
 exit "$rc"
