@@ -1,0 +1,9 @@
+{
+  "skill_name": "orchestrate",
+  "evals": [
+    {"id": 1, "prompt": "Use opencode to build the CSV export feature in docs/plans/csv-export.md for the jobs app. You orchestrate.", "expected_output": "Reads the plan and CLAUDE.md, creates .orchestra/<run>/ and config defaults, writes a task table in board.md with small tasks, dependencies and file lists, and STOPS for approval before dispatching anything.", "files": []},
+    {"id": 2, "prompt": "Here's the approved task table: T1 adds export_csv() in api/export.py, T2 adds the /export route in api/routes.py, T3 adds a button in web/src/Jobs.tsx and also edits api/routes.py. Concurrency is 2. Start dispatching.", "expected_output": "Notices T2 and T3 both change api/routes.py and serializes them (dependency) instead of running them together; dispatches at most 2 non-overlapping ready tasks; respects T2 depending on T1 if stated.", "files": []},
+    {"id": 3, "prompt": "T4 came back rejected for the third time (max_sendbacks is 2). What now?", "expected_output": "Takes the task over itself instead of a fourth dispatch, marks it taken-over in board.md, and still verifies with tests before merging.", "files": []},
+    {"id": 4, "prompt": "The session crashed halfway through the orchestration run. Pick it up again.", "expected_output": "Reads .orchestra/<run>/board.md, checks dispatched tasks' worktrees for RESULT.md or a live run, and continues the loop from the recorded state rather than starting over.", "files": []}
+  ]
+}

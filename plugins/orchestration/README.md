@@ -1,0 +1,17 @@
+# orchestration
+
+Claude Code orchestrates and reviews; **opencode** on a local model (here qwen3.8-flash-next on
+atlas) implements small, precise tasks, each in its own git worktree. The format both sides share
+is `contract.md`.
+
+| Side | What | Where |
+|---|---|---|
+| Claude Code | `orchestrate`, `write-task-spec`, `dispatch-opencode`, `review-and-merge` | `skills/` (this plugin) |
+| opencode | agent `implementer`; skills `implement-task`, `report-result` | `opencode/` → copy to `~/.config/opencode/agent/` and `~/.config/opencode/skills/` |
+
+Rules in one breath: tasks are small with an exact test command; opencode edits only the
+listed files and never commits or pushes; Claude reruns the tests and reads the diff before
+merging; two send-backs, then Claude takes over; `concurrency` (default 1) caps parallel runs.
+
+Install (Claude side): `/plugin install orchestration@frugal-skills` once this marketplace is added.
+In the homestack devcontainers the opencode side is installed by the `devcontainer` repo.

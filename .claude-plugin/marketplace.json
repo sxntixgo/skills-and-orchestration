@@ -20,6 +20,18 @@
         "software-development",
         "research"
       ]
+    },
+    {
+      "name": "orchestration",
+      "source": "./plugins/orchestration",
+      "version": "0.1.0",
+      "description": "Claude orchestrates and reviews; opencode on a local model implements small tasks in git worktrees.",
+      "category": "development",
+      "keywords": [
+        "orchestration",
+        "opencode",
+        "local-llm"
+      ]
     }
   ]
 }

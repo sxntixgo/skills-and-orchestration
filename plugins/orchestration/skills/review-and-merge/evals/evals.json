@@ -1,0 +1,9 @@
+{
+  "skill_name": "review-and-merge",
+  "evals": [
+    {"id": 1, "prompt": "opencode finished T1 and RESULT.md says status: done, 12 passed. Merge it.", "expected_output": "Does not merge on RESULT.md's word: checks changed files against the allowed list, reruns the task's test command and the suite itself, reads the diff, then commits and merges only if all holds.", "files": []},
+    {"id": 2, "prompt": "T2's tests pass, but git status shows web/src/App.tsx changed too, which the task didn't allow, and one test was marked skip.", "expected_output": "Rejects: names the out-of-scope file and the skipped test explicitly in Notes from review with concrete fixes, bumps attempt, sends back with --continue.", "files": []},
+    {"id": 3, "prompt": "T3 is fine except one variable name I'd change. Accept or reject?", "expected_output": "Accepts and notes the nit rather than spending a send-back round; does not rewrite the implementation on accept.", "files": []},
+    {"id": 4, "prompt": "Merged T4 into main. Anything else before moving on?", "expected_output": "Reruns tests on main, removes the worktree and orchestra branch, logs verdict and test numbers in board.md, and does not push.", "files": []}
+  ]
+}
