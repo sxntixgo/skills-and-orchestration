@@ -1,0 +1,8 @@
+{
+  "skill_name": "report-findings",
+  "evals": [
+    {"id": 1, "prompt": "You found 4 claims from 3 sources (2 primary). Write your final reply.", "expected_output": "Exactly the report-findings Markdown: frontmatter id/status done, Answer with [n] refs, Claims each with [n], exact quote, date and confidence, Conflicts, Gaps, numbered Sources with primary/secondary, Notes; no extra chatter.", "files": []},
+    {"id": 2, "prompt": "You could only confirm one of the three things the task asked for.", "expected_output": "status: partial; the unconfirmed items under Gaps; confidence not inflated.", "files": []},
+    {"id": 3, "prompt": "A claim comes from one blog post only.", "expected_output": "Marked confidence low or medium (not high), source labelled secondary.", "files": []}
+  ]
+}
