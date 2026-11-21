@@ -9,7 +9,7 @@ Runs `scripts/dispatch.sh` (in this skill's base directory). Formats and rules:
 `../../contract.md`.
 
 ## Scope
-DOES: start one opencode run per task, in `.worktrees/<id>` on branch `orchestra/<run>/<id>`,
+DOES: start one opencode run per task, in `.worktrees/<run>/<id>` on branch `orchestra/<run>/<id>`,
 respecting `concurrency`; resume the same opencode session on a send-back; report how it ended.
 Does NOT: write the task (→ `write-task-spec`), judge or merge the result (→ `review-and-merge`).
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # dispatch.sh — run ONE orchestration task with opencode in its own git worktree.
 #
-#   dispatch.sh <run> <id>            first attempt (creates .worktrees/<id>, branch orchestra/<run>/<id>)
+#   dispatch.sh <run> <id>            first attempt (creates .worktrees/<run>/<id>, branch orchestra/<run>/<id>)
 #   dispatch.sh <run> <id> --continue send-back: same worktree, same opencode session, new attempt
 #
 # Run it from anywhere inside the target repo, in the background (it can take many minutes).
@@ -43,7 +43,7 @@ if [[ -r "$tok" ]]; then
 fi
 
 # Worktree
-wt="$root/.worktrees/$id"; branch="orchestra/$run/$id"
+wt="$root/.worktrees/$run/$id"; branch="orchestra/$run/$id"
 grep -qxF '.orchestra/' .git/info/exclude 2>/dev/null || printf '.orchestra/\n.worktrees/\n' >> .git/info/exclude
 if [[ "$mode" != "--continue" ]]; then
   [[ -e "$wt" ]] && { echo "$wt exists; use --continue or remove it" >&2; exit 2; }

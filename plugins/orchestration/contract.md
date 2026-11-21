@@ -13,7 +13,7 @@ Change it only with a version bump here and in every file that cites it.
     tasks/<id>.task.md        what to build (write-task-spec)
     tasks/<id>.result.md      what was built (copied from the worktree by review-and-merge)
     logs/<id>.<n>.jsonl       opencode's event log, one per attempt (dispatch-opencode)
-.worktrees/<id>/              one git worktree per dispatched task, branch orchestra/<run>/<id>
+.worktrees/<run>/<id>/        one git worktree per dispatched task, branch orchestra/<run>/<id>
 ```
 `.orchestra/` and `.worktrees/` go in `.git/info/exclude` (not `.gitignore`: nothing to commit).
 

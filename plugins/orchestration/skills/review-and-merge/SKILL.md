@@ -14,9 +14,9 @@ review notes into the task and hand it back; after `max_sendbacks` rejections â†
 Does NOT: push, deploy, or widen the task. Does not fix the implementer's code silently on accept.
 
 ## Required steps
-1. **Collect.** Copy `.worktrees/<id>/RESULT.md` to `.orchestra/<run>/tasks/<id>.result.md`.
+1. **Collect.** Copy `.worktrees/<run>/<id>/RESULT.md` to `.orchestra/<run>/tasks/<id>.result.md`.
    Read it and the task file.
-2. **Scope check.** `git -C .worktrees/<id> status --porcelain` and `git -C .worktrees/<id> diff`
+2. **Scope check.** `git -C .worktrees/<run>/<id> status --porcelain` and `git -C .worktrees/<run>/<id> diff`
    (plus untracked files). Every changed file must be in the task's "may change/create" list.
    RESULT.md itself must not be committed. Build artifacts (`__pycache__/`, `node_modules/`, coverage)
    are not scope violations: delete them before committing.
