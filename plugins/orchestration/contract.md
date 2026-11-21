@@ -23,8 +23,9 @@ Change it only with a version bump here and in every file that cites it.
   "task_timeout_min": 30, "max_rejections": 3, "base_branch": "main" }
 ```
 `concurrency` = how many opencode tasks may run at once, each in its own worktree. 2 is measured
-safe with atlas serving one request at a time (two runs fill each other's tool-running gaps:
-265 s vs 310 s for two tasks). Raise it only after LM Studio gets more parallel slots.
+the number of slots atlas serves at once: 2 since 2026-11-21 (GGUF on llama.cpp; before, one slot,
+where two runs still filled each other's tool-running gaps: 265 s vs 310 s). A third run only queues;
+chat and news share the same slots.
 `max_rejections` = rejected attempts before Claude takes the task over (3 → opencode gets 3 tries).
 Missing file = these defaults.
 
