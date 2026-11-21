@@ -1,8 +1,35 @@
 {
   "skill_name": "claude-write-task",
   "evals": [
-    {"id": 1, "prompt": "Write the task for opencode: add pagination to GET /jobs in api/routes.py (page, page_size, default 20).", "expected_output": "Reads the route and an existing paginated pattern first; task.md lists exact files, test-first steps, an exact runnable test command, edge cases (page 0, page beyond end, page_size cap), and out-of-scope items.", "files": []},
-    {"id": 2, "prompt": "Make a task to clean up and improve the books backend.", "expected_output": "Refuses to write a vague task: asks what concretely to change or tells orchestrate it must be split; no 'improve/clean up' wording in a spec.", "files": []},
-    {"id": 3, "prompt": "T2 was rejected: it changed web/src/App.tsx which wasn't allowed, and the empty-list case returns 500. Update the task for attempt 2.", "expected_output": "Keeps the task, bumps attempt to 2, adds 'Notes from review' with file:line, the problem and the concrete fix for each point.", "files": []}
+    {
+      "id": 1,
+      "prompt": "Write the task for opencode: add pagination to GET /jobs in api/routes.py (page, page_size, default 20).",
+      "expected_output": "Reads the route and an existing paginated pattern first; task.md lists exact files, test-first steps, an exact runnable test command, edge cases (page 0, page beyond end, page_size cap), and out-of-scope items.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Make a task to clean up and improve the books backend.",
+      "expected_output": "Refuses to write a vague task: asks what concretely to change or tells orchestrate it must be split; no 'improve/clean up' wording in a spec.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "T2 was rejected: it changed web/src/App.tsx which wasn't allowed, and the empty-list case returns 500. Update the task for attempt 2.",
+      "expected_output": "Keeps the task, bumps attempt to 2, adds 'Notes from review' with file:line, the problem and the concrete fix for each point.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Write the task for opencode: upgrade vitest from 3 to 5 in web/ (web/package.json has vite ^5.4 and vitest ^3.2; .github/workflows/ci.yml uses node-version 18; web/Dockerfile is FROM node:18-alpine AS build). vitest 5 declares peerDependencies vite ^6 || ^7 || ^8 and engines node ^20.19 || >=22.12.",
+      "expected_output": "A task.md whose Context names vitest 5's requirements (vite >= 6, Node >= 20.19) and that handles them: either vite is upgraded in the same task (files list includes package.json and package-lock.json) or the spec depends on a prior vite task; the Node 18 pins in ci.yml and the Dockerfile are included in this task's files or flagged as a required prior task. Exact test command present.",
+      "assertions": [
+        "Context lists vitest 5's peer requirement on vite >= 6",
+        "Context lists the Node engine requirement (>= 20.19 / 22.12)",
+        "The vite upgrade is part of this task or an explicit dependency",
+        "The Node 18 pins in .github/workflows/ci.yml and web/Dockerfile are in the files list or an explicit dependency",
+        "An exact runnable test command is given"
+      ]
+    }
   ]
 }

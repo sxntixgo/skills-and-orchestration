@@ -24,10 +24,17 @@ Does NOT: split the plan (→ `claude-orchestrate-development`), run anything (�
 4. **Write steps** as short imperatives in order, always test-first (TDD: "add test X, see it
    fail, then implement"). Name functions, routes, fields exactly. Give types/signatures when
    they matter. Point to existing helpers to reuse (DRY), and specify only what's needed (YAGNI).
-5. **Out of scope.** Name the tempting extras (refactors, renames, new deps, formatting other files).
-6. **Attempt ≥ 2:** add `## Notes from review` with each problem as `file:line — what is wrong —
+5. **Version bumps: check what the new versions require.** When the task upgrades a package
+   (or a runtime), look up each new version's requirements *before* writing the steps:
+   npm `npm view <pkg>@<ver> peerDependencies engines`; Python `requires-python` and its
+   dependency pins on PyPI. Every requirement the repo doesn't meet yet is part of the task
+   (or an earlier task): a peer that must move too (vitest 5 → vite ≥ 6), and the runtime
+   wherever it is pinned — CI workflow (`node-version`, `python-version`), Dockerfile `FROM`,
+   `.nvmrc`/`.python-version`, devcontainer. Put the found requirements in Context.
+6. **Out of scope.** Name the tempting extras (refactors, renames, new deps, formatting other files).
+7. **Attempt ≥ 2:** add `## Notes from review` with each problem as `file:line — what is wrong —
    what to do instead`. Keep everything else; bump `attempt`.
-7. Save the file; note the path in `board.md`.
+8. Save the file; note the path in `board.md`.
 
 ## Red flags
 | If you notice… | Do this |
@@ -36,6 +43,7 @@ Does NOT: split the plan (→ `claude-orchestrate-development`), run anything (�
 | No exact test command | Add one; a task without a check can't be reviewed |
 | The spec explains *why* at length but not *what* | Cut to 2–6 lines of context |
 | New dependency needed | Decide it yourself and name it, or keep it out of scope |
+| A version bump with no requirements checked | Check peers/engines first; CI and Dockerfile pins are part of the task |
 | Secrets, deploy, infra or migrations of live data | Mark the task for Claude, not opencode |
 
 ## Done when

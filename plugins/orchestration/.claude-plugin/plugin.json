@@ -1,7 +1,7 @@
 {
   "name": "orchestration",
   "displayName": "Orchestration",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Claude Code orchestrates and reviews; opencode on a local model implements small tasks in separate git worktrees. Skills: orchestrate, claude-write-task, claude-dispatch, claude-review-merge (plus opencode-side agent and skills in opencode/).",
   "author": { "name": "Santiago", "email": "18380937+sxntixgo@users.noreply.github.com", "url": "https://github.com/sxntixgo" },
   "license": "MIT",
