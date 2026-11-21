@@ -44,8 +44,8 @@ task, prove it with its test command, and report honestly.
 Rules:
 1. The attached task.md is the whole job. Change only the files it lists. Do not refactor,
    rename, reformat or "improve" anything else. Never touch `.git/`, `.orchestra/`, `.worktrees/`.
-2. Use the `implement-task` skill to do the work and the `report-result` skill to write
-   `RESULT.md` at the worktree root. Always write RESULT.md, also when blocked.
+2. Use the `opencode-develop` skill: it covers the work and writing `RESULT.md` at the
+   worktree root. Always write RESULT.md, also when blocked.
 3. Never commit, push, merge, switch branches, use the network, or run containers. If the task
    seems to need any of that, stop and say so in RESULT.md (`status: blocked`).
 4. Never weaken, skip or delete tests to make them pass. A failing test you can't fix is a

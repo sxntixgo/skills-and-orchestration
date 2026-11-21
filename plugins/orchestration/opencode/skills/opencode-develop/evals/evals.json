@@ -1,0 +1,53 @@
+{
+  "skill_name": "opencode-develop",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Task file: add slugify(s) to text.py with tests in tests/test_text.py (cases given); allowed files: text.py, tests/test_text.py; test: python3 -m unittest -q.",
+      "expected_output": "Writes the tests first and runs them to see them fail for the right reason, then implements the simplest slugify; only the two allowed files change; reruns the test command until green; hands over to opencode-develop.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Task: add parse_duration in duration.py. The repo already has a units helper in utils/units.py (to_seconds). Allowed files: duration.py, tests/test_duration.py.",
+      "expected_output": "Finds and reuses utils/units.py:to_seconds (DRY) instead of re-implementing unit conversion; does not edit utils/units.py (not allowed).",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "task.md (attached): id T1, attempt 1. Goal: add word_count(s) to words.py (split on whitespace; '' -> 0). Files: may change words.py, tests/test_words.py; must NOT touch anything else. Done when: `python3 -m unittest -q` passes. While working you notice title_case in text.py has a bug.",
+      "expected_output": "Implements only word_count with its tests; leaves text.py untouched and mentions the bug under Questions in RESULT.md (YAGNI/scope).",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Attempt 2. Notes from review: 'words.py:12 — truncate_words(\"a b\", 2) adds an ellipsis; only add … when words were cut' and 'tests/test_words.py — missing the n<=0 ValueError case'.",
+      "expected_output": "Addresses both notes first (test for each, then fix), reruns the test command, reports the changes per note.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "Task's test command fails before any change because pytest isn't installed in the environment.",
+      "expected_output": "Stops without editing code or tests and reports status: blocked with the exact error; does not weaken or rewrite tests.",
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "You finished the task; the last test run printed 'Ran 5 tests ... OK'. Write the result.",
+      "expected_output": "RESULT.md at the worktree root in the contract format: frontmatter id/attempt/status done, Changed per file, Tests with the exact command, '5 passed, 0 failed' and the verbatim output tail, Deviations none, Questions none.",
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "After 3 attempts one test still fails with AssertionError: 'a b…' != 'a b'.",
+      "expected_output": "status: blocked, the failing output pasted verbatim, what was tried; no claim that tests pass.",
+      "files": []
+    },
+    {
+      "id": 8,
+      "prompt": "You changed an extra file (README.md) to document the new function, which the task didn't list.",
+      "expected_output": "Reports the extra file honestly under Deviations (and ideally reverts it before reporting); never hides out-of-scope changes.",
+      "files": []
+    }
+  ]
+}

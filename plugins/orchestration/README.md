@@ -6,8 +6,8 @@ is `contract.md`.
 
 | Side | What | Where |
 |---|---|---|
-| Claude Code | `orchestrate`, `write-task-spec`, `dispatch-opencode`, `review-and-merge` | `skills/` (this plugin) |
-| opencode | agent `implementer`; skills `implement-task`, `report-result` | `opencode/` → copy to `~/.config/opencode/agent/` and `~/.config/opencode/skills/` |
+| Claude Code | `claude-orchestrate-development`, `claude-write-task`, `claude-dispatch`, `claude-review-merge`, `claude-orchestrate-research` | `skills/` (this plugin) |
+| opencode | agent `implementer`; agent `researcher`; skills `opencode-develop`, `opencode-research` | `opencode/` → copy to `~/.config/opencode/agent/` and `~/.config/opencode/skills/` |
 
 Rules in one breath: tasks are small with an exact test command; opencode edits only the
 listed files and never commits or pushes; Claude reruns the tests and reads the diff before

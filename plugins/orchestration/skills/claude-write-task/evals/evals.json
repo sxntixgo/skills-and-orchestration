@@ -1,0 +1,8 @@
+{
+  "skill_name": "claude-write-task",
+  "evals": [
+    {"id": 1, "prompt": "Write the task for opencode: add pagination to GET /jobs in api/routes.py (page, page_size, default 20).", "expected_output": "Reads the route and an existing paginated pattern first; task.md lists exact files, test-first steps, an exact runnable test command, edge cases (page 0, page beyond end, page_size cap), and out-of-scope items.", "files": []},
+    {"id": 2, "prompt": "Make a task to clean up and improve the books backend.", "expected_output": "Refuses to write a vague task: asks what concretely to change or tells orchestrate it must be split; no 'improve/clean up' wording in a spec.", "files": []},
+    {"id": 3, "prompt": "T2 was rejected: it changed web/src/App.tsx which wasn't allowed, and the empty-list case returns 500. Update the task for attempt 2.", "expected_output": "Keeps the task, bumps attempt to 2, adds 'Notes from review' with file:line, the problem and the concrete fix for each point.", "files": []}
+  ]
+}

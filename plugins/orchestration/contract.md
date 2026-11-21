@@ -1,7 +1,7 @@
 # Orchestration contract (v1)
 
-Shared by the Claude-side skills (`orchestrate`, `write-task-spec`, `dispatch-opencode`,
-`review-and-merge`) and the opencode side (`implementer` agent, `implement-task`, `report-result`).
+Shared by the Claude-side skills (`claude-orchestrate-development`, `claude-write-task`, `claude-dispatch`,
+`claude-review-merge`) and the opencode side (`implementer` agent + `opencode-develop` skill, `researcher` agent + `opencode-research` skill).
 Change it only with a version bump here and in every file that cites it.
 
 ## Files (all inside the target repo, never committed)
@@ -10,9 +10,9 @@ Change it only with a version bump here and in every file that cites it.
   config.json                 settings for this repo (below)
   <run>/                      one run = one feature/plan, e.g. 2026-11-21-csv-export
     board.md                  the run's state: task table + log (orchestrate owns it)
-    tasks/<id>.task.md        what to build (write-task-spec)
-    tasks/<id>.result.md      what was built (copied from the worktree by review-and-merge)
-    logs/<id>.<n>.jsonl       opencode's event log, one per attempt (dispatch-opencode)
+    tasks/<id>.task.md        what to build (claude-write-task)
+    tasks/<id>.result.md      what was built (copied from the worktree by claude-review-merge)
+    logs/<id>.<n>.jsonl       opencode's event log, one per attempt (claude-dispatch)
 .worktrees/<run>/<id>/        one git worktree per dispatched task, branch orchestra/<run>/<id>
 ```
 `.orchestra/` and `.worktrees/` go in `.git/info/exclude` (not `.gitignore`: nothing to commit).
@@ -93,9 +93,9 @@ outcome: N passed, M failed
   the task doesn't need: no extra options, params, abstractions or "just in case" branches) and
   **DRY** (reuse existing helpers; no copy-pasted logic; but don't merge things that only look alike).
 - After `max_rejections` rejected attempts, Claude takes the task over, delegating it to the
-  cheapest Claude model that can do it (see `review-and-merge`).
+  cheapest Claude model that can do it (see `claude-review-merge`).
 
-## Research runs (skill `orchestrate-research`)
+## Research runs (skill `claude-orchestrate-research`)
 Workspace: the `research` repo. Its devcontainer runs one container per job: research (Claude,
 opencode, the commands), searxng, browser, media, docs and guard (both offline), and the egress proxy
 (internet + llm.h/whisper.h, never the LAN).
@@ -105,7 +105,7 @@ runs/<run>/brief.md               question, purpose, what a good answer contains
 runs/<run>/files/                 documents/media the user provides (read with fetch-text / fetch-media)
 runs/<run>/tasks/<id>.md          one sub-question (frontmatter id, run, attempt) + What to find,
                                   Sources (prefer/avoid), Freshness, Notes from review
-runs/<run>/findings/<id>.md       the researcher's final reply (report-findings format), saved by
+runs/<run>/findings/<id>.md       the researcher's final reply (opencode-research format), saved by
                                   dispatch-research.sh — researchers cannot write files
 runs/<run>/logs/                  opencode JSONL + session ids (gitignored)
 runs/<run>/report.md              Claude's report; published as reports/<date> <Title>.md (host copies it to the vault Inbox)

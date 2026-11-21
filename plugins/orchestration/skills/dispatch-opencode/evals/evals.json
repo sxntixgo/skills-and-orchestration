@@ -1,8 +1,0 @@
-{
-  "skill_name": "dispatch-opencode",
-  "evals": [
-    {"id": 1, "prompt": "T1's task file is ready in .orchestra/2026-11-21-export/tasks. Send it to opencode.", "expected_output": "Runs scripts/dispatch.sh <run> T1 in the background (not foreground), marks T1 dispatched in board.md, and does other work until notified.", "files": []},
-    {"id": 2, "prompt": "dispatch.sh printed: DISPATCH T2 exit=4 result=no log=... What do you do?", "expected_output": "Recognizes the llm endpoint is unreachable, pauses dispatching, checks atlas/ops status, and tells the user instead of retrying in a loop.", "files": []},
-    {"id": 3, "prompt": "Review sent T3 back with notes. Re-run it.", "expected_output": "Uses dispatch.sh <run> T3 --continue (same worktree and opencode session), not a fresh worktree.", "files": []}
-  ]
-}

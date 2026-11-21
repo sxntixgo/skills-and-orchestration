@@ -1,0 +1,35 @@
+{
+  "skill_name": "claude-orchestrate-development",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Use opencode to build the CSV export feature in docs/plans/csv-export.md for the jobs app. You orchestrate.",
+      "expected_output": "Reads the plan and CLAUDE.md, creates .orchestra/<run>/ with config defaults, writes an efficient task table in board.md (few small tasks, disjoint files for parallel runs, dependencies only where needed, exact test commands) and starts dispatching without asking the user to approve the table.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Here's the approved task table: T1 adds export_csv() in api/export.py, T2 adds the /export route in api/routes.py, T3 adds a button in web/src/Jobs.tsx and also edits api/routes.py. Concurrency is 2. Start dispatching.",
+      "expected_output": "Notices T2 and T3 both change api/routes.py and serializes them (dependency) instead of running them together; dispatches at most 2 non-overlapping ready tasks; respects T2 depending on T1 if stated.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "T4 came back rejected for the third time (max_rejections is 3). What now?",
+      "expected_output": "Takes the task over instead of a fourth dispatch: picks the cheapest capable Claude model (haiku/sonnet/opus per references/takeover.md) as a subagent in the same worktree, reviews its result with tests, marks it taken-over with the model in board.md.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "The session crashed halfway through the orchestration run. Pick it up again.",
+      "expected_output": "Reads .orchestra/<run>/board.md, checks dispatched tasks' worktrees for RESULT.md or a live run, and continues the loop from the recorded state rather than starting over.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "T2 was rejected once and T5 twice. Should either be taken over?",
+      "expected_output": "No: both go back to opencode with review notes (--continue); takeover only after the third rejection.",
+      "files": []
+    }
+  ]
+}
