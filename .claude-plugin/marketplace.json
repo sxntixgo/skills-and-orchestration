@@ -24,7 +24,7 @@
     {
       "name": "orchestration",
       "source": "./plugins/orchestration",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "description": "Claude orchestrates and reviews; opencode on a local model implements small tasks in git worktrees.",
       "category": "development",
       "keywords": [

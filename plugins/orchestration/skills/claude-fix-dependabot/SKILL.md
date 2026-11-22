@@ -23,10 +23,16 @@ This skill does NOT:
 
 ## Steps (one TodoWrite item each)
 1. **Preflight.** Repo clean, on the default branch, up to date with origin; `gh auth status` OK;
-   atlas reachable (the dispatcher checks too). Note the repo's test/build commands (CLAUDE.md,
-   README, CI workflow).
-2. **Collect.** `scripts/alerts.sh <owner/repo> > .orchestra/<date>-dependabot/alerts.tsv`
-   (relative to this skill's base directory for the script). Count rows; this is the baseline.
+   atlas reachable (the dispatcher checks too); `.orchestra/config.json` `base_branch` is the
+   default branch (alerts are for it — fix the config, or ask). Note the repo's test/build commands
+   (CLAUDE.md, README, CI workflow). **Look for earlier fix work** before planning new tasks:
+   `git branch -a | grep -i -E 'deps|security|dependabot'` and `gh pr list --author app/dependabot`.
+   An unmerged fix branch → compare its lockfile with the alerts; offer to reuse it (rebase onto the
+   default branch, regenerate the lockfile on conflict, verify) or supersede it — ask at gate 1.
+   Several repos asked at once → one run per repo, one after the other; gate 1 may show one
+   combined table.
+2. **Collect.** Run the script from this skill's base directory:
+   `<base>/scripts/alerts.sh <owner/repo> > .orchestra/<date>-dependabot/alerts.tsv`. Count rows; this is the baseline.
 3. **Triage** each row with `references/triage.md`: who pulls it, which kind (lockfile /
    same-major / major / pin / no fix / override). Write `triage.md` in the run folder: a table
    alert# → package → scope → kind → task id, plus the proposed majors with what they force
@@ -39,9 +45,9 @@ This skill does NOT:
 6. **Dispatch** (claude-dispatch) up to the repo's `concurrency`; tasks on different lockfiles run
    in parallel. **Review and merge** each result (claude-review-merge): diff touches only the
    manifest + lockfile (+ files a major forces), no `--force` traces, tests and build pass.
-7. **Verify on the merged branch:** rerun `scripts/alerts.sh`-equivalent locally (`npm audit`,
-   `pip-audit`/pin check) and the full test + build. Update `triage.md` with fixed / remaining
-   (reason for each remaining one).
+7. **Verify on the merged branch.** Locally: each targeted GHSA id is gone from `npm audit` (per
+   lockfile folder), pins are ≥ first patched; run the full test + build. GitHub's alert list only
+   changes after the push (step 8). Update `triage.md` with fixed / remaining (reason for each).
 8. ⛔ **STOP — gate 2.** Show: merged tasks, test/build results, alerts expected to close vs remain,
    deployed apps whose runtime image changes. Push only on the user's OK; then confirm CI is green
    and the alert count on GitHub dropped (it can take a few minutes to refresh).
@@ -59,6 +65,7 @@ logs/). To resume, read board.md and triage.md and continue from the first unfin
 | Calling an alert "fixed" because tests pass | Fixed = the GHSA id is gone from `npm audit` / the pin is ≥ first patched |
 | About to dismiss an alert as "dev only" | Don't; fix it or list it as remaining with the reason |
 | Alerts on a non-default branch's code | Alerts are for the default branch; work there (merge feature branches first or ask) |
+| Planning new tasks while an old `deps/…` branch already fixes them | Reuse or supersede it explicitly (gate 1) |
 | Pushing before gate 2 | Stop and ask |
 
 ## Done when
