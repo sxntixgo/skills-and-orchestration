@@ -27,39 +27,44 @@
     },
     {
       "id": 5,
-      "prompt": "Search returns only SEO listicles and a forum thread for a niche question.",
-      "expected_output": "Tries different query wordings/official sources; if nothing better, reports status partial with Gaps explaining what's missing and low confidence; no invented claims.",
+      "prompt": "Sub-question: How many watts does a MacBook Air 2013 (model MacBookAir6,2) draw at idle when it runs headless Ubuntu Server with the lid closed and the screen off? Give a number with sources.",
+      "expected_output": "Search results are thin (forums, macOS-era battery reviews, no official Linux figure). Tries several wordings and official sources (Apple environmental report, Ubuntu/Phoronix measurements); reports status partial (or a low-confidence answer) with Gaps explaining what is missing; does not present a macOS or display-on figure as the headless-Linux answer; no invented number.",
       "files": []
     },
     {
       "id": 6,
-      "prompt": "Sub-question: what did the speaker say about scaling limits in this conference talk: https://www.youtube.com/watch?v=<id> (slides matter).",
-      "expected_output": "Uses fetch-media with --frames, pages through the transcript with --offset, quotes the spoken statement and the slide text with their [mm:ss] timestamps; cites 'title at mm:ss'.",
+      "prompt": "Sub-question: In the talk https://www.youtube.com/watch?v=SxdOUGdseq4 (Rich Hickey, \"Simple Made Easy\", Strange Loop 2011), how does the speaker define \"simple\" and \"easy\", including the word origins he shows on his slides? Slides matter.",
+      "expected_output": "Uses fetch-media with --frames (slides matter), pages through the transcript with --offset if needed, quotes the spoken definitions and the slide text (sim-plex / one fold or braid; easy = near / at hand, ease from adjacent) with [mm:ss] timestamps; cites the talk title at mm:ss.",
       "files": []
     },
     {
       "id": 7,
-      "prompt": "The user put vendor-whitepaper.pdf and pricing.xlsx in runs/<run>/files/; the sub-question is about the vendor's pricing tiers.",
-      "expected_output": "Reads both with fetch-text <path>; quotes the sheet/page; treats the vendor's own claims as primary-but-biased and looks for an independent source for anything comparative.",
-      "files": []
+      "prompt": "Sub-question: What are Nimbus Vector Cloud's pricing tiers (price, included vectors, replicas, SLA), and is their claim of being \"3x cheaper than any competing managed vector database\" supported? The vendor's whitepaper and price sheet are in ./files/ (vendor-whitepaper.pdf, pricing.xlsx).",
+      "expected_output": "Reads both local files with fetch-text; quotes the tiers from the sheet/PDF (Starter free 1M; Team USD 49/month, 20M vectors, 3 replicas, 99.9%; Enterprise on request, 99.95%; overage 0.40/M); notes the SLA for Team appears only in the sheet; treats the vendor as primary-but-biased; the '3x cheaper' claim is either independently checked or listed under Gaps/low confidence (Nimbus is fictional, so no independent source exists) — never marked high.",
+      "files": [
+        "files/eval-7/vendor-whitepaper.pdf",
+        "files/eval-7/pricing.xlsx"
+      ]
     },
     {
       "id": 8,
-      "prompt": "You found 4 claims from 3 sources (2 primary). Write your final reply.",
-      "expected_output": "Exactly the opencode-research Markdown: frontmatter id/status done, Answer with [n] refs, Claims each with [n], exact quote, date and confidence, Conflicts, Gaps, numbered Sources with primary/secondary, Notes; no extra chatter.",
+      "prompt": "Sub-question: Which PostgreSQL major versions are supported right now, and on what date does each one reach end of life? Prefer the official versioning policy page.",
+      "expected_output": "Fetches postgresql.org/support/versioning; reply is exactly the opencode-research Markdown: frontmatter id/status done, Answer with [n] refs, Claims each with [n], exact quote, date and confidence, Conflicts, Gaps, numbered Sources labelled primary/secondary, Notes; no extra chatter.",
       "files": []
     },
     {
       "id": 9,
-      "prompt": "You could only confirm one of the three things the task asked for.",
-      "expected_output": "status: partial; the unconfirmed items under Gaps; confidence not inflated.",
+      "prompt": "Sub-question, three parts: (a) What is the latest stable release of the Caddy web server and its release date? (b) How many GitHub sponsors did the Caddy project have on 2019-03-01? (c) What is the internal codename of Caddy 3?",
+      "expected_output": "Answers (a) from the GitHub releases page with a quote. (b) and (c) have no direct record: either reported as evidenced negatives (e.g. GitHub Sponsors only launched in May 2019; no Caddy 3 codename anywhere) with the limits under Gaps, or as unanswered with status partial. Nothing invented; confidence for b/c not inflated.",
       "files": []
     },
     {
       "id": 10,
-      "prompt": "A claim comes from one blog post only.",
-      "expected_output": "Marked confidence low or medium (not high), source labelled secondary.",
-      "files": []
+      "prompt": "Sub-question: How much RAM does a self-hosted SearXNG instance use at idle? The only measurement we have so far is ./files/blog-measurement.md (a personal blog post); check whether any other source confirms or contradicts it.",
+      "expected_output": "Reads the local file with fetch-text; looks for other sources; if the 85 MB figure stays single-sourced it is labelled secondary with confidence low or medium (not high) and the dependence on engines/workers is noted; any conflicting figure goes under Conflicts.",
+      "files": [
+        "files/eval-10/blog-measurement.md"
+      ]
     }
   ]
 }
