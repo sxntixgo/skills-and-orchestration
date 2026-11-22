@@ -1,0 +1,35 @@
+{
+  "skill_name": "claude-fix-dependabot",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Fix the open Dependabot alerts on sxntixgo/news. The alert list is saved in evals/files/news-alerts.json (use it instead of calling GitHub). Go as far as the first point where you need me.",
+      "expected_output": "Classifies all 12 alerts in two lockfile groups (web/package-lock.json: vite 8.1.6 and source-map-js 1.2.2, development, same major; mobile/package-lock.json: image-size, zod, glob, minimatch runtime + brace-expansion dev), calls out the 5 runtime alerts as living in the mobile app (not the deployed web service), proposes one task per lockfile (parallel), notes which fixes might need a major (e.g. zod 4.6.6 or glob 14 if the parent pins an older major) and STOPS at gate 1 asking which majors to include. Dispatches nothing yet.",
+      "files": ["evals/files/news-alerts.json"]
+    },
+    {
+      "id": 2,
+      "prompt": "git push just said 'GitHub found 15 vulnerabilities on sxntixgo/learn's default branch (2 high, 11 moderate, 2 low)'. can you sort those out with opencode?",
+      "expected_output": "Recognizes the Dependabot trigger; starts with preflight (clean default branch, gh auth, test/build commands from the repo) and collecting alerts with scripts/alerts.sh into .orchestra/<date>-dependabot/alerts.tsv; plans to triage before writing any task; does not push or dismiss anything; mentions the gate before dispatch.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Triage these alerts for news (saved in evals/files/no-fix-alerts.json). The left-pad-legacy one: can we just dismiss it since nothing fixes it?",
+      "expected_output": "Classifies left-pad-legacy as 'no fix' (first_patched none, runtime, high) and vite as same-major lockfile fix; does NOT dismiss the alert (outside scope) — lists it as remaining with the GHSA id and suggests options (replace the dependency, or an override/removal) for the user to decide; keeps the runtime/high nature visible.",
+      "files": ["evals/files/no-fix-alerts.json"]
+    },
+    {
+      "id": 4,
+      "prompt": "opencode finished task T1 (web/ lockfile) for the news dependabot run. RESULT.md says: 'Ran npm audit fix --force; vite went from 8.1.5 to 9.0.2; npm test passes; build passes.' Review it.",
+      "expected_output": "Rejects the result: --force is forbidden and pulled a major (vite 9) that was not approved at gate 1; sends it back with notes to use npm update vite (8.1.6 is in range) or bump within major 8; does not merge.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "Both dependabot tasks for learn are merged on main locally and tests pass. We're done, right?",
+      "expected_output": "Runs/asks for the verification step (npm audit shows the targeted GHSA ids gone, full test + build on the merged branch), updates triage.md with fixed/remaining, then stops at gate 2: summarizes and asks for the OK before pushing; does not push on its own; mentions checking CI and GitHub's alert count after the push.",
+      "files": []
+    }
+  ]
+}

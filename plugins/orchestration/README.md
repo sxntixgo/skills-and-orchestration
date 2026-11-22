@@ -6,7 +6,7 @@ is `contract.md`.
 
 | Side | What | Where |
 |---|---|---|
-| Claude Code | `claude-orchestrate-development`, `claude-write-task`, `claude-dispatch`, `claude-review-merge`, `claude-orchestrate-research` | `skills/` (this plugin) |
+| Claude Code | `claude-orchestrate-development`, `claude-write-task`, `claude-dispatch`, `claude-review-merge`, `claude-orchestrate-research`, `claude-fix-dependabot` | `skills/` (this plugin) |
 | opencode | agent `implementer`; agent `researcher`; skills `opencode-develop`, `opencode-research` | `opencode/` → copy to `~/.config/opencode/agent/` and `~/.config/opencode/skills/` |
 
 Rules in one breath: tasks are small with an exact test command; opencode edits only the

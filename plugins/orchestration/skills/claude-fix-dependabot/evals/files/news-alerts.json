@@ -1,0 +1,278 @@
+[
+  {
+    "number": 78,
+    "state": "open",
+    "dependency": {
+      "package": {
+        "ecosystem": "npm",
+        "name": "vite"
+      },
+      "manifest_path": "web/package-lock.json",
+      "scope": "development"
+    },
+    "security_advisory": {
+      "ghsa_id": "GHSA-9jrq-w75r-8gcw",
+      "severity": "low",
+      "summary": "Vite: Cross origin script execution through Vite custom middleware"
+    },
+    "security_vulnerability": {
+      "vulnerable_version_range": ">= 8.0.0, <= 8.1.5",
+      "first_patched_version": {
+        "identifier": "8.1.6"
+      }
+    }
+  },
+  {
+    "number": 77,
+    "state": "open",
+    "dependency": {
+      "package": {
+        "ecosystem": "npm",
+        "name": "vite"
+      },
+      "manifest_path": "web/package-lock.json",
+      "scope": "development"
+    },
+    "security_advisory": {
+      "ghsa_id": "GHSA-rq7h-c2jc-7f22",
+      "severity": "medium",
+      "summary": "Vite: Files outside `server.fs.allow` could be served when project paths match system paths on non-Windows machine"
+    },
+    "security_vulnerability": {
+      "vulnerable_version_range": ">= 8.0.0, <= 8.1.5",
+      "first_patched_version": {
+        "identifier": "8.1.6"
+      }
+    }
+  },
+  {
+    "number": 76,
+    "state": "open",
+    "dependency": {
+      "package": {
+        "ecosystem": "npm",
+        "name": "vite"
+      },
+      "manifest_path": "web/package-lock.json",
+      "scope": "development"
+    },
+    "security_advisory": {
+      "ghsa_id": "GHSA-r825-w8mm-5pxw",
+      "severity": "medium",
+      "summary": "launch-editor: Editor CLI flag misinterpretation causing arbitrary command execution for some editors"
+    },
+    "security_vulnerability": {
+      "vulnerable_version_range": ">= 8.0.0, <= 8.1.5",
+      "first_patched_version": {
+        "identifier": "8.1.6"
+      }
+    }
+  },
+  {
+    "number": 75,
+    "state": "open",
+    "dependency": {
+      "package": {
+        "ecosystem": "npm",
+        "name": "vite"
+      },
+      "manifest_path": "web/package-lock.json",
+      "scope": "development"
+    },
+    "security_advisory": {
+      "ghsa_id": "GHSA-587h-7wmj-h5pm",
+      "severity": "high",
+      "summary": "launch-editor: `fs.existsSync()` existence check can be bypassed on Windows"
+    },
+    "security_vulnerability": {
+      "vulnerable_version_range": ">= 8.0.0, <= 8.1.5",
+      "first_patched_version": {
+        "identifier": "8.1.6"
+      }
+    }
+  },
+  {
+    "number": 74,
+    "state": "open",
+    "dependency": {
+      "package": {
+        "ecosystem": "npm",
+        "name": "vite"
+      },
+      "manifest_path": "web/package-lock.json",
+      "scope": "development"
+    },
+    "security_advisory": {
+      "ghsa_id": "GHSA-698v-4r3x-3vcv",
+      "severity": "medium",
+      "summary": "launch-editor: escapeCmdArgs() omits % escaping on Windows"
+    },
+    "security_vulnerability": {
+      "vulnerable_version_range": ">= 8.0.0, <= 8.1.5",
+      "first_patched_version": {
+        "identifier": "8.1.6"
+      }
+    }
+  },
+  {
+    "number": 73,
+    "state": "open",
+    "dependency": {
+      "package": {
+        "ecosystem": "npm",
+        "name": "source-map-js"
+      },
+      "manifest_path": "web/package-lock.json",
+      "scope": "development"
+    },
+    "security_advisory": {
+      "ghsa_id": "GHSA-68fv-2mgg-jv7q",
+      "severity": "high",
+      "summary": "source-map-js allows event-loop denial of service through indexed source-map section offsets"
+    },
+    "security_vulnerability": {
+      "vulnerable_version_range": ">= 1.0.0, < 1.2.2",
+      "first_patched_version": {
+        "identifier": "1.2.2"
+      }
+    }
+  },
+  {
+    "number": 59,
+    "state": "open",
+    "dependency": {
+      "package": {
+        "ecosystem": "npm",
+        "name": "minimatch"
+      },
+      "manifest_path": "mobile/package-lock.json",
+      "scope": "runtime"
+    },
+    "security_advisory": {
+      "ghsa_id": "GHSA-g3hv-75wg-m249",
+      "severity": "medium",
+      "summary": "minimatch has potential denial of service via globparts amplification"
+    },
+    "security_vulnerability": {
+      "vulnerable_version_range": ">= 7.0.0, < 11.0.1",
+      "first_patched_version": {
+        "identifier": "11.0.1"
+      }
+    }
+  },
+  {
+    "number": 58,
+    "state": "open",
+    "dependency": {
+      "package": {
+        "ecosystem": "npm",
+        "name": "glob"
+      },
+      "manifest_path": "mobile/package-lock.json",
+      "scope": "runtime"
+    },
+    "security_advisory": {
+      "ghsa_id": "GHSA-3g3m-2fjr-6pw4",
+      "severity": "medium",
+      "summary": "Glob: AbortSignal cancellation bypass allows post-timeout filesystem traversal"
+    },
+    "security_vulnerability": {
+      "vulnerable_version_range": ">= 9.0.0, <= 14.0.1",
+      "first_patched_version": {
+        "identifier": "14.0.2"
+      }
+    }
+  },
+  {
+    "number": 45,
+    "state": "open",
+    "dependency": {
+      "package": {
+        "ecosystem": "npm",
+        "name": "zod"
+      },
+      "manifest_path": "mobile/package-lock.json",
+      "scope": "runtime"
+    },
+    "security_advisory": {
+      "ghsa_id": "GHSA-mrhx-c7xc-m3w5",
+      "severity": "high",
+      "summary": "Zod can exhaust memory while validating oversized constrained collections"
+    },
+    "security_vulnerability": {
+      "vulnerable_version_range": "< 4.6.6",
+      "first_patched_version": {
+        "identifier": "4.6.6"
+      }
+    }
+  },
+  {
+    "number": 40,
+    "state": "open",
+    "dependency": {
+      "package": {
+        "ecosystem": "npm",
+        "name": "brace-expansion"
+      },
+      "manifest_path": "mobile/package-lock.json",
+      "scope": "development"
+    },
+    "security_advisory": {
+      "ghsa_id": "GHSA-q2hr-2g5m-vwhr",
+      "severity": "medium",
+      "summary": "brace-expansion: Quadratic-time expansion of the `{a},b}` rewrite causes CPU denial of service"
+    },
+    "security_vulnerability": {
+      "vulnerable_version_range": "< 1.1.21",
+      "first_patched_version": {
+        "identifier": "1.1.21"
+      }
+    }
+  },
+  {
+    "number": 34,
+    "state": "open",
+    "dependency": {
+      "package": {
+        "ecosystem": "npm",
+        "name": "image-size"
+      },
+      "manifest_path": "mobile/package-lock.json",
+      "scope": "runtime"
+    },
+    "security_advisory": {
+      "ghsa_id": "GHSA-5p2g-fcmc-qvqq",
+      "severity": "high",
+      "summary": "image-size: JXL and HEIF parsers allow denial of service through infinite loops"
+    },
+    "security_vulnerability": {
+      "vulnerable_version_range": ">= 1.2.0, <= 2.0.2",
+      "first_patched_version": {
+        "identifier": "2.0.3"
+      }
+    }
+  },
+  {
+    "number": 33,
+    "state": "open",
+    "dependency": {
+      "package": {
+        "ecosystem": "npm",
+        "name": "image-size"
+      },
+      "manifest_path": "mobile/package-lock.json",
+      "scope": "runtime"
+    },
+    "security_advisory": {
+      "ghsa_id": "GHSA-w3rx-r6r6-pgpr",
+      "severity": "high",
+      "summary": "image-size: ICNS parser allows denial of service through an infinite loop"
+    },
+    "security_vulnerability": {
+      "vulnerable_version_range": ">= 0.6.3, <= 2.0.2",
+      "first_patched_version": {
+        "identifier": "2.0.3"
+      }
+    }
+  }
+]

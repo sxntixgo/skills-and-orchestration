@@ -1,0 +1,46 @@
+[
+  {
+    "number": 78,
+    "state": "open",
+    "dependency": {
+      "package": {
+        "ecosystem": "npm",
+        "name": "vite"
+      },
+      "manifest_path": "web/package-lock.json",
+      "scope": "development"
+    },
+    "security_advisory": {
+      "ghsa_id": "GHSA-9jrq-w75r-8gcw",
+      "severity": "low",
+      "summary": "Vite: Cross origin script execution through Vite custom middleware"
+    },
+    "security_vulnerability": {
+      "vulnerable_version_range": ">= 8.0.0, <= 8.1.5",
+      "first_patched_version": {
+        "identifier": "8.1.6"
+      }
+    }
+  },
+  {
+    "number": 901,
+    "state": "open",
+    "dependency": {
+      "package": {
+        "ecosystem": "npm",
+        "name": "left-pad-legacy"
+      },
+      "manifest_path": "web/package-lock.json",
+      "scope": "runtime"
+    },
+    "security_advisory": {
+      "ghsa_id": "GHSA-xxxx-0000-test",
+      "severity": "high",
+      "summary": "Prototype pollution in left-pad-legacy"
+    },
+    "security_vulnerability": {
+      "vulnerable_version_range": "<= 2.1.0",
+      "first_patched_version": null
+    }
+  }
+]
