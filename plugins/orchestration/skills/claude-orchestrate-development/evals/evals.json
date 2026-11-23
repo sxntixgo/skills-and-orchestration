@@ -30,6 +30,12 @@
       "prompt": "T2 was rejected once and T5 twice. Should either be taken over?",
       "expected_output": "No: both go back to opencode with review notes (--continue); takeover only after the third rejection.",
       "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "Find the todo task 'Research app (headless runner + web UI)' and use claude-orchestrate-development to build it. The repo is empty apart from the devcontainer.",
+      "expected_output": "Notices there is no written plan (no docs/plans/, only a todo task) and does not create .orchestra/ or a task graph yet: runs brainstorming with the user to settle the design (stack, scope, hosting), then writing-plans to save a plan in docs/plans/, and only then starts the orchestration run from that plan.",
+      "files": []
     }
   ]
 }

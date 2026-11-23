@@ -10,6 +10,10 @@ small tasks, hand them out, check every result, and merge. The file formats are 
 `../../contract.md` (relative to this skill's base directory): read it first.
 
 ## Scope
+Input: a **written plan** (e.g. `docs/plans/*-plan.md` from `writing-plans`, built on a design
+settled with the user in `brainstorming`). A one-line request, a todo task or an idea is not a
+plan: get one first (step 0). The *design* is the user's call; only the *task graph* is yours.
+
 This skill DOES:
 - Split a plan into tasks with dependencies and **file ownership** (no two tasks that may run
   at the same time change the same file).
@@ -27,7 +31,13 @@ This skill does NOT:
   different features).
 
 ## Required steps (one TodoWrite item each)
-1. **Set up the run.** Read the plan (or the user's request) and the repo's `CLAUDE.md`/`AGENTS.md`.
+0. **Plan gate.** Is there a written plan that covers this work (a path from the user, or in
+   `docs/plans/`)? If not: ⛔ STOP orchestrating. Run `brainstorming` (frugal-skills) with the
+   user to settle the design, then `writing-plans` to save a phased plan in `docs/plans/`, then
+   come back here with that plan. Never invent the design (stack, architecture, scope) inside
+   `board.md`. Skip only for a small change the request already pins down (e.g. "bump X to 2.1
+   and fix the tests").
+1. **Set up the run.** Read the plan and the repo's `CLAUDE.md`/`AGENTS.md`.
    Create `.orchestra/<run>/` (run = `YYYY-MM-DD-<slug>`), add `.orchestra/` and `.worktrees/`
    to `.git/info/exclude`, read or create `.orchestra/config.json` (contract defaults).
    Check: working tree clean on `base_branch`; the repo's test command works. ⛔ STOP if not.
@@ -61,6 +71,7 @@ process alive) or finished (RESULT.md in the worktree). Continue the loop from t
 | If you notice… | Do this |
 |---|---|
 | Waiting for the user to approve the task table | Don't; plan carefully and dispatch |
+| Choosing the stack or architecture while writing `board.md` | Stop: no plan yet → `brainstorming`, then `writing-plans` (step 0) |
 | A task with no test or no observable outcome | Merge it into another task or drop it (YAGNI) |
 | Two concurrent tasks list the same file | Serialize them (add a dependency) |
 | A task that needs "and also…" to describe | Split it |
