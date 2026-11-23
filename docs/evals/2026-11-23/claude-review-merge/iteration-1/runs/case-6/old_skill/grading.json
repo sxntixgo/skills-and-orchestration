@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "Chooses takeover instead of a 4th dispatch",
+      "passed": true,
+      "evidence": "\"reaches `max_rejections` (3). So I won't send it back to opencode again. Per `references/takeover.md` I'm handing it to **haiku**\""
+    },
+    {
+      "text": "Picks haiku or sonnet, not opus",
+      "passed": true,
+      "evidence": "\"Spawn the subagent (Agent tool, `model: \"haiku\"`)\" — opus only as escalation after haiku and sonnet fail."
+    },
+    {
+      "text": "The takeover gets the full task, review notes and rules",
+      "passed": true,
+      "evidence": "\"## Task (full T7.task.md) <pasted verbatim: goal, Context, Files, Steps, Done when, Out of scope, all Notes from review>\" plus a \"## Rules\" section (TDD, scope, YAGNI, no weakened tests)."
+    },
+    {
+      "text": "The result is reviewed (tests + diff) before merging",
+      "passed": true,
+      "evidence": "Step 4 before merge: \"git status --porcelain && git diff ... uv run pytest tests/test_schedule.py -q; uv run pytest -q; uv run ruff check\" and \"Read the diff\"."
+    },
+    {
+      "text": "Logs taken-over and the model used",
+      "passed": true,
+      "evidence": "\"add `taken-over: haiku` to the T7 frontmatter\" and board.md \"| T7 | merged (taken-over: haiku) | attempts: 3 opencode + 1 haiku |\""
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 523,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3925
+  }
+}

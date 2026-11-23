@@ -1,0 +1,12 @@
+{
+  "is_error": false,
+  "duration_ms": 19887,
+  "num_turns": 4,
+  "cost_usd": 0.09178060000000002,
+  "tokens": {
+    "input_tokens": 6,
+    "output_tokens": 1886,
+    "cache_read_input_tokens": 14543,
+    "cache_creation_input_tokens": 6391
+  }
+}

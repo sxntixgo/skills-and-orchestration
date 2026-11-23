@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "Chooses takeover instead of a 4th dispatch",
+      "passed": true,
+      "evidence": "\"T7 has hit `max_rejections` (3), so I take it over.\" and \"I don't send it back with `claude-dispatch --continue`.\""
+    },
+    {
+      "text": "Picks haiku or sonnet, not opus",
+      "passed": true,
+      "evidence": "\"I'd give it to **haiku**: the fix is in one function, and the spec and review notes say exactly what to change.\""
+    },
+    {
+      "text": "The takeover gets the full task, review notes and rules",
+      "passed": true,
+      "evidence": "Prompt includes \"<task.md pasted verbatim>\", \"Notes from review (all 3 rounds): <notes pasted verbatim>\", and \"Rules: TDD... YAGNI... DRY... Change only the files the task allows.\""
+    },
+    {
+      "text": "The result is reviewed (tests + diff) before merging",
+      "passed": true,
+      "evidence": "\"Run `bash <skill-dir>/scripts/review-check.sh r1 T7` and expect ... task=pass suite=pass\" and \"Read the diff with `git -C .worktrees/r1/T7 diff ...`\" before Accept/merge."
+    },
+    {
+      "text": "Logs taken-over and the model used",
+      "passed": true,
+      "evidence": "board.md: \"T7 — taken-over (haiku) — MERGED <sha>\" and task marked \"`taken-over: haiku`\"."
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 500,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3429
+  }
+}

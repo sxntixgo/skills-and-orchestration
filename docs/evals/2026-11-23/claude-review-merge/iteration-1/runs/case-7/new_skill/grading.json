@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "Uses review-check.sh rather than rerunning tests by hand",
+      "passed": true,
+      "evidence": "\"bash /workspaces/jobs/<plugin>/skills/claude-review-merge/scripts/review-check.sh 2026-11-23-csv T2\" covers task, suite and lint during review. The only manual test run is the post-merge suite check on main."
+    },
+    {
+      "text": "Reads only the diff (skipping lockfiles/generated files)",
+      "passed": false,
+      "evidence": "It runs a full \"git -C .worktrees/2026-11-23-csv/T2 diff\" and cats every untracked file except RESULT.md. Nothing excludes lockfiles or generated files."
+    },
+    {
+      "text": "Writes notes/log to the task file or board.md",
+      "passed": true,
+      "evidence": "\"append to `.orchestra/2026-11-23-csv/board.md`... - 2026-11-23 T2 MERGED a1b2c3d (attempt 1) — task 8 passed...\""
+    },
+    {
+      "text": "Final reply is exactly one verdict line (MERGED/REJECTED/TAKEOVER)",
+      "passed": true,
+      "evidence": "\"MERGED T2 a1b2c3d tests=222 passed\""
+    },
+    {
+      "text": "Does not paste test output or the diff into the reply",
+      "passed": true,
+      "evidence": "The reply is only \"MERGED T2 a1b2c3d tests=222 passed\": a summary count, with no test output or diff."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 1,
+    "total": 5,
+    "pass_rate": 0.8
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 772,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3962
+  }
+}

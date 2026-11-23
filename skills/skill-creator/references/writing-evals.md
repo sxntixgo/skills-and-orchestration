@@ -15,7 +15,7 @@ Top level: `skill_name` (string) and `evals` (array). Each case:
 | `prompt` | yes | A realistic user message — what someone would actually type. |
 | `expected_output` | yes | Human-readable description of what success looks like. |
 | `files` | yes (may be `[]`) | Input fixtures the case needs, as paths like `evals/files/foo.csv`. |
-| `assertions` | later | Array of objective PASS/FAIL statements. **Add these AFTER the first run**, once you've seen real output. |
+| `assertions` | yes | Array of objective PASS/FAIL statements, written with the case (`scripts/evals/abeval.py` refuses cases without them). Refine them after the first run, once you've seen real output. |
 
 ```json
 {

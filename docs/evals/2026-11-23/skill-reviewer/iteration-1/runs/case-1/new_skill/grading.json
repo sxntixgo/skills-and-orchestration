@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Applies the 8-rule rubric with severity-rated findings and file:line references",
+      "passed": true,
+      "evidence": "\"🟡 Rule 7 — no STOP gate where scope can expand (SKILL.md:24-48)\"; \"🔴 Rule 8 — no evals/evals.json\"; \"Passing: rule 1 ... rule 2 ... rule 3 ... rule 4 ... rule 5\""
+    },
+    {
+      "text": "STOPS at the Stage B gate and asks approval before spawning eval runs",
+      "passed": false,
+      "evidence": "The gate is never reached and no approval is requested: \"I don't reach the approval gate and spawn no subagents.\" The only mention of approval is a future promise: \"I'll report the run count (cases × 2) and wait for your approval.\" No unapproved runs were spawned, but the answer shows no approval request."
+    },
+    {
+      "text": "Does not edit the target skill (reports findings only)",
+      "passed": true,
+      "evidence": "The only file written is \"./.claude-skills-work/writing-tests/review/rubric.md\". Fixes are deferred to the user: \"use `skill-creator` to add the evals and the two 🟡 fixes.\""
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3,
+    "pass_rate": 0.667
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 858,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3804
+  }
+}

@@ -1,4 +1,4 @@
-# Orchestration contract (v1)
+# Orchestration contract (v1.1)
 
 Shared by the Claude-side skills (`claude-orchestrate-development`, `claude-write-task`, `claude-dispatch`,
 `claude-review-merge`) and the opencode side (`implementer` agent + `opencode-develop` skill, `researcher` agent + `opencode-research` skill).
@@ -21,8 +21,14 @@ Change it only with a version bump here and in every file that cites it.
 ```json
 { "implementer": "opencode", "model": "atlas/qwen3.8-flash-next", "concurrency": 2,
   "task_timeout_min": 30, "max_rejections": 3, "base_branch": "main",
-  "stall_empty_s": 180, "stall_s": 600, "stall_retries": 1 }
+  "stall_empty_s": 180, "stall_s": 600, "stall_retries": 1,
+  "test_cmd": "", "lint_cmd": "", "spec_model": "sonnet", "review_model": "sonnet" }
 ```
+`test_cmd` / `lint_cmd` = the repo's full test suite and lint (from its `CLAUDE.md`), run by
+`claude-review-merge/scripts/review-check.sh` after the task's own test command; empty = skipped.
+`spec_model` / `review_model` = model of the subagents that write specs and review results, so the
+orchestrator's own context stays small. Tasks marked `review: opus` (auth, secrets, input parsing,
+files, network) and the end-of-phase review use `opus`. (Added in v1.1.)
 `concurrency` = how many opencode tasks may run at once, each in its own worktree. 2 is measured
 the number of slots atlas serves at once: 2 since 2026-11-21 (GGUF on llama.cpp; before, one slot,
 where two runs still filled each other's tool-running gaps: 265 s vs 310 s). A third run only queues;

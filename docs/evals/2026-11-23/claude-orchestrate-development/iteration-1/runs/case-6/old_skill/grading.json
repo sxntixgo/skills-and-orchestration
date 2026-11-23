@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does not create .orchestra/ or a task graph",
+      "passed": true,
+      "evidence": "\"I stop orchestrating here: no `.orchestra/` folder, no `config.json`, no `board.md`, no worktrees\""
+    },
+    {
+      "text": "Runs or proposes brainstorming with the user first",
+      "passed": true,
+      "evidence": "\"Start `brainstorming` (frugal-skills) with you. We settle the design one question at a time.\" and the reply asks a first design question"
+    },
+    {
+      "text": "Plans writing-plans to save a plan in docs/plans/ before orchestrating",
+      "passed": true,
+      "evidence": "\"Then `writing-plans` saves `docs/plans/2026-11-23-research-app-plan.md`, a phased plan. Then I come back to this skill at step 1\""
+    },
+    {
+      "text": "Does not choose the stack/architecture itself",
+      "passed": true,
+      "evidence": "\"the stack and architecture are your call, not mine\". It offers options A/B/C and lists the stack as an open question"
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 408,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3060
+  }
+}

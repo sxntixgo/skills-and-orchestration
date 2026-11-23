@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Recognizes this is an edit and the baseline should be the PREVIOUS version (not 'no skill')",
+      "passed": true,
+      "evidence": "\"The old version is `HEAD` if the edit is uncommitted, or `HEAD~1` if it's committed. I won't copy the working directory as the baseline\""
+    },
+    {
+      "text": "Describes a blind A/B comparison between the two versions",
+      "passed": true,
+      "evidence": "\"I'd grade each run against the case's assertions, quoting the output as evidence, then do a blind A/B comparison and write the results to `benchmark.json`.\""
+    },
+    {
+      "text": "Still respects the Stage B approval gate before running",
+      "passed": true,
+      "evidence": "\"Stage B — ⛔ approval needed\" ... \"Shall I run the 6 A/B runs, the 18 runs including the trigger cases, or skip evals?\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 305,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3421
+  }
+}

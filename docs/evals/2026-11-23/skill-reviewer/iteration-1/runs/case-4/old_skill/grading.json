@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Runs the static rubric first",
+      "passed": true,
+      "evidence": "Step 2 \"Static review of SKILL.md\" with a severity table comes before step 3 (write evals) and step 4 (runs); only the snapshot/mkdir precedes it."
+    },
+    {
+      "text": "Reports the run count (cases x 2) and token/time cost",
+      "passed": true,
+      "evidence": "\"Runs: 7 evals × 2 configs × 3 reps = 42 subagents\" and the final reply states \"at +T tokens and +S s per run\", logged from total_tokens/duration_ms. No upfront cost estimate is given."
+    },
+    {
+      "text": "STOPS to ask explicit approval before spawning any runs, despite being told to benchmark",
+      "passed": false,
+      "evidence": "It goes straight to \"I'd launch them in parallel batches\" for 42 subagents with no approval gate. It asks only after the benchmark: \"I wouldn't edit `skills/online-research/SKILL.md` until you confirm.\""
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3,
+    "pass_rate": 0.667
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 734,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4806
+  }
+}

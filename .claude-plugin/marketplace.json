@@ -9,7 +9,7 @@
     {
       "name": "frugal-skills",
       "source": "./",
-      "version": "1.4.0",
+      "version": "1.4.1",
       "description": "Reusable skills for authoring skills, research, building planned phases, software development (TDD + DRY/YAGNI/KISS), testing, code review, and security review.",
       "category": "development",
       "keywords": [
@@ -24,7 +24,7 @@
     {
       "name": "orchestration",
       "source": "./plugins/orchestration",
-      "version": "0.3.2",
+      "version": "0.4.0",
       "description": "Claude orchestrates and reviews; opencode on a local model implements small tasks in git worktrees.",
       "category": "development",
       "keywords": [

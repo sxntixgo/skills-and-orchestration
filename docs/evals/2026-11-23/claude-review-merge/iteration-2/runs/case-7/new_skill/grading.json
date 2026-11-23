@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "Uses review-check.sh rather than rerunning tests by hand",
+      "passed": true,
+      "evidence": "\"**2. Check** (I won't rerun tests by hand)\" then \"bash <skill-dir>/scripts/review-check.sh 2026-11-23-csv T2\". The later pytest is a post-merge check on main, not a manual review rerun."
+    },
+    {
+      "text": "Reads only the diff (skipping lockfiles/generated files)",
+      "passed": true,
+      "evidence": "\"git -C $W diff -- . ':!*.lock' ':!*-lock.*' ':!go.sum'\""
+    },
+    {
+      "text": "Writes notes/log to the task file or board.md",
+      "passed": true,
+      "evidence": "\"**5. Log** (append to `.orchestra/2026-11-23-csv/board.md`)\" with \"- T2 MERGED a1b2c3d — CHECK scope=ok ...\""
+    },
+    {
+      "text": "Final reply is exactly one verdict line (MERGED/REJECTED/TAKEOVER)",
+      "passed": true,
+      "evidence": "\"**6. Reply**\" is a single line: \"MERGED T2 a1b2c3d tests=142 passed\""
+    },
+    {
+      "text": "Does not paste test output or the diff into the reply",
+      "passed": true,
+      "evidence": "The reply is only \"MERGED T2 a1b2c3d tests=142 passed\", with no test output or diff content."
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 732,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3672
+  }
+}

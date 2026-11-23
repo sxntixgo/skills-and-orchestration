@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does not dispatch T4 a fourth time",
+      "passed": true,
+      "evidence": "\"T4 isn't dispatched to opencode again. A Claude subagent now implements it in the existing worktree\""
+    },
+    {
+      "text": "Takes the task over with the cheapest capable model (haiku or sonnet, not opus by default)",
+      "passed": true,
+      "evidence": "\"Spawn the takeover subagent (Agent tool, `model: sonnet`)\"; opus only \"if the goal cell said `review: opus`... or if the notes pointed to a spec or design flaw\""
+    },
+    {
+      "text": "The takeover result is reviewed with tests before merging",
+      "passed": true,
+      "evidence": "\"Use the `claude-review-merge` skill... run steps 2–4 on the worktree as usual... Reply with one line: `MERGED T4 <commit> tests=<n passed>`\""
+    },
+    {
+      "text": "Marks T4 taken-over with the model in board.md",
+      "passed": true,
+      "evidence": "\"T4 status: `sent-back` → `taken-over`\"; log \"takeover: sonnet\"; on merge \"T4 becomes `taken-over (sonnet)` with its commit\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 564,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3507
+  }
+}

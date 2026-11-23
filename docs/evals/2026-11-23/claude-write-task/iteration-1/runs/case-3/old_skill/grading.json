@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Keeps the existing task content",
+      "passed": true,
+      "evidence": "\"Frontmatter: attempt: 1 → attempt: 2. Everything else stays.\" and \"keeping the rest of the spec\"; edits are additive (insert step, renumber the rest)"
+    },
+    {
+      "text": "Bumps attempt to 2",
+      "passed": true,
+      "evidence": "\"Frontmatter: `attempt: 1` → `attempt: 2`.\""
+    },
+    {
+      "text": "Adds Notes from review with file:line, problem and fix for each point",
+      "passed": true,
+      "evidence": "\"web/src/App.tsx:18-31 — attempt 1 added a download button... — revert it entirely\"; \"api/routes/exports.py:42 — header built from rows[0].keys() raises IndexError... — build the header from EXPORT_COLUMNS\""
+    },
+    {
+      "text": "Covers both the App.tsx scope violation and the empty-list 500",
+      "passed": true,
+      "evidence": "\"must NOT touch: web/ (including web/src/App.tsx)\" and \"an export with no rows returns 200 with only the header line\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 387,
+    "cache_read_input_tokens": 658,
+    "cache_creation_input_tokens": 4682
+  }
+}

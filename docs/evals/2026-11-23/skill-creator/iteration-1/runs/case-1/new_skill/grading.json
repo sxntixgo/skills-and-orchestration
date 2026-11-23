@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Clarifies trigger/scope/success and STOPS for approval before drafting (Stage 1 gate)",
+      "passed": true,
+      "evidence": "\"I'd stop at the Stage 1 gate: the plan below has open questions, so nothing gets drafted until you answer them and approve it.\""
+    },
+    {
+      "text": "Produces a concrete 'Use when' description and a scope block with a 'does NOT' line",
+      "passed": true,
+      "evidence": "\"Use when the user asks for a summary of their uncommitted/current/local changes\" and \"DOES NOT: - Commit, stage, stash, or modify any file.\""
+    },
+    {
+      "text": "Scaffolds evals/evals.json with realistic cases",
+      "passed": false,
+      "evidence": "Stops at Stage 1. Stage 4 'Scaffold + evals' is only listed as a todo item, and no evals.json is written."
+    },
+    {
+      "text": "Ends by handing off to skill-reviewer (does not self-judge)",
+      "passed": false,
+      "evidence": "Ends with \"I'll draft the frontmatter (Stage 2)\". No handoff to skill-reviewer is made, and Stage 5 is only listed as a todo item."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 2,
+    "total": 4,
+    "pass_rate": 0.5
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 406,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3498
+  }
+}

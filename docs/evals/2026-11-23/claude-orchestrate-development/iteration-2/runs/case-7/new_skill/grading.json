@@ -1,0 +1,46 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does not read diffs, source files, test output or logs in the orchestrator thread",
+      "passed": true,
+      "evidence": "Orchestrator only runs `cat` on board.md and the plan, plus `test -f .../RESULT.md` and `pgrep`. It states \"Confirm T1 and T2 finished (I won't read the logs here)\"."
+    },
+    {
+      "text": "Delegates specs and reviews to subagents with a named model (spec_model/review_model or sonnet)",
+      "passed": true,
+      "evidence": "Review: \"Agent, `model: sonnet`: Use the `claude-review-merge` skill\". Spec: \"Spec subagent, `model: sonnet`: Use the `claude-write-task` skill\"."
+    },
+    {
+      "text": "Expects or requests one-line replies from the subagents",
+      "passed": true,
+      "evidence": "\"Reply with one line: `MERGED T1 <commit> tests=<n passed>` | `REJECTED T1 attempt=<n> notes=<count>`\" and for the spec: \"Reply with one line: the path, or `BLOCKED: <reason>`\"."
+    },
+    {
+      "text": "Sends small bugs back as review notes instead of fixing them inline",
+      "passed": true,
+      "evidence": "\"REJECTED: set the row to `sent-back`, then `claude-dispatch` T1 with `--continue` (attempt 2)\". Rejections carry `notes=<count>`, and nothing is fixed inline."
+    },
+    {
+      "text": "At the end of phase 1 runs a phase-level review on opus over the phase diff",
+      "passed": true,
+      "evidence": "\"End of phase 1 — Agent, `model: opus`: ... review `git diff <phase-1 start commit>..main`\"."
+    },
+    {
+      "text": "Stops after phase 1 and tells the user to start a new session to resume the run",
+      "passed": true,
+      "evidence": "\"run the phase review, then stop\" and \"Start a new session and say: resume run `2026-11-23-export`.\""
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "total": 6,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 1240,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3922
+  }
+}

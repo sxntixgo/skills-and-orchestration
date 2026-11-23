@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Treats it as an edit and skips scaffolding",
+      "passed": true,
+      "evidence": "\"Edits to existing skills still go through the Stage 1 gate\"; the plan is titled \"code-review — edit (description only)\" and it reads the existing SKILL.md. No new skill directory or template is created."
+    },
+    {
+      "text": "Rewrites the description into third-person 'what it does. Use when <trigger>' form with a concrete trigger",
+      "passed": false,
+      "evidence": "No new description is written. It only plans one: \"rewrite the `description` frontmatter (third person, what + concrete 'Use when…')\", then stops: \"Please answer these before I draft the new description.\""
+    },
+    {
+      "text": "Does not rewrite unrelated parts of the skill",
+      "passed": true,
+      "evidence": "\"Does NOT: change the review procedure in the body (unless the description reveals a scope mismatch).\" Nothing in the skill body is rewritten."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3,
+    "pass_rate": 0.667
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 525,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3109
+  }
+}

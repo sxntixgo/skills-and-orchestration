@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Treats it as an edit and skips scaffolding",
+      "passed": true,
+      "evidence": "\"3 Body (check only, since this is an edit), 4 Evals (no scaffolding for an edit)\""
+    },
+    {
+      "text": "Rewrites the description into third-person 'what it does. Use when <trigger>' form with a concrete trigger",
+      "passed": false,
+      "evidence": "No rewritten description is produced; it stops at the gate: \"No description draft until the user approves.\" Only a success criterion mentions the form."
+    },
+    {
+      "text": "Does not rewrite unrelated parts of the skill",
+      "passed": true,
+      "evidence": "\"Does NOT: change the review steps in the body, rename the skill, or touch security-review.\""
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3,
+    "pass_rate": 0.667
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 254,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3014
+  }
+}

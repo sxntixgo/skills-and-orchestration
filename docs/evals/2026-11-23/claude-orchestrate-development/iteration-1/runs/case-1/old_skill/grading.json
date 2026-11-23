@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Creates .orchestra/<run>/ and board.md with a task table",
+      "passed": true,
+      "evidence": "\"mkdir -p .orchestra/2026-11-23-csv-export/{tasks,logs}\" and board.md has a \"| id | goal | implementer | depends_on | files | status |\" table with T1-T3"
+    },
+    {
+      "text": "Each task lists files, dependencies and an exact test command",
+      "passed": true,
+      "evidence": "Board lists files and depends_on for all three tasks (e.g. \"T2 ... | [T1] | app/jobs/routes.py, tests/jobs/test_export_route.py\"). Exact commands are given per task: T1 \"uv run pytest tests/jobs/test_csv_export.py -q\", T2 \"uv run pytest tests/jobs/test_export_route.py -q\", T3 \"cd frontend && npm test -- --run src/jobs/JobsList.test.tsx\". The board table itself has no test-command column."
+    },
+    {
+      "text": "Concurrent tasks have disjoint files",
+      "passed": true,
+      "evidence": "T1: \"app/jobs/csv_export.py, tests/jobs/test_csv_export.py\" vs T3: \"frontend/src/jobs/JobsList.tsx, frontend/src/jobs/JobsList.test.tsx\". Self-check: \"T1 and T3 have disjoint files, so both run at once\""
+    },
+    {
+      "text": "Starts dispatching without asking the user to approve the task table",
+      "passed": true,
+      "evidence": "\"the plan gate passes and I go straight to setup without asking you to approve the task graph\"; Round 1 dispatches T1 and T3 via dispatch.sh in the background."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 915,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 5486
+  }
+}

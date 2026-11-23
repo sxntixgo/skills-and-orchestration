@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Flags the missing concrete trigger (Rule 1)",
+      "passed": true,
+      "evidence": "\"The description 'Helps with stuff' can't work as a trigger... doesn't say what the skill does, when to use it, or when not to.\""
+    },
+    {
+      "text": "Flags the missing scope/guardrails (Rule 7)",
+      "passed": true,
+      "evidence": "\"There's no scope section... Nothing says what it covers, what it refuses or hands off... or what it must never do (destructive or outward-facing actions).\""
+    },
+    {
+      "text": "Flags the missing evals/evals.json (Rule 8) and notes Stage B cannot run",
+      "passed": false,
+      "evidence": "Flags it (\"There's no `evals/evals.json`\") but never says Stage B cannot run; only says \"no future edit can be checked against a baseline.\""
+    },
+    {
+      "text": "Verdict is ITERATE",
+      "passed": false,
+      "evidence": "Verdict is \"I'd mark this skill **not ready**\"; the word ITERATE never appears."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 2,
+    "total": 4,
+    "pass_rate": 0.5
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 547,
+    "cache_read_input_tokens": 658,
+    "cache_creation_input_tokens": 4095
+  }
+}

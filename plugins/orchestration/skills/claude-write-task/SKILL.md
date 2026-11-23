@@ -24,6 +24,9 @@ Does NOT: split the plan (→ `claude-orchestrate-development`), run anything (�
 4. **Write steps** as short imperatives in order, always test-first (TDD: "add test X, see it
    fail, then implement"). Name functions, routes, fields exactly. Give types/signatures when
    they matter. Point to existing helpers to reuse (DRY), and specify only what's needed (YAGNI).
+   **Don't copy the plan.** When the plan already spells out the design, types or test cases,
+   point to it (`read docs/plans/<file>.md, section "<heading>"`; the implementer can read any
+   file) and write only what the plan leaves open. Aim for a spec well under the size of the code.
 5. **Version bumps: check what the new versions require.** When the task upgrades a package
    (or a runtime), look up each new version's requirements *before* writing the steps:
    npm `npm view <pkg>@<ver> peerDependencies engines`; Python `requires-python` and its
@@ -34,7 +37,8 @@ Does NOT: split the plan (→ `claude-orchestrate-development`), run anything (�
 6. **Out of scope.** Name the tempting extras (refactors, renames, new deps, formatting other files).
 7. **Attempt ≥ 2:** add `## Notes from review` with each problem as `file:line — what is wrong —
    what to do instead`. Keep everything else; bump `attempt`.
-8. Save the file; note the path in `board.md`.
+8. Save the file; note the path in `board.md`. When you run as the orchestrator's subagent,
+   reply with the path only (or `BLOCKED: <reason>`), not the spec.
 
 ## Red flags
 | If you notice… | Do this |

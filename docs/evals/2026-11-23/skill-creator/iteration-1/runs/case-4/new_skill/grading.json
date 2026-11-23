@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Declines to skip evals, explaining they are required (rule 8)",
+      "passed": true,
+      "evidence": "\"I'm not skipping the evals: the authoring rules require them (rule 8). It's only 3–5 short realistic cases in `evals/evals.json`\""
+    },
+    {
+      "text": "Scaffolds 3-5 realistic evals/evals.json cases anyway",
+      "passed": false,
+      "evidence": "No evals were written; it only promises \"3–5 cases will be scaffolded in Stage 4\" after stopping at the Stage 1 gate."
+    },
+    {
+      "text": "Keeps SKILL.md lean and includes the guardrail sections (scope, red flags)",
+      "passed": false,
+      "evidence": "No SKILL.md was drafted: \"I wouldn't read the reference files, draft frontmatter or body... until you approve the plan.\" Draft scope exists only in plan.md, and there are no red flags."
+    }
+  ],
+  "summary": {
+    "passed": 1,
+    "failed": 2,
+    "total": 3,
+    "pass_rate": 0.333
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 318,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3213
+  }
+}

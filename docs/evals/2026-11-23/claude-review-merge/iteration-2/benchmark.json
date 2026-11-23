@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "skill": "claude-review-merge",
+    "skill_path": "plugins/orchestration/skills/claude-review-merge",
+    "baseline": "HEAD",
+    "model": "opus",
+    "new_rev": "b76d2b9+worktree",
+    "date": "2026-11-23",
+    "cases": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "run_summary": {
+    "new_skill": {
+      "pass_rate": {
+        "mean": 1.0
+      },
+      "assertions": "30/30",
+      "tokens": {
+        "mean": 14535.143
+      },
+      "time_seconds": {
+        "mean": 14.961
+      },
+      "cost_usd": {
+        "mean": 0.07
+      }
+    },
+    "old_skill": {
+      "pass_rate": {
+        "mean": 0.879
+      },
+      "assertions": "26/30",
+      "tokens": {
+        "mean": 24143.571
+      },
+      "time_seconds": {
+        "mean": 22.286
+      },
+      "cost_usd": {
+        "mean": 0.105
+      }
+    },
+    "delta": {
+      "pass_rate": 0.121,
+      "tokens": -9608.428,
+      "time_seconds": -7.325,
+      "cost_usd": -0.035
+    }
+  }
+}

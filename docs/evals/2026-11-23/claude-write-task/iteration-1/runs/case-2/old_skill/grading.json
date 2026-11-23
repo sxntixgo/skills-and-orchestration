@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does not write a task from the vague request",
+      "passed": true,
+      "evidence": "\"I haven't written a task yet.\" and \"I wouldn't write anything yet.\" The T1 example is explicitly conditional: \"Once you choose (example for A, new run)\"."
+    },
+    {
+      "text": "Asks what concretely to change or says the work must be split first",
+      "passed": true,
+      "evidence": "\"Tell me which ones you want, or name a different change\" and \"doing all of A–C is more than one roughly 5-file task. That would need splitting into several tasks\"."
+    },
+    {
+      "text": "Uses no 'improve/clean up' wording in a spec",
+      "passed": true,
+      "evidence": "The spec title and steps are concrete: \"Replace the 4 duplicated book lookups with a get_book_or_404 helper\". \"cleanup\" appears only in the run identifier `2026-11-23-books-cleanup`, not in any instruction."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 740,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3602
+  }
+}

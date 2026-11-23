@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Keeps the existing task content",
+      "passed": true,
+      "evidence": "\"Everything from attempt 1 stays.\" Rewritten spec keeps Context, Files, Steps, Done when, Out of scope, e.g. \"Keep the existing tests `test_export_items` (happy path) and `test_export_content_type` passing.\""
+    },
+    {
+      "text": "Bumps attempt to 2",
+      "passed": true,
+      "evidence": "Frontmatter shows \"attempt: 2\"; text says \"The changes are: bump `attempt`\""
+    },
+    {
+      "text": "Adds Notes from review with file:line, problem and fix for each point",
+      "passed": true,
+      "evidence": "\"web/src/App.tsx:42-51 — added a Download CSV button... — revert it entirely\"; \"api/routes/export.py:18 — header built from `rows[0].keys()` → IndexError → 500... — use the fixed `COLUMNS` list\""
+    },
+    {
+      "text": "Covers both the App.tsx scope violation and the empty-list 500",
+      "passed": true,
+      "evidence": "Notes cover both: \"App.tsx:42-51 ... this file is not in the task\" and \"export.py:18 ... 500 when there are no items\"; plus \"Empty DB → 200 with header line only. Never a 500.\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 446,
+    "cache_read_input_tokens": 658,
+    "cache_creation_input_tokens": 5191
+  }
+}

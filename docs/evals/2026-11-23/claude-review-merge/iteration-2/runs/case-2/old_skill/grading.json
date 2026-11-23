@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "Rejects T2",
+      "passed": true,
+      "evidence": "\"**T2 is rejected and sent back as attempt 2.**\""
+    },
+    {
+      "text": "Names web/src/App.tsx as out of scope in the notes",
+      "passed": true,
+      "evidence": "\"web/src/App.tsx:3,57 — out of scope: imports and mounts ExportButton (T3 does this) — revert the file\""
+    },
+    {
+      "text": "Names the skipped test and requires it to run",
+      "passed": true,
+      "evidence": "\"`it.skip` on \\\"exports an empty table as header-only CSV\\\"... change it back to `it(...)` and make it pass.\""
+    },
+    {
+      "text": "Notes use the form file:line — problem — fix",
+      "passed": true,
+      "evidence": "\"web/src/components/ExportButton.tsx:18 — `buildCsv([])` returns '' — when rows is empty, still return the header line\""
+    },
+    {
+      "text": "Bumps attempt and routes it back with --continue (or replies REJECTED for the orchestrator)",
+      "passed": true,
+      "evidence": "\"change `attempt: 1` to `attempt: 2`\" and \"claude-dispatch --continue 2026-11-21-csv-export T2\""
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 419,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3856
+  }
+}

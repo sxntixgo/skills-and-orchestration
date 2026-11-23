@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Takes over neither T2 nor T5",
+      "passed": true,
+      "evidence": "\"**Neither yet.** ... T2 has 1 rejection and T5 has 2, so both go back to opencode with the review notes.\""
+    },
+    {
+      "text": "Sends both back to opencode with review notes (--continue)",
+      "passed": true,
+      "evidence": "\"Re-dispatch both with `claude-dispatch` (continuing the opencode session)\" and \"both go back to opencode with the review notes\""
+    },
+    {
+      "text": "States takeover happens only after the 3rd rejection",
+      "passed": true,
+      "evidence": "\"Takeover happens after `max_rejections` rejected attempts, and the default is 3... If attempt 3 is rejected, I take it over.\" The early-takeover exception is mentioned but explicitly ruled out."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 526,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2991
+  }
+}

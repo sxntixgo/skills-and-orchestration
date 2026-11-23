@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Flags the missing concrete trigger (Rule 1)",
+      "passed": true,
+      "evidence": "🔴 Rule 1 — description is vague and has no trigger (SKILL.md:3): \"Helps with stuff\". It needs to say... a concrete \"Use when …\" clause."
+    },
+    {
+      "text": "Flags the missing scope/guardrails (Rule 7)",
+      "passed": true,
+      "evidence": "🔴 Rule 7 — no Scope section, so there's no \"does NOT\" line and nothing stops scope creep. Add a Scope section with DOES/does NOT"
+    },
+    {
+      "text": "Flags the missing evals/evals.json (Rule 8) and notes Stage B cannot run",
+      "passed": true,
+      "evidence": "🔴 Rule 8 — evals/evals.json is missing... Stage B can't run without them."
+    },
+    {
+      "text": "Verdict is ITERATE",
+      "passed": true,
+      "evidence": "**Verdict: ITERATE.** The static rubric finds 3 🔴 issues"
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 355,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3049
+  }
+}

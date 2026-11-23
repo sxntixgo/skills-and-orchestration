@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "Context lists vitest 5's peer requirement on vite >= 6",
+      "passed": true,
+      "evidence": "Context: \"vitest 5 requires peer vite ^6 || ^7 || ^8 and node ^20.19 || >=22.12.\""
+    },
+    {
+      "text": "Context lists the Node engine requirement (>= 20.19 / 22.12)",
+      "passed": true,
+      "evidence": "Context: \"vitest 5 requires peer vite ^6 || ^7 || ^8 and node ^20.19 || >=22.12.\""
+    },
+    {
+      "text": "The vite upgrade is part of this task or an explicit dependency",
+      "passed": true,
+      "evidence": "Step 1: \"npm install -D vitest@^5 @vitest/coverage-v8@^5 vite@^6 @vitejs/plugin-react@^4.3.4\"; title \"with vite 5 → 6\""
+    },
+    {
+      "text": "The Node 18 pins in .github/workflows/ci.yml and web/Dockerfile are in the files list or an explicit dependency",
+      "passed": true,
+      "evidence": "Files: \"may change: web/package.json, web/package-lock.json, web/vite.config.ts, .github/workflows/ci.yml, web/Dockerfile\"; steps 5-6 change both pins"
+    },
+    {
+      "text": "An exact runnable test command is given",
+      "passed": true,
+      "evidence": "Done when: \"cd web && npm ls vite vitest @vitest/coverage-v8 @vitejs/plugin-react && npx vitest run && npm run build\" passes"
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 532,
+    "cache_read_input_tokens": 658,
+    "cache_creation_input_tokens": 5747
+  }
+}

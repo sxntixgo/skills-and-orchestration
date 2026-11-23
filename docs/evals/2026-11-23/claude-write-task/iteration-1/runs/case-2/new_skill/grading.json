@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does not write a task from the vague request",
+      "passed": true,
+      "evidence": "\"Write nothing yet. I wouldn't create `.orchestra/<run>/` or a task file until you choose.\" The only spec shown is conditional on picking the concrete 404 bug."
+    },
+    {
+      "text": "Asks what concretely to change or says the work must be split first",
+      "passed": true,
+      "evidence": "\"'Clean up and improve' is too broad for one implementer task... each a separate task of 1–3 files\" and \"Which one or ones?\""
+    },
+    {
+      "text": "Uses no 'improve/clean up' wording in a spec",
+      "passed": false,
+      "evidence": "The spec's frontmatter has \"run: 2026-11-23-books-cleanup\", and the path is \".orchestra/2026-11-23-books-cleanup/tasks/T1.task.md\". The steps are concrete, but 'cleanup' wording still appears in the spec."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3,
+    "pass_rate": 0.667
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 748,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3769
+  }
+}

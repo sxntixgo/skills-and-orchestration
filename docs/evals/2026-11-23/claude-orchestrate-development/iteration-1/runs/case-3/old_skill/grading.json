@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does not dispatch T4 a fourth time",
+      "passed": true,
+      "evidence": "\"T4 is out of opencode attempts. It doesn't get a fourth dispatch.\""
+    },
+    {
+      "text": "Takes the task over with the cheapest capable model (haiku or sonnet, not opus by default)",
+      "passed": true,
+      "evidence": "\"I'd use **`sonnet`**... `opus` isn't justified. The spec has no design flaw\"; spawns `Agent(model: \"sonnet\")`"
+    },
+    {
+      "text": "The takeover result is reviewed with tests before merging",
+      "passed": true,
+      "evidence": "\"I don't take the subagent's reply on trust.\" Runs `uv run pytest tests/test_export.py -q` and `uv run pytest -q && uv run ruff check .` before merge step 5a"
+    },
+    {
+      "text": "Marks T4 taken-over with the model in board.md",
+      "passed": true,
+      "evidence": "\"`board.md` gets T4 → `taken-over (sonnet)` and this Log line: ...T4 taken over by sonnet, accepted\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 378,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3986
+  }
+}

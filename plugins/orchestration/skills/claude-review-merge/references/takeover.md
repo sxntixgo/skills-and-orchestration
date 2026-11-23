@@ -23,5 +23,5 @@ Give it everything it needs; it has no other context:
 - "Run `<exact test command>` until it passes; reply with: files changed, test command, last
   ~20 lines of its output, anything you could not do."
 
-Then run steps 2–5 of `claude-review-merge` on the worktree as usual. Log the model used and the
+Then run steps 2–4 of `claude-review-merge` on the worktree as usual. Log the model used and the
 outcome in `board.md`.

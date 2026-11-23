@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does NOT start drafting a skill",
+      "passed": true,
+      "evidence": "\"I would not create any files, run commands or spawn subagents yet.\" It proposes a `daily-plan` idea but writes no SKILL.md, only \"Once you confirm or redirect, I'll draft `SKILL.md`\"."
+    },
+    {
+      "text": "Recognizes the brief is too vague and stays in Stage 1",
+      "passed": true,
+      "evidence": "\"'Productivity' could mean many different skills... ask questions before writing anything.\" The reply contains only clarifying questions."
+    },
+    {
+      "text": "Asks clarifying questions about trigger, scope, and success criteria",
+      "passed": false,
+      "evidence": "Trigger and scope are asked: \"When should it trigger?\" and \"Scope: just for you in this repo... or published as a plugin\". Success criteria are not: \"what should the result be (a chat reply, a markdown file...)\" asks about output format, not what a good result looks like."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3,
+    "pass_rate": 0.667
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 670,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2722
+  }
+}

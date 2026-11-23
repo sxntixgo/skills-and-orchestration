@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "Rejects T2",
+      "passed": true,
+      "evidence": "\"Verdict: **reject T2.** It changed a file the task didn't allow, and it skipped a test.\""
+    },
+    {
+      "text": "Names web/src/App.tsx as out of scope in the notes",
+      "passed": true,
+      "evidence": "Note: \"web/src/App.tsx:14-22 — file not in \\\"may change\\\" list; T2 must not wire the component into App\""
+    },
+    {
+      "text": "Names the skipped test and requires it to run",
+      "passed": true,
+      "evidence": "\"TodoFilter.test.tsx:38 — `it.skip` disables the spec's empty-state test... remove `.skip`, make TodoFilter render the empty state\""
+    },
+    {
+      "text": "Notes use the form file:line — problem — fix",
+      "passed": true,
+      "evidence": "\"web/src/App.tsx:14-22 — file not in \\\"may change\\\" list... — revert all App.tsx changes\"; second note follows same file:line — problem — fix form"
+    },
+    {
+      "text": "Bumps attempt and routes it back with --continue (or replies REJECTED for the orchestrator)",
+      "passed": true,
+      "evidence": "\"Frontmatter: `attempt: 1` → `attempt: 2`.\" and reply \"REJECTED T2 attempt=2 notes=2\"; mentions \"claude-dispatch --continue\""
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 476,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3160
+  }
+}

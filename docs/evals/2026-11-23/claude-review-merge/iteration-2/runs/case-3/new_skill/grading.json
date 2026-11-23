@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Accepts T3",
+      "passed": true,
+      "evidence": "\"**Accept.** A variable name is a nit, and the skill says to accept nits and record them.\""
+    },
+    {
+      "text": "Records the naming nit as a note instead of sending it back",
+      "passed": true,
+      "evidence": "\"Append to `.orchestra/r1/tasks/T3.md`: `## Review nits` → `<file>:<line> — variable `<old>` unclear — rename to `<new>` (follow-up, not blocking)`\""
+    },
+    {
+      "text": "Does not rewrite the implementation on accept",
+      "passed": true,
+      "evidence": "\"I won't rename it myself.\" Board log also marks: \"nit: rename <old>→<new> (not done)\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 257,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2960
+  }
+}

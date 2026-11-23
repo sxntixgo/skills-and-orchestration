@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Creates .orchestra/<run>/ and board.md with a task table",
+      "passed": true,
+      "evidence": "\"mkdir -p .orchestra/2026-11-23-csv-export/{tasks,logs}\" and \"I write `.orchestra/2026-11-23-csv-export/board.md`\" containing a table with columns \"| id | phase | goal | implementer | depends_on | files | status |\""
+    },
+    {
+      "text": "Each task lists files, dependencies and an exact test command",
+      "passed": true,
+      "evidence": "Table rows give depends_on and files (e.g. \"T2 ... | T1 | app/jobs/routes.py, tests/jobs/test_export_route.py\"); \"Test commands: T1 `uv run pytest tests/jobs/test_csv_export.py -q`; T2 ...; T3 ...\""
+    },
+    {
+      "text": "Concurrent tasks have disjoint files",
+      "passed": true,
+      "evidence": "\"No two tasks overlap in files.\" The file sets (csv_export.py, routes.py, list.html plus separate tests) are disjoint, and the chain means \"only one task runs at a time.\""
+    },
+    {
+      "text": "Starts dispatching without asking the user to approve the task table",
+      "passed": true,
+      "evidence": "\"I write ... board.md without asking the user to approve it\", then \"I run the `claude-dispatch` skill for T1 ... T1 → `dispatched`\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 629,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4984
+  }
+}

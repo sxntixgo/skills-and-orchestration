@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Accepts T3",
+      "passed": true,
+      "evidence": "\"**Accept.** A variable name is a nit\" and \"T3 accepted and merged into `main`\""
+    },
+    {
+      "text": "Records the naming nit as a note instead of sending it back",
+      "passed": true,
+      "evidence": "\"the skill says to accept nits and note them rather than send the task back\"; board entry: \"Nit (user): rename `<old_name>` → `<better_name>`... not fixed on accept\""
+    },
+    {
+      "text": "Does not rewrite the implementation on accept",
+      "passed": true,
+      "evidence": "\"I don't rename the variable myself, because the skill doesn't allow changing the implementer's code silently on accept.\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 247,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3180
+  }
+}

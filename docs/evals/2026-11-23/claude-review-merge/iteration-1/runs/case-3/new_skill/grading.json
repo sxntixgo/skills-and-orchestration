@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Accepts T3",
+      "passed": true,
+      "evidence": "\"**Accept.** A naming nit isn't worth a round-trip to opencode: we merge and record the nit.\""
+    },
+    {
+      "text": "Records the naming nit as a note instead of sending it back",
+      "passed": true,
+      "evidence": "board.md entry: \"Nit (user): rename `<old>` → `<new>`, not fixed; follow-up.\" and \"isn't worth a round-trip to opencode\""
+    },
+    {
+      "text": "Does not rewrite the implementation on accept",
+      "passed": true,
+      "evidence": "\"I won't rename the variable inside the accept commit, because the skill doesn't allow silent fixes on accept.\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 246,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2918
+  }
+}

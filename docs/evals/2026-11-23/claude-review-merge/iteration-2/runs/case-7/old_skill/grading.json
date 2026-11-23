@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "Uses review-check.sh rather than rerunning tests by hand",
+      "passed": false,
+      "evidence": "No review-check.sh; reruns by hand: \"uv run pytest tests/test_csv_import.py -q\", \"uv run pytest -q\", \"uv run ruff check .\""
+    },
+    {
+      "text": "Reads only the diff (skipping lockfiles/generated files)",
+      "passed": false,
+      "evidence": "Reads whole files besides the diff: \"cat .worktrees/2026-11-23-csv/T2/tests/test_csv_import.py\". No mention of skipping lockfiles or generated files."
+    },
+    {
+      "text": "Writes notes/log to the task file or board.md",
+      "passed": true,
+      "evidence": "\"I append this to `.orchestra/2026-11-23-csv/tasks/T2.task.md`\" and \"## 6. Log to `.orchestra/2026-11-23-csv/board.md`\""
+    },
+    {
+      "text": "Final reply is exactly one verdict line (MERGED/REJECTED/TAKEOVER)",
+      "passed": false,
+      "evidence": "The reply is a multi-line paragraph plus a bullet list: \"T2 is rejected and back with the implementer as attempt 2... The reasons:\" It has no single REJECTED verdict line."
+    },
+    {
+      "text": "Does not paste test output or the diff into the reply",
+      "passed": true,
+      "evidence": "The reply only summarizes results (\"The task test passes 5/5, the full suite passes 48\"). It includes no raw test output and no diff hunks."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 3,
+    "total": 5,
+    "pass_rate": 0.4
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 527,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4466
+  }
+}

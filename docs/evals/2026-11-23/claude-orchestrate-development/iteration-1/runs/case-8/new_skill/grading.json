@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does not dispatch the MAX_ROWS constant as its own opencode task",
+      "passed": true,
+      "evidence": "\"I won't dispatch it as its own task.\" and \"T2 row: status → `dropped`\""
+    },
+    {
+      "text": "Merges it into the task that uses MAX_ROWS (or does it as part of that task)",
+      "passed": true,
+      "evidence": "\"T4 row: goal → \"add `MAX_ROWS = 500` to config.py and cap CSV export at MAX_ROWS rows\". Files → `config.py, export.py, tests/test_export.py`\""
+    },
+    {
+      "text": "Gives the size reason: the spec would be as long as the code",
+      "passed": true,
+      "evidence": "\"a task whose spec would be as long as its code, like a single constant, gets merged into a neighbouring task\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 286,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3280
+  }
+}

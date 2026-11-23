@@ -1,0 +1,46 @@
+{
+  "assertion_results": [
+    {
+      "text": "Reads the route and an existing paginated pattern before writing",
+      "passed": true,
+      "evidence": "Step 2 'Read the code first': `grep -n \"jobs\" api/routes.py api/db.py`, `grep -rn \"Query(\" api/`; finds 'No endpoint has pagination yet', so it copies the GET /workers Query(...) style."
+    },
+    {
+      "text": "Lists exact files it may change/create",
+      "passed": true,
+      "evidence": "\"may change: api/routes.py, api/db.py, tests/test_routes.py\" / \"must NOT touch: everything else\""
+    },
+    {
+      "text": "Steps are test-first",
+      "passed": true,
+      "evidence": "Step 1 adds tests in tests/test_routes.py; Step 2: \"Run `uv run pytest ... -k jobs`; the new tests fail.\" Implementation follows in steps 3-4."
+    },
+    {
+      "text": "Gives an exact runnable test command",
+      "passed": true,
+      "evidence": "\"`uv run pytest tests/test_routes.py -q -k jobs` passes (old and new tests)\""
+    },
+    {
+      "text": "Covers page 0 / beyond the end / page_size cap edge cases",
+      "passed": true,
+      "evidence": "\"`GET /jobs?page=5` returns 200 with `[]`\"; \"`page=0`, `page_size=0`, `page_size=101` each return 422\""
+    },
+    {
+      "text": "Has an Out of scope section",
+      "passed": true,
+      "evidence": "\"## Out of scope - Total count, `next`/`prev` links, response envelope... Pagination on any other endpoint\""
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "total": 6,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 893,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4013
+  }
+}

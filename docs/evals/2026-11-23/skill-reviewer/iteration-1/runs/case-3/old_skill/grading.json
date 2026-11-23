@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Recognizes this is an edit and the baseline should be the PREVIOUS version (not 'no skill')",
+      "passed": true,
+      "evidence": "\"Get the old version... git diff HEAD -- skills/code-review/SKILL.md\" and \"copy both versions to .../code-review/{old,new}/SKILL.md\"; compares old vs new trigger rates."
+    },
+    {
+      "text": "Describes a blind A/B comparison between the two versions",
+      "passed": false,
+      "evidence": "It compares both versions on trigger rates (\"Run both descriptions\"), and an \"output A/B on 3–4 sample diffs\" appears only conditionally. It never says comparisons or grading would be blind to which version is which."
+    },
+    {
+      "text": "Still respects the Stage B approval gate before running",
+      "passed": false,
+      "evidence": "It lays out the 120-run plan (\"20 × 3 × 2 = 120 runs\") as \"what I'd do\" but never says it would ask for or wait on the user's approval before running."
+    }
+  ],
+  "summary": {
+    "passed": 1,
+    "failed": 2,
+    "total": 3,
+    "pass_rate": 0.333
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 543,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3047
+  }
+}

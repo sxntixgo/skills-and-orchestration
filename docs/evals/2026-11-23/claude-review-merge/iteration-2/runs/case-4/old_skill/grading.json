@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Reruns the tests on main after the merge",
+      "passed": true,
+      "evidence": "\"3. Run the tests on `main`\" ... `git checkout main` ... `uv run pytest -q`"
+    },
+    {
+      "text": "Removes the worktree and deletes the orchestra branch",
+      "passed": true,
+      "evidence": "`git worktree remove .worktrees/2026-11-21-csv-export/T4` and `git branch -d orchestra/2026-11-21-csv-export/T4`"
+    },
+    {
+      "text": "Logs verdict and test numbers in board.md",
+      "passed": true,
+      "evidence": "\"T4 merged into main by user; reviewed <before/after> merge; task cmd 12 passed; full suite 148 passed, 0 failed\""
+    },
+    {
+      "text": "Does not push",
+      "passed": true,
+      "evidence": "\"I won't push. That's yours to do.\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 301,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3228
+  }
+}

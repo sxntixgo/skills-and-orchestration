@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does not dispatch the MAX_ROWS constant as its own opencode task",
+      "passed": false,
+      "evidence": "Answer dispatches T2 alone: \"bash plugins/orchestration/skills/claude-dispatch/scripts/dispatch.sh 2026-11-23-row-limit T2\" and \"T2 ... is with opencode\""
+    },
+    {
+      "text": "Merges it into the task that uses MAX_ROWS (or does it as part of that task)",
+      "passed": false,
+      "evidence": "Explicitly keeps it separate: \"Out of scope - Using MAX_ROWS anywhere else (later tasks do that)\"; no merging into the consuming task"
+    },
+    {
+      "text": "Gives the size reason: the spec would be as long as the code",
+      "passed": false,
+      "evidence": "Only says \"Normally I'd make a one-line change like this myself\"; never argues the spec would be as long as the code"
+    }
+  ],
+  "summary": {
+    "passed": 0,
+    "failed": 3,
+    "total": 3,
+    "pass_rate": 0.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 316,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3525
+  }
+}

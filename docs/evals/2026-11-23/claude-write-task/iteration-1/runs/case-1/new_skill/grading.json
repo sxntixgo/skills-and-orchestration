@@ -1,0 +1,46 @@
+{
+  "assertion_results": [
+    {
+      "text": "Reads the route and an existing paginated pattern before writing",
+      "passed": true,
+      "evidence": "Step 1 before writing: \"sed -n '1,200p' api/routes.py\" and \"grep -rn \"offset\\|limit\\|page\" api/ ... # look for an existing pagination pattern\""
+    },
+    {
+      "text": "Lists exact files it may change/create",
+      "passed": true,
+      "evidence": "\"may change: api/routes.py, tests/test_routes.py\" / \"must NOT touch: everything else\""
+    },
+    {
+      "text": "Steps are test-first",
+      "passed": true,
+      "evidence": "\"1. In tests/test_routes.py add... 2. Run the test command; see the new tests fail. 3. In `list_jobs` add params\""
+    },
+    {
+      "text": "Gives an exact runnable test command",
+      "passed": true,
+      "evidence": "\"`uv run pytest tests/test_routes.py -q` passes (including the 4 new tests)\""
+    },
+    {
+      "text": "Covers page 0 / beyond the end / page_size cap edge cases",
+      "passed": true,
+      "evidence": "\"test_jobs_pagination_past_end: 5 jobs, GET /jobs?page=3&page_size=10 → [], status 200\"; \"page=0, page_size=0, page_size=101 → each 422\""
+    },
+    {
+      "text": "Has an Out of scope section",
+      "passed": true,
+      "evidence": "\"## Out of scope - Total count, next/prev links, response envelope or headers - Pagination on other endpoints\""
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "total": 6,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 791,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3811
+  }
+}

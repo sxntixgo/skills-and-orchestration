@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does not create .orchestra/ or a task graph",
+      "passed": true,
+      "evidence": "\"no `.orchestra/`, `config.json` or `board.md`\" and \"no subagents or dispatches\"; stops at plan gate before any task graph."
+    },
+    {
+      "text": "Runs or proposes brainstorming with the user first",
+      "passed": true,
+      "evidence": "\"Start `brainstorming` (frugal-skills), asking one question at a time\" followed by \"First question: what does the 'headless runner' run?\""
+    },
+    {
+      "text": "Plans writing-plans to save a plan in docs/plans/ before orchestrating",
+      "passed": true,
+      "evidence": "\"run `writing-plans` → `docs/plans/2026-11-23-research-app-plan.md` (phased, with test commands), then return to this skill at step 1\""
+    },
+    {
+      "text": "Does not choose the stack/architecture itself",
+      "passed": true,
+      "evidence": "\"I won't choose a stack inside `board.md`\"; asks user to pick A/B/C and says it will ask about \"the stack, and where jobs run.\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 376,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3179
+  }
+}

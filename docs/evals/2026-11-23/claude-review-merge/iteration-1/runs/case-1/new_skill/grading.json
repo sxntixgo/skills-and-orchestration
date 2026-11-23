@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does not merge on RESULT.md's claim alone",
+      "passed": true,
+      "evidence": "\"I won't merge T1 just because RESULT.md says it's done. That file is the implementer's claim.\""
+    },
+    {
+      "text": "Runs the mechanical checks (scope + the task's test command + suite), via review-check.sh where available",
+      "passed": true,
+      "evidence": "\"bash <skill-dir>/scripts/review-check.sh 2026-11-22-csv-export T1\" with result \"CHECK T1 scope=ok result=yes task=pass suite=pass lint=pass\""
+    },
+    {
+      "text": "Reads the diff before deciding",
+      "passed": true,
+      "evidence": "\"git -C .worktrees/2026-11-22-csv-export/T1 diff\" listed before \"# accept path:\"; prompt says \"Read ... git diff plus any new files\" then step 4 accept/reject"
+    },
+    {
+      "text": "Commits and merges only after the checks pass",
+      "passed": true,
+      "evidence": "\"Accept only if every 'Done when' holds, the checks pass and scope is clean. Then: rm RESULT.md, commit in the worktree... merge into main\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 403,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3839
+  }
+}

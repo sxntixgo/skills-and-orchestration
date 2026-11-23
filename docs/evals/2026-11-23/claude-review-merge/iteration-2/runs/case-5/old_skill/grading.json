@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Rejects T6",
+      "passed": true,
+      "evidence": "\"T6 is rejected and goes back to opencode for attempt 2.\""
+    },
+    {
+      "text": "Cites YAGNI: remove the unused options parameter",
+      "passed": true,
+      "evidence": "\"`options` parameter is never used (YAGNI) — remove it from the signature and from every caller/test that passes it.\""
+    },
+    {
+      "text": "Cites DRY: reuse the existing parse_date helper",
+      "passed": true,
+      "evidence": "\"`_parse_date` duplicates `parse_date` in src/report/dates.py:12 (DRY) — delete it, `from report.dates import parse_date`, and use that.\""
+    },
+    {
+      "text": "Cites TDD: tests must pin the specified behaviour/edge cases, not mirror the output",
+      "passed": true,
+      "evidence": "\"tests only snapshot the current output... (TDD) — rewrite them from the spec: one test per \\\"Done when\\\" bullet and per edge case\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 345,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3743
+  }
+}

@@ -5,80 +5,49 @@ description: Authors a new Claude Code skill or edits an existing one in this re
 
 # Skill Creator
 
-Build a skill through 5 gated stages. You BUILD the skill; you do NOT judge it —
-`skill-reviewer` runs the rubric and baseline evals. End by handing off.
-
-This skill enforces 8 authoring rules. The full checklist is in
-`references/skill-body.md`. (When working inside this repo, the same rules are
-also documented in `CLAUDE.md`.)
+Build a skill in 5 gated stages. You BUILD; `skill-reviewer` judges (rubric + baseline evals).
+The 8 rules are checklisted in `references/skill-body.md` (also in this repo's `CLAUDE.md`).
 
 ## Scope
-This skill DOES:
-- Create a new skill, or edit an existing skill in `skills/`.
-- Clarify intent, draft frontmatter + body, scaffold `evals/evals.json`.
-- Enforce authoring rules 1–8.
-
-This skill does NOT:
-- Run evals, grade, or render a verdict → that is `skill-reviewer`.
-- Invent the skill's domain requirements → ask the user.
-- Publish, install, or push anything.
+DOES: create a skill, or edit one in `skills/` (or a plugin's `skills/`); clarify intent;
+draft frontmatter + body; scaffold `evals/evals.json`; enforce rules 1–8.
+Does NOT: run evals or give a verdict (→ `skill-reviewer`); invent domain requirements (ask);
+publish, install or push.
 
 ## Workflow
+One TodoWrite item per stage. Each stage writes to `./.claude-skills-work/<skill>/` (say where)
+so work can resume. **Read references in one batch** (parallel Reads) when you start drafting,
+only the ones the stages ahead need — not one per turn.
 
-Create a TodoWrite item for each of the 5 stages. Each stage writes its output
-to `./.claude-skills-work/<skill>/` so work resumes if interrupted; say where
-you wrote it.
+1. **Clarify intent ⛔ STOP GATE.** Write to `plan.md`: **trigger** (the concrete "use when…"),
+   **scope** (DOES / does NOT), **success criteria** (observable). Don't draft anything until the
+   user approves; if the brief is vague, ask instead of guessing.
+2. **Frontmatter.** `name` (kebab-case, = directory) and a third-person `description`: what it
+   does + a concrete "Use when …" trigger — it's all Claude sees when choosing a skill
+   (`references/writing-descriptions.md`). Show it.
+3. **Body.** Scope block with a "does NOT" line, required steps (TodoWrite), STOP/checkpoint
+   gates, Red flags, pointers to `references/*.md`. Lean (< ~500 lines); detail goes to
+   references (`references/skill-body.md`). Show it.
+4. **Scaffold + evals.** New skill: `scripts/new_skill.sh <name>`, then replace the skeleton with
+   the approved drafts. Edit: no scaffold. Write 3–5 realistic cases with objective `assertions`
+   in `evals/evals.json` (`references/writing-evals.md`). Evals are never skipped (rule 8). Show them.
+5. **Hand off.** Tell the user to run `skill-reviewer`; write "next: review" to `plan.md`.
+   Don't self-judge.
 
-### Stage 1 — Clarify intent  ⛔ STOP GATE
-Nail three things and write them to `./.claude-skills-work/<skill>/plan.md`:
-- **Trigger**: the concrete situation where this skill should fire ("use when…").
-- **Scope**: what it DOES and, explicitly, what it does NOT do.
-- **Success criteria**: observable signs the skill worked.
-
-**Do not draft anything until the user approves this.** If the brief is vague or
-you're inventing requirements, ask — do not guess.
-
-### Stage 2 — Frontmatter
-Draft `name` (kebab-case, == directory) and `description`. The description is
-the ONLY thing Claude sees when deciding to load the skill, so the trigger must
-be concrete. Read `references/writing-descriptions.md`. Show it; adjust.
-
-### Stage 3 — Body
-Draft the `SKILL.md` body: Scope block, a required-steps checklist (to be
-surfaced via TodoWrite), STOP/checkpoint gates, a Red-flags list, and pointers
-to any `references/*.md`. Keep it lean (< ~500 lines); push detail into
-references. Read `references/skill-body.md` for the structure and the 8-rule
-checklist. Show it.
-
-### Stage 4 — Scaffold + evals
-For a NEW skill, run `scripts/new_skill.sh <skill-name>` to create the directory
-and stubs, then replace the generated `SKILL.md` skeleton with your approved
-Stage 2–3 drafts (the skeleton's TODO placeholders get overwritten). For an
-EDIT, skip scaffolding. Then write 3–5 realistic cases in `evals/evals.json`.
-Read `references/writing-evals.md` for the format and how to pick cases. Show them.
-
-### Stage 5 — Hand off
-Tell the user to run `skill-reviewer` on the new skill (rubric + baseline eval
-comparison). Write a one-line resume pointer ("next: review") to
-`./.claude-skills-work/<skill>/plan.md`. Do not self-judge.
-
-## Red flags (stop and correct)
+## Red flags
 | If you notice… | Do this |
-|----------------|---------|
-| Drafting the body before Stage 1 is approved | STOP — the Stage 1 gate is mandatory |
-| A vague description ("helps with X") | Rewrite with a concrete trigger; sanity-check it against the eval prompts |
-| Inventing requirements the user didn't state | Stop and ask |
-| Skipping evals because "it obviously works" | Evals are required (rule 8); scaffold them |
-| SKILL.md filling up with reference detail | Move detail to `references/`; keep the body lean |
-| Mandating subagents in the new skill | Not allowed except dev-time evals (rules 4 & 8) |
+|---|---|
+| Drafting before Stage 1 is approved | STOP: the gate is mandatory |
+| A vague description ("helps with X") | Concrete trigger; check it against the eval prompts |
+| Inventing requirements | Ask |
+| "Skip the evals, it's simple" | Decline: rule 8; scaffold them |
+| Reference detail filling SKILL.md | Move it to `references/` |
+| Mandating subagents in the skill | Not allowed except dev-time evals (rules 4 & 8) |
 
 ## Done when
-- The new/edited skill satisfies rules 1–8.
-- `evals/evals.json` has 3–5 realistic cases.
-- You have handed off to `skill-reviewer` and written the resume pointer.
+Rules 1–8 hold; `evals/evals.json` has 3–5 realistic cases with assertions; handed off to
+`skill-reviewer` with the resume pointer written.
 
-## References (load only at the stage that needs it)
-- `references/writing-descriptions.md` — Stage 2: the trigger/description.
-- `references/skill-body.md` — Stage 3: body structure + 8-rule checklist.
-- `references/writing-evals.md` — Stage 4: `evals.json` format + good cases.
-- `references/examples.md` — calibration: one strong, one weak skill, annotated.
+## References (batch-read when drafting)
+`references/writing-descriptions.md` (stage 2) · `references/skill-body.md` (stage 3, 8-rule
+checklist) · `references/writing-evals.md` (stage 4) · `references/examples.md` (calibration).

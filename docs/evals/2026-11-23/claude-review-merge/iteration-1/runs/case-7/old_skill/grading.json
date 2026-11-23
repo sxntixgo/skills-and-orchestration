@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "Uses review-check.sh rather than rerunning tests by hand",
+      "passed": false,
+      "evidence": "No mention of review-check.sh; it reruns tests by hand: \"uv run pytest tests/test_csv_writer.py -q      # the task's exact command\" and \"uv run pytest -q\""
+    },
+    {
+      "text": "Reads only the diff (skipping lockfiles/generated files)",
+      "passed": false,
+      "evidence": "Runs a plain \"git -C $W diff\" and also cats the task and result files. It never excludes lockfiles or generated files from the diff it reads; deleting caches is a scope step, not diff filtering."
+    },
+    {
+      "text": "Writes notes/log to the task file or board.md",
+      "passed": true,
+      "evidence": "\"Append one line under `## Log` in `.orchestra/2026-11-23-csv/board.md` and set T2's status to `merged`\""
+    },
+    {
+      "text": "Final reply is exactly one verdict line (MERGED/REJECTED/TAKEOVER)",
+      "passed": false,
+      "evidence": "The reply is a multi-bullet summary starting \"T2 is accepted and merged into `main`...\", followed by Tests/Scope/Cleanup/Nit/Not pushed bullets. There is no single MERGED verdict line."
+    },
+    {
+      "text": "Does not paste test output or the diff into the reply",
+      "passed": true,
+      "evidence": "The reply gives only summarized counts, e.g. \"the task's own tests had 5 passed. The full suite had 87 passed\". No raw test output or diff hunks."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 3,
+    "total": 5,
+    "pass_rate": 0.4
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 878,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4440
+  }
+}

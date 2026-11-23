@@ -5,59 +5,61 @@ description: Reviews an implementer's result for one orchestration task — diff
 
 # Review and merge
 
-You are the stronger model checking the weaker one. RESULT.md is a claim, not evidence.
-Formats: `../../contract.md` (relative to this skill's base directory).
+You check the weaker model's work; RESULT.md is a claim, not evidence. Everything you need is
+on this page: don't open `contract.md` or the script. `W` = `.worktrees/<run>/<id>`.
 
 ## Scope
-DOES: verify one task's worktree; accept → commit and merge into `base_branch`; reject → write
-review notes into the task and hand it back; after `max_rejections` (default 3) rejections → take it over with the cheapest capable model.
-Does NOT: push, deploy, or widen the task. Does not fix the implementer's code silently on accept.
+DOES: verify one task; accept → commit + merge into `base_branch`; reject → review notes in the
+task; after `max_rejections` (default 3) → takeover. Does NOT: push, deploy, widen the task, or
+fix the implementer's code on accept.
 
-## Required steps
-1. **Collect.** Copy `.worktrees/<run>/<id>/RESULT.md` to `.orchestra/<run>/tasks/<id>.result.md`.
-   Read it and the task file.
-2. **Scope check.** `git -C .worktrees/<run>/<id> status --porcelain` and `git -C .worktrees/<run>/<id> diff`
-   (plus untracked files). Every changed file must be in the task's "may change/create" list.
-   RESULT.md itself must not be committed. Build artifacts (`__pycache__/`, `node_modules/`, coverage)
-   are not scope violations: delete them before committing.
-3. **Run the check yourself** in the worktree: the task's exact test command, then the repo's
-   full test suite (or the relevant part if it's slow) and its lint/typecheck if the repo has them.
-   Compare with what RESULT.md claims.
-4. **Read the diff** with a code-review lens (`code-review` helps): correctness, edge cases from
-   the spec, error handling, matches the existing pattern, no dead code, no secrets, no new deps
-   the task didn't name. Check the three principles:
-   - **TDD:** every behaviour change has a test that would fail without it (tests not written
-     after the fact to fit the code; no assertion-free tests).
-   - **YAGNI:** nothing beyond the task: no unused params/options, speculative abstractions,
-     config, or "just in case" branches.
-   - **DRY:** existing helpers reused; no copy-pasted logic (3+ similar blocks) — but things that
-     only look alike may stay separate.
-   A clear violation is a rejection reason. `security-review` when it touches auth, input, files or the network.
-5. **Decide.**
-   - **Accept** when every "Done when" holds, tests pass, scope is clean, nothing important
-     wrong. Remove RESULT.md, commit in the worktree (`<type>: <goal> (orchestra <run>/<id>)`
-     plus the repo's trailers), merge into `base_branch` (fast-forward or `--no-ff`, per the repo),
-     run the tests on `base_branch` again, then `git worktree remove` and delete the branch.
-   - **Reject** otherwise: write `## Notes from review` into the task (each `file:line — problem —
-     what to do`), bump `attempt`, and send it back with `claude-dispatch --continue`.
-   - **Take over** when this is rejection number `max_rejections` (default 3), or the problem is
-     beyond the implementer (design flaw in the spec, cross-cutting change). Pick the cheapest
-     model that can do it (`references/takeover.md`), have it implement in the same worktree,
-     then review its work exactly like opencode's (steps 2–5) and accept, marking `taken-over`
-     and the model used.
-   Small nits only (naming, a comment) → accept and note them; don't spend a round-trip.
-6. **Log** the verdict, test numbers and reason in `board.md`.
+## Steps
+1. **Collect.** `cp $W/RESULT.md .orchestra/<run>/tasks/<id>.result.md`; read it and the task.
+2. **Check:** `bash <skill-dir>/scripts/review-check.sh <run> <id>` (scope vs the task's
+   "may change/create" files, the task's test command, then `test_cmd`/`lint_cmd` from
+   `.orchestra/config.json`). Last line: `CHECK <id> scope=<ok|N-out> result=<yes|no>
+   task=<pass|fail|none> suite=… lint=…`; a failing command shows its last 25 lines. Never
+   rerun tests by hand.
+   - `scope=N-out` → reject, unless only build artifacts (`__pycache__/`, `node_modules/`,
+     coverage): delete them, rerun. `task=none` → spec bug, report it. Missing `test_cmd`/
+     `lint_cmd` → add them to config from the repo's `CLAUDE.md` once.
+3. **Read the diff, lockfiles excluded:** `git -C $W diff -- . ':!*.lock' ':!*-lock.*' ':!go.sum'`
+   plus new files (`git -C $W ls-files -o --exclude-standard`, not RESULT.md). Look for:
+   correctness, the spec's edge cases, error handling, the existing pattern, dead code, secrets,
+   unnamed new deps, and:
+   - **TDD:** each behaviour change has a test that would fail without it (no tests fitted to
+     the output, no assertion-free or skipped/weakened tests).
+   - **YAGNI:** no unused params/options, speculative abstractions or "just in case" branches.
+   - **DRY:** existing helpers reused; no copy-pasted logic.
+   Auth, input parsing, files or network: also check injection, authz, path traversal, SSRF
+   (with the `security-review` skill if installed).
+4. **Decide.**
+   - **Accept:** "Done when" holds, checks pass, scope clean. `rm $W/RESULT.md`; commit in `W`
+     (`<type>: <goal> (orchestra <run>/<id>)` + repo trailers); merge into `base_branch`; run
+     `test_cmd` there (one line); `git worktree remove $W`; delete the branch. Nits only
+     (naming, a comment) → accept and note them.
+   - **Reject:** add `## Notes from review` to the task, one line per problem:
+     `file:line — problem — fix`; bump `attempt`. The orchestrator sends it back with
+     `claude-dispatch --continue`.
+   - **Takeover:** rejection number `max_rejections`, or a problem beyond the implementer
+     (spec design flaw, cross-cutting). The cheapest capable model implements it in `W`
+     (choose with `references/takeover.md`); then review it with steps 2–4 and mark
+     `taken-over` + model.
+5. **Log** verdict, test numbers and reason in `board.md`.
+6. **Reply** with one line only: `MERGED <id> <commit> tests=<summary>` |
+   `REJECTED <id> attempt=<n> notes=<count>` | `TAKEOVER <id> <model> <reason>`.
 
 ## Red flags
 | If you notice… | Do this |
 |---|---|
-| Accepting because RESULT.md says "all tests pass" | Run them yourself first |
-| A file outside the allowed list changed | Reject (or revert that file if harmless and note it) |
-| Tests were weakened, skipped or deleted to pass | Reject; say so explicitly |
-| Rewriting the implementation "while you're there" on accept | Don't; reject or take over |
-| Vague notes ("fix the bugs") | Each note: file:line, problem, concrete fix |
+| Trusting RESULT.md's "all tests pass" | Run `review-check.sh` |
+| Pasting test output or the diff into the reply | One verdict line; details in task/board |
+| A file outside the allowed list | Reject (or revert it if harmless, and note it) |
+| Tests weakened, skipped or deleted | Reject; say so explicitly |
+| Rewriting the code on accept | Reject or take over instead |
+| A vague note ("fix the bugs") | `file:line — problem — fix` |
 | About to push | Don't; the user pushes |
 
 ## Done when
-The task is merged (tests green on `base_branch`, worktree and branch removed) or sent back with
-concrete notes or taken over — and `board.md` records which, with the test numbers.
+Merged (tests green on `base_branch`, worktree and branch gone), sent back with concrete notes,
+or taken over — and `board.md` records which, with test numbers.

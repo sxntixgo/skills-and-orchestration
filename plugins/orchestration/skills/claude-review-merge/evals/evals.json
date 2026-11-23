@@ -4,38 +4,88 @@
     {
       "id": 1,
       "prompt": "opencode finished T1 and RESULT.md says status: done, 12 passed. Merge it.",
-      "expected_output": "Does not merge on RESULT.md's word: checks changed files against the allowed list, reruns the task's test command and the suite itself, reads the diff, then commits and merges only if all holds.",
-      "files": []
+      "expected_output": "Does not merge on RESULT.md's word: runs scripts/review-check.sh (scope vs the allowed list, the task's test command, test_cmd and lint_cmd), reads the diff, then commits and merges only if all holds.",
+      "files": [],
+      "assertions": [
+        "Does not merge on RESULT.md's claim alone",
+        "Runs the mechanical checks (scope + the task's test command + suite), via review-check.sh where available",
+        "Reads the diff before deciding",
+        "Commits and merges only after the checks pass"
+      ]
     },
     {
       "id": 2,
       "prompt": "T2's tests pass, but git status shows web/src/App.tsx changed too, which the task didn't allow, and one test was marked skip.",
-      "expected_output": "Rejects: names the out-of-scope file and the skipped test explicitly in Notes from review with concrete fixes, bumps attempt, sends back with --continue.",
-      "files": []
+      "expected_output": "Rejects: names the out-of-scope file and the skipped test explicitly in Notes from review with concrete fixes, bumps attempt, and replies REJECTED for the orchestrator to send it back with --continue.",
+      "files": [],
+      "assertions": [
+        "Rejects T2",
+        "Names web/src/App.tsx as out of scope in the notes",
+        "Names the skipped test and requires it to run",
+        "Notes use the form file:line — problem — fix",
+        "Bumps attempt and routes it back with --continue (or replies REJECTED for the orchestrator)"
+      ]
     },
     {
       "id": 3,
       "prompt": "T3 is fine except one variable name I'd change. Accept or reject?",
       "expected_output": "Accepts and notes the nit rather than spending a send-back round; does not rewrite the implementation on accept.",
-      "files": []
+      "files": [],
+      "assertions": [
+        "Accepts T3",
+        "Records the naming nit as a note instead of sending it back",
+        "Does not rewrite the implementation on accept"
+      ]
     },
     {
       "id": 4,
       "prompt": "Merged T4 into main. Anything else before moving on?",
       "expected_output": "Reruns tests on main, removes the worktree and orchestra branch, logs verdict and test numbers in board.md, and does not push.",
-      "files": []
+      "files": [],
+      "assertions": [
+        "Reruns the tests on main after the merge",
+        "Removes the worktree and deletes the orchestra branch",
+        "Logs verdict and test numbers in board.md",
+        "Does not push"
+      ]
     },
     {
       "id": 5,
       "prompt": "T6's tests pass, but the diff adds an unused `options` parameter, a second copy of the existing parse_date helper, and the new tests were clearly written after the code (they only assert the current output).",
       "expected_output": "Rejects with notes citing YAGNI (remove the unused parameter), DRY (reuse the existing parse_date) and TDD (tests must pin the required behaviour/edge cases from the spec, not mirror the output).",
-      "files": []
+      "files": [],
+      "assertions": [
+        "Rejects T6",
+        "Cites YAGNI: remove the unused options parameter",
+        "Cites DRY: reuse the existing parse_date helper",
+        "Cites TDD: tests must pin the specified behaviour/edge cases, not mirror the output"
+      ]
     },
     {
       "id": 6,
       "prompt": "T7 was just rejected for the third time: opencode keeps mis-handling a timezone edge case in one function; the spec and review notes say exactly what to change.",
-      "expected_output": "Takes over with a cheap model (haiku or sonnet, not opus) via a subagent with the full task, notes and rules; then reviews the result itself (runs tests, reads diff) before merging; logs taken-over + model.",
-      "files": []
+      "expected_output": "Chooses takeover with a cheap model (haiku or sonnet, not opus): replies TAKEOVER <id> <model> for the orchestrator (or, run inline, has a subagent implement it with the full task, notes and rules); the result is then reviewed like opencode's (review-check.sh, diff) before merging; logs taken-over + model.",
+      "files": [],
+      "assertions": [
+        "Chooses takeover instead of a 4th dispatch",
+        "Picks haiku or sonnet, not opus",
+        "The takeover gets the full task, review notes and rules",
+        "The result is reviewed (tests + diff) before merging",
+        "Logs taken-over and the model used"
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "You are the orchestrator's review subagent for run 2026-11-23-csv, task T2, in /workspaces/jobs. Review it.",
+      "expected_output": "Runs review-check.sh instead of rerunning tests by hand, reads only the diff (skipping lockfiles), writes notes/log to the task file and board.md, and replies with exactly one verdict line (MERGED/REJECTED/TAKEOVER) without pasting test output or the diff.",
+      "files": [],
+      "assertions": [
+        "Uses review-check.sh rather than rerunning tests by hand",
+        "Reads only the diff (skipping lockfiles/generated files)",
+        "Writes notes/log to the task file or board.md",
+        "Final reply is exactly one verdict line (MERGED/REJECTED/TAKEOVER)",
+        "Does not paste test output or the diff into the reply"
+      ]
     }
   ]
 }

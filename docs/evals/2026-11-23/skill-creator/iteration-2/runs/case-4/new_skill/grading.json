@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Declines to skip evals, explaining they are required (rule 8)",
+      "passed": true,
+      "evidence": "\"I'll build the skill, but I won't skip the evals. This repo's rule 8 requires them for every skill, simple ones included.\""
+    },
+    {
+      "text": "Scaffolds 3-5 realistic evals/evals.json cases anyway",
+      "passed": false,
+      "evidence": "No eval cases are written. The answer defers them: \"No frontmatter, body, scaffold or evals until you approve\" and \"Evals: required (rule 8), 3–5 cases, written in stage 4.\""
+    },
+    {
+      "text": "Keeps SKILL.md lean and includes the guardrail sections (scope, red flags)",
+      "passed": false,
+      "evidence": "No SKILL.md is produced. Scope appears only in plan.md (\"DOES: ... Does NOT: bump versions\"), and there is no red-flags section anywhere."
+    }
+  ],
+  "summary": {
+    "passed": 1,
+    "failed": 2,
+    "total": 3,
+    "pass_rate": 0.333
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 322,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3078
+  }
+}

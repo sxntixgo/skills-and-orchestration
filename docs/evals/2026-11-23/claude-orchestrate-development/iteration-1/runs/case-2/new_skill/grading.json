@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Identifies that T2 and T3 both change api/routes.py",
+      "passed": true,
+      "evidence": "\"I changed the graph first because T2 and T3 both edit `api/routes.py`, so they can't run at the same time.\""
+    },
+    {
+      "text": "Serializes T2 and T3 (adds a dependency) instead of running them together",
+      "passed": false,
+      "evidence": "No T2/T3 dependency is added. T3 has depends_on '–' and T2 depends only on T1. The conflict is resolved by moving T3's routes.py edit into T2, so T2 can run while T3 is still running."
+    },
+    {
+      "text": "Never has more than 2 tasks dispatched at once",
+      "passed": true,
+      "evidence": "Only T1 and T3 are 'dispatched (1)'; T2 is 'todo'. \"MERGED T1: spec T2 and dispatch it\" keeps at most 2 running."
+    },
+    {
+      "text": "Keeps T2 after T1 when that dependency is stated",
+      "passed": true,
+      "evidence": "\"T2 needs `export_csv()`, so it waits for T1 to merge.\" Board row: \"T2 | ... | T1 | ... | todo\"."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 1,
+    "total": 4,
+    "pass_rate": 0.75
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 701,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4293
+  }
+}

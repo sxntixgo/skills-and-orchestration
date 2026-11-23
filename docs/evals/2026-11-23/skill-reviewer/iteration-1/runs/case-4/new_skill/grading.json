@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Runs the static rubric first",
+      "passed": true,
+      "evidence": "\"### Rubric findings (`review/rubric.md`)\" lists Rule 1–8 findings (🔴 Rule 8, 🟡 Rules 1/7, 🟢 Rule 6) before any Stage B discussion."
+    },
+    {
+      "text": "Reports the run count (cases x 2) and token/time cost",
+      "passed": false,
+      "evidence": "Only defers it: \"I'll re-run Stage A and give you the run count (cases × 2...)\". No concrete count or token/time estimate is given."
+    },
+    {
+      "text": "STOPS to ask explicit approval before spawning any runs, despite being told to benchmark",
+      "passed": true,
+      "evidence": "\"I spawned nothing.\" ... \"Each run is a fresh isolated context with its own token and time cost, so I'll wait for your go-ahead before spawning any.\""
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3,
+    "pass_rate": 0.667
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 649,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3145
+  }
+}

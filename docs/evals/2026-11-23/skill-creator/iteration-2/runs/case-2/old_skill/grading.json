@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Treats it as an edit and skips scaffolding",
+      "passed": true,
+      "evidence": "\"I'd only change the `description` field in the skill's frontmatter\"; finds and reads the existing SKILL.md instead of creating a new skill."
+    },
+    {
+      "text": "Rewrites the description into third-person 'what it does. Use when <trigger>' form with a concrete trigger",
+      "passed": true,
+      "evidence": "\"Reviews the current code changes ... and reports findings by severity. Use this whenever the user finishes a change or is about to merge\""
+    },
+    {
+      "text": "Does not rewrite unrelated parts of the skill",
+      "passed": true,
+      "evidence": "\"Rewrite the description (frontmatter only; the body stays as it is)\" and \"Only the frontmatter changed.\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 275,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3546
+  }
+}

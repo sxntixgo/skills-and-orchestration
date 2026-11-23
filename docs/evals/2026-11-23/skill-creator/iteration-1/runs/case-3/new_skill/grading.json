@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does NOT start drafting a skill",
+      "passed": true,
+      "evidence": "\"I've stopped at Stage 1 before drafting anything.\" Commands: none; won't run scripts/new_skill.sh. Plan.md only lists OPEN fields, no name/description/body drafted."
+    },
+    {
+      "text": "Recognizes the brief is too vague and stays in Stage 1",
+      "passed": true,
+      "evidence": "\"'Productivity' is too broad to define a skill around\" and plan status: \"Stage 1 — awaiting user input (STOP GATE)\""
+    },
+    {
+      "text": "Asks clarifying questions about trigger, scope, and success criteria",
+      "passed": true,
+      "evidence": "Trigger: \"When should it fire?\"; scope: \"What should it NOT do?\"; success: \"How would you know it worked?\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 292,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2901
+  }
+}

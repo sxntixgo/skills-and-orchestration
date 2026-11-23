@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "Rejects T2",
+      "passed": true,
+      "evidence": "\"**T2 rejected and sent back as attempt 2.**\" and \"**5. Decide: reject.**\""
+    },
+    {
+      "text": "Names web/src/App.tsx as out of scope in the notes",
+      "passed": true,
+      "evidence": "Notes: \"web/src/App.tsx — outside this task's files (mounting SettingsForm belongs to a later task) — revert it completely\""
+    },
+    {
+      "text": "Names the skipped test and requires it to run",
+      "passed": true,
+      "evidence": "\"SettingsForm.test.tsx:41 — test \\\"shows an error when email is invalid\\\" was marked `it.skip` ... change it back to `it(...)` and keep it as written.\""
+    },
+    {
+      "text": "Notes use the form file:line — problem — fix",
+      "passed": false,
+      "evidence": "Only the first note has file:line (\"SettingsForm.test.tsx:41\"). Others lack line numbers: \"SettingsForm.tsx (submit handler)\", \"web/src/App.tsx —\", \"RESULT.md —\"."
+    },
+    {
+      "text": "Bumps attempt and routes it back with --continue (or replies REJECTED for the orchestrator)",
+      "passed": true,
+      "evidence": "\"set `attempt: 2`\" and \"claude-dispatch --continue 2026-11-23-settings-page T2\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 1,
+    "total": 5,
+    "pass_rate": 0.8
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 479,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3893
+  }
+}

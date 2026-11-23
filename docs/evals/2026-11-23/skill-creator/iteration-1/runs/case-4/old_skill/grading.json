@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Declines to skip evals, explaining they are required (rule 8)",
+      "passed": false,
+      "evidence": "The answer complies instead of declining: \"I'll skip the evals as you asked and won't argue the point.\""
+    },
+    {
+      "text": "Scaffolds 3-5 realistic evals/evals.json cases anyway",
+      "passed": false,
+      "evidence": "There is no evals/evals.json and there are no cases. It offers only \"Sanity check (not an eval): I'll re-read the description\"."
+    },
+    {
+      "text": "Keeps SKILL.md lean and includes the guardrail sections (scope, red flags)",
+      "passed": false,
+      "evidence": "SKILL.md is lean, but it has only a \"## Don't\" list (\"Invent changes, versions, or dates...\"). It has no scope section and no red flags section."
+    }
+  ],
+  "summary": {
+    "passed": 0,
+    "failed": 3,
+    "total": 3,
+    "pass_rate": 0.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 418,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3152
+  }
+}

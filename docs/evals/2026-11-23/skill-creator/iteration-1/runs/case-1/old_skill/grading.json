@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Clarifies trigger/scope/success and STOPS for approval before drafting (Stage 1 gate)",
+      "passed": false,
+      "evidence": "No clarification or approval stop; it assumes and proceeds: \"I'm assuming you want a project-level skill and that no skill with that name exists yet.\""
+    },
+    {
+      "text": "Produces a concrete 'Use when' description and a scope block with a 'does NOT' line",
+      "passed": false,
+      "evidence": "Has a concrete 'Use when' description (\"Use when the user asks for a summary of their changes, e.g. 'summarize my changes'...\"), but no scope block with a 'does NOT' line; only \"Read-only. Never stage, commit, stash, or edit files.\""
+    },
+    {
+      "text": "Scaffolds evals/evals.json with realistic cases",
+      "passed": false,
+      "evidence": "Only SKILL.md is written: \"I'd write one file, `.claude/skills/summarize-diff/SKILL.md`\". No evals/evals.json."
+    },
+    {
+      "text": "Ends by handing off to skill-reviewer (does not self-judge)",
+      "passed": false,
+      "evidence": "Ends with a self-check and a final reply (\"Restart the session or run `/skills` to load it.\"). No handoff to skill-reviewer."
+    }
+  ],
+  "summary": {
+    "passed": 0,
+    "failed": 4,
+    "total": 4,
+    "pass_rate": 0.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 441,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3342
+  }
+}

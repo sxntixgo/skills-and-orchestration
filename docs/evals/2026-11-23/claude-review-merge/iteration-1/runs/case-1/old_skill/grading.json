@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does not merge on RESULT.md's claim alone",
+      "passed": true,
+      "evidence": "\"RESULT.md is just opencode's claim, so I re-run the tests and read the diff before merging.\""
+    },
+    {
+      "text": "Runs the mechanical checks (scope + the task's test command + suite), via review-check.sh where available",
+      "passed": true,
+      "evidence": "Scope: \"git -C $W status --porcelain --untracked-files=all\"; tests: \"uv run pytest tests/test_export.py -q / uv run pytest -q\". It never mentions review-check.sh, but that is conditional and the checks are run manually."
+    },
+    {
+      "text": "Reads the diff before deciding",
+      "passed": true,
+      "evidence": "\"### 4. Read the diff\" with \"Code review: correctness, the edge cases the spec names, error handling...\" placed before 5a Accept / 5b Reject."
+    },
+    {
+      "text": "Commits and merges only after the checks pass",
+      "passed": true,
+      "evidence": "\"5a. Accept (every 'Done when' holds, tests green, scope clean)\" then \"git commit ... git merge --no-ff\"; on reject: \"don't merge\"."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 557,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3555
+  }
+}

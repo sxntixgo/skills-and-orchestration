@@ -1,0 +1,46 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does not read diffs, source files, test output or logs in the orchestrator thread",
+      "passed": false,
+      "evidence": "Orchestrator reads diffs and tests directly: \"git -C $W status --porcelain && git -C $W diff\" and \"uv run pytest tests/export/test_core.py -q # ... run by me\""
+    },
+    {
+      "text": "Delegates specs and reviews to subagents with a named model (spec_model/review_model or sonnet)",
+      "passed": false,
+      "evidence": "No subagent or named model mentioned; review is done inline: \"Diff review: I check correctness and edge cases\""
+    },
+    {
+      "text": "Expects or requests one-line replies from the subagents",
+      "passed": false,
+      "evidence": "No subagents are used, and no one-line reply format is requested anywhere"
+    },
+    {
+      "text": "Sends small bugs back as review notes instead of fixing them inline",
+      "passed": true,
+      "evidence": "\"Reject: I add `## Notes from review` to `tasks/T1.task.md` (each note as `file:line — problem — fix`), bump to `attempt: 2`\""
+    },
+    {
+      "text": "At the end of phase 1 runs a phase-level review on opus over the phase diff",
+      "passed": false,
+      "evidence": "No phase-level review or opus model mentioned; loop continues straight into T3/T4"
+    },
+    {
+      "text": "Stops after phase 1 and tells the user to start a new session to resume the run",
+      "passed": false,
+      "evidence": "Continues through all phases: \"keep the loop going through phase 3\"; final reply reports all 6 tasks merged"
+    }
+  ],
+  "summary": {
+    "passed": 1,
+    "failed": 5,
+    "total": 6,
+    "pass_rate": 0.167
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 531,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4269
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Takes over neither T2 nor T5",
+      "passed": true,
+      "evidence": "\"**No, neither one yet.**\" T5 is also sent back: \"Send it back as `attempt: 3`\". The exception is hypothetical, and the stated decision is no takeover."
+    },
+    {
+      "text": "Sends both back to opencode with review notes (--continue)",
+      "passed": false,
+      "evidence": "Both are sent back with notes (\"run `claude-write-task` again with `attempt: 2` and the review notes under `## Notes from review`\"). But it re-writes the task and re-dispatches. It never mentions continuing the opencode session via --continue."
+    },
+    {
+      "text": "States takeover happens only after the 3rd rejection",
+      "passed": true,
+      "evidence": "\"opencode gets 3 attempts before a takeover\" and \"If T5 is rejected a third time, `claude-review-merge` takes it over.\""
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3,
+    "pass_rate": 0.667
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 696,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2674
+  }
+}

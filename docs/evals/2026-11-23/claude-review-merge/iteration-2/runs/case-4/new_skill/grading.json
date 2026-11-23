@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Reruns the tests on main after the merge",
+      "passed": true,
+      "evidence": "\"4. Run the tests on `main`. I'd run `test_cmd` from `.orchestra/config.json`. I'm assuming it's `pytest -q`\""
+    },
+    {
+      "text": "Removes the worktree and deletes the orchestra branch",
+      "passed": true,
+      "evidence": "\"git worktree remove $W\" and \"git branch -d orchestra/<run>/T4\""
+    },
+    {
+      "text": "Logs verdict and test numbers in board.md",
+      "passed": true,
+      "evidence": "\"- T4 MERGED (by user) <commit> — post-merge review: scope ok, task=pass, suite=142 passed, lint ok\""
+    },
+    {
+      "text": "Does not push",
+      "passed": true,
+      "evidence": "\"I won't push; you push when you're ready.\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 591,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2906
+  }
+}

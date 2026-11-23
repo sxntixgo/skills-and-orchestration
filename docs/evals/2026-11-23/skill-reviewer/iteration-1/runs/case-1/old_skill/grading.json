@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Applies the 8-rule rubric with severity-rated findings and file:line references",
+      "passed": false,
+      "evidence": "Findings are severity-rated ('### Blocking', '### Should fix', '### Nice to have'), but there are no file:line references (only 'Step 3', 'Step 4'). No 8-rule rubric is named or applied."
+    },
+    {
+      "text": "STOPS at the Stage B gate and asks approval before spawning eval runs",
+      "passed": false,
+      "evidence": "No Stage B gate and no approval request for eval runs. It rules them out ('I wouldn't spawn subagents or log anything') and asks only 'Want me to apply fixes 1–7?'"
+    },
+    {
+      "text": "Does not edit the target skill (reports findings only)",
+      "passed": true,
+      "evidence": "'this is a read-only review' ... 'Want me to apply fixes 1–7?' It reports findings and edits nothing."
+    }
+  ],
+  "summary": {
+    "passed": 1,
+    "failed": 2,
+    "total": 3,
+    "pass_rate": 0.333
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 544,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3238
+  }
+}

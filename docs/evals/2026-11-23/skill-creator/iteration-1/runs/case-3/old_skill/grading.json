@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does NOT start drafting a skill",
+      "passed": true,
+      "evidence": "\"Nothing on disk yet... No commands, files or subagents at this point. I'd reply with the message below and wait for the answer.\""
+    },
+    {
+      "text": "Recognizes the brief is too vague and stays in Stage 1",
+      "passed": true,
+      "evidence": "\"'Productivity' is too broad to write a useful skill: the description wouldn't trigger reliably and the body would end up as generic advice.\""
+    },
+    {
+      "text": "Asks clarifying questions about trigger, scope, and success criteria",
+      "passed": false,
+      "evidence": "Asks about trigger (\"What should trigger it: a phrase like 'plan my day', or a slash command?\") and scope (\"personal (~/.claude/skills/) or inside a project/plugin repo?\"), but never asks about success criteria or what a good result looks like."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3,
+    "pass_rate": 0.667
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 390,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2513
+  }
+}

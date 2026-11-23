@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Rejects T6",
+      "passed": true,
+      "evidence": "\"T6 gets **rejected**\" and reply \"REJECTED T6 attempt=2 notes=4\""
+    },
+    {
+      "text": "Cites YAGNI: remove the unused options parameter",
+      "passed": true,
+      "evidence": "\"`options` parameter is never used (YAGNI) — remove it from the signature and from all call sites/tests.\""
+    },
+    {
+      "text": "Cites DRY: reuse the existing parse_date helper",
+      "passed": true,
+      "evidence": "\"duplicates `src/utils/dates.py:12 parse_date` (DRY) — delete it and import `parse_date` from `src/utils/dates`\""
+    },
+    {
+      "text": "Cites TDD: tests must pin the specified behaviour/edge cases, not mirror the output",
+      "passed": true,
+      "evidence": "\"replace them with one test per \"Done when\" behaviour (e.g. empty rows, invalid date → error...). Each must assert the specified result, not a copied output.\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 352,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3279
+  }
+}

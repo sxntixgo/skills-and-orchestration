@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "Rejects T2",
+      "passed": true,
+      "evidence": "\"T2 is rejected and sent back as attempt 2.\" and \"Decide: reject.\""
+    },
+    {
+      "text": "Names web/src/App.tsx as out of scope in the notes",
+      "passed": true,
+      "evidence": "\"web/src/App.tsx:3,58 — file is outside \\\"may change\\\" (mounting ExportButton is T3's job) — revert all changes to App.tsx\""
+    },
+    {
+      "text": "Names the skipped test and requires it to run",
+      "passed": true,
+      "evidence": "\"ExportButton.test.tsx:41 — `it.skip('disables the button while exporting')` ... — remove `.skip`, then make it pass\""
+    },
+    {
+      "text": "Notes use the form file:line — problem — fix",
+      "passed": true,
+      "evidence": "\"web/src/components/ExportButton.test.tsx:41 — `it.skip(...)` hides a \\\"Done when\\\" requirement — remove `.skip`, then make it pass\"; the RESULT.md note has no line number, but the other two follow the form"
+    },
+    {
+      "text": "Bumps attempt and routes it back with --continue (or replies REJECTED for the orchestrator)",
+      "passed": true,
+      "evidence": "\"I change `attempt: 1` to `attempt: 2`\" and reply \"REJECTED T2 attempt=2 notes=3\"; orchestrator \"sends T2 back with `claude-dispatch --continue`\""
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 509,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3498
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Treats it as an edit and skips scaffolding",
+      "passed": true,
+      "evidence": "\"I'd change only the `description` in the frontmatter, leaving the skill body as it is.\" It locates the existing SKILL.md and edits it; no new skill is scaffolded."
+    },
+    {
+      "text": "Rewrites the description into third-person 'what it does. Use when <trigger>' form with a concrete trigger",
+      "passed": false,
+      "evidence": "It has a concrete trigger: \"Use whenever the user has just finished implementing a change... or is about to commit, push, open a PR, or merge\". But the opening is imperative, not third-person: \"Review a code change for bugs...\" rather than \"Reviews a code change...\"."
+    },
+    {
+      "text": "Does not rewrite unrelated parts of the skill",
+      "passed": true,
+      "evidence": "\"Edit the frontmatter to the version below. Nothing else changes.\" and \"Nothing in the body changed.\""
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3,
+    "pass_rate": 0.667
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 513,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2740
+  }
+}

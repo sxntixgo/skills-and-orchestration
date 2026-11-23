@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Clarifies trigger/scope/success and STOPS for approval before drafting (Stage 1 gate)",
+      "passed": false,
+      "evidence": "Explicitly skips the gate: \"The request is clear enough that I'd skip clarifying questions and put the defaults in the final reply.\""
+    },
+    {
+      "text": "Produces a concrete 'Use when' description and a scope block with a 'does NOT' line",
+      "passed": false,
+      "evidence": "The 'Use when' is concrete: \"Use when the user asks for a summary of their changes, 'what did I change', 'summarize my diff'...\" There is no scope block with a 'does NOT' line. The closest are an inline \"Not for writing commit messages...\" in the description and \"Read-only: never stage, commit, stash, or modify files.\""
+    },
+    {
+      "text": "Scaffolds evals/evals.json with realistic cases",
+      "passed": true,
+      "evidence": "Writes evals/evals.json with fixture-backed cases, e.g. {\"prompt\": \"summarize my changes\", \"fixture\": \"risky\", \"expectations\": [\"flags .env API key\", \"flags DROP COLUMN migration\"...]}, plus trigger_evals."
+    },
+    {
+      "text": "Ends by handing off to skill-reviewer (does not self-judge)",
+      "passed": false,
+      "evidence": "skill-reviewer is never mentioned. It self-grades with its own subagent: \"I'd spawn one grader subagent (model: \\\"opus\\\")\". It then reports \"with-skill X/Y... trigger evals were 6/6\" and closes with \"Tell me if you want any of these changed.\""
+    }
+  ],
+  "summary": {
+    "passed": 1,
+    "failed": 3,
+    "total": 4,
+    "pass_rate": 0.25
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 564,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4543
+  }
+}

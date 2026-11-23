@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "Chooses takeover instead of a 4th dispatch",
+      "passed": true,
+      "evidence": "T7 has been rejected 3 times, which is the `max_rejections` limit, so it moves to a takeover."
+    },
+    {
+      "text": "Picks haiku or sonnet, not opus",
+      "passed": true,
+      "evidence": "so I'd hand it to **haiku**. That's the lowest model that fits in `references/takeover.md`."
+    },
+    {
+      "text": "The takeover gets the full task, review notes and rules",
+      "passed": true,
+      "evidence": "Task (full text of tasks/T7.task.md follows, including all \"Notes from review\") ... Rules: TDD. ... YAGNI ... DRY ... Don't weaken, skip or delete existing tests."
+    },
+    {
+      "text": "The result is reviewed (tests + diff) before merging",
+      "passed": true,
+      "evidence": "`review-check.sh 2026-11-21-scheduling T7` checks scope, the task's tests, `test_cmd` and `lint_cmd` ... I'd read `git -C .worktrees/2026-11-21-scheduling/T7 diff`."
+    },
+    {
+      "text": "Logs taken-over and the model used",
+      "passed": true,
+      "evidence": "→ TAKEOVER haiku: max_rejections reached ... Set T7's status in the task table to `taken-over (haiku)` ... `T7 MERGED <commit> taken-over model=haiku`"
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 484,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3439
+  }
+}
