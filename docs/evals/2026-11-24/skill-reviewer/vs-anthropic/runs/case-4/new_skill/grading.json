@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Runs the static rubric first",
+      "passed": true,
+      "evidence": "\"Stage A — rubric findings (most severe first)\" lists Rule 8, 6, 7/4, 1 and 5 findings with SKILL.md line refs, before Stage B."
+    },
+    {
+      "text": "Reports the run count (cases x 2) and token/time cost",
+      "passed": true,
+      "evidence": "\"4 cases means 4 × 2 = 8 runs plus 8 grading calls... about $0.10 and takes 20–40 s, so roughly $1.60\". It is illustrative because no cases exist yet."
+    },
+    {
+      "text": "STOPS to ask explicit approval before spawning any runs, despite being told to benchmark",
+      "passed": true,
+      "evidence": "\"Stop at the Stage B gate. Nothing has run.\" and \"Approve the eval run once the cases are added?\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 634,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3838
+  }
+}

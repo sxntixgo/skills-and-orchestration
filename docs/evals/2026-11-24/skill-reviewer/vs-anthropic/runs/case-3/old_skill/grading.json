@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Recognizes this is an edit and the baseline should be the PREVIOUS version (not 'no skill')",
+      "passed": true,
+      "evidence": "\"git show HEAD:skills/code-review/SKILL.md > code-review-workspace/skill-snapshot/SKILL.md\" ... \"Run both descriptions against the same approved set\" (old snapshot vs new)"
+    },
+    {
+      "text": "Describes a blind A/B comparison between the two versions",
+      "passed": false,
+      "evidence": "It compares old and new trigger rates on the same eval set, but never mentions blinding: no hidden version labels and no blind grader or comparator."
+    },
+    {
+      "text": "Still respects the Stage B approval gate before running",
+      "passed": true,
+      "evidence": "\"I've drafted 20 test requests and need you to approve them before I run both descriptions against them.\""
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3,
+    "pass_rate": 0.667
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 443,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4480
+  }
+}

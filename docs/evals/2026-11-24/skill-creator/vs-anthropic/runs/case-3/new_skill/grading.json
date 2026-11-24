@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does NOT start drafting a skill",
+      "passed": true,
+      "evidence": "\"Stop and reply. No frontmatter, body, scaffold or evals until you approve the plan.\""
+    },
+    {
+      "text": "Recognizes the brief is too vague and stays in Stage 1",
+      "passed": true,
+      "evidence": "\"Status: Stage 1 (clarify intent): BLOCKED, waiting on the user\" and \"'Productivity' is too broad to write a good skill for yet.\""
+    },
+    {
+      "text": "Asks clarifying questions about trigger, scope, and success criteria",
+      "passed": true,
+      "evidence": "\"Trigger: what would you typically type when you want it?\" ... \"Out of scope: anything it should not do\" ... \"Output: what should it produce, and where?\" plus \"Once you approve the trigger, scope and success criteria\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 299,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3184
+  }
+}

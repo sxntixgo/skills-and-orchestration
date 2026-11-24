@@ -1,8 +1,8 @@
 {
   "name": "frugal-skills",
   "displayName": "Frugal Skills",
-  "version": "2.0.0",
-  "description": "Reusable Claude Code skills for authoring skills, research, building planned phases, software development (TDD + DRY/YAGNI/KISS), testing, code review, and security review.",
+  "version": "3.0.0",
+  "description": "Reusable skills for brainstorming, planning, software development (TDD + DRY/YAGNI/KISS, incl. planned phases and tests), debugging, code + security review, and web research.",
   "author": {
     "name": "Santiago",
     "email": "18380937+sxntixgo@users.noreply.github.com",

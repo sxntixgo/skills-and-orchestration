@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Applies the 8-rule rubric with severity-rated findings and file:line references",
+      "passed": true,
+      "evidence": "\"🔴 Must fix - R8 Eval-backed...\" \"🟡 Should fix - R6 Checkpointed (SKILL.md:16)\" \"OK R1 name/description, R2 self-contained, R3 lean...\""
+    },
+    {
+      "text": "STOPS at the Stage B gate and asks approval before spawning eval runs",
+      "passed": true,
+      "evidence": "\"Stage B can't be gated with real numbers because there are no cases. I start nothing.\" ... \"I'll give the exact count and cost and ask you to approve the eval run.\""
+    },
+    {
+      "text": "Does not edit the target skill (reports findings only)",
+      "passed": true,
+      "evidence": "It only writes ./.claude-skills-work/debugging/review/rubric.md and says \"Add the eval cases yourself, or use skill-creator\". It makes no edits under skills/debugging/."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 345,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4055
+  }
+}

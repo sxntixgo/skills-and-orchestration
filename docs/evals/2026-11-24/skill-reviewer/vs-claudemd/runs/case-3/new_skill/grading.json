@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Recognizes this is an edit and the baseline should be the PREVIOUS version (not 'no skill')",
+      "passed": true,
+      "evidence": "\"I'd compare the new description against the old one (`HEAD`, extracted with `git archive HEAD skills/code-review`). If you committed the edit already... I'll use the parent commit\""
+    },
+    {
+      "text": "Describes a blind A/B comparison between the two versions",
+      "passed": true,
+      "evidence": "\"Behaviour A/B (`abeval.py`) | 4 cases → **8 runs + 8 blind judge calls**\" with \"`abeval.py run --skill skills/code-review --baseline HEAD`\""
+    },
+    {
+      "text": "Still respects the Stage B approval gate before running",
+      "passed": true,
+      "evidence": "\"**Stop at the Stage B gate** and send the reply below. No runs start before you approve.\" and \"**Approve the eval run?**\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 451,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3680
+  }
+}

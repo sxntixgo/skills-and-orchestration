@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Clarifies trigger/scope/success and STOPS for approval before drafting (Stage 1 gate)",
+      "passed": false,
+      "evidence": "It drafts SKILL.md and evals.json first. The gate comes afterward: 'Stop and send the reply below. Nothing gets spawned until the user confirms.' It stops before running evals, not before drafting."
+    },
+    {
+      "text": "Produces a concrete 'Use when' description and a scope block with a 'does NOT' line",
+      "passed": true,
+      "evidence": "'Use when the user asks for a summary or recap of their changes, \"what did I change\"...' and '**Does NOT:** edit, stage, commit, fix issues, or review code style.'"
+    },
+    {
+      "text": "Scaffolds evals/evals.json with realistic cases",
+      "passed": true,
+      "evidence": "Three cases, e.g. 'what did I change today? I touched a bunch of stuff in the auth module and I think I deleted a test', with a setup_repo.sh fixture."
+    },
+    {
+      "text": "Ends by handing off to skill-reviewer (does not self-judge)",
+      "passed": true,
+      "evidence": "Step 10: 'Then run `skill-authoring:skill-reviewer` and tick the box in `plan.md`.'"
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 1,
+    "total": 4,
+    "pass_rate": 0.75
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 675,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 5109
+  }
+}

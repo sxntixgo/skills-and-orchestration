@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "skill": "skill-creator",
+    "skill_path": "plugins/skill-authoring/skills/skill-creator",
+    "model": "opus",
+    "claudemd": true,
+    "baseline": "skill:/Users/santiago/.claude/plugins/marketplaces/claude-plugins-official/plugins/skill-creator/skills/skill-creator",
+    "new_rev": "369cdd8+worktree",
+    "date": "2026-11-24",
+    "cases": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "run_summary": {
+    "new_skill": {
+      "pass_rate": {
+        "mean": 0.625
+      },
+      "assertions": "8/13",
+      "tokens": {
+        "mean": 19067.5
+      },
+      "time_seconds": {
+        "mean": 13.69
+      },
+      "cost_usd": {
+        "mean": 0.065
+      }
+    },
+    "old_skill": {
+      "pass_rate": {
+        "mean": 0.854
+      },
+      "assertions": "11/13",
+      "tokens": {
+        "mean": 36627.75
+      },
+      "time_seconds": {
+        "mean": 27.69
+      },
+      "cost_usd": {
+        "mean": 0.181
+      }
+    },
+    "delta": {
+      "pass_rate": -0.229,
+      "tokens": -17560.25,
+      "time_seconds": -14.0,
+      "cost_usd": -0.116
+    }
+  }
+}

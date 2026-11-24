@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Recognizes this is an edit and the baseline should be the PREVIOUS version (not 'no skill')",
+      "passed": true,
+      "evidence": "\"I'm assuming the old version is the committed one at `HEAD`.\" plus `git show HEAD:skills/code-review/SKILL.md > .../old/SKILL.md`"
+    },
+    {
+      "text": "Describes a blind A/B comparison between the two versions",
+      "passed": false,
+      "evidence": "The answer describes an old-vs-new trigger A/B scored by detecting a `Skill` tool_use, but it never mentions blinding. No grader is kept unaware of which arm is old or new."
+    },
+    {
+      "text": "Still respects the Stage B approval gate before running",
+      "passed": false,
+      "evidence": "The answer gives a plan (\"What I'd do, in order\") and a template \"Reply after the run\", but never asks for approval before running. The only stop-and-ask is conditional: \"If the diff touches the body... I'd stop and ask.\""
+    }
+  ],
+  "summary": {
+    "passed": 1,
+    "failed": 2,
+    "total": 3,
+    "pass_rate": 0.333
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 686,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4234
+  }
+}

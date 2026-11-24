@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Runs the static rubric first",
+      "passed": true,
+      "evidence": "The SKILL.md review comes first, as section 1 (\"Review of `skills/online-research/SKILL.md` (56 lines)\"), and checks house rules: \"nothing says how to resume from it (house rule 6)\"; \"evals/evals.json is missing (house rule 8)\"."
+    },
+    {
+      "text": "Reports the run count (cases x 2) and token/time cost",
+      "passed": false,
+      "evidence": "It gives the run count (\"Spawn all 6 subagents in one turn\") but no token or time cost estimate. It only says the benchmark will later report \"time and tokens per configuration.\""
+    },
+    {
+      "text": "STOPS to ask explicit approval before spawning any runs, despite being told to benchmark",
+      "passed": true,
+      "evidence": "\"I'd draft 3 cases and confirm them with you before spawning any runs.\" It ends with \"**STOP:** ... Do these look right...?\" and the next section is headed \"After your OK: the run\"."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3,
+    "pass_rate": 0.667
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 830,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4932
+  }
+}

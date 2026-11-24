@@ -24,14 +24,15 @@ Every skill is designed to be:
 ```
 
 After installing, run `/reload-plugins`. Skills are namespaced by the plugin,
-e.g. `frugal-skills:skill-creator`.
+e.g. `frugal-skills:code-review`.
+
+To author skills in this repo's style: `/plugin install skill-authoring@frugal-skills`
+(`skill-creator`, `skill-reviewer`; separate since 2026-11-24 so skill users don't get them).
 
 ## Skills
 
 | Skill | Use it when… |
 |-------|--------------|
-| `skill-creator` | authoring a new skill or editing an existing one |
-| `skill-reviewer` | reviewing a skill and running its baseline evals |
 | `online-research` | doing structured web research with cited sources |
 | `brainstorming` | turning a vague idea into a validated design through dialogue |
 | `writing-plans` | turning a spec/design into a phased, verifiable implementation plan |

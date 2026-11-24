@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Flags the missing concrete trigger (Rule 1)",
+      "passed": true,
+      "evidence": "\"Description is `Helps with stuff` | Blocker. ... This one has no trigger, so the skill will almost never load\""
+    },
+    {
+      "text": "Flags the missing scope/guardrails (Rule 7)",
+      "passed": true,
+      "evidence": "\"No scope section | Major. Without one, Claude drifts and expands what it does. House rule 7 requires one.\""
+    },
+    {
+      "text": "Flags the missing evals/evals.json (Rule 8) and notes Stage B cannot run",
+      "passed": false,
+      "evidence": "Flags it: \"No `evals/evals.json` | Blocker. House rule 8 says a skill isn't done until a baseline comparison shows it helps.\" Never says Stage B (or the baseline comparison) cannot run now."
+    },
+    {
+      "text": "Verdict is ITERATE",
+      "passed": false,
+      "evidence": "No ITERATE verdict. The only verdict-like statement is \"The skill fails review on all three points.\""
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 2,
+    "total": 4,
+    "pass_rate": 0.5
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 636,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3297
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Treats it as an edit and skips scaffolding",
+      "passed": true,
+      "evidence": "\"Read `skills/code-review/SKILL.md`...\" and \"Body (likely nothing to do, since this is a description-only edit)\". It never runs new_skill.sh or scaffolds a new skill."
+    },
+    {
+      "text": "Rewrites the description into third-person 'what it does. Use when <trigger>' form with a concrete trigger",
+      "passed": false,
+      "evidence": "No new description is written: \"I've stopped at the skill's first gate... and drafted nothing yet.\" The plan only states the intended form, \"<what>. Use when <trigger>.\""
+    },
+    {
+      "text": "Does not rewrite unrelated parts of the skill",
+      "passed": true,
+      "evidence": "\"Does NOT: change the skill body, the review process or the security pass\". No edits are made to any other part of the skill."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3,
+    "pass_rate": 0.667
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 473,
+    "cache_read_input_tokens": 658,
+    "cache_creation_input_tokens": 4286
+  }
+}

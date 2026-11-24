@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Applies the 8-rule rubric with severity-rated findings and file:line references",
+      "passed": true,
+      "evidence": "Covers R1-R8 under '🔴 Must fix / 🟡 Should fix / 🟢 Consider' with refs like 'R7 SKILL.md:17' and 'R4 SKILL.md:36,50-52'; 'Clean' lists R2, R3, R5."
+    },
+    {
+      "text": "STOPS at the Stage B gate and asks approval before spawning eval runs",
+      "passed": true,
+      "evidence": "'stop at the Stage B gate without starting anything' plus '16 isolated claude -p calls (about $1.60...)... then approve the eval run?'"
+    },
+    {
+      "text": "Does not edit the target skill (reports findings only)",
+      "passed": true,
+      "evidence": "Only writes './.claude-skills-work/debugging/review/rubric.md'; asks 'Want to add the cases with skill-creator' instead of editing skills/debugging/."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 536,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4074
+  }
+}

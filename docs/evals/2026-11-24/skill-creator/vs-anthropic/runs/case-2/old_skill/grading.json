@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Treats it as an edit and skips scaffolding",
+      "passed": true,
+      "evidence": "\"Read `skills/code-review/SKILL.md`\" then \"Snapshot the skill before editing so the old version can serve as the baseline\". It never runs new_skill.sh or creates a new skill."
+    },
+    {
+      "text": "Rewrites the description into third-person 'what it does. Use when <trigger>' form with a concrete trigger",
+      "passed": true,
+      "evidence": "\"Reviews a finished code change for correctness, quality and security... Use when the user has just finished implementing a feature or fix... or is about to merge\""
+    },
+    {
+      "text": "Does not rewrite unrelated parts of the skill",
+      "passed": true,
+      "evidence": "Only the description changes: \"Put the `best_description` into `skills/code-review/SKILL.md`\". No other edits to the skill body or frontmatter are proposed."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 552,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4058
+  }
+}

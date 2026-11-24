@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "skill": "skill-reviewer",
+    "skill_path": "plugins/skill-authoring/skills/skill-reviewer",
+    "model": "opus",
+    "claudemd": true,
+    "baseline": "none",
+    "new_rev": "369cdd8+worktree",
+    "date": "2026-11-24",
+    "cases": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "run_summary": {
+    "new_skill": {
+      "pass_rate": {
+        "mean": 1.0
+      },
+      "assertions": "13/13",
+      "tokens": {
+        "mean": 50733.25
+      },
+      "time_seconds": {
+        "mean": 28.324
+      },
+      "cost_usd": {
+        "mean": 0.153
+      }
+    },
+    "old_skill": {
+      "pass_rate": {
+        "mean": 0.604
+      },
+      "assertions": "8/13",
+      "tokens": {
+        "mean": 37712.75
+      },
+      "time_seconds": {
+        "mean": 27.32
+      },
+      "cost_usd": {
+        "mean": 0.124
+      }
+    },
+    "delta": {
+      "pass_rate": 0.396,
+      "tokens": 13020.5,
+      "time_seconds": 1.004,
+      "cost_usd": 0.029
+    }
+  }
+}

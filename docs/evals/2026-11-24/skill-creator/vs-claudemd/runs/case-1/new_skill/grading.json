@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Clarifies trigger/scope/success and STOPS for approval before drafting (Stage 1 gate)",
+      "passed": true,
+      "evidence": "\"Stage 1 is a stop gate, so this answer only writes the plan and asks for your approval. No frontmatter, body or scaffold gets written until you sign off.\""
+    },
+    {
+      "text": "Produces a concrete 'Use when' description and a scope block with a 'does NOT' line",
+      "passed": true,
+      "evidence": "\"Use when the user asks to summarize, recap or describe their uncommitted / working-tree changes\" and \"does NOT: - Commit, stage, stash, or modify files\""
+    },
+    {
+      "text": "Scaffolds evals/evals.json with realistic cases",
+      "passed": false,
+      "evidence": "No evals.json is written and no eval cases are given. The answer stops at Stage 1, and 'Scaffold + evals' is only listed as future Stage 4."
+    },
+    {
+      "text": "Ends by handing off to skill-reviewer (does not self-judge)",
+      "passed": false,
+      "evidence": "The answer ends with \"I'll draft the frontmatter next.\" skill-reviewer is only mentioned as a future baseline check, and no handoff to it is made."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 2,
+    "total": 4,
+    "pass_rate": 0.5
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 420,
+    "cache_read_input_tokens": 658,
+    "cache_creation_input_tokens": 4728
+  }
+}

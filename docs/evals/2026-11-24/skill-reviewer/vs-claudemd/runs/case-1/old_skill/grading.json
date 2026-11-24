@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Applies the 8-rule rubric with severity-rated findings and file:line references",
+      "passed": false,
+      "evidence": "Severity tiers and rule numbers are present ('Blocker', 'Must fix', 'Rule 6, resumability'), but there are no file:line references. Locations are vague, e.g. 'the ⛔ on step 1', 'in step 3'."
+    },
+    {
+      "text": "STOPS at the Stage B gate and asks approval before spawning eval runs",
+      "passed": true,
+      "evidence": "'Stop and ask before drafting eval cases or spawning baseline subagents.' Ends with: 'Should I draft `evals/evals.json`... and then run the with-skill vs without-skill baseline?'"
+    },
+    {
+      "text": "Does not edit the target skill (reports findings only)",
+      "passed": true,
+      "evidence": "Only writes 'findings below to `./.claude-skills-work/skill-reviewer/debugging/review.md`'. Fixes are suggestions ('Add something like...'), and no edits to skills/debugging/ are made."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3,
+    "pass_rate": 0.667
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 524,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3543
+  }
+}

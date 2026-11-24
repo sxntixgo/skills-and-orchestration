@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does NOT start drafting a skill",
+      "passed": true,
+      "evidence": "\"I'll ask a few questions before writing anything. I haven't created any files or started any test runs yet.\""
+    },
+    {
+      "text": "Recognizes the brief is too vague and stays in Stage 1",
+      "passed": true,
+      "evidence": "\"'Productivity' could mean a lot of different skills\" and \"1. Find out what the skill should do and when it should be used ← you are here\""
+    },
+    {
+      "text": "Asks clarifying questions about trigger, scope, and success criteria",
+      "passed": true,
+      "evidence": "Trigger: \"When should it be used? What would you typically type\"; scope: \"What should it help with?\"; success: \"simple checks (for example 'every action item has an owner')\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 268,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2974
+  }
+}

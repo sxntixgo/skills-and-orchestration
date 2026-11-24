@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does NOT start drafting a skill",
+      "passed": true,
+      "evidence": "\"Stop here. I won't read the references, draft frontmatter, scaffold or write evals until Stage 1 is approved.\""
+    },
+    {
+      "text": "Recognizes the brief is too vague and stays in Stage 1",
+      "passed": true,
+      "evidence": "\"'Productivity' is too broad for me to start drafting.\" and plan.md: \"Stage: 1 (clarify intent) — ⛔ STOP GATE, waiting for the user\""
+    },
+    {
+      "text": "Asks clarifying questions about trigger, scope, and success criteria",
+      "passed": true,
+      "evidence": "\"**The trigger:** What would you actually type...\"; \"**Out of scope:** What should it never do?\"; \"**Success:** How would you check that a run went well?\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 292,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2997
+  }
+}

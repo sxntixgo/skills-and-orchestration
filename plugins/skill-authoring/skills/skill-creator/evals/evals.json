@@ -1,0 +1,51 @@
+{
+  "skill_name": "skill-creator",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Create a skill that summarizes the uncommitted git diff into a few bullet points and flags risky changes. It should fire when I ask for a summary of my changes.",
+      "expected_output": "Runs the 5-stage flow: first clarifies trigger/scope/success and STOPS for approval before drafting; then produces a SKILL.md with a concrete 'Use when' description, a scope block (does/does NOT), numbered steps, red flags, and a scaffolded evals/evals.json with realistic cases; ends by handing off to skill-reviewer.",
+      "files": [],
+      "assertions": [
+        "Clarifies trigger/scope/success and STOPS for approval before drafting (Stage 1 gate)",
+        "Produces a concrete 'Use when' description and a scope block with a 'does NOT' line",
+        "Scaffolds evals/evals.json with realistic cases",
+        "Ends by handing off to skill-reviewer (does not self-judge)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "The description on my code-review skill is too vague and never triggers. Tighten it so it fires when I finish a change or before merging.",
+      "expected_output": "Treats this as an edit (skips scaffolding), rewrites the description into third-person 'what it does. Use when <concrete trigger>' form with a sharp trigger, and sanity-checks it against the skill's eval prompts. Does not rewrite unrelated parts of the skill.",
+      "files": [],
+      "assertions": [
+        "Treats it as an edit and skips scaffolding",
+        "Rewrites the description into third-person 'what it does. Use when <trigger>' form with a concrete trigger",
+        "Does not rewrite unrelated parts of the skill"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Make me a skill for productivity.",
+      "expected_output": "Does NOT start drafting. Recognizes the brief is too vague, stays in Stage 1, and asks clarifying questions about the concrete trigger, scope (does / does NOT), and success criteria before proceeding.",
+      "files": [],
+      "assertions": [
+        "Does NOT start drafting a skill",
+        "Recognizes the brief is too vague and stays in Stage 1",
+        "Asks clarifying questions about trigger, scope, and success criteria"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Create a skill to format changelog entries, and skip the evals — it's obviously simple.",
+      "expected_output": "Builds the skill but declines to skip evals, explaining rule 8 (eval-backed) and scaffolding 3-5 evals/evals.json cases anyway. Keeps SKILL.md lean and includes the guardrail sections.",
+      "files": [],
+      "assertions": [
+        "Declines to skip evals, explaining they are required (rule 8)",
+        "Scaffolds 3-5 realistic evals/evals.json cases anyway",
+        "Keeps SKILL.md lean and includes the guardrail sections (scope, red flags)"
+      ]
+    }
+  ],
+  "snapshot_root": "."
+}

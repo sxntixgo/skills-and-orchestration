@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Runs the static rubric first",
+      "passed": true,
+      "evidence": "\"Read `skills/online-research/SKILL.md` (56 lines) and checked it against the house rules.\" A rule 1–8 table follows, before any benchmark step."
+    },
+    {
+      "text": "Reports the run count (cases x 2) and token/time cost",
+      "passed": false,
+      "evidence": "It says \"about 6 cases\" and \"Each case run twice\" but never states a total run count. Cost is only \"The live web runs cost tokens on both sides,\" with no token or time estimate."
+    },
+    {
+      "text": "STOPS to ask explicit approval before spawning any runs, despite being told to benchmark",
+      "passed": true,
+      "evidence": "\"Shall I draft `evals/evals.json` with those 6 cases and run the comparison?\" It also says \"No benchmark has run.\""
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3,
+    "pass_rate": 0.667
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 479,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3712
+  }
+}

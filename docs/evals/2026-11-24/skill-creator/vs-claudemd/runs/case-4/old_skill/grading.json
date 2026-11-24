@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Declines to skip evals, explaining they are required (rule 8)",
+      "passed": true,
+      "evidence": "\"Evals can't be skipped in this repo. Rule 8 in CLAUDE.md says every skill must ship `evals/evals.json` and pass a with/without baseline comparison\""
+    },
+    {
+      "text": "Scaffolds 3-5 realistic evals/evals.json cases anyway",
+      "passed": false,
+      "evidence": "No eval cases are written. It only proposes \"3 short cases (about 15 lines of JSON)\" and opens with \"I haven't created anything yet.\""
+    },
+    {
+      "text": "Keeps SKILL.md lean and includes the guardrail sections (scope, red flags)",
+      "passed": false,
+      "evidence": "No SKILL.md is produced. Creation is deferred: \"Once you answer, I'll run `skill-authoring:skill-creator` to build...\". There are no scope or red-flag sections."
+    }
+  ],
+  "summary": {
+    "passed": 1,
+    "failed": 2,
+    "total": 3,
+    "pass_rate": 0.333
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 326,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2866
+  }
+}

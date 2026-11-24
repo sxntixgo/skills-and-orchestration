@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Clarifies trigger/scope/success and STOPS for approval before drafting (Stage 1 gate)",
+      "passed": false,
+      "evidence": "It writes assumptions instead of asking ('Assumptions: It goes in the frugal-skills plugin...') and drafts the full SKILL.md. The closing question, 'Should I go ahead with that gate?', comes after drafting, not before."
+    },
+    {
+      "text": "Produces a concrete 'Use when' description and a scope block with a 'does NOT' line",
+      "passed": true,
+      "evidence": "'Use when the user asks to summarize, recap or describe \"my changes\"...' and '**Does NOT:** stage, commit, edit or fix code, review committed history/PRs...'"
+    },
+    {
+      "text": "Scaffolds evals/evals.json with realistic cases",
+      "passed": true,
+      "evidence": "'Write skills/diff-summary/evals/evals.json with 5 cases', e.g. 'files/risky.sh: .env gets an API key, an if (!user.isAdmin) check is removed'"
+    },
+    {
+      "text": "Ends by handing off to skill-reviewer (does not self-judge)",
+      "passed": true,
+      "evidence": "'Invoke skill-authoring:skill-reviewer on skills/diff-summary. This runs the conventions review plus the baseline comparison'"
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 1,
+    "total": 4,
+    "pass_rate": 0.75
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 726,
+    "cache_read_input_tokens": 658,
+    "cache_creation_input_tokens": 5671
+  }
+}

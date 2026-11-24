@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Declines to skip evals, explaining they are required (rule 8)",
+      "passed": false,
+      "evidence": "It went along with skipping the run: \"the with/without-skill comparison was skipped as you asked.\" It wrote evals.json because CLAUDE.md requires it, but it didn't run the evals and only asked \"Should I run it, or leave the skill unvalidated?\""
+    },
+    {
+      "text": "Scaffolds 3-5 realistic evals/evals.json cases anyway",
+      "passed": true,
+      "evidence": "Three cases, e.g. \"Add changelog entries for these commits: 'fix null deref in parser (#212)', 'wip', 'add --json flag to export'...\", plus a CHANGELOG.md fixture for case 2."
+    },
+    {
+      "text": "Keeps SKILL.md lean and includes the guardrail sections (scope, red flags)",
+      "passed": true,
+      "evidence": "Short SKILL.md with \"**Does NOT:** pick version numbers, cut releases, edit released sections\" and a \"## Red flags → correction\" section with four entries."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3,
+    "pass_rate": 0.667
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 787,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3859
+  }
+}

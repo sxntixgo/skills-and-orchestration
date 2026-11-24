@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Recognizes this is an edit and the baseline should be the PREVIOUS version (not 'no skill')",
+      "passed": true,
+      "evidence": "\"Old version: the description at `HEAD`, recovered with `git archive HEAD skills/code-review` into a separate snapshot folder (not a copy of the edited files).\""
+    },
+    {
+      "text": "Describes a blind A/B comparison between the two versions",
+      "passed": false,
+      "evidence": "It compares old vs new, but never says the comparison is blind. The trigger eval is graded mechanically (\"pass/fail on whether the skill loaded, so no judge calls\"), and the optional run mentions \"8 judge calls\" without saying the judge can't tell which version produced which output."
+    },
+    {
+      "text": "Still respects the Stage B approval gate before running",
+      "passed": true,
+      "evidence": "\"Stop. Nothing runs until you approve.\" and \"Approve the eval run? (trigger eval only / trigger eval + standard run / neither)\""
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3,
+    "pass_rate": 0.667
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 497,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4103
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Flags the missing concrete trigger (Rule 1)",
+      "passed": true,
+      "evidence": "R1 Frontmatter, SKILL.md:3: `description: Helps with stuff` is vague and has no \"Use when …\" trigger"
+    },
+    {
+      "text": "Flags the missing scope/guardrails (Rule 7)",
+      "passed": true,
+      "evidence": "R7 Guardrails, SKILL.md: no Scope section and no \"does NOT\" line, so nothing keeps the skill on task."
+    },
+    {
+      "text": "Flags the missing evals/evals.json (Rule 8) and notes Stage B cannot run",
+      "passed": true,
+      "evidence": "R8 Eval-backed, evals/evals.json: missing, so the baseline comparison can't run. ... Stage B (baseline evals) is blocked: with 0 cases there's nothing to run."
+    },
+    {
+      "text": "Verdict is ITERATE",
+      "passed": true,
+      "evidence": "Stage A finds 3 🔴 must-fix problems, so the verdict is **ITERATE**."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 365,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3534
+  }
+}

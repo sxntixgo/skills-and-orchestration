@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Clarifies trigger/scope/success and STOPS for approval before drafting (Stage 1 gate)",
+      "passed": true,
+      "evidence": "\"The skill-creator process requires your approval of the plan before I draft anything, so I've written the plan and stopped there.\" The plan has Trigger, Scope and Success criteria sections."
+    },
+    {
+      "text": "Produces a concrete 'Use when' description and a scope block with a 'does NOT' line",
+      "passed": true,
+      "evidence": "\"Use when the user asks for a summary of their changes, e.g. \\\"summarize my changes\\\"...\" and \"Does NOT: - Commit, stage, stash or edit files.\""
+    },
+    {
+      "text": "Scaffolds evals/evals.json with realistic cases",
+      "passed": false,
+      "evidence": "No evals were written. They are only promised for later: \"I'll ... write 3–5 test cases in `evals/evals.json`\". No cases are shown."
+    },
+    {
+      "text": "Ends by handing off to skill-reviewer (does not self-judge)",
+      "passed": false,
+      "evidence": "The handoff is only a future plan, not an actual handoff: \"Then you run `skill-reviewer` to check it.\" The answer stops at Stage 1, so it never reaches the hand-off stage."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 2,
+    "total": 4,
+    "pass_rate": 0.5
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 793,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3325
+  }
+}

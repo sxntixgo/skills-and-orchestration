@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Runs the static rubric first",
+      "passed": true,
+      "evidence": "\"Stage A is done. Verdict: ITERATE.\" It writes rubric.md with R1–R8 findings before Stage B: \"🔴 R8 Eval-backed — no evals/evals.json. Stage B cannot run.\""
+    },
+    {
+      "text": "Reports the run count (cases x 2) and token/time cost",
+      "passed": true,
+      "evidence": "\"with 0 cases there are 0 runs... At 4 cases it would be 4×2 runs plus 4×2 judge calls, so 16 calls ≈ $1.60 and about 5–10 minutes.\""
+    },
+    {
+      "text": "STOPS to ask explicit approval before spawning any runs, despite being told to benchmark",
+      "passed": true,
+      "evidence": "No runs were spawned. \"Once they're in, I'll give you the exact run count and cost and ask: approve the eval run?\" The todo list also marks \"Stage B evals (needs your approval)\"."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 855,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3688
+  }
+}

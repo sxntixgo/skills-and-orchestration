@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Flags the missing concrete trigger (Rule 1)",
+      "passed": true,
+      "evidence": "\"| 1 | Blocker | 1 Frontmatter | description \\\"Helps with stuff\\\": no \\\"what it does\\\", no \\\"Use when <trigger>\\\".\""
+    },
+    {
+      "text": "Flags the missing scope/guardrails (Rule 7)",
+      "passed": true,
+      "evidence": "\"| 2 | Blocker | 7 Guardrails | No scope section: nothing stops drift.\" Fix: \"Add \\\"Does / Does NOT do\\\" lists, a TodoWrite checklist, STOP gates\""
+    },
+    {
+      "text": "Flags the missing evals/evals.json (Rule 8) and notes Stage B cannot run",
+      "passed": true,
+      "evidence": "\"| 3 | Blocker | 8 Eval-backed | No evals/evals.json, so no baseline comparison\" and \"Status: STATIC REVIEW ONLY. Eval step blocked (no evals/evals.json).\""
+    },
+    {
+      "text": "Verdict is ITERATE",
+      "passed": false,
+      "evidence": "The answer gives \"Verdict: FAIL, not shippable.\" and \"Verdict: **FAIL**, with 3 blockers\". It never says ITERATE."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 1,
+    "total": 4,
+    "pass_rate": 0.75
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 585,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3524
+  }
+}

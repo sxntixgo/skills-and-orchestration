@@ -1,0 +1,58 @@
+{
+  "skill_name": "skill-reviewer",
+  "note": "Cases 1/3/4 name a target skill in `files` so runs are reproducible; case 2 embeds the target inline.",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I just finished the debugging skill (at skills/debugging/). Review it.",
+      "expected_output": "Runs the static rubric against all 8 rules and reports findings rated Must/Should/Consider with file:line references. Then reports the eval run count and STOPS to ask for approval before spawning any isolated runs. Does not edit the skill.",
+      "files": [
+        "skills/debugging/SKILL.md"
+      ],
+      "assertions": [
+        "Applies the 8-rule rubric with severity-rated findings and file:line references",
+        "STOPS at the Stage B gate and asks approval before spawning eval runs",
+        "Does not edit the target skill (reports findings only)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Review this skill: it has a description 'Helps with stuff', no scope section, and no evals/evals.json.",
+      "expected_output": "Flags Rule 1 (no concrete trigger), Rule 7 (no scope/guardrails), and Rule 8 (no evals/evals.json), and explains that the baseline eval run cannot proceed until eval cases exist. Verdict: ITERATE with those fixes.",
+      "files": [],
+      "assertions": [
+        "Flags the missing concrete trigger (Rule 1)",
+        "Flags the missing scope/guardrails (Rule 7)",
+        "Flags the missing evals/evals.json (Rule 8) and notes Stage B cannot run",
+        "Verdict is ITERATE"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I tightened the description on my code-review skill (at skills/code-review/). Confirm the new version is actually better than the old one.",
+      "expected_output": "Recognizes this is an edit, so the baseline is a snapshot of the previous version (not 'no skill'). After the approval gate, runs a blind A/B comparing the two versions' outputs and reports which is better on the eval delta plus holistic quality.",
+      "files": [
+        "skills/code-review/SKILL.md"
+      ],
+      "assertions": [
+        "Recognizes this is an edit and the baseline should be the PREVIOUS version (not 'no skill')",
+        "Describes a blind A/B comparison between the two versions",
+        "Still respects the Stage B approval gate before running"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Review and benchmark my online-research skill (at skills/online-research/) — run the full eval comparison.",
+      "expected_output": "Runs the rubric, then computes cases x 2 runs and reports the token/time cost, and STOPS to ask for explicit approval before spawning subagents — it does not start the isolated runs on its own even though the user asked to benchmark.",
+      "files": [
+        "skills/online-research/SKILL.md"
+      ],
+      "assertions": [
+        "Runs the static rubric first",
+        "Reports the run count (cases x 2) and token/time cost",
+        "STOPS to ask explicit approval before spawning any runs, despite being told to benchmark"
+      ]
+    }
+  ],
+  "snapshot_root": "."
+}

@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Flags the missing concrete trigger (Rule 1)",
+      "passed": true,
+      "evidence": "🔴 **Rule 1:** the description \"Helps with stuff\" has no concrete \"Use when …\" trigger, so the skill won't load reliably."
+    },
+    {
+      "text": "Flags the missing scope/guardrails (Rule 7)",
+      "passed": true,
+      "evidence": "🔴 **Rule 7:** there's no Scope section and no \"does NOT\" line."
+    },
+    {
+      "text": "Flags the missing evals/evals.json (Rule 8) and notes Stage B cannot run",
+      "passed": true,
+      "evidence": "Rule 8 Eval-backed (evals/evals.json is missing): Stage B can't run."
+    },
+    {
+      "text": "Verdict is ITERATE",
+      "passed": true,
+      "evidence": "## Verdict: ITERATE. The skill has 3 must-fix (🔴) problems"
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 319,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3699
+  }
+}

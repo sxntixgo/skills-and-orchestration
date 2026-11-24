@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does NOT start drafting a skill",
+      "passed": true,
+      "evidence": "\"I'd create no skill directory or `SKILL.md` yet.\" Only an intake checkpoint file is written."
+    },
+    {
+      "text": "Recognizes the brief is too vague and stays in Stage 1",
+      "passed": true,
+      "evidence": "\"Status: BLOCKED at the scope gate. The request is too broad to pick a trigger or process.\" and \"Stop at the scope gate and reply. I wouldn't guess.\""
+    },
+    {
+      "text": "Asks clarifying questions about trigger, scope, and success criteria",
+      "passed": false,
+      "evidence": "Trigger (\"What would you say or do just before...\") and scope (\"What should the skill explicitly not do?\") are asked. No question asks how success would be judged; \"what should come out, and where\" only specifies outputs."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3,
+    "pass_rate": 0.667
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 629,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3164
+  }
+}

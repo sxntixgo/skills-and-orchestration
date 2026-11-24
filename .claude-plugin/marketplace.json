@@ -9,8 +9,8 @@
     {
       "name": "frugal-skills",
       "source": "./",
-      "version": "2.0.0",
-      "description": "Reusable skills for authoring skills, research, building planned phases, software development (TDD + DRY/YAGNI/KISS), testing, code review, and security review.",
+      "version": "3.0.0",
+      "description": "Reusable skills for brainstorming, planning, software development (TDD + DRY/YAGNI/KISS, incl. planned phases and tests), debugging, code + security review, and web research.",
       "category": "development",
       "keywords": [
         "skills",
@@ -30,6 +30,18 @@
         "orchestration",
         "opencode",
         "local-llm"
+      ]
+    },
+    {
+      "name": "skill-authoring",
+      "source": "./plugins/skill-authoring",
+      "version": "0.1.0",
+      "description": "Create and review Claude Code skills (8 authoring rules, baseline evals).",
+      "category": "development",
+      "keywords": [
+        "skills",
+        "authoring",
+        "evals"
       ]
     }
   ]

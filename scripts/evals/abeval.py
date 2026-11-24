@@ -89,11 +89,17 @@ def claude(prompt, cwd, model, tools, allowed=()):
 
 
 def plugin_root(skill: Path) -> Path:
-    # .../<root>/skills/<name> → <root>; works for plugins/<p>/skills/<s> and top-level skills/<s>
-    return skill.parent.parent
+    # .../<root>/skills/<name> → <root>; works for plugins/<p>/skills/<s> and top-level skills/<s>.
+    # evals.json "snapshot_root" (repo-relative, e.g. ".") overrides it for skills that work on
+    # the whole repo (skill-authoring).
+    try:
+        root = json.loads((skill / "evals" / "evals.json").read_text()).get("snapshot_root")
+    except (OSError, ValueError):
+        root = None
+    return (REPO / root).resolve() if root else skill.parent.parent
 
 
-def snapshot(out: Path, cfg: str, skill: Path, baseline: str):
+def snapshot(out: Path, cfg: str, skill: Path, baseline: str, baseline_skill: str = ""):
     """Copy the skill's plugin root (working tree for new_skill, git rev for old_skill) to out/snap/<cfg>."""
     dest = out / "snap" / cfg
     if dest.exists():
@@ -101,7 +107,14 @@ def snapshot(out: Path, cfg: str, skill: Path, baseline: str):
     dest.mkdir(parents=True)
     root_rel = plugin_root(skill).relative_to(REPO)
     skip = shutil.ignore_patterns(".git", ".claude-skills-work", "node_modules", "__pycache__", ".DS_Store")
-    if cfg == "new_skill" or baseline == "none":
+    if cfg == "old_skill" and baseline_skill:
+        # another skill as the baseline (e.g. Anthropic's skill-creator): same tree, the skill's
+        # folder replaced by that skill, so the run reads it at the same path
+        shutil.copytree(REPO / root_rel, dest / root_rel, ignore=skip, dirs_exist_ok=True)
+        target = dest / skill.relative_to(REPO)
+        shutil.rmtree(target)
+        shutil.copytree(Path(baseline_skill).expanduser(), target, ignore=skip)
+    elif cfg == "new_skill" or baseline == "none":
         # no-skill baseline = the same tree without the skill, so both runs see the same repo
         shutil.copytree(REPO / root_rel, dest / root_rel, ignore=skip, dirs_exist_ok=True)
         if cfg == "old_skill":
@@ -146,8 +159,9 @@ def cmd_run(a):
     name, cases = load_cases(skill, only)
     skill_rel = skill.relative_to(REPO)
     cfgs = [c for c in CONFIGS if not a.only or c == a.only]
-    snaps = {cfg: snapshot(out, cfg, skill, a.baseline) for cfg in cfgs}
-    meta = {"skill": name, "skill_path": str(skill_rel), "baseline": a.baseline, "model": a.model,
+    snaps = {cfg: snapshot(out, cfg, skill, a.baseline, a.baseline_skill) for cfg in cfgs}
+    meta = {"skill": name, "skill_path": str(skill_rel), "model": a.model, "claudemd": a.claudemd,
+            "baseline": f"skill:{a.baseline_skill}" if a.baseline_skill else a.baseline,
             "new_rev": sh(["git", "-C", str(REPO), "rev-parse", "--short", "HEAD"]).stdout.decode().strip() + "+worktree",
             "date": time.strftime("%Y-%m-%d"), "cases": [c["id"] for c in cases]}
     (out / "meta.json").write_text(json.dumps(meta, indent=2) + "\n")
@@ -164,7 +178,7 @@ def cmd_run(a):
             (rd / f).unlink(missing_ok=True)
         rd.mkdir(parents=True, exist_ok=True)
         cwd = snaps[cfg]
-        has_skill = cfg == "new_skill" or a.baseline != "none"
+        has_skill = cfg == "new_skill" or a.baseline != "none" or bool(a.baseline_skill)
         # no skill: the run still works in the repo snapshot, it just isn't pointed at a skill
         files_line = ""
         if case.get("files"):
@@ -178,7 +192,9 @@ def cmd_run(a):
             f"Exception: you really have these tools: {case['eval_tools']}"
             + (f" (allowed: {', '.join(case['eval_allowed'])}, only inside your working directory)" if case["eval_allowed"] else "")
             + ". Use them for real (e.g. run the tests, search the web) instead of only describing.\n")
-        prompt = RUN_PROMPT.format(tools_line=tools_line, skill_line=SKILL_LINE.format(skill_rel=skill_rel) if has_skill else "",
+        claudemd = ("\nThe project's CLAUDE.md (Claude Code loads it automatically; follow it):\n<claude_md>\n"
+                    + (REPO / "CLAUDE.md").read_text() + "\n</claude_md>\n") if a.claudemd else ""
+        prompt = claudemd + RUN_PROMPT.format(tools_line=tools_line, skill_line=SKILL_LINE.format(skill_rel=skill_rel) if has_skill else "",
                                    files_line=files_line, prompt=case["prompt"])
         r = claude(prompt, cwd, a.model, case["eval_tools"], case["eval_allowed"])
         (rd / "answer.md").write_text(r.get("result") or r.get("error", ""))
@@ -286,7 +302,10 @@ def cmd_report(a):
     bench = {"meta": meta, "run_summary": {**summ, "delta": delta}}
     (out / "benchmark.json").write_text(json.dumps(bench, indent=2) + "\n")
 
-    base = "no skill" if meta["baseline"] == "none" else f"skill at {meta['baseline']}"
+    b = meta["baseline"]
+    base = "no skill" if b == "none" else (f"another skill ({b[6:]})" if b.startswith("skill:") else f"skill at {b}")
+    if meta.get("claudemd"):
+        base += "; both with the repo's CLAUDE.md"
     lines = [f"# {meta['skill']} — eval {meta['date']}", "",
              f"new = working tree ({meta['new_rev']}), baseline = {base}; model {meta['model']}; "
              f"`claude -p --safe-mode`, dry runs, blind judge.", "",
@@ -319,6 +338,8 @@ def main():
     r = sp.add_parser("run"); r.add_argument("--skill", required=True); r.add_argument("--baseline", required=True)
     r.add_argument("--out", required=True); r.add_argument("--model", default="opus")
     r.add_argument("--jobs", type=int, default=4); r.add_argument("--cases", default="")
+    r.add_argument("--baseline-skill", default="", help="a skill dir used as the baseline instead (implies --baseline none semantics for has_skill)")
+    r.add_argument("--claudemd", action="store_true", help="give both configurations the repo's CLAUDE.md, as Claude Code would load it")
     r.add_argument("--only", choices=CONFIGS, help="run one configuration (e.g. new_skill to profile the current skill)")
     g = sp.add_parser("grade"); g.add_argument("--out", required=True); g.add_argument("--model", default="opus")
     g.add_argument("--jobs", type=int, default=4)

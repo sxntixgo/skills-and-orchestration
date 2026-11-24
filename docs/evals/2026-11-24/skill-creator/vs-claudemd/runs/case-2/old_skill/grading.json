@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Treats it as an edit and skips scaffolding",
+      "passed": true,
+      "evidence": "\"Edit the frontmatter. Only the description changes\" and \"Read `skills/code-review/SKILL.md`\" — edits the existing file; no new_skill.sh or scaffolding step."
+    },
+    {
+      "text": "Rewrites the description into third-person 'what it does. Use when <trigger>' form with a concrete trigger",
+      "passed": true,
+      "evidence": "\"Reviews a code change for correctness, quality and security... Use when a change, feature or bug fix is finished... before merging a branch\""
+    },
+    {
+      "text": "Does not rewrite unrelated parts of the skill",
+      "passed": true,
+      "evidence": "\"Only the description changes\" and \"keep `name: code-review` matching the directory name\"; the only other file touched is evals.json, which gets trigger cases for the new description."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 306,
+    "cache_read_input_tokens": 658,
+    "cache_creation_input_tokens": 4342
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Declines to skip evals, explaining they are required (rule 8)",
+      "passed": true,
+      "evidence": "\"I won't skip the evals. Rule 8 requires `evals/evals.json` for every skill, and a short skill still needs evidence that it beats having no skill.\""
+    },
+    {
+      "text": "Scaffolds 3-5 realistic evals/evals.json cases anyway",
+      "passed": false,
+      "evidence": "No evals/evals.json is written. The answer only describes them in the plan: \"3 cases planned for Stage 4: messy notes → correct sections...\". It also says \"no other files yet\"."
+    },
+    {
+      "text": "Keeps SKILL.md lean and includes the guardrail sections (scope, red flags)",
+      "passed": false,
+      "evidence": "No SKILL.md is drafted; it stops at the Stage 1 gate. The plan.md has a Scope section but no red flags section."
+    }
+  ],
+  "summary": {
+    "passed": 1,
+    "failed": 2,
+    "total": 3,
+    "pass_rate": 0.333
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 450,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3350
+  }
+}

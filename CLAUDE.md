@@ -12,7 +12,9 @@ packaged as a **Claude Code plugin** so it can be installed with:
 /plugin install frugal-skills@frugal-skills   # plugin@marketplace
 ```
 
-Once installed, skills are namespaced by the plugin, e.g. `frugal-skills:skill-creator`.
+Once installed, skills are namespaced by the plugin, e.g. `frugal-skills:code-review`.
+The authoring skills are in their own plugin: `skill-authoring:skill-creator`,
+`skill-authoring:skill-reviewer` (`plugins/skill-authoring/`).
 
 The skills cover authoring skills, researching, building software, and reviewing
 software. They are designed to be **self-contained** and **token-frugal** (see
@@ -51,8 +53,8 @@ workspace (`.claude-skills-work/evals/<skill>/iteration-N/`), not committed.
 
 ## Skill authoring conventions
 
-Every skill in `skills/` MUST follow these rules. The `skill-creator` and
-`skill-reviewer` skills enforce them — use them.
+Every skill in `skills/` and `plugins/*/skills/` MUST follow these rules. The
+`skill-creator` and `skill-reviewer` skills (plugin `skill-authoring`) enforce them.
 
 1. **Frontmatter.** Each `SKILL.md` starts with YAML frontmatter:
    ```yaml
@@ -132,7 +134,7 @@ while building them (e.g. running `skill-reviewer` on `skill-creator`):
   claude --plugin-dir .
   ```
 - After editing a skill, run `/reload-plugins` to pick up changes.
-- Skills are namespaced: invoke `frugal-skills:skill-reviewer`, etc.
+- Skills are namespaced: invoke `skill-authoring:skill-reviewer`, `frugal-skills:code-review`, etc.
 - Before publishing, validate and test locally:
   ```bash
   claude plugin validate .          # check plugin.json / marketplace.json
