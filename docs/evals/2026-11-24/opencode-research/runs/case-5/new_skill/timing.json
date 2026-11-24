@@ -4,6 +4,9 @@
   "tool_calls": 34,
   "exit": 0,
   "tokens": {
+    "claude_read_est": 2336
+  },
+  "local_tokens": {
     "total": 829584
   },
   "cost_usd": null

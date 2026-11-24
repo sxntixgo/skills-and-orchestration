@@ -18,6 +18,10 @@ skill only for new_skill) and its own data dir (fresh session database), and Cla
 skills/prompts disabled. The no-skill baseline is the agent's own prompt alone: the delta is what
 the skill adds. The judge gets the agent's final reply, every tool call in order, and for develop
 the diff, RESULT.md and an independent rerun of the test command.
+
+Cost: only Claude tokens count. opencode runs on the local model (free); its tokens are kept as
+local_tokens. A run's Claude cost is what Claude reads downstream (findings; RESULT.md + status +
+diff + test output), estimated at ~4 chars per token. `retime --out <dir>` recomputes it.
 """
 import argparse, concurrent.futures as cf, json, shlex, subprocess, sys, time
 from pathlib import Path
@@ -91,6 +95,52 @@ def summarize(ev):
             arg = inp.get("filePath") or inp.get("path") or inp.get("pattern") or inp.get("name") or ""
             calls.append(f"{tool} {arg}".strip() + (" [error]" if st.get("status") == "error" else ""))
     return final.strip(), calls, tok, steps
+
+
+HARNESS_SECTIONS = ("Final reply", "Tool calls, in order", "Files changed", "Diff", "RESULT.md", "Independent rerun")
+
+
+def section(md, title):
+    """The body of the harness's '## <title>' section of answer.md, up to the next harness section
+    (the agent's own text, e.g. findings or RESULT.md, has '## ' headings of its own)."""
+    i = md.find("## " + title)
+    if i < 0:
+        return ""
+    body = md[md.find("\n", i) + 1:]
+    ends = [j for t in HARNESS_SECTIONS for j in [body.find("\n## " + t)] if j >= 0]
+    return body[:min(ends)] if ends else body
+
+
+def claude_read_tokens(kind, md):
+    """Estimated Claude tokens to consume a run's output downstream (~4 chars per token): the findings
+    file for research; RESULT.md, git status, diff and the test output review reruns for develop.
+    opencode's own tokens run on the local model and are free, so they are not cost."""
+    if kind == "research":
+        parts = [section(md, "Final reply")]
+    else:
+        parts = [section(md, t) for t in ("RESULT.md", "Files changed", "Diff", "Independent rerun")]
+    return (sum(len(p) for p in parts) + 3) // 4
+
+
+def timing(kind, md, wall_s, steps, calls, rc, local_tok, has_events):
+    return {"duration_ms": int(wall_s * 1000), "num_turns": steps, "tool_calls": calls, "exit": rc,
+            "tokens": {"claude_read_est": claude_read_tokens(kind, md)},  # cost: Claude tokens only
+            "local_tokens": {"total": local_tok},                          # free (local model)
+            "cost_usd": None, **({} if has_events else {"is_error": True})}
+
+
+def cmd_retime(a):
+    """Recompute timing.json of finished runs (Claude cost from answer.md, local tokens from log.jsonl)."""
+    out = Path(a.out).resolve()
+    skill = REPO / json.loads((out / "meta.json").read_text())["skill_path"]
+    kind = json.loads((skill / "evals" / "evals.json").read_text())["runner"]["kind"]
+    for t in sorted(out.glob("runs/case-*/*/timing.json")):
+        old = json.loads(t.read_text()); md = (t.parent / "answer.md").read_text()
+        local = (old.get("local_tokens") or old.get("tokens") or {}).get("total", 0)
+        new = timing(kind, md, old.get("duration_ms", 0) / 1000, old.get("num_turns"), old.get("tool_calls"),
+                     old.get("exit"), local, not old.get("is_error"))
+        t.write_text(json.dumps(new, indent=2) + "\n")
+        print(f"{t.parent.parent.name}/{t.parent.name}: claude≈{new['tokens']['claude_read_est']} local={local}")
 
 
 def cmd_run(a):
@@ -173,12 +223,12 @@ def cmd_run(a):
                       f"## Diff (RESULT.md excluded)\n```diff\n{diff.strip()}\n```",
                       f"## RESULT.md\n{res.strip()}",
                       f"## Independent rerun of `{case['test_cmd']}` by the eval harness after the run\n```text\n{tail(rr.stdout, 15)}\n```"]
-        (rd / "answer.md").write_text("\n\n".join(parts) + "\n")
-        (rd / "timing.json").write_text(json.dumps({
-            "duration_ms": int(wall * 1000), "num_turns": steps, "tool_calls": len(calls),
-            "exit": r.returncode, "tokens": {"total": tok}, "cost_usd": None,
-            **({"is_error": True} if not ev else {})}, indent=2) + "\n")
-        return f"case-{cid}/{cfg}: exit {r.returncode}, {steps} steps, {len(calls)} tool calls, {tok} tokens, {wall}s"
+        md = "\n\n".join(parts) + "\n"
+        (rd / "answer.md").write_text(md)
+        t = timing(kind, md, wall, steps, len(calls), r.returncode, tok, bool(ev))
+        (rd / "timing.json").write_text(json.dumps(t, indent=2) + "\n")
+        return (f"case-{cid}/{cfg}: exit {r.returncode}, {steps} steps, {len(calls)} tool calls, "
+                f"Claude≈{t['tokens']['claude_read_est']} tokens, local {tok} (free), {wall}s")
 
     jobs = [(c, cfg) for c in cases for cfg in CONFIGS]
     try:
@@ -197,8 +247,10 @@ def main():
     r.add_argument("--container", default="", help="docker name prefix; default: evals.json runner.container")
     r.add_argument("--model", default=""); r.add_argument("--timeout-min", type=int, default=20)
     r.add_argument("--force", action="store_true", help="rerun cases that already have an answer")
+    t = sp.add_parser("retime", help="recompute timing.json (Claude cost estimate) for finished runs")
+    t.add_argument("--out", required=True)
     a = ap.parse_args()
-    {"run": cmd_run}[a.cmd](a)
+    {"run": cmd_run, "retime": cmd_retime}[a.cmd](a)
 
 
 if __name__ == "__main__":

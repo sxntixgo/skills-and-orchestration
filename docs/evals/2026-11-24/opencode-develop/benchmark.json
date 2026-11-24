@@ -26,6 +26,9 @@
       },
       "assertions": "33/34",
       "tokens": {
+        "mean": 628.857
+      },
+      "local_tokens_free": {
         "mean": 67028.286
       },
       "time_seconds": {
@@ -41,6 +44,9 @@
       },
       "assertions": "28/34",
       "tokens": {
+        "mean": 731.857
+      },
+      "local_tokens_free": {
         "mean": 73077.429
       },
       "time_seconds": {
@@ -52,7 +58,7 @@
     },
     "delta": {
       "pass_rate": 0.142,
-      "tokens": -6049.143,
+      "tokens": -103.0,
       "time_seconds": -35.257,
       "cost_usd": null
     }

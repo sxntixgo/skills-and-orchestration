@@ -52,8 +52,10 @@ python3 scripts/evals/abeval.py report --out .claude-skills-work/oceval/develop
 - **What the judge sees:** the final reply, every tool call in order (shell commands with exit
   code and output tail), and for develop the git status, the diff, `RESULT.md` and the harness's
   own rerun of the test command.
-- **Cost:** no API spend for the runs (local model; `--jobs 2` = the server's slots), one Claude
-  judge call per run. A develop run takes a few minutes, a research run up to 20.
+- **Cost = Claude tokens only.** opencode's tokens (local model) are free and reported separately
+  as `local_tokens`. A run's Claude cost is what Claude reads downstream (findings; RESULT.md,
+  status, diff, test output), ≈ chars/4; `oceval.py retime --out <dir>` recomputes it. The
+  eval itself spends one Claude judge call per run; `--jobs 2` = the model server's slots. A develop run takes a few minutes, a research run up to 20.
 
 Results are committed under `docs/evals/<date>/<skill>/` (`benchmark.json`, `report.md`, every
 answer, timing and grading), with a summary in `docs/validation-<date>.md`. The scratch workspace

@@ -301,7 +301,7 @@ def cmd_report(a):
         lines.insert(1, f"total {tot[0]}/{tot[1]}, tokens mean {mean(toks)}")
         (out / "report.md").write_text("\n".join(lines) + "\n"); print("\n".join(lines)); return
     for cfg in CONFIGS:
-        pr, tok, tim, cost, p_all, t_all = [], [], [], [], 0, 0
+        pr, tok, loc, tim, cost, p_all, t_all = [], [], [], [], [], 0, 0
         for cid in meta["cases"]:
             rd = out / "runs" / f"case-{cid}" / cfg
             g = json.loads((rd / "grading.json").read_text())["summary"]
@@ -309,9 +309,11 @@ def cmd_report(a):
             tk = t.get("tokens") or {}
             total = sum(tk.values()) if tk else None
             pr.append(g["pass_rate"]); tok.append(total); tim.append((t.get("duration_ms") or 0) / 1000)
+            loc.append((t.get("local_tokens") or {}).get("total"))  # local model (opencode): free, not cost
             cost.append(t.get("cost_usd")); p_all += g["passed"]; t_all += g["total"]
         summ[cfg] = {"pass_rate": {"mean": mean(pr)}, "assertions": f"{p_all}/{t_all}",
-                     "tokens": {"mean": mean(tok)}, "time_seconds": {"mean": mean(tim)},
+                     "tokens": {"mean": mean(tok)}, "local_tokens_free": {"mean": mean(loc)},
+                     "time_seconds": {"mean": mean(tim)},
                      "cost_usd": {"mean": mean(cost)}}
     n, o = summ["new_skill"], summ["old_skill"]
     delta = {k: (round(n[k]["mean"] - o[k]["mean"], 3) if n[k]["mean"] is not None and o[k]["mean"] is not None else None)
@@ -333,11 +335,17 @@ def cmd_report(a):
             g = json.loads((out / "runs" / f"case-{cid}" / cfg / "grading.json").read_text())["summary"]
             cells.append(f"{g['passed']}/{g['total']}")
         lines.append(f"| {cid} | {cells[0]} | {cells[1]} |")
-    lines += ["", "| | pass rate | assertions | tokens (mean) | time s (mean) |", "|---|:---:|:---:|:---:|:---:|"]
+    local = summ["new_skill"]["local_tokens_free"]["mean"] is not None
+    # cost = Claude tokens only; for opencode runs that is the estimated downstream read, and the
+    # local model's tokens are shown separately as free
+    tcol = "Claude tokens ≈ (mean)" if local else "tokens (mean)"
+    lines += ["", f"| | pass rate | assertions | {tcol} |" + (" local tokens, free (mean) |" if local else "") + " time s (mean) |",
+              "|---|:---:|:---:|:---:|" + (":---:|" if local else "") + ":---:|"]
     for cfg, label in (("new_skill", "new"), ("old_skill", "baseline")):
         s = summ[cfg]
-        lines.append(f"| {label} | {s['pass_rate']['mean']} | {s['assertions']} | {s['tokens']['mean']} | {s['time_seconds']['mean']} |")
-    lines.append(f"| **delta** | **{delta['pass_rate']:+}** | | {delta['tokens']:+} | {delta['time_seconds']:+} |")
+        lines.append(f"| {label} | {s['pass_rate']['mean']} | {s['assertions']} | {s['tokens']['mean']} |"
+                     + (f" {s['local_tokens_free']['mean']} |" if local else "") + f" {s['time_seconds']['mean']} |")
+    lines.append(f"| **delta** | **{delta['pass_rate']:+}** | | {delta['tokens']:+} |" + (" |" if local else "") + f" {delta['time_seconds']:+} |")
     lines += ["", "Failed assertions:", ""]
     for cid in meta["cases"]:
         for cfg, label in (("new_skill", "new"), ("old_skill", "baseline")):

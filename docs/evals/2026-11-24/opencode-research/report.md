@@ -15,11 +15,11 @@ new = working tree (39e07e1+worktree), baseline = no skill; model atlas/qwen3.8-
 | 9 | 5/5 | 1/5 |
 | 10 | 4/5 | 1/5 |
 
-| | pass rate | assertions | tokens (mean) | time s (mean) |
-|---|:---:|:---:|:---:|:---:|
-| new | 0.94 | 44/47 | 434251.9 | 374.49 |
-| baseline | 0.35 | 16/47 | 74806.6 | 120.3 |
-| **delta** | **+0.59** | | +359445.3 | +254.19 |
+| | pass rate | assertions | Claude tokens ≈ (mean) | local tokens, free (mean) | time s (mean) |
+|---|:---:|:---:|:---:|:---:|:---:|
+| new | 0.94 | 44/47 | 1746.2 | 434251.9 | 374.49 |
+| baseline | 0.35 | 16/47 | 1010.2 | 74806.6 | 120.3 |
+| **delta** | **+0.59** | | +736.0 | | +254.19 |
 
 Failed assertions:
 

@@ -80,23 +80,30 @@ develop the diff, `RESULT.md` and the harness's own rerun of the test command. D
 [`docs/evals/2026-11-24/opencode-develop`](./evals/2026-11-24/opencode-develop/report.md),
 [`opencode-research`](./evals/2026-11-24/opencode-research/report.md) (raw opencode logs not committed).
 
-| Skill | with skill | agent only | delta | tokens/run | time/run |
-|---|:---:|:---:|:---:|---:|---:|
-| opencode-develop | **33/34** | 28/34 | **+0.14** | 67k vs 73k (−8 %) | 79 s vs 114 s |
-| opencode-research | **44/47** | 16/47 | **+0.59** | 434k vs 75k (5.8×) | 374 s vs 120 s |
+Cost counts **Claude tokens only**: opencode runs on the local model, so its tokens are free and
+shown only for scale. For these skills Claude's cost is what it reads downstream of each run: the
+findings file (research), or RESULT.md + git status + diff + the test output it reruns (develop),
+estimated at ~4 characters per token (`oceval.py` records it; `retime` recomputes).
+
+| Skill | with skill | agent only | delta | Claude tokens ≈ per task | local tokens (free) | time/run |
+|---|:---:|:---:|:---:|---:|---:|---:|
+| opencode-develop | **33/34** | 28/34 | **+0.14** | **629 vs 732 (−14 %)** | 67k vs 73k | 79 s vs 114 s |
+| opencode-research | **44/47** | 16/47 | **+0.59** | 1.75k vs 1.0k (+0.74k) | 434k vs 75k | 374 s vs 120 s |
 
 Reading:
-- **develop** helps and costs nothing: the agent alone mostly does the work but skips the
+- **develop** helps and costs less Claude: shorter, structured reports to review (−14 %), and the agent alone mostly does the work but skips the
   RESULT.md contract (no frontmatter, no Tests section) that `claude-review-merge` reads, and
   when the task's test command can't run (case 5: pytest only in another venv) it declares
   success with a different command; with the skill it reports `blocked`. Neither noticed the
   out-of-scope bug in case 3 (the only miss with the skill).
 - **research** is the skill that matters most: without it the researcher often doesn't find or
   use `search`/`fetch-text` (case 1: no search at all, "tooling was unavailable"), answers from
-  memory, and never uses the findings format the orchestrator parses. The extra tokens are the
-  research itself (pages read); they cost local-model time, not API money. Worth trimming later
-  (fetch fewer pages, smaller slices); case 5 with the skill still derived a number no source
-  quoted.
+  memory, and never uses the findings format the orchestrator parses. Claude reads ~0.74k more
+  tokens per sub-question (sourced claims, quotes, conflicts, gaps), but the agent-only findings
+  pass 35 % of the checks, so most would be sent back for another round (another review, another
+  read). The pages the researcher reads (434k vs 75k) are local and free; they cost time on the
+  model server (374 s vs 120 s per sub-question). Case 5 with the skill still derived a number no
+  source quoted.
 - Harness fix during the round: Python bytecode showed up as changed files; the runner now
   excludes `__pycache__`/`*.pyc` and the develop round was rerun clean.
 - Caveat: 1 run per case, one model.

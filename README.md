@@ -67,7 +67,7 @@ by the same judge. Raw answers, gradings and timings are in [`docs/evals/`](./do
 | Token cut, all 15 Claude-side skills (2026-11-23) | 228/256 → **250/256** assertions, **−23 %** tokens per run (−35 to −46 % where a reference file was read) | [validation-2026-11-23](./docs/validation-2026-11-23.md) |
 | Consolidation (2026-11-23) | security-review **0.00** vs no skill (twice) and writing-tests +0.08 → folded; merged code-review 33/33, software-development 41/42 | same, Round 3 |
 | Skill authoring vs CLAUDE.md and Anthropic's skill-creator (2026-11-24) | skill-reviewer **+0.40** / **+0.38**; rewritten skill-creator 17/17 vs 13/17, and the skills it writes score 19/19 on held-out cases with the smallest pages | [validation-2026-11-24](./docs/validation-2026-11-24.md) |
-| opencode skills, real runs on the local model (2026-11-24) | opencode-develop **33/34 vs 28/34** (−8 % tokens); opencode-research **44/47 vs 16/47** | [validation-2026-11-24](./docs/validation-2026-11-24.md#opencode-skills-first-real-measurement-opencode-241) |
+| opencode skills, real runs on the local model (2026-11-24) | opencode-develop **33/34 vs 28/34** (−14 % Claude tokens to review); opencode-research **44/47 vs 16/47** (+0.74k Claude tokens per sub-question); local-model tokens are free | [validation-2026-11-24](./docs/validation-2026-11-24.md#opencode-skills-first-real-measurement-opencode-241) |
 | First baselines (2026-07-11) | process skills help (+0.19 to +0.73); knowledge-restating skills don't | [validation-2026-07-11](./docs/validation-2026-07-11.md) |
 
 The main lesson: a skill earns its tokens by encoding a **process** the model doesn't already
