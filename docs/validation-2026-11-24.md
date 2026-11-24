@@ -64,3 +64,5 @@ Anthropic's), with every case passing, and only its skills pass the house valida
 CLAUDE.md only, the quality and token edge per use is small; the creation cost (+10k) pays back
 after ~30 uses on tokens alone. Against Anthropic's it is cheaper both to run and to use.
 Caveat: 2 skills, 1 run per case.
+
+**Decision (2026-11-24, user):** keep the rewritten skill-creator and skill-reviewer in the `skill-authoring` plugin.
