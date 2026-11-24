@@ -1,0 +1,62 @@
+{
+  "skill_name": "incident-postmortem",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Here's the chat export from this morning's checkout outage (evals/files/checkout-outage.txt). Write the postmortem. Don't ask me questions, just write it and flag what's missing.",
+      "files": ["evals/files/checkout-outage.txt"],
+      "expected_output": "A blameless postmortem saved to .claude-skills-work/incident-postmortem/2026-11-03-*/postmortem.md with a UTC timeline (-08:00 converted), quantified impact, a system-level root cause, and action items with owners/dates only where the notes give them.",
+      "assertions": [
+        "Timeline times are in UTC: the 06:02 -08:00 alert appears as 14:02 UTC and deploy at 13:58 UTC",
+        "Impact states ~1,840 failed checkouts and estimated lost revenue ~$95,680 with the arithmetic (1,840 x $52) shown",
+        "Impact states the outage duration computed from the timeline (13:58 to 14:41 UTC, 43 min)",
+        "Root cause is about missing config validation / invalid timeout value accepted, not 'Dave' or 'human error'",
+        "The names Dave and Maria do not appear in the summary, timeline narrative, or root cause",
+        "Contributing factors include slow rollback (image rebuild) and delayed alert (~4 min)",
+        "CI config validation action item has owner Maria (a name is fine in action items) and due 2026-11-13 ('end of next week' from Tue 2026-11-03), or the phrase kept verbatim and flagged",
+        "Action items for slow rollback and alert delay have owner/due 'TBD' rather than invented names or dates",
+        "Intermediate files (notes.md, timeline.md, facts.md) are written under the slug directory",
+        "Does not stop to ask questions; lists gaps at the end"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Can you do an incident review from these notes? evals/files/search-degradation-no-tz.txt",
+      "files": ["evals/files/search-degradation-no-tz.txt"],
+      "expected_output": "Saves the notes, notices the timestamps have no timezone or date and the incident crosses midnight, and asks the user (one numbered list) for timezone, date, impact numbers and action owners before writing the final postmortem.",
+      "assertions": [
+        "Does not convert to UTC using a guessed offset",
+        "Asks for the timezone and the incident date",
+        "Asks for impact figures (affected users/queries) instead of writing vague impact like 'many users'",
+        "Asks for owner and due date for the disk-alert action item",
+        "Questions are asked once, as a single numbered list",
+        "Any draft written labels the time column as unconfirmed timezone",
+        "Any draft root cause names missing log rotation / disk alerting, not Tom"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Write a blameless postmortem from this: 'At 10:00 UTC on 2026-11-20 our login service went down for 20 minutes after a cert expired. ~12% of logins failed (about 4,300). We renewed manually at 10:20. Nobody got the expiry warning email because it went to a dead mailing list. Sam will set up automated renewal by 2026-12-01.'",
+      "files": [],
+      "expected_output": "A complete postmortem with UTC timeline 10:00-10:20, impact 20 min / ~4,300 failed logins (~12%), root cause = no automated cert renewal, contributing factor = expiry warnings sent to a dead mailing list, action items including automated renewal (Sam, 2026-12-01) and fixing alert routing (TBD owner).",
+      "assertions": [
+        "Impact includes 20 minutes, ~4,300 failed logins and ~12%",
+        "Root cause is the absence of automated certificate renewal (a process/system gap)",
+        "Dead mailing list for expiry warnings is listed as a contributing factor",
+        "Action item 'automated renewal' has owner Sam and due 2026-12-01",
+        "An action item addresses alert routing with owner/due marked TBD, not invented",
+        "Every root cause and contributing factor maps to at least one action item"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Summarize this Slack thread for me: '[09:12] ana: team lunch friday? [09:14] ben: sure, tacos [09:20] ana: booked for 12:30'",
+      "files": [],
+      "expected_output": "The skill does not trigger: a plain short summary, no postmortem structure or work files.",
+      "assertions": [
+        "Does not produce a postmortem, timeline table, root cause or action items",
+        "Does not create files under .claude-skills-work/incident-postmortem/"
+      ]
+    }
+  ]
+}

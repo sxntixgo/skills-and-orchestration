@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does NOT draft a SKILL.md",
+      "passed": true,
+      "evidence": "\"I wouldn't create any skill directory, SKILL.md or evals yet.\""
+    },
+    {
+      "text": "Asks a single question rather than a list of questions",
+      "passed": false,
+      "evidence": "The final reply asks four numbered questions: \"1. Which task do you repeat? ... 2. When should it trigger? ... 3. What should it produce ... 4. Which plugin...\""
+    },
+    {
+      "text": "Offers 2-3 concrete candidate skills, each with when it would trigger",
+      "passed": false,
+      "evidence": "It lists four examples (\"daily standup summary... triaging a TODO/issue backlog... weekly review... time-boxed steps\"), not 2-3. Triggers (\"plan my day\", \"triage my issues\") appear in a separate question and are not paired with each candidate."
+    }
+  ],
+  "summary": {
+    "passed": 1,
+    "failed": 2,
+    "total": 3,
+    "pass_rate": 0.333
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 482,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2838
+  }
+}

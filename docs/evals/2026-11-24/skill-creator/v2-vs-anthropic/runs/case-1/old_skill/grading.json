@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Drafts the SKILL.md in this reply instead of stopping to ask first",
+      "passed": true,
+      "evidence": "Full SKILL.md is included under '3. Write `skills/summarize-changes/SKILL.md`', with frontmatter, checklist, risk table and output template, before any questions are asked."
+    },
+    {
+      "text": "The description is third person with a concrete 'Use when' trigger about summarizing changes",
+      "passed": true,
+      "evidence": "\"Summarizes the uncommitted git diff ... Use when the user asks for a summary or recap of their changes, \\\"what did I change\\\"\""
+    },
+    {
+      "text": "Writes 3-5 eval cases, each with assertions, including at least one fixture or diff as input",
+      "passed": false,
+      "evidence": "Three cases with fixture diffs, but none has assertions: \"Prompts only for now. Checks for pass/fail come later, per skill-creator.\" Each case has only an expected_output string."
+    },
+    {
+      "text": "Ends by asking for approval and naming skill-reviewer as the next step (does not grade its own skill)",
+      "passed": false,
+      "evidence": "Ends with \"Once you confirm, I'll run each case with and without the skill\", so the next step is running evals, not skill-reviewer. It also plans to grade its own runs: \"grade into `grading.json`\". skill-reviewer appears only as a later 'Finish' item."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 2,
+    "total": 4,
+    "pass_rate": 0.5
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 857,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4398
+  }
+}

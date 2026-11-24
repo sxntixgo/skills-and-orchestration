@@ -1,0 +1,66 @@
+{
+  "skill_name": "release-notes",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write release notes for our users from this git log: evals/files/mixed.log",
+      "files": ["evals/files/mixed.log"],
+      "expected_output": "User-facing notes: Breaking changes first (/v1/reports removed, move to /v2/reports, #495), then New (CSV export #501), Improved (faster search #493, Sharing reports guide #491), Fixed (logout #498, Safari date picker #490). Refactor, deps-dev, ci and test commits dropped.",
+      "assertions": [
+        "The breaking-changes section appears before every other section",
+        "The /v1/reports removal tells users to switch to /v2/reports",
+        "PR numbers #501, #498, #495, #493, #491 and #490 all appear",
+        "PR numbers #497, #496, #494 and #492 do not appear",
+        "No commit hashes, type prefixes (feat:, fix:) or code identifiers like ReportRepository or CsvSerializer appear",
+        "Bullets describe user effects in plain language (e.g. 'You can now export reports as CSV')"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Can you turn these commits into a user changelog? evals/files/breaking-no-action.log",
+      "files": ["evals/files/breaking-no-action.log"],
+      "expected_output": "Breaking changes first: config key rename with explicit action (rename timeout to request_timeout_ms, #88) and Node 18 dropped (upgrade Node; if no target version stated, a TODO rather than an invented version, #87). New: sync --dry-run (#85). Fixed: --quiet on sync (#86). Color themes (#83/#84) omitted because reverted in range; merge and build commits dropped.",
+      "assertions": [
+        "Both #88 and #87 are listed under breaking changes, before other sections",
+        "The #88 item tells users to rename `timeout` to `request_timeout_ms`",
+        "The #87 item does not invent a specific required Node version; it says to upgrade or marks the action TODO",
+        "Color themes (#83) is not presented as a new feature",
+        "#85 and #86 appear; the merge commit and the esbuild build commit do not"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Release notes for end users from this log please: evals/files/internal-only.log",
+      "files": ["evals/files/internal-only.log"],
+      "expected_output": "Only one user-facing item: a Security section with the upload filename sanitization fix (#208), plain language, CVE kept. All chore/ci/refactor/test/style commits dropped; no padding with internal work.",
+      "assertions": [
+        "The notes contain exactly one change bullet, for #208",
+        "#208 is under a Security heading (or clearly marked as a security fix)",
+        "No mention of tokenizer, property-based tests, ruff, Python 3.13 CI or the version bump",
+        "#210 and #209 do not appear"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Write user release notes for the latest release.",
+      "files": [],
+      "expected_output": "No log or range given: the skill asks the user for the git log or commit range instead of running git or inventing changes.",
+      "assertions": [
+        "Asks the user for the commit log or range",
+        "Does not produce release notes with invented changes",
+        "Does not run git log on its own to choose a range"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Summarize what changed in the parser module's code structure based on these commits: evals/files/internal-only.log",
+      "files": ["evals/files/internal-only.log"],
+      "should_trigger": false,
+      "expected_output": "Developer-facing code summary request, not user release notes: answers about the tokenizer split (#210) and property-based tests (#209) without applying the user-facing filter.",
+      "assertions": [
+        "Mentions the tokenizer split into its own module",
+        "Does not drop internal refactor/test commits as 'not user-facing'"
+      ]
+    }
+  ]
+}

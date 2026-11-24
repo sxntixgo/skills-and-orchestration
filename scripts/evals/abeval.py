@@ -141,8 +141,8 @@ def good_run(rd: Path) -> bool:
     return bool(ans.strip()) and not t.get("is_error") and "error" not in t and not LIMIT_RE.search(ans[:300])
 
 
-def load_cases(skill: Path, only):
-    d = json.loads((skill / "evals" / "evals.json").read_text())
+def load_cases(skill: Path, only, evals_file=""):
+    d = json.loads((Path(evals_file) if evals_file else skill / "evals" / "evals.json").read_text())
     cases = [c for c in d["evals"] if not only or c["id"] in only]
     for c in cases:  # optional per-file defaults: "eval_tools" (e.g. "Read,WebSearch,WebFetch"), "eval_allowed" (e.g. ["Bash(python3:*)"])
         c.setdefault("eval_tools", d.get("eval_tools", "Read")); c.setdefault("eval_allowed", d.get("eval_allowed", []))
@@ -156,11 +156,15 @@ def cmd_run(a):
     skill = (REPO / a.skill).resolve()
     out = Path(a.out).resolve()
     only = {int(x) for x in a.cases.split(",")} if a.cases else None
-    name, cases = load_cases(skill, only)
+    name, cases = load_cases(skill, only, a.evals)
     skill_rel = skill.relative_to(REPO)
     cfgs = [c for c in CONFIGS if not a.only or c == a.only]
-    snaps = {cfg: snapshot(out, cfg, skill, a.baseline, a.baseline_skill) for cfg in cfgs}
+    # A rerun (resume) reuses the existing snapshots: runs may have written files there (real-tool
+    # cases) that kept runs still need. --resnapshot copies them fresh (e.g. after editing the skill).
+    snaps = {cfg: (out / "snap" / cfg) if (out / "snap" / cfg).is_dir() and not a.resnapshot
+             else snapshot(out, cfg, skill, a.baseline, a.baseline_skill) for cfg in cfgs}
     meta = {"skill": name, "skill_path": str(skill_rel), "model": a.model, "claudemd": a.claudemd,
+            "evals_file": str(Path(a.evals).resolve()) if a.evals else "",
             "baseline": f"skill:{a.baseline_skill}" if a.baseline_skill else a.baseline,
             "new_rev": sh(["git", "-C", str(REPO), "rev-parse", "--short", "HEAD"]).stdout.decode().strip() + "+worktree",
             "date": time.strftime("%Y-%m-%d"), "cases": [c["id"] for c in cases]}
@@ -216,7 +220,7 @@ def cmd_grade(a):
     out = Path(a.out).resolve()
     meta = json.loads((out / "meta.json").read_text())
     skill = REPO / meta["skill_path"]
-    _, cases = load_cases(skill, set(meta["cases"]))
+    _, cases = load_cases(skill, set(meta["cases"]), meta.get("evals_file", ""))
     byid = {c["id"]: c for c in cases}
 
     def one(rd: Path):
@@ -339,6 +343,8 @@ def main():
     r.add_argument("--out", required=True); r.add_argument("--model", default="opus")
     r.add_argument("--jobs", type=int, default=4); r.add_argument("--cases", default="")
     r.add_argument("--baseline-skill", default="", help="a skill dir used as the baseline instead (implies --baseline none semantics for has_skill)")
+    r.add_argument("--resnapshot", action="store_true", help="copy the snapshots fresh instead of reusing them on a rerun")
+    r.add_argument("--evals", default="", help="use this evals.json instead of the skill's own (held-out cases)")
     r.add_argument("--claudemd", action="store_true", help="give both configurations the repo's CLAUDE.md, as Claude Code would load it")
     r.add_argument("--only", choices=CONFIGS, help="run one configuration (e.g. new_skill to profile the current skill)")
     g = sp.add_parser("grade"); g.add_argument("--out", required=True); g.add_argument("--model", default="opus")

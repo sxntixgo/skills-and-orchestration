@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Writes 3-5 eval cases with assertions despite the request, with a short reason",
+      "passed": true,
+      "evidence": "\"with 3 cases: Raw notes, no CHANGELOG.md: creates the file with a header and `[Unreleased]`...\"; reason: \"this repo requires an `evals/evals.json` for every skill (CLAUDE.md rule 8)\""
+    },
+    {
+      "text": "Keeps the SKILL.md short (no background on what a changelog is) with Scope and Red flags sections",
+      "passed": true,
+      "evidence": "SKILL.md has no changelog background. Its scope lines are \"**Does:** classify changes... **Does NOT:** bump versions, tag releases\", and it has a \"## Red flags\" section."
+    },
+    {
+      "text": "Does not lecture at length about why evals matter (one or two sentences at most)",
+      "passed": true,
+      "evidence": "Eval rationale is brief and practical: \"a baseline run on these 3 cases would tell you whether the skill helps or just costs tokens.\" There is no general lecture on why evals matter."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 633,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3539
+  }
+}

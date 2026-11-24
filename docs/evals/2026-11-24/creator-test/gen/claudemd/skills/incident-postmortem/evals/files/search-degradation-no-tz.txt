@@ -1,0 +1,6 @@
+23:40 priya: search latency p99 is 9s, normally 300ms
+23:42 priya: elasticsearch node es-3 disk at 97%
+23:55 tom: Tom forgot to set up the log rotation on the new nodes, that's why
+00:10 priya: cleared old indices, disk 61%
+00:18 priya: p99 back to 320ms
+00:30 tom: we need disk alerts on es nodes

@@ -1,0 +1,16 @@
+{
+  "skill": "skill-creator",
+  "skill_path": "plugins/skill-authoring/skills/skill-creator",
+  "model": "opus",
+  "claudemd": true,
+  "baseline": "none",
+  "new_rev": "57349c7+worktree",
+  "date": "2026-11-24",
+  "cases": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ]
+}

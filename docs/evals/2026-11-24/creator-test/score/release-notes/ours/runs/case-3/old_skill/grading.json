@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Describes the sync fix and the faster invoice grid in plain user terms (what the user notices)",
+      "passed": true,
+      "evidence": "\"Changes you make in the invoice list now show up right away.\" and \"Sync now recovers on its own and finishes, so you don't need to reload.\""
+    },
+    {
+      "text": "Drops internal identifiers: no SyncWorker.retryLoop, useOptimisticRows, ETag 412, IDB or JIRA ids",
+      "passed": false,
+      "evidence": "The notes are clean, but the answer itself contains a JIRA id: \"I left out the ticket and PR numbers (JIRA-2231/2240, #440/#441)\"."
+    },
+    {
+      "text": "Keeps the PR numbers (#441, #440)",
+      "passed": false,
+      "evidence": "PR numbers are left out of the release notes: \"I left out the ticket and PR numbers (JIRA-2231/2240, #440/#441)\"."
+    }
+  ],
+  "summary": {
+    "passed": 1,
+    "failed": 2,
+    "total": 3,
+    "pass_rate": 0.333
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 326,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2407
+  }
+}

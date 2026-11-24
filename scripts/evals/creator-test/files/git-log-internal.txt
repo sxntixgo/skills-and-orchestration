@@ -1,0 +1,4 @@
+9f1e2a3 chore(deps): bump vitest from 2.1.0 to 2.1.4 (#430)
+8e0d1b4 ci: run lint on pull requests only (#429)
+7d9c0a5 refactor(db): rename getConn to getConnection (#428)
+6c8b9f6 test: add fixtures for the invoice parser (#427)

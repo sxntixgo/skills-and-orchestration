@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does NOT draft a SKILL.md",
+      "passed": true,
+      "evidence": "\"I didn't draft anything\" and \"I'd write no files, run no check_skill.py and launch no subagents\""
+    },
+    {
+      "text": "Asks a single question rather than a list of questions",
+      "passed": true,
+      "evidence": "\"Which of these is closest?\" is the only question; the closing \"Pick one, or tell me the task...\" restates it rather than adding a second question."
+    },
+    {
+      "text": "Offers 2-3 concrete candidate skills, each with when it would trigger",
+      "passed": true,
+      "evidence": "Three candidates (daily-plan, meeting-notes-to-actions, weekly-review), each with a trigger, e.g. \"loads when you type something like 'plan my day'\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 271,
+    "cache_read_input_tokens": 658,
+    "cache_creation_input_tokens": 3569
+  }
+}

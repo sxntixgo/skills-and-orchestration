@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Blameless: names no person as the cause (e.g. does not say Bob pushed bad config); describes the system/process gap instead",
+      "passed": true,
+      "evidence": "\"I also left out who pushed the change... treats the cause as the missing review and test steps in the fast-path pipeline, not as one person's mistake.\""
+    },
+    {
+      "text": "Timeline times are converted to UTC (13:58 MST -> 20:58 UTC) and labelled UTC",
+      "passed": false,
+      "evidence": "Times kept local: \"**Times:** US/Mountain\" and timeline shows \"13:58 | Deploy 4812\", not 20:58 UTC."
+    },
+    {
+      "text": "Impact uses the numbers from the notes (about 12% of checkout requests / ~1,900 orders, 21 minutes, 37 tickets) without inventing others",
+      "passed": true,
+      "evidence": "\"Duration: 21 min (13:58–14:19)\"; \"~12% of requests, ~1,900 orders\"; \"Support: 37 tickets\"; revenue marked \"unknown, needs data\"."
+    },
+    {
+      "text": "Every action item has an owner and a due date (or an explicit placeholder such as 'owner: TBD' flagged for the user)",
+      "passed": false,
+      "evidence": "Owners are \"TBD\" and flagged, but the table has no due date column, only \"Owner | Priority\"; no due dates or due-date placeholders."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 2,
+    "total": 4,
+    "pass_rate": 0.5
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 488,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3693
+  }
+}

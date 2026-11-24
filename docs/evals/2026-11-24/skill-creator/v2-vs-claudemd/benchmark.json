@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "skill": "skill-creator",
+    "skill_path": "plugins/skill-authoring/skills/skill-creator",
+    "model": "opus",
+    "claudemd": true,
+    "baseline": "none",
+    "new_rev": "57349c7+worktree",
+    "date": "2026-11-24",
+    "cases": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "run_summary": {
+    "new_skill": {
+      "pass_rate": {
+        "mean": 1.0
+      },
+      "assertions": "17/17",
+      "tokens": {
+        "mean": 34171.0
+      },
+      "time_seconds": {
+        "mean": 27.98
+      },
+      "cost_usd": {
+        "mean": 0.131
+      }
+    },
+    "old_skill": {
+      "pass_rate": {
+        "mean": 0.7
+      },
+      "assertions": "12/17",
+      "tokens": {
+        "mean": 18529.6
+      },
+      "time_seconds": {
+        "mean": 22.365
+      },
+      "cost_usd": {
+        "mean": 0.094
+      }
+    },
+    "delta": {
+      "pass_rate": 0.3,
+      "tokens": 15641.4,
+      "time_seconds": 5.615,
+      "cost_usd": 0.037
+    }
+  }
+}

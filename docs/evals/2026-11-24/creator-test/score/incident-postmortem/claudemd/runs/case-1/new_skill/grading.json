@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Blameless: names no person as the cause (e.g. does not say Bob pushed bad config); describes the system/process gap instead",
+      "passed": true,
+      "evidence": "\"The change was merged without review... Review isn't enforced for this config path.\" Root cause: \"config change could reach production through the fast-path pipeline, which skips integration tests\""
+    },
+    {
+      "text": "Timeline times are converted to UTC (13:58 MST -> 20:58 UTC) and labelled UTC",
+      "passed": true,
+      "evidence": "Header \"| Time (UTC) | Event |\" and row \"| 20:58 | Deploy 4812 changes the payment-gateway timeout...\"; \"13:58 MST is 20:58 UTC\""
+    },
+    {
+      "text": "Impact uses the numbers from the notes (about 12% of checkout requests / ~1,900 orders, 21 minutes, 37 tickets) without inventing others",
+      "passed": true,
+      "evidence": "\"Duration: 21m (20:58→21:19 UTC)\", \"Failed checkout requests: ~12%\", \"Orders affected: ~1,900\", \"Support tickets: 37\"; other figures marked \"Unknown\""
+    },
+    {
+      "text": "Every action item has an owner and a due date (or an explicit placeholder such as 'owner: TBD' flagged for the user)",
+      "passed": false,
+      "evidence": "Action items carry no per-item owner/date or TBD placeholder; only the header \"(owners/dates: none in notes)\" and a promise: \"otherwise I'll write `TBD — assign`\" (future intent, not present)."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 1,
+    "total": 4,
+    "pass_rate": 0.75
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 1109,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4002
+  }
+}

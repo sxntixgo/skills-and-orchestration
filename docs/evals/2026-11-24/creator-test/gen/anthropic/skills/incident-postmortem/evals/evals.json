@@ -1,0 +1,45 @@
+{
+  "skill_name": "incident-postmortem",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "here's the slack export from yesterday's checkout outage (evals/files/checkout-5xx-slack.txt). can you write up the postmortem? we need it for the review on friday",
+      "expected_output": "Blameless postmortem with PT times converted to UTC (PST, UTC-8), the stated impact numbers, config-validation root cause, and three action items where the SRE one has Owner TBD.",
+      "files": ["evals/files/checkout-5xx-slack.txt"],
+      "expectations": [
+        "Timeline times are in UTC and converted with UTC-8 (e.g. deploy/first errors at 21:51 UTC, alert at 22:02 UTC, mitigated at 22:26 UTC on 2026-11-18)",
+        "Impact lists 18,400 failed requests, ~3,100 customers and ~$41k estimated revenue, matching the notes",
+        "Root cause is framed as missing config validation / no canary, not as Dave's mistake; no blaming quote ('my bad') is reproduced",
+        "Action items include schema validation (Maria, Dec 2) and canary (Dave, Dec 9)",
+        "The alert-threshold action item has Owner TBD (or equivalent) rather than an invented person, and is listed as an open gap",
+        "The postmortem is written to a file on disk and the reply gives its path"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Need an incident review for the search outage this morning. Teams thread is in evals/files/search-outage-teams.txt. Leadership wants it blameless.",
+      "expected_output": "Blameless postmortem; +02:00 times converted to UTC; impact numbers marked Unknown, not invented; no person named as cause; action items with Owner/Due TBD.",
+      "files": ["evals/files/search-outage-teams.txt"],
+      "expectations": [
+        "Timeline converts +02:00 to UTC (first report 07:15 UTC, recovery 07:44 UTC, green 08:05 UTC on 2026-07-03)",
+        "Tom is not named as the cause and Ana's blaming message is not quoted; the cause is framed as an undocumented/unreviewed change to log rotation plus missing disk alerting",
+        "Impact does not invent user counts, request counts or revenue; unmeasured impact is marked Unknown with what to measure",
+        "Each action item (disk alerts, restore rotation cron, document it) has Owner and Due set to TBD rather than invented values",
+        "An Open gaps section lists the missing impact figures and missing owners/dates"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "postmortem pls from these notes, it was the login slowness thing on thursday: evals/files/login-latency-notes.txt",
+      "expected_output": "Postmortem that states its date/timezone assumption explicitly (notes have no date or zone), uses only the latency numbers given, and handles the relative due date and the ownerless action item as gaps.",
+      "files": ["evals/files/login-latency-notes.txt"],
+      "expectations": [
+        "The timeline or an Assumptions line explicitly states that the date and timezone were not given and what was assumed",
+        "Impact uses the stated figures (p99 ~9s vs ~300ms baseline) and does not invent affected-user counts",
+        "Root cause is framed as prod Redis allowing KEYS / debug scripts having prod credentials, without blaming an individual",
+        "The KEYS-blocking action item is owned by Raj with a due date tied to 'end of next week' and flagged if the absolute date can't be determined",
+        "The prod-credentials action item has Owner TBD and appears in Open gaps"
+      ]
+    }
+  ]
+}

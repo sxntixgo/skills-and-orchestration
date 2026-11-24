@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Removes the background section the model already knows (git history, what a commit is)",
+      "passed": true,
+      "evidence": "Table row: \"Background section | Git history and the Conventional Commits types are things Claude already knows.\" The rewritten SKILL.md has no background section."
+    },
+    {
+      "text": "Removes the 'read references first' step by inlining or dropping the two small reference files",
+      "passed": false,
+      "evidence": "The read-first step is removed, but the files are not inlined or dropped. examples.md is kept and lazy-loaded (\"Read `references/examples.md` only if the right type or format is unclear\"). conventional-commits.md is deleted only if it \"only repeats the public spec\"."
+    },
+    {
+      "text": "Keeps the behaviour-changing rules: imperative subject <= 72 chars, ticket id from the branch name, show the message and ask before committing",
+      "passed": true,
+      "evidence": "\"Subject: imperative mood, ≤72 chars\"; \"Ticket id in the branch name (e.g. `ABC-123`) → put it in the footer\"; \"show it, and STOP for approval\""
+    },
+    {
+      "text": "Rewrites the description into third person with a concrete 'Use when' trigger",
+      "passed": true,
+      "evidence": "\"description: Writes a Conventional Commits message for the staged changes. Use when the user asks for a commit message or to describe staged work for a commit.\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 1,
+    "total": 4,
+    "pass_rate": 0.75
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 1077,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3526
+  }
+}

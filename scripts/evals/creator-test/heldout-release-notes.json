@@ -1,0 +1,44 @@
+{
+  "skill_name": "release-notes",
+  "evals": [
+    {
+      "id": 1,
+      "files": [
+        "scripts/evals/creator-test/files/git-log.txt"
+      ],
+      "prompt": "Write the release notes for this release from git-log.txt.",
+      "expected_output": "Breaking change first with migration; user-facing feat/fix grouped; chore/ci/refactor/test left out; PR numbers kept; plain language.",
+      "assertions": [
+        "Lists the breaking change (removal of /v1/reports) first, with what users must do (use /v2/reports)",
+        "Leaves out the internal commits (eslint bump, CI cache, InvoiceRepository refactor, export tests)",
+        "Includes CSV export, the upload-session fix and the VAT-number fix in plain language",
+        "Keeps the PR numbers (e.g. #412, #406)"
+      ]
+    },
+    {
+      "id": 2,
+      "files": [
+        "scripts/evals/creator-test/files/git-log-internal.txt"
+      ],
+      "prompt": "Release notes for this one please (git-log-internal.txt).",
+      "expected_output": "Says there are no user-facing changes rather than dressing up internal commits.",
+      "assertions": [
+        "States there are no user-facing changes in this release (or a one-line 'maintenance release' note)",
+        "Does not present the dependency bump, CI, refactor or test commits as user features or fixes"
+      ]
+    },
+    {
+      "id": 3,
+      "files": [
+        "scripts/evals/creator-test/files/git-log-jargon.txt"
+      ],
+      "prompt": "Turn git-log-jargon.txt into release notes for our customers.",
+      "expected_output": "Plain-language user impact; no internal identifiers.",
+      "assertions": [
+        "Describes the sync fix and the faster invoice grid in plain user terms (what the user notices)",
+        "Drops internal identifiers: no SyncWorker.retryLoop, useOptimisticRows, ETag 412, IDB or JIRA ids",
+        "Keeps the PR numbers (#441, #440)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "assertion_results": [
+    {
+      "text": "States there are no user-facing changes in this release (or a one-line 'maintenance release' note)",
+      "passed": true,
+      "evidence": "RELEASE_NOTES.md: \"No user-facing changes in this release.\" Reply: \"This release has no user-facing changes\""
+    },
+    {
+      "text": "Does not present the dependency bump, CI, refactor or test commits as user features or fixes",
+      "passed": true,
+      "evidence": "\"0 kept, 4 dropped: a dev-dependency bump (#430), a CI change (#429), a code rename (#428) and test fixtures (#427).\""
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 0,
+    "total": 2,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 210,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2754
+  }
+}

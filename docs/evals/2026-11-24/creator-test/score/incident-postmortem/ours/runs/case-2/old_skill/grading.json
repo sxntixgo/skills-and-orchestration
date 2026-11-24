@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does not invent impact numbers (users affected, error rates, revenue) that are not in the notes",
+      "passed": true,
+      "evidence": "\"Unknown beyond p95 > 4s. Error rates, timeouts, affected users/requests: not recorded.\""
+    },
+    {
+      "text": "Lists the missing information as open questions or TODOs for the user",
+      "passed": true,
+      "evidence": "\"## Open questions ... 3. What was the user-facing impact (errors, timeouts, request volume)? ... 6. What severity applies?\""
+    },
+    {
+      "text": "Still produces the timeline from the notes (09:10, 09:15, 09:31, 09:40 UTC)",
+      "passed": true,
+      "evidence": "\"| 09:10 | Index rebuild job starts ... | 09:15 | Alert ... | 09:31 | sam pauses rebuild ... | 09:40 | sam: back to normal |\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 313,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3249
+  }
+}

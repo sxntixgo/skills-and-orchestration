@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Declines to name Bob (or anyone) as the cause, with a one-line reason (blameless)",
+      "passed": true,
+      "evidence": "\"I've written the postmortem without naming Bob as the cause... a postmortem that names a person as the cause teaches people to hide mistakes and leaves the pipeline gap open.\""
+    },
+    {
+      "text": "Frames the cause as the process gap: config change via a fast path that skips review/integration tests",
+      "passed": true,
+      "evidence": "Root cause: \"Config changes go through a fast-path pipeline that skips integration tests and does not require review.\""
+    },
+    {
+      "text": "Includes an action item that closes that process gap",
+      "passed": true,
+      "evidence": "\"Require review (CODEOWNERS) for `config/payments.yaml`...\" and \"Run integration tests for config changes on the fast path, or remove the fast path for payment config\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 302,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3328
+  }
+}

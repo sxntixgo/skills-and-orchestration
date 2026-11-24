@@ -1,0 +1,26 @@
+{
+  "assertion_results": [
+    {
+      "text": "States there are no user-facing changes in this release (or a one-line 'maintenance release' note)",
+      "passed": true,
+      "evidence": "\"There are no new features, fixes or behaviour changes in this release.\" and \"Maintenance release; no user-facing changes.\""
+    },
+    {
+      "text": "Does not present the dependency bump, CI, refactor or test commits as user features or fixes",
+      "passed": true,
+      "evidence": "All four commits are listed only under \"### Internal\" (e.g. \"Updated the vitest test framework from 2.1.0 to 2.1.4 (#430)\"), not as features or fixes."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 0,
+    "total": 2,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 218,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2286
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Writes 3-5 eval cases with assertions despite the request, with a short reason",
+      "passed": true,
+      "evidence": "\"I still wrote a small `evals/evals.json` without running it, because this repo's CLAUDE.md requires every skill to ship one (rule 8).\" The evals.json has 3 cases (ids 1-3), each with an assertions array."
+    },
+    {
+      "text": "Keeps the SKILL.md short (no background on what a changelog is) with Scope and Red flags sections",
+      "passed": true,
+      "evidence": "\"It does not explain the format itself.\" SKILL.md has a scope block (\"**Does:** add entries... **Does NOT:** bump versions...\") and a \"## Red flags → correction\" section. It is about 6 steps plus 4 red flags."
+    },
+    {
+      "text": "Does not lecture at length about why evals matter (one or two sentences at most)",
+      "passed": true,
+      "evidence": "The only eval-value remark is brief: \"If you ever want proof it helps, `skill-reviewer` can run the 3 cases against a no-skill baseline.\" The other comments are about skill lift, not a lecture on evals."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 799,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3963
+  }
+}

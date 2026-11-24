@@ -23,6 +23,7 @@ How it works (this is `skill-reviewer`'s Stage B, scripted):
 - **Real tools (opt-in):** `evals.json` may set `eval_tools` (e.g. `"Read,WebSearch,WebFetch"`)
   and `eval_allowed` (e.g. `["Bash(python3:*)","Edit"]`) at the top level or per case; those runs
   really use the tools inside the snapshot (online-research, debugging cases 5–6).
+- **Resuming:** rerun the same `run` command; finished runs and the snapshots are kept. After editing the skill, delete the runs to redo and pass `--resnapshot`.
 - **Profiling:** `run --only new_skill` runs just the current version (no baseline) to find
   failing cases and turn/token hot spots before editing.
 - **Grading:** one judge call per run, given only the prompt, the assertions and the answer (not

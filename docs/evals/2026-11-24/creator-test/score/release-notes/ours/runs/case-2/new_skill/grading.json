@@ -1,0 +1,26 @@
+{
+  "assertion_results": [
+    {
+      "text": "States there are no user-facing changes in this release (or a one-line 'maintenance release' note)",
+      "passed": true,
+      "evidence": "\"None of the 4 commits in `git-log-internal.txt` change anything users will see, so there's nothing to put in release notes\""
+    },
+    {
+      "text": "Does not present the dependency bump, CI, refactor or test commits as user features or fixes",
+      "passed": true,
+      "evidence": "All four marked DROP in triage, e.g. \"#430: updates a test tool (vitest)\"; \"Kept 0, dropped 4.\" No release-notes.md written."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 0,
+    "total": 2,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 211,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2749
+  }
+}

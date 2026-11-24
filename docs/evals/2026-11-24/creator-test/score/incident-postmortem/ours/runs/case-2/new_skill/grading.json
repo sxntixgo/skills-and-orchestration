@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does not invent impact numbers (users affected, error rates, revenue) that are not in the notes",
+      "passed": true,
+      "evidence": "\"Affected users/requests: UNKNOWN (ask: search-api dashboard / owning team)\" ... \"Revenue impact: UNKNOWN (ask: product/business owner)\""
+    },
+    {
+      "text": "Lists the missing information as open questions or TODOs for the user",
+      "passed": true,
+      "evidence": "\"How many users or requests were affected? What was the error rate, how many SLO minutes were used, and was there any revenue impact?\""
+    },
+    {
+      "text": "Still produces the timeline from the notes (09:10, 09:15, 09:31, 09:40 UTC)",
+      "passed": true,
+      "evidence": "Timeline rows: \"2026-11-20 09:10 | Index rebuild job starts\", \"09:15 | Alert\", \"09:31 | Rebuild paused\", \"09:40 | ...back to normal\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 339,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4188
+  }
+}

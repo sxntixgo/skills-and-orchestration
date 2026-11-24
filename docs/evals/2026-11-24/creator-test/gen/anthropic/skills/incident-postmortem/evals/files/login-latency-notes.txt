@@ -1,0 +1,8 @@
+login slowness thursday
+10:42 jen - login p99 is like 9s, normally 300ms
+10:45 raj - redis for sessions is at 100% cpu
+10:51 raj - someone ran KEYS * from a debug script against prod redis. killed it
+10:53 jen - p99 back to 310ms
+11:00 jen - we should block KEYS in prod (rename-command) - raj can you take it, end of next week?
+11:02 raj - yep
+11:03 jen - also debug scripts shouldn't have prod creds. need an owner for that

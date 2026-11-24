@@ -1,7 +1,7 @@
 {
   "name": "skill-authoring",
   "displayName": "Skill Authoring",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Create and review Claude Code skills for this repo's 8 authoring rules, with baseline evals (scripts/evals/abeval.py).",
   "author": {
     "name": "Santiago",

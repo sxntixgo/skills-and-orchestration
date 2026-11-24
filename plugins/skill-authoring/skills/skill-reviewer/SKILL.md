@@ -14,8 +14,11 @@ new version for an edit) after approval; give PASS / ITERATE with the top fixes.
 Does NOT: rewrite the skill (→ `skill-creator`); start any eval run before the user approves.
 
 ## Stage A — rubric (one TodoWrite item per stage)
-Read the target's files **in one batch** (parallel Reads): `SKILL.md`, every `references/*.md`,
-`evals/evals.json`, and list `scripts/`. Score each rule; record only problems, rated
+In one turn: run `python3 <skill-authoring>/skills/skill-creator/scripts/check_skill.py <skill dir>`
+(the mechanical checks: frontmatter, trigger, size, sections, references, eval format) and read
+the target's `SKILL.md`, `references/*.md` and `evals/evals.json` in parallel. Each FAIL line is a
+🔴, each WARN a 🟡/🟢 by judgment; don't recheck by hand what the script checked. Then judge the
+rest; record only problems, rated
 🔴 must fix (breaks the skill, scope/safety violation, blocks evals) · 🟡 should fix · 🟢 consider,
 each with `file:line`:
 
@@ -24,11 +27,11 @@ each with `file:line`:
 | 1 Frontmatter | `name` kebab-case = directory; third-person `description` with a concrete "Use when …" (🔴 if missing/vague); no trigger clash with siblings |
 | 2 Self-contained | no hard dependency outside its plugin (🔴); a sibling plugin's skill only as "if installed" with a fallback |
 | 3 Progressive disclosure | `SKILL.md` lean (< ~500 lines); detail in `references/`, named where used |
-| 4 Token-frugal | runs in one context window; subagents only as a measured default with an inline fallback (🔴 if mandatory); no repetition |
+| 4 Token-frugal | one context window; subagents only as a measured default with an inline fallback (🔴 if mandatory); no knowledge the model already has (🟡: measured 0 lift); no small `references/` or "read X first" (each read is a turn) |
 | 5 Imperative | steps, checklists, tables — not an essay (🟡) |
 | 6 Checkpointed | multi-step skills write each step's output to disk and say where (🔴 if none) |
 | 7 Guardrails | Scope with a "does NOT" line; TodoWrite steps; STOP gates where scope could grow; Red flags; asks instead of guessing |
-| 8 Eval-backed | `evals/evals.json` with ≥ 3 realistic cases (`id`, `prompt`, `expected_output`, `files`, objective `assertions`) (🔴 if missing: Stage B can't run); scripts have tests |
+| 8 Eval-backed | ≥ 3 realistic cases with evidence-only assertions (🔴 if missing: Stage B can't run); a fixture whenever the skill works on input (🟡 a case with nothing to work on, unless it tests stopping); scripts have tests |
 
 Write the findings (most severe first) to `./.claude-skills-work/<skill>/review/rubric.md` and
 report them.
@@ -49,9 +52,11 @@ python3 scripts/evals/abeval.py report --out <same>     # benchmark.json + repor
 Without the script, follow `references/running-evals.md` (manual subagent method).
 
 ## Stage C — verdict
-**PASS**: no 🔴 and a positive pass-rate delta at acceptable token/time cost. **ITERATE**: the top
-fixes (🔴 first) and the failing or regressed cases, for `skill-creator`. If the user declined
-Stage B, say the verdict rests on the rubric only.
+Report pass rate and **tokens + turns per run** for both sides (from `report.md`). **PASS**: no 🔴
+and a positive pass-rate delta at acceptable cost. **ITERATE**: a numbered fix list for
+`skill-creator`, each `file:line — problem — change` (🔴 first), plus the failing or regressed
+cases with the judge's quoted reason; flag runs with > 3 turns (a read the page could avoid).
+If the user declined Stage B, say the verdict rests on the rubric only.
 
 ## Red flags
 | If you notice… | Do this |
@@ -62,3 +67,7 @@ Stage B, say the verdict rests on the rubric only.
 | PASS on the rubric alone | A PASS also needs a positive eval delta |
 | A PASS on vague evidence | Quote the output |
 | No `evals/evals.json` | Rule 8 🔴; ask for cases |
+
+## Done when
+Rubric findings written and reported; Stage B either run (benchmark with deltas for pass rate,
+tokens, turns) or declined at the gate; PASS or ITERATE given with the fix list.

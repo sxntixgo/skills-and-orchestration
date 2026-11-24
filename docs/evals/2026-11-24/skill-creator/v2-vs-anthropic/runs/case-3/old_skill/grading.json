@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does NOT draft a SKILL.md",
+      "passed": true,
+      "evidence": "\"I'd stop there and wait for the answers. No files are written and no subagents are spawned until the intent is pinned down.\""
+    },
+    {
+      "text": "Asks a single question rather than a list of questions",
+      "passed": false,
+      "evidence": "Asks four numbered questions: \"1. Which of these is closest... 2. What would you type... 3. What should you end up with... 4. Does it need any of your tools\""
+    },
+    {
+      "text": "Offers 2-3 concrete candidate skills, each with when it would trigger",
+      "passed": false,
+      "evidence": "Offers five directions, not 2-3, and none states its own trigger. Each describes only what it does, e.g. \"Weekly review: go through what got done, what slipped and why\". Trigger phrases appear only in a separate generic question."
+    }
+  ],
+  "summary": {
+    "passed": 1,
+    "failed": 2,
+    "total": 3,
+    "pass_rate": 0.333
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 439,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3005
+  }
+}

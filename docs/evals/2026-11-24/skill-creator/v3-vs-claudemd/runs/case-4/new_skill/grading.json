@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Writes 3-5 eval cases with assertions despite the request, with a short reason",
+      "passed": true,
+      "evidence": "Four evals (commits-to-unreleased, cut-release-with-version, release-no-version-stop, no-changelog-file) with assertions; reason: \"without a baseline comparison there's no evidence this skill does better than no skill.\""
+    },
+    {
+      "text": "Keeps the SKILL.md short (no background on what a changelog is) with Scope and Red flags sections",
+      "passed": true,
+      "evidence": "SKILL.md has \"## Scope\" (DOES/Does NOT) and \"## Red flags\" table; no background on changelogs, opens with \"Write entries for users, not commit-log noise\"."
+    },
+    {
+      "text": "Does not lecture at length about why evals matter (one or two sentences at most)",
+      "passed": true,
+      "evidence": "\"The model already knows the Keep a Changelog format, so without a baseline comparison there's no evidence... This repo's rule 8 requires evals for every skill.\" Two sentences."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 361,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4401
+  }
+}

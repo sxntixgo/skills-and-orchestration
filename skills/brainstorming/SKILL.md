@@ -1,6 +1,6 @@
 ---
 name: brainstorming
-description: Turns a vague idea into a validated design through dialogue — clarifies intent one question at a time, explores 2-3 approaches with trade-offs, and validates the design in sections before implementation. Use before building a feature, component, or system when the requirements or approach aren't nailed down yet.
+description: Turns a vague idea into a validated design through dialogue — clarifies intent one question at a time, explores 2-3 approaches with trade-offs, and validates the design in sections before implementation. Use when about to build a feature, component, or system whose requirements or approach aren't nailed down yet.
 ---
 
 # Brainstorming

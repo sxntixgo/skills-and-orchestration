@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Drafts the SKILL.md in this reply instead of stopping to ask first",
+      "passed": true,
+      "evidence": "Step 2 contains the full SKILL.md, starting with \"---\\nname: summarize-diff\\ndescription: Summarizes the uncommitted git changes...\", written before any question to the user."
+    },
+    {
+      "text": "The description is third person with a concrete 'Use when' trigger about summarizing changes",
+      "passed": true,
+      "evidence": "\"Summarizes the uncommitted git changes... Use when the user asks to \\\"summarize my changes\\\", \\\"what did I change\\\", \\\"summarize my diff\\\"\""
+    },
+    {
+      "text": "Writes 3-5 eval cases, each with assertions, including at least one fixture or diff as input",
+      "passed": true,
+      "evidence": "Four cases (risky-migration-auth, deleted-test, benign-docs, clean-tree-stop), each with an \"assertions\" array; e.g. \"files\":[\"evals/files/risky.patch\"]"
+    },
+    {
+      "text": "Ends by asking for approval and naming skill-reviewer as the next step (does not grade its own skill)",
+      "passed": true,
+      "evidence": "\"Approve, or what should change? Next step: run `skill-authoring:skill-reviewer` on it for the with/without-skill comparison.\" The answer only reports a structural check, not eval grading."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 654,
+    "cache_read_input_tokens": 658,
+    "cache_creation_input_tokens": 5553
+  }
+}

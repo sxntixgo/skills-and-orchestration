@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Lists the breaking change (removal of /v1/reports) first, with what users must do (use /v2/reports)",
+      "passed": true,
+      "evidence": "First section '## ⚠️ Breaking changes': '`/v1/reports` has been removed. **What to do:** Point any integrations or scripts that fetch reports at `/v2/reports` instead. (#406)'"
+    },
+    {
+      "text": "Leaves out the internal commits (eslint bump, CI cache, InvoiceRepository refactor, export tests)",
+      "passed": true,
+      "evidence": "Final notes contain only Breaking/New/Fixed entries #406, #412, #409, #404; triage marks eslint, InvoiceRepository, CI, tests as 'DROP'."
+    },
+    {
+      "text": "Includes CSV export, the upload-session fix and the VAT-number fix in plain language",
+      "passed": true,
+      "evidence": "'You can now export your invoices as a CSV file.'; 'You no longer get signed out while a file is still uploading.'; 'Invoice PDFs show the customer's VAT number again.'"
+    },
+    {
+      "text": "Keeps the PR numbers (e.g. #412, #406)",
+      "passed": true,
+      "evidence": "'export your invoices as a CSV file. (#412)'; '...at `/v2/reports` instead. (#406)'; also (#409), (#404)."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 458,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2967
+  }
+}

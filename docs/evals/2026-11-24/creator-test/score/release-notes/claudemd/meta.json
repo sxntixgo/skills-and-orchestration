@@ -1,0 +1,15 @@
+{
+  "skill": "release-notes",
+  "skill_path": ".claude-skills-work/creator-test/gen/claudemd/skills/release-notes",
+  "model": "opus",
+  "claudemd": false,
+  "evals_file": "/Users/santiago/Dev/skills-and-orchestration/scripts/evals/creator-test/heldout-release-notes.json",
+  "baseline": "none",
+  "new_rev": "57349c7+worktree",
+  "date": "2026-11-24",
+  "cases": [
+    1,
+    2,
+    3
+  ]
+}

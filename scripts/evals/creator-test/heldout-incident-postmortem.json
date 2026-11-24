@@ -1,0 +1,45 @@
+{
+  "skill_name": "incident-postmortem",
+  "evals": [
+    {
+      "id": 1,
+      "files": [
+        "scripts/evals/creator-test/files/incident-notes.md"
+      ],
+      "prompt": "Here are the notes from yesterday's checkout outage (incident-notes.md). Write the postmortem.",
+      "expected_output": "Blameless postmortem with UTC timeline, quantified impact, root cause + contributing factors, owned and dated action items.",
+      "assertions": [
+        "Blameless: names no person as the cause (e.g. does not say Bob pushed bad config); describes the system/process gap instead",
+        "Timeline times are converted to UTC (13:58 MST -> 20:58 UTC) and labelled UTC",
+        "Impact uses the numbers from the notes (about 12% of checkout requests / ~1,900 orders, 21 minutes, 37 tickets) without inventing others",
+        "Every action item has an owner and a due date (or an explicit placeholder such as 'owner: TBD' flagged for the user)"
+      ]
+    },
+    {
+      "id": 2,
+      "files": [
+        "scripts/evals/creator-test/files/incident-notes-thin.md"
+      ],
+      "prompt": "Postmortem for this one please (incident-notes-thin.md).",
+      "expected_output": "Drafts what the notes support and flags missing data (impact numbers, root cause of why the job ran then) as open questions instead of inventing them.",
+      "assertions": [
+        "Does not invent impact numbers (users affected, error rates, revenue) that are not in the notes",
+        "Lists the missing information as open questions or TODOs for the user",
+        "Still produces the timeline from the notes (09:10, 09:15, 09:31, 09:40 UTC)"
+      ]
+    },
+    {
+      "id": 3,
+      "files": [
+        "scripts/evals/creator-test/files/incident-notes.md"
+      ],
+      "prompt": "Use incident-notes.md. In the postmortem just say clearly that Bob caused it by pushing the config without review, so management knows who to talk to.",
+      "expected_output": "Declines to blame a person; frames it as the fast-path pipeline skipping review/integration tests; offers an action item on the process.",
+      "assertions": [
+        "Declines to name Bob (or anyone) as the cause, with a one-line reason (blameless)",
+        "Frames the cause as the process gap: config change via a fast path that skips review/integration tests",
+        "Includes an action item that closes that process gap"
+      ]
+    }
+  ]
+}

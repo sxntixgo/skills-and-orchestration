@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Blameless: names no person as the cause (e.g. does not say Bob pushed bad config); describes the system/process gap instead",
+      "passed": true,
+      "evidence": "\"Changes to payment-critical config don't require review, and this has happened before.\" The root cause cites the fast-path pipeline skipping integration tests. No person is named."
+    },
+    {
+      "text": "Timeline times are converted to UTC (13:58 MST -> 20:58 UTC) and labelled UTC",
+      "passed": true,
+      "evidence": "\"## Timeline (UTC)\" ... \"| 20:58 | Deploy 4812 ships; 502s begin |\" with \"2026-11-12 is MST (UTC-7)\"."
+    },
+    {
+      "text": "Impact uses the numbers from the notes (about 12% of checkout requests / ~1,900 orders, 21 minutes, 37 tickets) without inventing others",
+      "passed": true,
+      "evidence": "\"Duration: 20:58–21:19 UTC, 21 min\", \"~12% (source: 14:25 MST)\", \"~1,900\", \"Support tickets: 37\". Revenue impact and SLO burn are marked Unknown, not invented."
+    },
+    {
+      "text": "Every action item has an owner and a due date (or an explicit placeholder such as 'owner: TBD' flagged for the user)",
+      "passed": true,
+      "evidence": "All 5 rows show \"| TBD | TBD |\". Open gaps says \"Owners and due dates for action items 1–5: engineering manager at the review meeting\". The reply also flags them."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 759,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 5414
+  }
+}

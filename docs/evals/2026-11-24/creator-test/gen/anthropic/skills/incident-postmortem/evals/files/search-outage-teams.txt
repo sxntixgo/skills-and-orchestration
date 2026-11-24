@@ -1,0 +1,10 @@
+Teams export: Incident - search down
+2026-07-03 09:15 +02:00 Lukas: search page returns empty results for everyone??
+2026-07-03 09:18 +02:00 Ana: confirmed. ES cluster red. node es-3 disk full
+2026-07-03 09:25 +02:00 Ana: honestly this is on Tom, he turned off the log rotation cron last week and never told anyone
+2026-07-03 09:31 +02:00 Ana: deleting old indices on es-3 to free disk
+2026-07-03 09:44 +02:00 Ana: cluster yellow, search returning results again
+2026-07-03 10:05 +02:00 Ana: cluster green. done.
+2026-07-03 10:10 +02:00 Lukas: lots of customer complaints came in, support is swamped
+2026-07-03 10:12 +02:00 Ana: we had no disk usage alert on the ES nodes at all
+2026-07-03 10:15 +02:00 Lukas: we should add disk alerts and put the cron back + document it

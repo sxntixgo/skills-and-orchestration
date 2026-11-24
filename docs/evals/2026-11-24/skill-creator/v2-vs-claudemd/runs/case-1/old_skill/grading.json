@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Drafts the SKILL.md in this reply instead of stopping to ask first",
+      "passed": true,
+      "evidence": "Full SKILL.md drafted under '**2. Write `skills/summarize-diff/SKILL.md`:**' with frontmatter, checklist, risk triggers, output, red flags."
+    },
+    {
+      "text": "The description is third person with a concrete 'Use when' trigger about summarizing changes",
+      "passed": true,
+      "evidence": "\"Summarizes the uncommitted git diff ... Use when the user asks for a summary of their changes, \\\"what did I change\\\", or a recap before committing.\""
+    },
+    {
+      "text": "Writes 3-5 eval cases, each with assertions, including at least one fixture or diff as input",
+      "passed": true,
+      "evidence": "Five cases with fixtures, each with an expectation, e.g. \"`auth.diff`: weakens a role check in middleware. Expect an ⚠ Auth flag.\""
+    },
+    {
+      "text": "Ends by asking for approval and naming skill-reviewer as the next step (does not grade its own skill)",
+      "passed": false,
+      "evidence": "Step 4 runs skill-reviewer and the baseline itself: \"**4. Invoke `skill-authoring:skill-reviewer`** on the new skill.\" The final reply says \"Created `skills/summarize-diff/`\" and \"Run `/reload-plugins`\" but never asks for approval or names skill-reviewer as the next step."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 1,
+    "total": 4,
+    "pass_rate": 0.75
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 714,
+    "cache_read_input_tokens": 658,
+    "cache_creation_input_tokens": 4723
+  }
+}

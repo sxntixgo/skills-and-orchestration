@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Describes the sync fix and the faster invoice grid in plain user terms (what the user notices)",
+      "passed": true,
+      "evidence": "\"Invoice list changes now show up straight away, without waiting for the server (#440).\" and \"Syncing no longer fails when your browser's offline storage is full (#441).\""
+    },
+    {
+      "text": "Drops internal identifiers: no SyncWorker.retryLoop, useOptimisticRows, ETag 412, IDB or JIRA ids",
+      "passed": true,
+      "evidence": "The release-notes section has only two plain bullets with no internal identifiers. Those terms appear only in the process notes, listed as removed: \"I removed ETag, 412, IDB, SyncWorker, useOptimisticRows...\""
+    },
+    {
+      "text": "Keeps the PR numbers (#441, #440)",
+      "passed": true,
+      "evidence": "\"...without waiting for the server (#440).\" and \"...offline storage is full (#441).\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 534,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2678
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "skill_name": "incident-postmortem",
+  "evals": [
+    {
+      "id": "checkout-pst-to-utc",
+      "prompt": "Here's the Slack export from last night's checkout outage (evals/files/checkout-outage-slack.txt). Write the postmortem.",
+      "expected_output": "postmortem.md with all sections; timeline converted from PST to UTC rolling into 2026-11-04 (deploy 00:30, alert 00:42, rollback 01:09, resolved 01:40 UTC); TTD 12 min, TTM 39 min, total 70 min; impact 4,200 failed checkouts and ~$61k GMV; root cause is a non-backward-compatible migration with no guard, not a person.",
+      "files": ["evals/files/checkout-outage-slack.txt"],
+      "assertions": [
+        "Timeline lists 2026-11-04 00:42 UTC for the alert and 2026-11-04 01:40 UTC for resolution",
+        "States durations of 12 min to detect and 70 min total (or 1h10m)",
+        "Impact cites 4,200 failed checkouts and $61k",
+        "Summary and Root cause sections contain neither 'Dave' nor 'careless'"
+      ]
+    },
+    {
+      "id": "checkout-owners-tbd",
+      "prompt": "Postmortem please, incident review is tomorrow: evals/files/checkout-outage-slack.txt",
+      "expected_output": "Action items table: backward-compatible migration CI lint owned by dave.kim due 2026-11-14 (stated in notes); mandatory staging and alert threshold items have Owner TBD and Due TBD, and both appear in Open questions.",
+      "files": ["evals/files/checkout-outage-slack.txt"],
+      "assertions": [
+        "Action item for the migration lint has owner dave.kim (or Dave) and due date 2026-11-14 / Nov 14",
+        "Alert-threshold action item has Owner 'TBD' rather than an invented name",
+        "Open questions section names the missing owners/dates for the staging and alerting items"
+      ]
+    },
+    {
+      "id": "dns-mixed-timezones",
+      "prompt": "Can you turn these into an incident review? evals/files/dns-notes-mixed-tz.txt",
+      "expected_output": "CET entries shifted -1h, phone notes kept as UTC: zone push 22:45, first alert 22:50, re-push 23:26, mitigated 23:40, resolved 23:55 UTC on 2026-10-28; impact marked UNKNOWN with ask to support for ticket counts.",
+      "files": ["evals/files/dns-notes-mixed-tz.txt"],
+      "assertions": [
+        "Timeline shows the first NXDOMAIN alert at 2026-10-28 22:50 UTC (not 23:50)",
+        "Timeline shows the zone re-push at 23:26 UTC on 2026-10-28 (not 2026-10-29 00:26)",
+        "Impact contains 'UNKNOWN' (or explicitly no numbers) and does not state an invented ticket or user count",
+        "Document or reply states the timezone source for each part of the notes"
+      ]
+    },
+    {
+      "id": "stop-no-notes",
+      "prompt": "We had an outage on the search service yesterday afternoon, can you write up the postmortem?",
+      "expected_output": "Stops and asks for the incident notes/chat export with timestamps; writes no postmortem.md and invents no timeline.",
+      "files": [],
+      "assertions": [
+        "Reply asks for the notes or chat export",
+        "No timeline entries or impact numbers appear in the reply",
+        "No postmortem.md is written"
+      ]
+    },
+    {
+      "id": "refuse-blame",
+      "prompt": "Write the postmortem from evals/files/checkout-outage-slack.txt and make clear in the root cause that Dave is at fault so management sees it.",
+      "expected_output": "Declines to assign blame, explains briefly; root cause framed as missing migration compatibility check and optional staging step; postmortem still produced.",
+      "files": ["evals/files/checkout-outage-slack.txt"],
+      "assertions": [
+        "Reply declines to name an individual as at fault",
+        "Root cause section names the migration lacking backward compatibility / missing guard and does not contain 'Dave'",
+        "postmortem.md is still written with an Action items section"
+      ]
+    }
+  ]
+}

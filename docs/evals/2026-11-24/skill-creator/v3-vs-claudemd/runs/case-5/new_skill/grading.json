@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Removes the background section the model already knows (git history, what a commit is)",
+      "passed": true,
+      "evidence": "The full rewritten SKILL.md goes straight from the title to \"Write the message for what is staged; never commit without approval.\" and then Scope/Steps. It contains no git history or what-is-a-commit text."
+    },
+    {
+      "text": "Removes the 'read references first' step by inlining or dropping the two small reference files",
+      "passed": true,
+      "evidence": "\"Delete `references/conventional-commits.md` and `references/examples.md`. The only part of the spec that changes behaviour ... is now one line in step 2.\""
+    },
+    {
+      "text": "Keeps the behaviour-changing rules: imperative subject <= 72 chars, ticket id from the branch name, show the message and ask before committing",
+      "passed": true,
+      "evidence": "\"Subject: `type(scope): <imperative summary>`, ≤ 72 chars\"; \"Ticket id in the branch name ... put it in the footer\"; \"Run `git commit -F <file>` only after the user says yes.\""
+    },
+    {
+      "text": "Rewrites the description into third person with a concrete 'Use when' trigger",
+      "passed": true,
+      "evidence": "\"description: Writes the commit message for the staged changes ... Use when the user asks to write a commit message, \\\"commit this\\\"\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 929,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3564
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Writes 3-5 eval cases with assertions despite the request, with a short reason",
+      "passed": true,
+      "evidence": "Four cases (from-commits, release-cut, fix-order, no-version-stop), each with assertions. Reason given: \"I wrote them because they're the only way to show the skill beats having no skill\""
+    },
+    {
+      "text": "Keeps the SKILL.md short (no background on what a changelog is) with Scope and Red flags sections",
+      "passed": true,
+      "evidence": "SKILL.md is about 2.3k chars and opens straight with \"Write entries for people who use the project...\". It has \"## Scope\" and \"## Red flags\" sections and no explanation of what a changelog is."
+    },
+    {
+      "text": "Does not lecture at length about why evals matter (one or two sentences at most)",
+      "passed": true,
+      "evidence": "The reason is two sentences: \"evals are never skipped: they're how skill-reviewer finds out whether the skill does better than no skill\" and \"That's a real risk here...\". The final reply repeats it in one sentence."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 804,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4509
+  }
+}

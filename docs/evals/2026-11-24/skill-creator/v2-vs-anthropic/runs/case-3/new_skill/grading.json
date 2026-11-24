@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does NOT draft a SKILL.md",
+      "passed": true,
+      "evidence": "\"Stop before drafting... I'd write no files, run no commands and start no subagents.\" No SKILL.md content appears; drafting deferred until \"Once you pick one\"."
+    },
+    {
+      "text": "Asks a single question rather than a list of questions",
+      "passed": true,
+      "evidence": "\"Ask you one question: ... Which of these fits, or what did you have in mind?\" Only one question is posed."
+    },
+    {
+      "text": "Offers 2-3 concrete candidate skills, each with when it would trigger",
+      "passed": true,
+      "evidence": "Three candidates (daily-plan, meeting-notes, weekly-review), each with a trigger, e.g. \"Use when you say \\\"plan my day\\\" or \\\"prioritize these tasks.\\\"\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 296,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2428
+  }
+}

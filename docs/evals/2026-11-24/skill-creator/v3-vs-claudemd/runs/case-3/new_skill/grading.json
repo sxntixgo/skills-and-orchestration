@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does NOT draft a SKILL.md",
+      "passed": true,
+      "evidence": "\"I'm not writing any files yet.\" Only one-line candidate summaries are given; no SKILL.md content is drafted."
+    },
+    {
+      "text": "Asks a single question rather than a list of questions",
+      "passed": true,
+      "evidence": "\"'Productivity' could mean several different skills. Which one do you want?\" That is one question followed by numbered options."
+    },
+    {
+      "text": "Offers 2-3 concrete candidate skills, each with when it would trigger",
+      "passed": true,
+      "evidence": "Three candidates, each with a trigger, e.g. \"`daily-plan`... *Trigger:* 'plan my day'\", \"`task-breakdown`... *Trigger:* 'break this down'\", \"`weekly-review`... *Trigger:* 'weekly review'\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 299,
+    "cache_read_input_tokens": 658,
+    "cache_creation_input_tokens": 3597
+  }
+}

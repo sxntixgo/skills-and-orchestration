@@ -3,47 +3,65 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Create a skill that summarizes the uncommitted git diff into a few bullet points and flags risky changes. It should fire when I ask for a summary of my changes.",
-      "expected_output": "Runs the 5-stage flow: first clarifies trigger/scope/success and STOPS for approval before drafting; then produces a SKILL.md with a concrete 'Use when' description, a scope block (does/does NOT), numbered steps, red flags, and a scaffolded evals/evals.json with realistic cases; ends by handing off to skill-reviewer.",
+      "prompt": "Create a skill that summarizes my uncommitted git diff into 3-6 bullet points and flags risky changes (migrations, auth, deleted tests). It should fire when I ask for a summary of my changes. Put it in skills/.",
       "files": [],
+      "expected_output": "Drafts right away (the brief is clear): SKILL.md with a third-person description and a concrete 'Use when', Scope with Does NOT, numbered steps, a fixed output format, red flags, done when; evals.json with 3-5 cases with evidence-only assertions (incl. a fixture diff); runs check_skill.py; replies with description, size, cases, assumptions, asks for approval and names skill-reviewer as next.",
       "assertions": [
-        "Clarifies trigger/scope/success and STOPS for approval before drafting (Stage 1 gate)",
-        "Produces a concrete 'Use when' description and a scope block with a 'does NOT' line",
-        "Scaffolds evals/evals.json with realistic cases",
-        "Ends by handing off to skill-reviewer (does not self-judge)"
+        "Drafts the SKILL.md in this reply instead of stopping to ask first",
+        "The description is third person with a concrete 'Use when' trigger about summarizing changes",
+        "Writes 3-5 eval cases, each with assertions, including at least one fixture or diff as input",
+        "Ends by asking for approval and naming skill-reviewer as the next step (does not grade its own skill)"
       ]
     },
     {
       "id": 2,
-      "prompt": "The description on my code-review skill is too vague and never triggers. Tighten it so it fires when I finish a change or before merging.",
-      "expected_output": "Treats this as an edit (skips scaffolding), rewrites the description into third-person 'what it does. Use when <concrete trigger>' form with a sharp trigger, and sanity-checks it against the skill's eval prompts. Does not rewrite unrelated parts of the skill.",
-      "files": [],
+      "prompt": "The description on my review skill never triggers. Tighten it so it fires when I finish a change or before merging.",
+      "files": [
+        "evals/files/vague-review/SKILL.md"
+      ],
+      "expected_output": "Treats it as an edit: rewrites only the description into third-person 'what it does. Use when …' with the user's trigger words (finished a change, before merging, review my diff/PR); leaves the body and evals alone; shows the before/after.",
       "assertions": [
-        "Treats it as an edit and skips scaffolding",
-        "Rewrites the description into third-person 'what it does. Use when <trigger>' form with a concrete trigger",
-        "Does not rewrite unrelated parts of the skill"
+        "Changes only the description, leaving the body untouched",
+        "The new description is third person, says what it does and has a concrete 'Use when' with trigger words such as finishing a change or before merging",
+        "Does not scaffold a new skill"
       ]
     },
     {
       "id": 3,
       "prompt": "Make me a skill for productivity.",
-      "expected_output": "Does NOT start drafting. Recognizes the brief is too vague, stays in Stage 1, and asks clarifying questions about the concrete trigger, scope (does / does NOT), and success criteria before proceeding.",
       "files": [],
+      "expected_output": "Does not draft. Asks ONE question offering 2-3 concrete skills it could be, each with its trigger.",
       "assertions": [
-        "Does NOT start drafting a skill",
-        "Recognizes the brief is too vague and stays in Stage 1",
-        "Asks clarifying questions about trigger, scope, and success criteria"
+        "Does NOT draft a SKILL.md",
+        "Asks a single question rather than a list of questions",
+        "Offers 2-3 concrete candidate skills, each with when it would trigger"
       ]
     },
     {
       "id": 4,
-      "prompt": "Create a skill to format changelog entries, and skip the evals — it's obviously simple.",
-      "expected_output": "Builds the skill but declines to skip evals, explaining rule 8 (eval-backed) and scaffolding 3-5 evals/evals.json cases anyway. Keeps SKILL.md lean and includes the guardrail sections.",
+      "prompt": "Create a skill to format changelog entries in Keep a Changelog style, and skip the evals — it's obviously simple.",
       "files": [],
+      "expected_output": "Drafts the skill and writes 3-5 eval cases anyway with a one-line reason (evals are required); SKILL.md stays short; scope + red flags present.",
       "assertions": [
-        "Declines to skip evals, explaining they are required (rule 8)",
-        "Scaffolds 3-5 realistic evals/evals.json cases anyway",
-        "Keeps SKILL.md lean and includes the guardrail sections (scope, red flags)"
+        "Writes 3-5 eval cases with assertions despite the request, with a short reason",
+        "Keeps the SKILL.md short (no background on what a changelog is) with Scope and Red flags sections",
+        "Does not lecture at length about why evals matter (one or two sentences at most)"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "This commit-messages skill costs too many tokens. Slim it down without losing what it does.",
+      "files": [
+        "evals/files/bloated-commit/SKILL.md",
+        "evals/files/bloated-commit/references/conventional-commits.md",
+        "evals/files/bloated-commit/references/examples.md"
+      ],
+      "expected_output": "Removes the background the model already knows (git history, why commits matter), inlines the two small references (or drops what the model knows of Conventional Commits) and removes the 'read X first' step; fixes the vague description with a Use when trigger; keeps the process lines (72-char imperative subject, why-body, ticket id from branch, show and ask before committing); states the size before/after.",
+      "assertions": [
+        "Removes the background section the model already knows (git history, what a commit is)",
+        "Removes the 'read references first' step by inlining or dropping the two small reference files",
+        "Keeps the behaviour-changing rules: imperative subject <= 72 chars, ticket id from the branch name, show the message and ask before committing",
+        "Rewrites the description into third person with a concrete 'Use when' trigger"
       ]
     }
   ],

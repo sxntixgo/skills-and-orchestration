@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "skill": "release-notes",
+    "skill_path": ".claude-skills-work/creator-test/gen/ours/skills/release-notes",
+    "model": "opus",
+    "claudemd": false,
+    "evals_file": "/Users/santiago/Dev/skills-and-orchestration/scripts/evals/creator-test/heldout-release-notes.json",
+    "baseline": "none",
+    "new_rev": "57349c7+worktree",
+    "date": "2026-11-24",
+    "cases": [
+      1,
+      2,
+      3
+    ]
+  },
+  "run_summary": {
+    "new_skill": {
+      "pass_rate": {
+        "mean": 1.0
+      },
+      "assertions": "9/9",
+      "tokens": {
+        "mean": 13247.333
+      },
+      "time_seconds": {
+        "mean": 11.15
+      },
+      "cost_usd": {
+        "mean": 0.059
+      }
+    },
+    "old_skill": {
+      "pass_rate": {
+        "mean": 0.778
+      },
+      "assertions": "7/9",
+      "tokens": {
+        "mean": 10854.667
+      },
+      "time_seconds": {
+        "mean": 7.017
+      },
+      "cost_usd": {
+        "mean": 0.033
+      }
+    },
+    "delta": {
+      "pass_rate": 0.222,
+      "tokens": 2392.666,
+      "time_seconds": 4.133,
+      "cost_usd": 0.026
+    }
+  }
+}

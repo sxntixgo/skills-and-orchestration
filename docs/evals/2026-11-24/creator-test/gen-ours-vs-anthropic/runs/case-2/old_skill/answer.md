@@ -1,0 +1,13 @@
+I've written the `release-notes` skill and its evals to `skills/release-notes/`. I've only tested the helper script; the with-skill vs. no-skill comparison hasn't been run, so there's no evidence yet that the skill beats no skill.
+
+**Files**
+- **`SKILL.md`** (67 lines): the trigger description says what it does, then "Use when…" asking for release notes or a user-facing changelog from commits. The body has a scope section, a 5-step checklist and a red-flags table, and it saves its progress to `./.claude-skills-work/release-notes/<range>/` so it can resume. The steps are: get the log, classify it with the script, decide what to keep or drop (by commit type, plus exceptions), write the notes, then report back. The notes go in this order: **⚠️ Breaking changes** (each with "What to do"), then New, Improved and Fixed. They use plain language and keep every PR number. If the log doesn't say what users must do for a breaking change, the skill writes a `TODO: confirm` instead of guessing.
+- **`scripts/classify.py`**: does a first pass over the log. It flags breaking changes (`!` or `BREAKING`), pulls out `#PR` numbers, removes a change together with its revert, lists lines it can't parse (merges, free text), and suggests "drop" for internal commit types and scopes (`ci`, `deps-dev`, …). I ran it on all three test logs and the output was correct. I fixed one problem it showed: `fix(ci)` was being kept as a fix, and it's now dropped.
+- **`evals/evals.json`**: 3 test cases with checks, each using a log in `evals/files/`:
+  1. **v2.4.0:** a breaking change plus feat/perf/fix mixed with chores, CI, refactors and tests.
+  2. **v3.0.0:** a major release with two breaking changes, a reverted feature, a dependency bump that fixes a security issue, a merge commit and a non-conventional line.
+  3. **v1.8.1:** only internal changes, so the notes should say "No user-facing changes".
+
+**Next step: the comparison run.** I'd run 6 test runs at once on the current model, `claude-opus-5-5`: each of the 3 cases with the skill and without it. Results would go in `skills/release-notes-workspace/iteration-1/<eval-name>/{with_skill,without_skill}/outputs/`, saving each run's tokens and time as it finishes. Then I'd grade the runs, build the benchmark with `aggregate_benchmark` and open the results page with `generate_review.py` for you to review. After that, per `CLAUDE.md`, I'd run `skill-reviewer` on the skill and tick it off in `plan.md`.
+
+Nothing is committed.

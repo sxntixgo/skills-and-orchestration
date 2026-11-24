@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Changes only the description, leaving the body untouched",
+      "passed": true,
+      "evidence": "\"Edit the frontmatter only\" and \"Nothing else in `SKILL.md` changed\". The added evals.json is a separate file, and the SKILL.md body is untouched."
+    },
+    {
+      "text": "The new description is third person, says what it does and has a concrete 'Use when' with trigger words such as finishing a change or before merging",
+      "passed": true,
+      "evidence": "\"Reviews a finished diff for correctness and naming bugs... Use when the user finishes a change or says ... \\\"before I merge\\\"\""
+    },
+    {
+      "text": "Does not scaffold a new skill",
+      "passed": true,
+      "evidence": "It edits the existing `skills/review-helper/SKILL.md` and adds evals to it. It runs no scaffolding script and creates no new skill directory."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 627,
+    "cache_read_input_tokens": 658,
+    "cache_creation_input_tokens": 4652
+  }
+}

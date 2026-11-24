@@ -1,0 +1,8 @@
+a1f3e9c feat(export): add CSV export of invoices (#412)
+b72d0aa chore(deps): bump eslint from 9.1.0 to 9.2.0 (#415)
+c0d4411 fix(auth): session no longer expires while a file upload is running (#409)
+d93be12 refactor(api): extract InvoiceRepository from InvoiceService (#408)
+e41c7f0 feat(api)!: remove the deprecated /v1/reports endpoint; use /v2/reports (#406)
+f5a2b31 ci: cache node_modules in GitHub Actions (#405)
+0ab77de fix(pdf): invoice PDFs show the customer's VAT number again (#404)
+1cd9e02 test(export): cover empty invoice lists (#403)

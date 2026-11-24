@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Blameless: names no person as the cause (e.g. does not say Bob pushed bad config); describes the system/process gap instead",
+      "passed": true,
+      "evidence": "\"I left that name out of the postmortem\"; root cause: \"the fast-path pipeline let a payment-critical config change reach production with no peer review and no integration tests\""
+    },
+    {
+      "text": "Timeline times are converted to UTC (13:58 MST -> 20:58 UTC) and labelled UTC",
+      "passed": true,
+      "evidence": "\"## Timeline (UTC)\" ... \"| 2026-11-12 20:58 | Deploy 4812 ships; payment-gateway timeout 30s → 3s | Start |\"; \"MST = UTC−7 (+7h applied)\""
+    },
+    {
+      "text": "Impact uses the numbers from the notes (about 12% of checkout requests / ~1,900 orders, 21 minutes, 37 tickets) without inventing others",
+      "passed": true,
+      "evidence": "\"~12% of checkout requests failed between 20:58 and 21:19 UTC, about 1,900 orders\"; \"37 support tickets\"; \"Lost revenue: UNKNOWN (ask: finance / orders dashboard)\""
+    },
+    {
+      "text": "Every action item has an owner and a due date (or an explicit placeholder such as 'owner: TBD' flagged for the user)",
+      "passed": true,
+      "evidence": "All five rows have \"| TBD | TBD |\"; open questions: \"Who owns action items 1–5, and when are they due? All are TBD for now.\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 764,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4670
+  }
+}

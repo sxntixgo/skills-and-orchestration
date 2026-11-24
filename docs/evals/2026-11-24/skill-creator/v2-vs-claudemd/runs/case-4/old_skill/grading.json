@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Writes 3-5 eval cases with assertions despite the request, with a short reason",
+      "passed": true,
+      "evidence": "\"I still wrote an `evals.json` because the folder layout requires it and the rule 8 comparison will need it later.\" It has three cases with Expected outcomes, e.g. \"no-version-given... Expected: it asks for the version and doesn't invent one.\""
+    },
+    {
+      "text": "Keeps the SKILL.md short (no background on what a changelog is) with Scope and Red flags sections",
+      "passed": true,
+      "evidence": "SKILL.md has no changelog background. Scope is given as \"**Does:** add or tidy entries under `## [Unreleased]`... **Does NOT:** bump versions in code, create tags, commit\", and there is a \"## Red flags\" section."
+    },
+    {
+      "text": "Does not lecture at length about why evals matter (one or two sentences at most)",
+      "passed": false,
+      "evidence": "Eval justification runs well past two sentences. The opening says \"Rule 8 in CLAUDE.md says no skill is finished until a with/without-skill comparison has been run\". The final reply adds \"CLAUDE.md requires that comparison... tends to score near zero... worth running before release.\" The security-review 0.00 paragraph adds more."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3,
+    "pass_rate": 0.667
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 903,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3548
+  }
+}

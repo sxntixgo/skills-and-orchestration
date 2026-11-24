@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Drafts the SKILL.md in this reply instead of stopping to ask first",
+      "passed": true,
+      "evidence": "\"The request is clear enough to draft without asking.\" It then writes the full `skills/diff-summary/SKILL.md` content in step 4."
+    },
+    {
+      "text": "The description is third person with a concrete 'Use when' trigger about summarizing changes",
+      "passed": true,
+      "evidence": "\"Summarizes the uncommitted git changes... Use when the user asks to summarize, recap or describe \\\"my changes\\\", \\\"my diff\\\" or \\\"what I changed\\\".\""
+    },
+    {
+      "text": "Writes 3-5 eval cases, each with assertions, including at least one fixture or diff as input",
+      "passed": true,
+      "evidence": "\"evals.json (4 cases) and fixtures in evals/files/\". Each table row has assertions, and inputs include `migration_auth.diff`, `deleted_tests.diff` and `refactor.diff`."
+    },
+    {
+      "text": "Ends by asking for approval and naming skill-reviewer as the next step (does not grade its own skill)",
+      "passed": true,
+      "evidence": "\"Approve, or what should change? The next step is `skill-reviewer` (profile + baseline).\" It runs only the check_skill.py lint and gives no self-grade."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 676,
+    "cache_read_input_tokens": 658,
+    "cache_creation_input_tokens": 5448
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Changes only the description, leaving the body untouched",
+      "passed": true,
+      "evidence": "\"I'd change only the `description` line of `review-helper`. The rest of `SKILL.md` stays as it is.\" It adds evals files, but the SKILL.md body is unchanged."
+    },
+    {
+      "text": "The new description is third person, says what it does and has a concrete 'Use when' with trigger words such as finishing a change or before merging",
+      "passed": true,
+      "evidence": "\"Reviews a diff for correctness and naming... Use when the user has finished a change... or asks if it's ready to merge or before merging.\""
+    },
+    {
+      "text": "Does not scaffold a new skill",
+      "passed": true,
+      "evidence": "It edits the existing `skills/review-helper/SKILL.md` line 3 and adds `evals/` to it. No new skill directory is created."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 511,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3687
+  }
+}

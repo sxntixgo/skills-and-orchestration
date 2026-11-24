@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Lists the breaking change (removal of /v1/reports) first, with what users must do (use /v2/reports)",
+      "passed": true,
+      "evidence": "First section '### Breaking changes': \"The old `/v1/reports` endpoint has been removed. **Action required:** switch any integrations to `/v2/reports`. (#406)\""
+    },
+    {
+      "text": "Leaves out the internal commits (eslint bump, CI cache, InvoiceRepository refactor, export tests)",
+      "passed": true,
+      "evidence": "None appear in the notes bullets; listed only as dropped: \"the eslint bump (#415), the invoice refactor (#408), the CI cache change (#405) and the export tests (#403)\""
+    },
+    {
+      "text": "Includes CSV export, the upload-session fix and the VAT-number fix in plain language",
+      "passed": true,
+      "evidence": "\"You can now export your invoices as a CSV file.\"; \"Your session no longer expires while a file upload is still in progress.\"; \"Invoice PDFs show the customer's VAT number again.\""
+    },
+    {
+      "text": "Keeps the PR numbers (e.g. #412, #406)",
+      "passed": true,
+      "evidence": "\"switch any integrations to `/v2/reports`. (#406)\" and \"export your invoices as a CSV file. (#412)\"; also #409, #404"
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 457,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2959
+  }
+}

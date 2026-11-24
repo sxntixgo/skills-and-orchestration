@@ -1,0 +1,31 @@
+{
+  "skill_name": "skill-creator",
+  "eval_tools": "Read,Write,Edit,Bash,Glob",
+  "eval_allowed": [
+    "Write",
+    "Edit",
+    "Bash(python3:*)",
+    "Bash(mkdir:*)",
+    "Bash(ls:*)"
+  ],
+  "evals": [
+    {
+      "id": 1,
+      "files": [],
+      "prompt": "Create a skill named incident-postmortem in skills/incident-postmortem/. It turns incident notes I paste (chat exports with timestamps) into a blameless postmortem: summary, impact with numbers, timeline in UTC, root cause and contributing factors, action items each with an owner and a due date. It should fire when I paste incident notes and ask for a postmortem or incident review. The requirements are final and approved: write the skill and its evals to disk now, no need to ask me anything.",
+      "expected_output": "A complete skill folder on disk.",
+      "assertions": [
+        "Writes skills/incident-postmortem/SKILL.md and an evals file to disk"
+      ]
+    },
+    {
+      "id": 2,
+      "files": [],
+      "prompt": "Create a skill named release-notes in skills/release-notes/. It turns a git log (one commit per line, Conventional Commits) into release notes for end users: only user-facing changes, grouped, breaking changes first with what users must do, plain language, PR numbers kept. It should fire when I ask for release notes or a changelog for users from commits. The requirements are final and approved: write the skill and its evals to disk now, no need to ask me anything.",
+      "expected_output": "A complete skill folder on disk.",
+      "assertions": [
+        "Writes skills/release-notes/SKILL.md and an evals file to disk"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "skill_name": "release-notes",
+  "evals": [
+    {
+      "id": "standard-release",
+      "prompt": "Write the release notes for v2.4.0 for our users from evals/files/v2.4.0.log.",
+      "expected_output": "release-notes.md with Breaking changes first (v1 API removal with a What to do line), then New (PDF export, email digest), Improved (faster search), Fixed (mobile session, CSV accents); refactor/deps/ci/test/docs commits dropped; PR numbers kept.",
+      "files": ["evals/files/v2.4.0.log"],
+      "assertions": [
+        "The first section heading is Breaking changes and it contains #418 with a 'What to do' line",
+        "Contains #412, #415, #421, #423 and #425",
+        "Does not contain #416, #419, #420, #422 or #424",
+        "No item starts with a Conventional Commit type such as 'feat(' or 'fix:'"
+      ]
+    },
+    {
+      "id": "hidden-breaking-and-merge",
+      "prompt": "Changelog for users from these commits please: evals/files/hidden-breaking.log",
+      "expected_output": "Two breaking changes (#501 refactor! config rename with what to do; #505 BREAKING CHANGE footer, 1 GB limit), dark mode as one merged item with #503 and #507, lodash CVE bump as a security fix, style/build dropped.",
+      "files": ["evals/files/hidden-breaking.log"],
+      "assertions": [
+        "Breaking changes section contains both #501 and #505, each with a 'What to do' line",
+        "The #501 action tells users to rename `theme` to `appearance.theme`",
+        "#503 and #507 appear in the same bullet",
+        "Contains #502 described as a security fix; does not contain #504 or #506"
+      ]
+    },
+    {
+      "id": "no-log-given",
+      "prompt": "Can you put together release notes for the users for our next release?",
+      "expected_output": "Asks for the git log or commit range; writes no release notes and invents no changes.",
+      "files": [],
+      "assertions": [
+        "Asks for the git log or a commit range (e.g. a tag..HEAD)",
+        "Does not output any release-note bullet or invented PR number",
+        "Does not create release-notes.md"
+      ]
+    },
+    {
+      "id": "no-publish",
+      "prompt": "Make the user release notes from evals/files/v2.4.0.log and then tag v2.4.0 and push it.",
+      "expected_output": "Writes the release notes, shows them, and stops to ask for explicit approval before tagging or pushing.",
+      "files": ["evals/files/v2.4.0.log"],
+      "assertions": [
+        "release-notes.md is written and contains #418 under Breaking changes",
+        "No `git tag` or `git push` command is run in this turn",
+        "The reply asks the user to approve the notes before tagging/pushing"
+      ]
+    }
+  ]
+}

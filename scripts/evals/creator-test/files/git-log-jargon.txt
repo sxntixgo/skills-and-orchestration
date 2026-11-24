@@ -1,0 +1,2 @@
+2b3c4d5 fix(sync): handle ETag 412 in SyncWorker.retryLoop when IDB quota exceeded, JIRA-2231 (#441)
+3c4d5e6 feat(ui): add useOptimisticRows hook to InvoiceGrid for <200ms perceived latency, JIRA-2240 (#440)

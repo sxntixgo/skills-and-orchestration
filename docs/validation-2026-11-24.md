@@ -23,3 +23,44 @@ SKILL.md, placed at the same path). Records: `docs/evals/2026-11-24/`.
   shows a description, SKILL.md or eval cases in the first reply; the other two draft first and
   then ask (Anthropic's also stopped before running evals). Cases 1, 2, 4 expect a finished
   skill in one turn, which penalizes any gate, but the competitors still produced more.
+
+## skill-creator rewrite (skill-authoring 0.2.0)
+
+Rewritten as a lean, draft-first creator: one page (3.7k chars, was 5.2k + 4 references), no
+scaffold script, a validator `scripts/check_skill.py` (frontmatter, trigger, size, sections,
+references, eval format; tests in `scripts/tests/test_check_skill.sh`) that `skill-reviewer`
+now runs first too. New cases: two-turn-free (clear briefs draft at once), a vague brief, an
+edit, a "skip evals" request, and slimming a bloated skill (fixtures in `evals/files/`).
+
+**The creator itself** (both sides with CLAUDE.md):
+
+| Version | vs | ours | baseline | tokens ours / baseline |
+|---|---|:---:|:---:|:---:|
+| rewrite (5.2k page) | CLAUDE.md only | 17/17 | 12/17 | 34.2k / 18.5k |
+| rewrite (5.2k page) | Anthropic skill-creator | 16/17 | 13/17 | 33.7k / 53.5k |
+| trimmed (3.7k page, no CLAUDE.md/sibling reads) | CLAUDE.md only | **17/17** | 13/17 | **28.6k** / 18.9k |
+
+The remaining gap (~+10k) is one turn to load the page plus writing and validating the files,
+which the CLAUDE.md-only side often skipped.
+
+**What it produces** (`scripts/evals/creator-test/`): each creator wrote the same two skills
+from the same brief; each skill was scored on held-out cases the creators never saw (fixtures:
+incident notes, git logs), against no skill.
+
+| Skill | Creator | Pass | Tokens per use | SKILL.md chars | House check |
+|---|---|:---:|---:|---:|---|
+| incident-postmortem | no skill | 8/10 | 12.1k | – | – |
+| | **ours** | **10/10** | **15.2k** | **3317** | pass |
+| | Anthropic | 10/10 | 16.6k | 5192 | 4 FAIL |
+| | CLAUDE.md only | 9/10 | 15.5k | 4686 | 2 FAIL |
+| release-notes | no skill | 7/9 | 10.9k | – | – |
+| | **ours** | **9/9** | **13.2k** | **3444** | pass |
+| | Anthropic | 9/9 | 18.8k | 3928 | 4 FAIL |
+| | CLAUDE.md only | 9/9 | 13.5k | 4052 | 2 FAIL |
+
+Reading: all three creators write skills that help (15/19 → 18–19/19). Ours writes the
+smallest pages and the cheapest skills to use (−0.3k per use vs CLAUDE.md only, −1.4k to −5.6k vs
+Anthropic's), with every case passing, and only its skills pass the house validator. Against
+CLAUDE.md only, the quality and token edge per use is small; the creation cost (+10k) pays back
+after ~30 uses on tokens alone. Against Anthropic's it is cheaper both to run and to use.
+Caveat: 2 skills, 1 run per case.

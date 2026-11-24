@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Writes 3-5 eval cases with assertions despite the request, with a short reason",
+      "passed": true,
+      "evidence": "\"Drafted `changelog-entry` with evals anyway. Evals are cheap...\" plus evals.json \"with 4 cases\", each with asserts, e.g. \"asserts the skill asks for a version number\""
+    },
+    {
+      "text": "Keeps the SKILL.md short (no background on what a changelog is) with Scope and Red flags sections",
+      "passed": true,
+      "evidence": "SKILL.md has \"## Scope\" and \"## Red flags\" sections and no explanation of what a changelog is; it opens straight with \"Write user-facing entries in the right section\""
+    },
+    {
+      "text": "Does not lecture at length about why evals matter (one or two sentences at most)",
+      "passed": false,
+      "evidence": "Three sentences in the opening: \"Evals are cheap, and they're the only way...\" / \"A format the model already knows well is exactly the case where lift is often 0.\" The closing adds more: \"If it measures about 0 lift, the skill isn't worth keeping.\""
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3,
+    "pass_rate": 0.667
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 381,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3844
+  }
+}

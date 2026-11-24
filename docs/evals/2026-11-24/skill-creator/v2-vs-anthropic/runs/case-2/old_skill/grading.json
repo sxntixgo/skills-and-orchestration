@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Changes only the description, leaving the body untouched",
+      "passed": true,
+      "evidence": "\"Only the `description` changes; `name` and the body stay the same.\""
+    },
+    {
+      "text": "The new description is third person, says what it does and has a concrete 'Use when' with trigger words such as finishing a change or before merging",
+      "passed": true,
+      "evidence": "\"Reviews a code diff for correctness and naming problems... Use when the user has just finished a change... or is about to merge, push or open a PR\""
+    },
+    {
+      "text": "Does not scaffold a new skill",
+      "passed": true,
+      "evidence": "Edits existing `skills/review-helper/SKILL.md` frontmatter; only creates a snapshot copy and eval workspace, no new skill scaffold."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 261,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3706
+  }
+}

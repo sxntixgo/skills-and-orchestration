@@ -35,7 +35,7 @@
     {
       "name": "skill-authoring",
       "source": "./plugins/skill-authoring",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "description": "Create and review Claude Code skills (8 authoring rules, baseline evals).",
       "category": "development",
       "keywords": [

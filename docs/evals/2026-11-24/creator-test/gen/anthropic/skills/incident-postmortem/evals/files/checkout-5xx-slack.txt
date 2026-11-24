@@ -1,0 +1,12 @@
+#inc-checkout export — all times PT (America/Los_Angeles)
+[Nov 18 14:02] pagerduty-bot: ALERT checkout-api 5xx rate > 5% (currently 23%)
+[Nov 18 14:04] maria: ack, looking
+[Nov 18 14:09] maria: errors started ~13:51 right after deploy v4.12.0 of checkout-api
+[Nov 18 14:11] dave: v4.12.0 had the new payment-timeout config, I set it to 50ms instead of 5000ms, my bad
+[Nov 18 14:12] maria: declaring SEV2. rolling back
+[Nov 18 14:20] maria: rollback to v4.11.3 done, 5xx dropping
+[Nov 18 14:26] maria: 5xx back to 0.2% baseline. mitigated
+[Nov 18 14:40] priya (eng mgr): from dashboards: 18,400 failed checkout requests, ~3,100 unique customers. est lost revenue $41k
+[Nov 18 14:45] priya: config values aren't validated in CI and there's no canary for checkout-api. also alert threshold is 5% for 5 min which is why we didn't page till 14:02
+[Nov 18 14:47] priya: AIs: maria add schema validation for timeout config by Dec 2. dave set up canary stage for checkout-api by Dec 9. lower alert threshold - someone from SRE?
+[Nov 18 15:30] maria: resolved, closing channel

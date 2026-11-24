@@ -1,0 +1,12 @@
+Incident notes — DNS resolution failures (copied from Teams + phone notes)
+
+Teams (times shown CET, UTC+1):
+2026-10-28 23:50  ops-bot: synthetic check api.example.com NXDOMAIN from eu-west
+2026-10-28 23:58  jonas: confirmed, resolver cache returns NXDOMAIN, customers in EU reporting login failures
+2026-10-29 00:20  jonas: found it, zone file push at 23:45 dropped the api record (template bug)
+2026-10-29 00:26  jonas: re-pushed previous zone version, propagating
+
+Phone notes (Lena, times in UTC):
+23:40  rollback confirmed resolving from all probes
+23:55  TTL expired everywhere, closing incident
+Support says "a lot of" tickets came in. No numbers yet.

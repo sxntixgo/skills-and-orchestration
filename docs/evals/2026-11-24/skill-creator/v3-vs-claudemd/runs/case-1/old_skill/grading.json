@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Drafts the SKILL.md in this reply instead of stopping to ask first",
+      "passed": true,
+      "evidence": "Step 4 contains the full SKILL.md: frontmatter, checklist, risk-check table, output format and red flags ('# Summarize changes ... ## Risk checks')."
+    },
+    {
+      "text": "The description is third person with a concrete 'Use when' trigger about summarizing changes",
+      "passed": true,
+      "evidence": "\"Summarizes the uncommitted git diff ... Use when the user asks for a summary of their changes, \\\"what did I change\\\", or a recap of their working tree\""
+    },
+    {
+      "text": "Writes 3-5 eval cases, each with assertions, including at least one fixture or diff as input",
+      "passed": false,
+      "evidence": "The table lists 7 cases (mixed-with-migration, auth-change, deleted-tests, benign, empty, untracked-only, negative-trigger), which exceeds the 3-5 range. Fixtures and per-case assertions are present."
+    },
+    {
+      "text": "Ends by asking for approval and naming skill-reviewer as the next step (does not grade its own skill)",
+      "passed": false,
+      "evidence": "The reply ends with \"Secrets and dependency bumps are also common risks; say if you want those added.\" It never asks for approval to proceed. skill-reviewer appears only in step 6, as something the answer itself would run and act on: \"I'd fix whatever the review finds and re-run.\""
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 2,
+    "total": 4,
+    "pass_rate": 0.5
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 859,
+    "cache_read_input_tokens": 658,
+    "cache_creation_input_tokens": 5124
+  }
+}

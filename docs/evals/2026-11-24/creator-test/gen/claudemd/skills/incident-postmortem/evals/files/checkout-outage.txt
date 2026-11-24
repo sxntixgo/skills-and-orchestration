@@ -1,0 +1,9 @@
+[2026-11-03 06:02 -08:00] pagerbot: ALERT checkout-api 5xx rate > 5% (currently 38%)
+[2026-11-03 06:04 -08:00] maria: ack, looking
+[2026-11-03 06:09 -08:00] maria: started right after deploy 4.12.0 at 05:58. Dave pushed the new payment config
+[2026-11-03 06:11 -08:00] dave: config has PAYMENT_TIMEOUT_MS=0, my bad, typo
+[2026-11-03 06:15 -08:00] maria: rollback started, it takes forever because we have to rebuild the image
+[2026-11-03 06:41 -08:00] maria: rollback done, 5xx back to 0.2%
+[2026-11-03 06:50 -08:00] lee: finance says ~1,840 failed checkouts, avg order $52
+[2026-11-03 07:05 -08:00] lee: we should add config validation in CI. also the alert only fired 4 min after errors began
+[2026-11-03 07:06 -08:00] maria: I can own the CI validation, by end of next week

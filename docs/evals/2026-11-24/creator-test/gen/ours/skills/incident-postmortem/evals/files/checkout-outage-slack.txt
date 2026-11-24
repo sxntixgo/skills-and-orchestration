@@ -1,0 +1,16 @@
+Slack export #inc-checkout — workspace timezone: America/Los_Angeles (PST, UTC-8)
+2026-11-03
+
+[16:42] pagerbot: ALERT checkout-api 5xx rate > 5% (currently 31%)
+[16:47] maria.lopez: ack, looking. checkout is throwing 500s on payment step
+[16:51] maria.lopez: Dave deployed checkout-api v2.14 at 16:30, diff has the new payments DB migration
+[16:55] dave.kim: yeah that was me, migration added NOT NULL column without default, old pods crash on insert
+[17:02] maria.lopez: rolling back to v2.13
+[17:09] maria.lopez: rollback done, error rate down to 0.4%
+[17:15] priya.n: honestly Dave was careless, he skipped staging again
+[17:40] maria.lopez: error rate 0.1%, back to baseline. calling it resolved
+[17:44] priya.n: from dashboards: ~4,200 failed checkouts, approx $61k GMV lost during window
+[17:50] maria.lopez: why didn't we page at 16:30? alert has a 10 min window + 5% threshold
+[17:52] dave.kim: we need migrations to be backward compatible, I can add a CI lint for that by Nov 14
+[17:55] maria.lopez: also staging deploy should be mandatory in the pipeline, not optional
+[17:56] priya.n: and alert threshold should be lower, someone should own that

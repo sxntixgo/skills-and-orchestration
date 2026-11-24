@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does NOT draft a SKILL.md",
+      "passed": true,
+      "evidence": "\"I wouldn't create `skills/<name>/`, a SKILL.md, evals or a `plan.md` entry until the scope is clear.\" Only an intake checkpoint is written, with no SKILL.md content."
+    },
+    {
+      "text": "Asks a single question rather than a list of questions",
+      "passed": false,
+      "evidence": "Asks five numbered questions: \"1. What task should it handle? ... 2. What should trigger it? ... 3. ... 4. ... 5. What should it NOT do?\""
+    },
+    {
+      "text": "Offers 2-3 concrete candidate skills, each with when it would trigger",
+      "passed": false,
+      "evidence": "Lists five bare options (\"daily or weekly planning ritual, triaging a TODO or issue backlog, ...\") with no trigger per candidate. The only trigger example is generic: \"when I paste my task list and ask what to do today.\""
+    }
+  ],
+  "summary": {
+    "passed": 1,
+    "failed": 2,
+    "total": 3,
+    "pass_rate": 0.333
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 445,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2732
+  }
+}

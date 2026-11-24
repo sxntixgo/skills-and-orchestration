@@ -1,0 +1,45 @@
+{
+  "skill_name": "release-notes",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We're shipping 2.4.0 tomorrow. Here's `git log --oneline v2.3.0..HEAD` saved in evals/files/v2.4.0.log — can you turn it into release notes for our users? They're not devs, keep it readable.",
+      "expected_output": "RELEASE_NOTES.md with Breaking (v1 /export removed, what to do: switch to /v2/export) first, then New (dark mode), Improved (faster search), Fixed (CSV truncation, session expiry); chores/ci/refactor/test/contributor docs dropped; every kept PR number preserved.",
+      "files": ["evals/files/v2.4.0.log"],
+      "expectations": [
+        "The first section is breaking changes and contains #412",
+        "The #412 entry tells users what to do (use /v2/export)",
+        "Entries for #405, #407, #409 and #404 are present with their PR numbers",
+        "None of #403, #406, #408, #410, #411 appear in the notes",
+        "No bullet contains Conventional Commit prefixes or scopes such as 'feat(', 'fix(', 'perf('",
+        "Commit hashes do not appear in the notes"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "need a user-facing changelog for 3.0 from these commits (evals/files/v3.0.0.log). it's a major so make sure people know what breaks",
+      "expected_output": "Two breaking entries (Node 16 dropped; outDir renamed to outputDir) each with an action; the reverted interactive prompt (#522/#529) omitted; security fix (#527) kept in plain language; ci/build/merge/README lines dropped; no invented migration details.",
+      "files": ["evals/files/v3.0.0.log"],
+      "expectations": [
+        "Breaking changes come first and include both #530 and #525",
+        "The #525 entry tells users to rename outDir to outputDir in their config",
+        "The #530 entry tells users to upgrade Node (to 18 or later, or flags the exact version as a TODO) rather than inventing unsupported detail",
+        "Neither #522 nor #529 appears (the feature was reverted)",
+        "#527 is kept and described as a security fix",
+        "#521 and #523 are present",
+        "None of #524, #526, the merge commit or the README badge commit appear"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Write the release notes for users for 1.8.1, log is in evals/files/v1.8.1.log",
+      "expected_output": "States there are no user-facing changes in this release; does not invent features or list internal commits.",
+      "files": ["evals/files/v1.8.1.log"],
+      "expectations": [
+        "The output states there are no user-facing changes",
+        "None of #296-#301 appear as release-note bullets",
+        "No New/Fixed/Improved sections with invented content"
+      ]
+    }
+  ]
+}
