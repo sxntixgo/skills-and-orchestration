@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Reads the Phase 3 section of PLAN.md before writing code",
+      "passed": true,
+      "evidence": "Step 1: \"Read `PLAN.md` § Phase 3.\" precedes any test or code writing in steps 3-4."
+    },
+    {
+      "text": "Restates Phase 3's done-criteria (title filter case-insensitive, empty q returns all, tests + ruff/mypy)",
+      "passed": true,
+      "evidence": "\"Done when: `GET /jobs?q=<text>` filters by title, case-insensitive; an empty `q` returns all jobs; `pytest tests/test_search.py` passes; `ruff` and `mypy` are clean.\""
+    },
+    {
+      "text": "Builds test-first (failing test before implementation)",
+      "passed": true,
+      "evidence": "\"run `pytest tests/test_search.py` and expect it to fail with an `ImportError` (red). Then I'd write `app/search.py`\"; subagent told \"confirm they fail, then implement.\""
+    },
+    {
+      "text": "Honors the per-task models (T3.2 on opus, e.g. via a subagent; T3.1 may use haiku)",
+      "passed": true,
+      "evidence": "\"T3.2 (opus) runs on me, since this session is Opus. T3.1 (haiku) goes to a Haiku subagent\"; Agent tool spawned with `model: \"haiku\"`."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 470,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4423
+  }
+}

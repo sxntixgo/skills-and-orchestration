@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Stubs/fakes the payments and email collaborators so tests are deterministic",
+      "passed": true,
+      "evidence": "jest.mock('./payments'); jest.mock('./email'); ... payments.charge.mockResolvedValue({ id: 'ch_1' }); email.sendReceipt.mockResolvedValue();"
+    },
+    {
+      "text": "Covers the happy path AND at least the charge-fails and email-fails error paths",
+      "passed": true,
+      "evidence": "Tests: 'charges the cart total, sends a receipt, returns the charge id', 'charge failure rejects and sends no receipt', 'receipt failure rejects even though the card was charged'"
+    },
+    {
+      "text": "Verifies observable outcomes (returned charge id, receipt sent) rather than only mock call counts",
+      "passed": true,
+      "evidence": "await expect(checkout(cart, card)).resolves.toBe('ch_1'); expect(email.sendReceipt).toHaveBeenCalledWith('buyer@example.com', 'ch_1');"
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 355,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3075
+  }
+}

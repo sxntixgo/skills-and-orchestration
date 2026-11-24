@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Identifies that T2 and T3 both change api/routes.py",
+      "passed": true,
+      "evidence": "\"Both edit `api/routes.py`, so they can't run at the same time.\""
+    },
+    {
+      "text": "Prevents T2 and T3 from changing api/routes.py at the same time (adds a dependency, or moves the routes.py edit into one task)",
+      "passed": true,
+      "evidence": "\"T3's backend change moves into T2. T3 then changes only `web/src/Jobs.tsx` and its test, with `depends_on: T2`.\""
+    },
+    {
+      "text": "Never has more than 2 tasks dispatched at once",
+      "passed": true,
+      "evidence": "Nothing is dispatched (\"I would not create `.orchestra/`... subagents or dispatches yet\"), and the plan says \"Expect one task at a time... concurrency 2 won't be used.\""
+    },
+    {
+      "text": "Keeps T2 after T1 when that dependency is stated",
+      "passed": true,
+      "evidence": "The prompt never states the dependency outright. The answer merges T1 into T2 because \"the route needs that code anyway\", so export_csv is built in the same task as the route that uses it."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 625,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2995
+  }
+}

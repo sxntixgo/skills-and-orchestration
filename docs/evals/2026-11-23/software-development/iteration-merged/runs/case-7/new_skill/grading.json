@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Recognizes the plan assigns T3.2 to opus",
+      "passed": true,
+      "evidence": "\"T3.2 is assigned to `model: opus` in PLAN.md\""
+    },
+    {
+      "text": "Delegates T3.2 to a subagent on the assigned model (or stops) rather than coding it off-model",
+      "passed": true,
+      "evidence": "\"Spawn the subagent with `Agent(model: \"opus\")` and this prompt: Implement T3.2 from ... PLAN.md\""
+    },
+    {
+      "text": "Does not downgrade the assignment to save time",
+      "passed": true,
+      "evidence": "\"so I won't do it myself on a smaller model to save time. I'll hand it to an Opus subagent\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 252,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3553
+  }
+}

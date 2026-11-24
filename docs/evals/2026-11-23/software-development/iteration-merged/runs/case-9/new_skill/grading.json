@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Verifies beyond unit tests (typecheck/lint, build or real behaviour exercised)",
+      "passed": true,
+      "evidence": "\"ruff check . && mypy app\" plus \"uvicorn app.main:app --port 8000 & ... curl -s -i http://localhost:8000/jobs # expect 200, JSON array, only open jobs\""
+    },
+    {
+      "text": "Updates the plan and reports files changed, results and any deviation",
+      "passed": true,
+      "evidence": "Shows updated PLAN.md with Phase 2 removed; reply: \"Files changed: app/jobs.py, app/routes.py, tests/test_jobs.py and PLAN.md... No deviations from the plan\""
+    },
+    {
+      "text": "Does not git commit unless asked",
+      "passed": true,
+      "evidence": "\"No git commit, since you didn't ask for one.\" and \"nothing is committed; I'll commit if you want me to.\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 586,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3198
+  }
+}

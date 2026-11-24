@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Explains that 100% line coverage is not the goal; covering behavior and risk is",
+      "passed": true,
+      "evidence": "\"100% wasn't really the target. I chose tests for behaviour and risk, and the number followed because the file is small.\""
+    },
+    {
+      "text": "Targets meaningful untested branches / edge cases rather than trivial line-hitting tests",
+      "passed": true,
+      "evidence": "\"I'd pick them by behaviour and risk, not by the line numbers coverage reports\"; covers parse_iso_date errors, chunk size ≤ 0, safe_divide zero, unicode and boundaries."
+    },
+    {
+      "text": "Does not add assertion-free or tautological tests just to raise the number",
+      "passed": true,
+      "evidence": "Every test asserts concrete outputs or pytest.raises(ValueError), e.g. \"assert safe_divide(5, 0) is None\". It also mutation-checks: \"broke the chunk-size guard and the zero check... matching tests failed\"."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 343,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3814
+  }
+}

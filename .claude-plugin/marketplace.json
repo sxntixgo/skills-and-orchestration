@@ -9,13 +9,12 @@
     {
       "name": "frugal-skills",
       "source": "./",
-      "version": "1.5.0",
+      "version": "2.0.0",
       "description": "Reusable skills for authoring skills, research, building planned phases, software development (TDD + DRY/YAGNI/KISS), testing, code review, and security review.",
       "category": "development",
       "keywords": [
         "skills",
         "code-review",
-        "security-review",
         "tdd",
         "software-development",
         "research"

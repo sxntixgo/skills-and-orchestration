@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Creates .orchestra/<run>/ and board.md with a task table",
+      "passed": true,
+      "evidence": "\"mkdir -p .orchestra/2026-11-23-csv-export/tasks\" and \"Step 2: write `.orchestra/2026-11-23-csv-export/board.md`\" with table \"| id | phase | goal | implementer | depends_on | files | status |\""
+    },
+    {
+      "text": "Each task lists files, dependencies and an exact test command",
+      "passed": true,
+      "evidence": "Table has depends_on and files columns for T1–T5, plus \"Test commands: T1 `pytest -q tests/test_csv_writer.py` · T2 ... · T5 `pytest -q tests/test_export_audit.py`\""
+    },
+    {
+      "text": "Concurrent tasks have disjoint files",
+      "passed": true,
+      "evidence": "Only T1 and T2 run concurrently, with disjoint files: \"jobs/export/csv_writer.py, jobs/export/__init__.py, tests/test_csv_writer.py\" vs \"jobs/filters.py, jobs/views/list.py, tests/test_filters.py\". T4 and T5 share a file and are serialized: \"T4 and T5 run one after the other.\""
+    },
+    {
+      "text": "Starts dispatching without asking the user to approve the task table",
+      "passed": true,
+      "evidence": "\"I'm going ahead without asking you to approve the task graph.\" and \"Dispatch: run `claude-dispatch` for T1 and T2 here\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 772,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4761
+  }
+}

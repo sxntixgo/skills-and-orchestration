@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Flags the missing bound check on discount (e.g. >1 or <0 produces a wrong/negative total) as the top correctness issue",
+      "passed": false,
+      "evidence": "The bound check is flagged as Must fix #2: \"with `discount > 1` the total goes negative... With `discount < 0` it raises the price.\" However, #1 (the NaN regression) is ranked above it, so it is not the top issue."
+    },
+    {
+      "text": "Findings are anchored to specific lines and each has a concrete fix",
+      "passed": false,
+      "evidence": "Most findings cite a line, e.g. \"(src/cart.js:3)\", and give a fix. But #5 \"No tests for the new behaviour\" has no line anchor, and all line numbers rest on an assumed file path."
+    },
+    {
+      "text": "Prioritizes correctness over style; does not bikeshed formatting",
+      "passed": true,
+      "evidence": "Correctness issues come first under \"🔴 Must fix\" (NaN, range). The only style point is under \"🟢 Consider\": \"`return sum * (1 - discount);`\". There are no formatting nitpicks."
+    },
+    {
+      "text": "Does not rewrite the entire change; suggests rather than replaces",
+      "passed": true,
+      "evidence": "Fixes are targeted suggestions, e.g. \"Give it a default: `function total(items, discount = 0)`\" and \"Rename it to `discountRate`\". The function is never rewritten wholesale."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 2,
+    "total": 4,
+    "pass_rate": 0.5
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 817,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2902
+  }
+}

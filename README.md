@@ -35,14 +35,11 @@ e.g. `frugal-skills:skill-creator`.
 | `online-research` | doing structured web research with cited sources |
 | `brainstorming` | turning a vague idea into a validated design through dialogue |
 | `writing-plans` | turning a spec/design into a phased, verifiable implementation plan |
-| `software-development` | building backend/frontend software (TDD + DRY/YAGNI/KISS) |
-| `build-phase` | building one planned phase from a spec, honoring per-task model assignments |
+| `software-development` | building backend/frontend software (TDD + DRY/YAGNI/KISS), incl. one planned phase with per-task model assignments, and adding tests |
 | `debugging` | diagnosing a bug before fixing — reproduce, isolate, verify cause, fix, confirm |
-| `writing-tests` | designing and writing test cases |
-| `code-review` | reviewing code for correctness and quality |
-| `security-review` | reviewing code for security vulnerabilities |
+| `code-review` | reviewing code for correctness, security and quality |
 
-> Status: **v1.4.0** — 11 skills shipped and reviewed. See [`plan.md`](./plan.md)
+> Status: **v2.0.0** — 8 skills (build-phase, writing-tests and security-review folded in on 2026-11-23, see `docs/validation-2026-11-23.md`). See [`plan.md`](./plan.md)
 > for the roadmap and [`docs/validation-2026-07-11.md`](./docs/validation-2026-07-11.md)
 > for the honest eval results.
 

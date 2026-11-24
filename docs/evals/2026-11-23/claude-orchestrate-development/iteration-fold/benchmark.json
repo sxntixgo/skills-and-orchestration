@@ -1,0 +1,58 @@
+{
+  "meta": {
+    "skill": "claude-orchestrate-development",
+    "skill_path": "plugins/orchestration/skills/claude-orchestrate-development",
+    "baseline": "HEAD",
+    "model": "opus",
+    "new_rev": "0f6b1d6+worktree",
+    "date": "2026-11-23",
+    "cases": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ]
+  },
+  "run_summary": {
+    "new_skill": {
+      "pass_rate": {
+        "mean": 1.0
+      },
+      "assertions": "31/31",
+      "tokens": {
+        "mean": 15985.75
+      },
+      "time_seconds": {
+        "mean": 19.764
+      },
+      "cost_usd": {
+        "mean": 0.093
+      }
+    },
+    "old_skill": {
+      "pass_rate": {
+        "mean": 1.0
+      },
+      "assertions": "31/31",
+      "tokens": {
+        "mean": 15944.125
+      },
+      "time_seconds": {
+        "mean": 19.623
+      },
+      "cost_usd": {
+        "mean": 0.085
+      }
+    },
+    "delta": {
+      "pass_rate": 0.0,
+      "tokens": 41.625,
+      "time_seconds": 0.141,
+      "cost_usd": 0.008
+    }
+  }
+}

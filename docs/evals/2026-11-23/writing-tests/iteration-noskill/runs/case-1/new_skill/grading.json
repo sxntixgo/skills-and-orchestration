@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Covers the 7-vs-8 length boundary explicitly",
+      "passed": true,
+      "evidence": "test('rejects 7 characters', ... isValidPassword('abcd123')).toBe(false)); test('accepts exactly 8 characters', ... isValidPassword('abcd1234')).toBe(true));"
+    },
+    {
+      "text": "Covers missing-digit and missing-letter cases separately",
+      "passed": true,
+      "evidence": "test('rejects letters only', ... isValidPassword('abcdefgh')).toBe(false)); test('rejects digits only', ... isValidPassword('12345678')).toBe(false));"
+    },
+    {
+      "text": "Includes at least one edge input (empty, null/undefined, or very long)",
+      "passed": true,
+      "evidence": "test('rejects empty string', ... isValidPassword('')).toBe(false)); ... isValidPassword('a1'.repeat(500)) ... describe.each([null, undefined, 12345678, {}, ['abcd1234']])"
+    },
+    {
+      "text": "Tests assert the boolean result (behavior), not internal implementation",
+      "passed": true,
+      "evidence": "Every assertion is of the form expect(isValidPassword(...)).toBe(true|false); no mocks, spies, or checks on internals."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 430,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3729
+  }
+}

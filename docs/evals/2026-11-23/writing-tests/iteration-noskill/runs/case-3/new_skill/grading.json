@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Identifies that asserting on cache.get is testing implementation, not behavior",
+      "passed": true,
+      "evidence": "\"The current test only checks that `cache.get` was called. It never looks at what `getUser` returns... rewrite it around observable behaviour\""
+    },
+    {
+      "text": "Rewrites the test to assert the returned user (observable output)",
+      "passed": true,
+      "evidence": "\"await expect(getUser(1)).resolves.toEqual({ id: 1, name: 'Ada' });\""
+    },
+    {
+      "text": "Adds a not-found / error case",
+      "passed": true,
+      "evidence": "\"test('throws NotFoundError for an unknown id and caches nothing'... await expect(getUser(99)).rejects.toBeInstanceOf(NotFoundError);\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 270,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3528
+  }
+}

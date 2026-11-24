@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "skill": "security-review",
+    "skill_path": "skills/security-review",
+    "baseline": "none",
+    "model": "opus",
+    "new_rev": "0f6b1d6+worktree",
+    "date": "2026-11-23",
+    "cases": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "run_summary": {
+    "new_skill": {
+      "pass_rate": {
+        "mean": 1.0
+      },
+      "assertions": "20/20",
+      "tokens": {
+        "mean": 13642.8
+      },
+      "time_seconds": {
+        "mean": 22.682
+      },
+      "cost_usd": {
+        "mean": 0.078
+      }
+    },
+    "old_skill": {
+      "pass_rate": {
+        "mean": 1.0
+      },
+      "assertions": "20/20",
+      "tokens": {
+        "mean": 5751.6
+      },
+      "time_seconds": {
+        "mean": 11.252
+      },
+      "cost_usd": {
+        "mean": 0.038
+      }
+    },
+    "delta": {
+      "pass_rate": 0.0,
+      "tokens": 7891.2,
+      "time_seconds": 11.43,
+      "cost_usd": 0.04
+    }
+  }
+}

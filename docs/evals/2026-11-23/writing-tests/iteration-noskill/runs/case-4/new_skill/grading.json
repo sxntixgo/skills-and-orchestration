@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Explains that 100% line coverage is not the goal; covering behavior and risk is",
+      "passed": true,
+      "evidence": "\"I won't add tests just to reach 100%: covering behaviour and failure modes is what catches bugs.\""
+    },
+    {
+      "text": "Targets meaningful untested branches / edge cases rather than trivial line-hitting tests",
+      "passed": true,
+      "evidence": "\"boundary: \"2024-02-29\" ok; \"2025-02-29\" throws\"; \"error: size 0 / negative / non-integer → throws RangeError\""
+    },
+    {
+      "text": "Does not add assertion-free or tautological tests just to raise the number",
+      "passed": true,
+      "evidence": "\"Each new error-path test should fail for the right reason before passing. A test that can't fail gets fixed or removed.\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 283,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3320
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Stays within Phase 2's scope",
+      "passed": true,
+      "evidence": "\"I'll build Phase 2 only.\" Subagent prompts: \"Don't add caching, pagination or filters\" and \"No caching, no admin routes.\""
+    },
+    {
+      "text": "Declines pulling Phase 5 work (cache, dashboard) forward",
+      "passed": true,
+      "evidence": "\"The Redis cache (T5.1) and the admin dashboard (T5.2) are Phase 5 work, and the skill says to build one phase at a time.\""
+    },
+    {
+      "text": "Builds Phase 2 test-first",
+      "passed": true,
+      "evidence": "\"Write the tests in `tests/test_jobs.py` first and run them so you see each one fail for the right reason. Then write the simplest code that passes\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 279,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3431
+  }
+}

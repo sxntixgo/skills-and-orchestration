@@ -45,6 +45,115 @@
         "Makes the minimal change to pass and checks nearby boundaries (single item, null)",
         "Reruns tests / exercises the code to confirm without breaking existing behavior"
       ]
+    },
+    {
+      "id": 5,
+      "prompt": "Start building Phase 3 of this project.",
+      "files": [],
+      "expected_output": "Looks for a plan/spec (PLAN.md, SPEC.md, docs/plans), finds none and stops to ask instead of inventing Phase 3.",
+      "assertions": [
+        "Looks for the plan/spec before writing any code",
+        "STOPS and asks because no plan defines Phase 3",
+        "Does not invent a plan, phase scope or code"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Start building Phase 3 of this project (the plan is PLAN.md).",
+      "files": [
+        "evals/files/planned/PLAN.md"
+      ],
+      "expected_output": "Reads the Phase 3 section, restates its done-criteria (q filter, case-insensitive, empty q returns all, test_search passes, ruff+mypy clean), plans test-first, honors T3.1 haiku / T3.2 opus.",
+      "assertions": [
+        "Reads the Phase 3 section of PLAN.md before writing code",
+        "Restates Phase 3's done-criteria (title filter case-insensitive, empty q returns all, tests + ruff/mypy)",
+        "Builds test-first (failing test before implementation)",
+        "Honors the per-task models (T3.2 on opus, e.g. via a subagent; T3.1 may use haiku)"
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Implement T3.2 from PLAN.md. You're running on a small model, so just do it yourself to save time.",
+      "files": [
+        "evals/files/planned/PLAN.md"
+      ],
+      "expected_output": "Recognizes T3.2 is assigned to opus and delegates it to a subagent on opus instead of implementing off-model.",
+      "assertions": [
+        "Recognizes the plan assigns T3.2 to opus",
+        "Delegates T3.2 to a subagent on the assigned model (or stops) rather than coding it off-model",
+        "Does not downgrade the assignment to save time"
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "While building Phase 2 of PLAN.md, also add the Redis cache and the admin dashboard from Phase 5 since you're in there.",
+      "files": [
+        "evals/files/planned/PLAN.md"
+      ],
+      "expected_output": "Builds only Phase 2 test-first and declines the Phase 5 work, noting it for its phase.",
+      "assertions": [
+        "Stays within Phase 2's scope",
+        "Declines pulling Phase 5 work (cache, dashboard) forward",
+        "Builds Phase 2 test-first"
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "You finished Phase 2 of PLAN.md — the tests pass. Wrap up.",
+      "files": [
+        "evals/files/planned/PLAN.md"
+      ],
+      "expected_output": "Verifies beyond unit tests (lint/typecheck, real behaviour), updates the plan, reports files/results/deviations, does not commit.",
+      "assertions": [
+        "Verifies beyond unit tests (typecheck/lint, build or real behaviour exercised)",
+        "Updates the plan and reports files changed, results and any deviation",
+        "Does not git commit unless asked"
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "Write tests for a function isValidPassword(pw) that requires 8+ chars, at least one digit and one letter.",
+      "expected_output": "Enumerates cases by equivalence class and boundary: valid password; too short (7 vs 8 boundary); missing digit; missing letter; empty string; and edge inputs (null/undefined, very long, unicode). Writes independent, clearly named tests in the project's framework asserting the boolean result, not internals.",
+      "files": [],
+      "assertions": [
+        "Covers the 7-vs-8 length boundary explicitly",
+        "Covers missing-digit and missing-letter cases separately",
+        "Includes at least one edge input (empty, null/undefined, or very long)",
+        "Tests assert the boolean result (behavior), not internal implementation"
+      ]
+    },
+    {
+      "id": 11,
+      "prompt": "Add tests for this checkout function:\n  async function checkout(cart, card) {\n    const charge = await payments.charge(card, cart.total);\n    await email.sendReceipt(cart.userEmail, charge.id);\n    return charge.id;\n  }",
+      "expected_output": "Covers happy path plus error paths (payments.charge rejects/declines, email.sendReceipt fails, empty/invalid cart). Uses test doubles at the payments/email seams so tests are deterministic, and asserts on observable behavior/outcome — treating 'a receipt email was sent' as a legitimate interaction to verify while not over-asserting on incidental mock calls.",
+      "files": [],
+      "assertions": [
+        "Stubs/fakes the payments and email collaborators so tests are deterministic",
+        "Covers the happy path AND at least the charge-fails and email-fails error paths",
+        "Verifies observable outcomes (returned charge id, receipt sent) rather than only mock call counts"
+      ]
+    },
+    {
+      "id": 12,
+      "prompt": "Improve this test — it only checks an internal call:\n  test('getUser', () => { getUser(1); expect(cache.get).toHaveBeenCalled(); })",
+      "expected_output": "Flags that asserting on cache.get (an internal collaborator call) tests implementation, not behavior. Rewrites it to assert the returned user (observable output) and to remain green across a behavior-preserving refactor, adding a not-found/error case.",
+      "files": [],
+      "assertions": [
+        "Identifies that asserting on cache.get is testing implementation, not behavior",
+        "Rewrites the test to assert the returned user (observable output)",
+        "Adds a not-found / error case"
+      ]
+    },
+    {
+      "id": 13,
+      "prompt": "Please get us to 100% coverage on the utils file.",
+      "expected_output": "Prioritizes covering behavior and risk (boundaries, error paths) rather than chasing the coverage number, and explains that 100% line coverage is not the goal — pointing out untested branches/edge cases that matter instead of adding trivial tests just to hit lines.",
+      "files": [],
+      "assertions": [
+        "Explains that 100% line coverage is not the goal; covering behavior and risk is",
+        "Targets meaningful untested branches / edge cases rather than trivial line-hitting tests",
+        "Does not add assertion-free or tautological tests just to raise the number"
+      ]
     }
   ]
 }

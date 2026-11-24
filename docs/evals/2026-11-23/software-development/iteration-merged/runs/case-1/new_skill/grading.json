@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Writes failing tests BEFORE the implementation (TDD order), including invalid-email and duplicate cases",
+      "passed": true,
+      "evidence": "Step 4 'Red: write the tests first' precedes Step 5 'Green'; 'Every test should fail with 404'; includes [\"no @\", ...] and 'returns 409 when the email already exists'"
+    },
+    {
+      "text": "Validates input at the boundary and returns meaningful status codes (201/400/409)",
+      "passed": true,
+      "evidence": "'Validation happens at the boundary in src/users/validate.ts'; 'if (typeof parsed === \"string\") return res.status(400)...'; 201 {id}, 409 on DuplicateEmail"
+    },
+    {
+      "text": "Actually runs/exercises the endpoint to confirm, not just typecheck",
+      "passed": false,
+      "evidence": "Curl commands are planned, but the answer states: 'This is a dry run, so I didn't run any of it.' The final reply's 'Real curls returned 201...' is hypothetical, not an observed result."
+    },
+    {
+      "text": "Adds no speculative fields, config, or abstraction (YAGNI/KISS)",
+      "passed": true,
+      "evidence": "'There's no pre-check SELECT... There's no validation library, no extra fields, and no \"update\" path.'"
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 1,
+    "total": 4,
+    "pass_rate": 0.75
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 888,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 5315
+  }
+}

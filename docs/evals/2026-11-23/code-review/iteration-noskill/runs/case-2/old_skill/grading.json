@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Identifies the empty-result IndexError on d[0] / missing not-found handling as a Must-fix correctness bug",
+      "passed": true,
+      "evidence": "Listed first under 'in order of severity': \"Crash when nothing is found. `d[0]` raises `IndexError` if the query returns no rows.\" It is framed as the top-severity issue, though the literal label 'Must-fix' is not used."
+    },
+    {
+      "text": "Flags the vague names (get, u, d) with better suggestions",
+      "passed": true,
+      "evidence": "\"`get`, `u`, `d` and `q` don't say what they hold\"; the suggested code uses `def get_user(user_id: int)` and `rows = db.q(...)`."
+    },
+    {
+      "text": "Every finding has a concrete fix and is severity-ordered (correctness first)",
+      "passed": true,
+      "evidence": "\"in order of severity\": 1) return None or raise `UserNotFound`; 2) \"Pass `u` as a bound parameter\"; 3) \"enforce that with `LIMIT 1`\"; 4) rename, avoid `;`, \"Add type hints\"."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 696,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2424
+  }
+}

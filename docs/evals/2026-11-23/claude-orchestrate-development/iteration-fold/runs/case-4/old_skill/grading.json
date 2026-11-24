@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Reads .orchestra/<run>/board.md first",
+      "passed": true,
+      "evidence": "Step 1 'Find the run and load the state (only board.md and the plan)': `cat .orchestra/2026-11-21-csv-export/board.md` runs before any git checks, task checks or dispatch. Only `ls` and `config.json` come before it."
+    },
+    {
+      "text": "Checks dispatched tasks for a live run or RESULT.md in their worktree",
+      "passed": true,
+      "evidence": "\"pgrep -fl \\\"opencode.*T6\\\"  # process alive?\" and \"test -f .worktrees/T6/RESULT.md && echo DONE\""
+    },
+    {
+      "text": "Continues from the recorded state instead of starting a new run",
+      "passed": true,
+      "evidence": "\"I resumed run `2026-11-21-csv-export` after the crash... T6 had finished before the crash and T7 hadn't been merged yet, so both went through review again.\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 592,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4289
+  }
+}

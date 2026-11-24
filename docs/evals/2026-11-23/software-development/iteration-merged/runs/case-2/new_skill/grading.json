@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Handles loading, empty, error, and success states explicitly (not just the happy path)",
+      "passed": true,
+      "evidence": "if (state.status === 'loading') return <p aria-busy=\"true\">Loading users…</p>; ... 'error' ... role=\"alert\" ... length === 0 ... No users yet. ... <ul aria-label=\"Users\">"
+    },
+    {
+      "text": "Writes tests first for the states and fetch behavior",
+      "passed": true,
+      "evidence": "Red: write src/components/UserList.test.tsx, stubbing fetch at the seam ... All tests should fail because the module ./UserList doesn't exist yet."
+    },
+    {
+      "text": "Uses semantic/accessible markup and keeps the component small",
+      "passed": true,
+      "evidence": "<p role=\"alert\">Couldn't load users.</p> ... <ul aria-label=\"Users\"> ... <li key={u.id}>; \"no props, no config and no retry button\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 332,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4365
+  }
+}

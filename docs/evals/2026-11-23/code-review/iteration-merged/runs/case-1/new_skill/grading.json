@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Flags the missing bound check on discount (e.g. >1 or <0 produces a wrong/negative total) as the top correctness issue",
+      "passed": true,
+      "evidence": "Placed in the highest tier, '🔴 Must fix': 'No range check on `discount`... a value above 1... makes the total negative. A negative value raises the total.' It is listed second, after NaN, but both are top-severity must-fix bugs."
+    },
+    {
+      "text": "Findings are anchored to specific lines and each has a concrete fix",
+      "passed": true,
+      "evidence": "Each finding cites a line and gives a fix, e.g. '(src/cart.js:3)... → Default the parameter: `function total(items, discount = 0)`' and '(src/cart.js:2-3)... → Work in integer cents and round once'."
+    },
+    {
+      "text": "Prioritizes correctness over style; does not bikeshed formatting",
+      "passed": true,
+      "evidence": "Correctness bugs (NaN, range, price manipulation) are under '🔴 Must fix'. Naming and phrasing are only under '🟢 Consider', and there are no formatting comments."
+    },
+    {
+      "text": "Does not rewrite the entire change; suggests rather than replaces",
+      "passed": true,
+      "evidence": "Gives targeted snippets rather than a full rewrite, e.g. 'Validate it: `if (!Number.isFinite(discount) || ...) throw new RangeError(...)`. Or clamp it, if the product says that's the right behaviour.'"
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 966,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3328
+  }
+}

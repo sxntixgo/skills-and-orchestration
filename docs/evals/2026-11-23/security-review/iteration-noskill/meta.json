@@ -1,0 +1,15 @@
+{
+  "skill": "security-review",
+  "skill_path": "skills/security-review",
+  "baseline": "none",
+  "model": "opus",
+  "new_rev": "0f6b1d6+worktree",
+  "date": "2026-11-23",
+  "cases": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ]
+}

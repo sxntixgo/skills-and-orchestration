@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Looks for the plan/spec before writing any code",
+      "passed": true,
+      "evidence": "\"ls PLAN.md SPEC.md docs/plans/ 2>/dev/null ... grep -rniE '^#+ .*phase 3' --include='*.md'\" — read-only checks run before any code."
+    },
+    {
+      "text": "STOPS and asks because no plan defines Phase 3",
+      "passed": true,
+      "evidence": "\"I can't start Phase 3 because I couldn't find a plan that defines it... Where is the plan? You can give me a file path or paste the Phase 3 section.\""
+    },
+    {
+      "text": "Does not invent a plan, phase scope or code",
+      "passed": true,
+      "evidence": "\"I wouldn't write code, start subagents, create files or commit. Making up Phase 3 isn't allowed.\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 286,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2564
+  }
+}

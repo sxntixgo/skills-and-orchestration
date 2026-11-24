@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does not dispatch T4 a fourth time",
+      "passed": true,
+      "evidence": "\"A fourth opencode dispatch is not allowed, so a Claude subagent implements T4 instead\""
+    },
+    {
+      "text": "Takes the task over with the cheapest capable model (haiku or sonnet, not opus by default)",
+      "passed": true,
+      "evidence": "\"Sonnet, the default for normal feature work... Haiku doesn't fit: work that failed three times isn't mechanical.\" Opus only for auth/secrets/design flaws."
+    },
+    {
+      "text": "The takeover result is reviewed with tests before merging",
+      "passed": true,
+      "evidence": "\"Use the `claude-review-merge` skill... Reply with one line: `MERGED T4 <commit> tests=<n passed>`\"; \"It goes through the same review before merging\""
+    },
+    {
+      "text": "Marks T4 taken-over with the model in board.md",
+      "passed": true,
+      "evidence": "\"T4 status: `rejected` → `taken-over (pending)`. Implementer: `claude:sonnet`.\" and on merge \"status becomes `taken-over (sonnet)`\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 558,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3477
+  }
+}

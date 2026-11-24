@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Flags the missing bound check on discount (e.g. >1 or <0 produces a wrong/negative total) as the top correctness issue",
+      "passed": false,
+      "evidence": "The bound check is flagged as Blocking item 2 ('A negative discount raises the price. A discount above 1 gives a negative total'). Item 1, the NaN from a missing argument, is ranked above it, so it is not the top issue."
+    },
+    {
+      "text": "Findings are anchored to specific lines and each has a concrete fix",
+      "passed": true,
+      "evidence": "Each finding quotes the code and gives a fix: '`sum * undefined` is `NaN`... Fix with a default: `function total(items, discount = 0)`'; '`sum - sum * discount` can return... Round to cents, e.g. `Math.round(...)`'."
+    },
+    {
+      "text": "Prioritizes correctness over style; does not bikeshed formatting",
+      "passed": true,
+      "evidence": "Sections are ordered 'Blocking' (NaN, invalid values), then 'Should fix', then 'Worth checking'. There are no formatting or whitespace comments."
+    },
+    {
+      "text": "Does not rewrite the entire change; suggests rather than replaces",
+      "passed": false,
+      "evidence": "It ends with 'Suggested version:', a complete replacement of the function that adds a JSDoc, renames the parameter, adds validation and rounds the result. That rewrites the whole change."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 2,
+    "total": 4,
+    "pass_rate": 0.5
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 868,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2733
+  }
+}

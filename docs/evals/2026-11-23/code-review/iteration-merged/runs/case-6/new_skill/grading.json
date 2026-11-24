@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Identifies second-order / stored SQL injection (not 'safe because it comes from the DB')",
+      "passed": true,
+      "evidence": "\"The audit query has a second-order SQL injection, rated 🔴.\""
+    },
+    {
+      "text": "Explains the payload was planted at signup and fires later in the audit query",
+      "passed": true,
+      "evidence": "\"an attacker signs up with the username `x' OR '1'='1`. The parameterized insert stores it unchanged. When the audit job runs, the query becomes…\""
+    },
+    {
+      "text": "Fix: parameterize the second query; treat DB-sourced values as untrusted",
+      "passed": true,
+      "evidence": "\"`db.query(\"SELECT * FROM logs WHERE actor = $1\", [user.username])`. Data read back from the DB is still untrusted, so parameterize every query that uses it.\""
+    },
+    {
+      "text": "Rates it High/Critical with exploit + fix",
+      "passed": true,
+      "evidence": "\"🔴 Must fix … Second-order SQL injection\" with an Exploit bullet (`x' OR '1'='1` returns every user's logs) and a Fix bullet (parameterized `$1` query)."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 403,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3535
+  }
+}

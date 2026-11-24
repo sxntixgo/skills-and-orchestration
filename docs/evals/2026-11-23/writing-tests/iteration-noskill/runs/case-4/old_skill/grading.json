@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Explains that 100% line coverage is not the goal; covering behavior and risk is",
+      "passed": false,
+      "evidence": "The answer treats 100% as the goal: \"I'd keep going until line and branch coverage both show 100%.\" It notes tests should \"check real behaviour, not just that lines ran\" but never says 100% isn't the goal."
+    },
+    {
+      "text": "Targets meaningful untested branches / edge cases rather than trivial line-hitting tests",
+      "passed": true,
+      "evidence": "\"an error path in `parse_duration` (bad unit), the `None` / empty-string branches in `slugify`, and the `retries exhausted` raise in `retry()`\" plus tests for both retry outcomes"
+    },
+    {
+      "text": "Does not add assertion-free or tautological tests just to raise the number",
+      "passed": true,
+      "evidence": "Every test asserts behaviour, e.g. `pytest.raises(ValueError, match=\"duration\")`, `assert len(calls) == 3`. Also: \"I wouldn't use `# pragma: no cover`, delete code, or weaken assertions to reach the number.\""
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3,
+    "pass_rate": 0.667
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 566,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3019
+  }
+}

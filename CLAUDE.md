@@ -18,14 +18,14 @@ The skills cover authoring skills, researching, building software, and reviewing
 software. They are designed to be **self-contained** and **token-frugal** (see
 Principles below).
 
-**Status: v1.4.0.** All 11 skills are shipped, self-contained, and reviewed by
+**Status: v2.0.0.** All 8 skills are shipped, self-contained, and reviewed by
 `skill-reviewer` (including itself). Eval results are in
 [`docs/validation-2026-07-11.md`](docs/validation-2026-07-11.md). Key learning
 to keep in mind when adding or changing skills: **a skill earns its token cost
 by encoding a process the model does not already perform** (e.g. `skill-reviewer`
 measured +0.73 lift), **not by restating knowledge a frontier model already has**
-(`security-review` measured 0.00 detection lift — its value is consistency and
-coverage). Prefer process/discipline over re-explaining what the model knows.
+(`security-review` measured 0.00 detection lift twice and was folded into
+`code-review`). Prefer process/discipline over re-explaining what the model knows.
 
 ## Repository layout
 
@@ -115,10 +115,11 @@ Every skill in `skills/` MUST follow these rules. The `skill-creator` and
 ## Core principles baked into the skills
 
 - **DRY / YAGNI / KISS** drive the `software-development` skill.
-- **Tests are first-class** — `writing-tests` is a dedicated skill; the dev
-  skill points to it rather than duplicating it.
-- **Review is layered** — `code-review` (correctness + quality) and
-  `security-review` (vuln classes, authz, secrets) are separate skills.
+- **Tests are first-class** — test design lives inside `software-development`
+  (the former `writing-tests`, folded 2026-11-23: +0.08 vs no skill).
+- **One review skill** — `code-review` covers correctness, quality and security
+  (the former `security-review` measured 0.00 vs no skill twice, 2026-07 and
+  2026-11, so it was folded in as a short security pass).
 
 ## Developing skills in this repo
 

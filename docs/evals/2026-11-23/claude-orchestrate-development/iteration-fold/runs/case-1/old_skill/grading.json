@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Creates .orchestra/<run>/ and board.md with a task table",
+      "passed": true,
+      "evidence": "\"mkdir -p .orchestra/2026-11-23-csv-export/tasks\" and \"Task graph: `.orchestra/2026-11-23-csv-export/board.md`\" with table \"| id | phase | goal | implementer | depends_on | files | status |\""
+    },
+    {
+      "text": "Each task lists files, dependencies and an exact test command",
+      "passed": true,
+      "evidence": "T1 row: depends_on \"–\", files \"jobs/export/__init__.py, jobs/export/csv.py, tests/test_export_csv.py\"; T2 depends_on \"T1\"; \"Test commands: T1 `pytest tests/test_export_csv.py -q`; T2 `pytest tests/test_export_view.py -q`\""
+    },
+    {
+      "text": "Concurrent tasks have disjoint files",
+      "passed": true,
+      "evidence": "\"No files are shared between the tasks.\" The T1 and T2 file lists do not overlap, and the tasks run sequentially (\"T2 really does need T1's code\")."
+    },
+    {
+      "text": "Starts dispatching without asking the user to approve the task table",
+      "passed": true,
+      "evidence": "The self-check leads straight into \"## 3. Loop ... Dispatch: the `claude-dispatch` skill on T1 in this thread. T1 → `dispatched`\" with no approval request."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 678,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4476
+  }
+}

@@ -125,3 +125,27 @@ Changes besides the rewrites:
    the consolidation proposed in `docs/review-2026-11-23.md` §8.
 4. A live check of the orchestrator: these are dry runs; the first real phase with the new
    flow should confirm that subagent replies stay one line and the session stops per phase.
+
+## Round 3 — fewer skills (frugal-skills 2.0.0: 11 → 8 skills)
+
+No-skill baselines decided the consolidation (`docs/review-2026-11-23.md` §8):
+
+| Skill | with skill | no skill | Δ pass | Δ tokens | Decision |
+|---|:---:|:---:|:---:|:---:|---|
+| code-review | 11/13 | 8/13 | +0.25 | +8.9k | keep; absorbs security-review |
+| writing-tests | 13/13 | 12/13 | +0.08 (one assertion) | +6.6k | fold into software-development |
+| security-review | 20/20 | 20/20 | 0 (also 0 in July) | +7.9k | fold into code-review as a short security pass |
+| build-phase | — | — | — | — | fold into software-development ("Building from a plan"); its phase/model discipline also lives in claude-orchestrate-development |
+
+Merged skills, all moved cases included (`iteration-merged`; build-phase's cases rewritten with a
+`PLAN.md` fixture, plus one no-plan case):
+
+| Skill | cases | merged | the separate skills before |
+|---|:---:|:---:|:---:|
+| code-review (+ security-review cases) | 9 | **33/33** | 13/13 + 20/20 |
+| software-development (+ build-phase, writing-tests cases) | 13 | **41/42** | 13/13 + 9/12 + 13/13 |
+
+The one miss (software-development case 1, "actually runs the endpoint") is a dry-run limit.
+Mean tokens per run stay at 15.7k / 17.1k, about what each separate skill cost.
+claude-orchestrate-development after removing the stale `takeover.md` pointer and the private
+host name: 31/31 vs 31/31 (`iteration-fold`).

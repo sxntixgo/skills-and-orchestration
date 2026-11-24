@@ -32,7 +32,7 @@ fix the implementer's code on accept.
    - **YAGNI:** no unused params/options, speculative abstractions or "just in case" branches.
    - **DRY:** existing helpers reused; no copy-pasted logic.
    Auth, input parsing, files or network: also check injection, authz, path traversal, SSRF
-   (with the `security-review` skill if installed).
+   (with the `code-review` skill's security pass if installed).
 4. **Decide.**
    - **Accept:** "Done when" holds, checks pass, scope clean. `rm $W/RESULT.md`; commit in `W`
      (`<type>: <goal> (orchestra <run>/<id>)` + repo trailers); merge into `base_branch`; run

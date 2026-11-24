@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Identifies the empty-result IndexError on d[0] / missing not-found handling as a Must-fix correctness bug",
+      "passed": true,
+      "evidence": "Under '🔴 Must fix': \"Crashes when nothing matches (snippet:1) — If db.q(u) returns an empty list ... d[0] raises a bare IndexError\""
+    },
+    {
+      "text": "Flags the vague names (get, u, d) with better suggestions",
+      "passed": true,
+      "evidence": "\"`get`, `u`, `d` and `q` don't show what is fetched... → Use names like `get_user(user_id)` and `rows`, and add a return type\""
+    },
+    {
+      "text": "Every finding has a concrete fix and is severity-ordered (correctness first)",
+      "passed": true,
+      "evidence": "Ordered 🔴→🟡→🟢 with IndexError first. Each finding has a '→' fix, e.g. \"if not rows: return None\" and \"Make sure q uses bound parameters\"."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 430,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2737
+  }
+}

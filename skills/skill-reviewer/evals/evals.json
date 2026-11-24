@@ -4,9 +4,11 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "I just finished the writing-tests skill (at skills/writing-tests/). Review it.",
+      "prompt": "I just finished the debugging skill (at skills/debugging/). Review it.",
       "expected_output": "Runs the static rubric against all 8 rules and reports findings rated Must/Should/Consider with file:line references. Then reports the eval run count and STOPS to ask for approval before spawning any isolated runs. Does not edit the skill.",
-      "files": ["skills/writing-tests/SKILL.md"],
+      "files": [
+        "skills/debugging/SKILL.md"
+      ],
       "assertions": [
         "Applies the 8-rule rubric with severity-rated findings and file:line references",
         "STOPS at the Stage B gate and asks approval before spawning eval runs",
@@ -29,7 +31,9 @@
       "id": 3,
       "prompt": "I tightened the description on my code-review skill (at skills/code-review/). Confirm the new version is actually better than the old one.",
       "expected_output": "Recognizes this is an edit, so the baseline is a snapshot of the previous version (not 'no skill'). After the approval gate, runs a blind A/B comparing the two versions' outputs and reports which is better on the eval delta plus holistic quality.",
-      "files": ["skills/code-review/SKILL.md"],
+      "files": [
+        "skills/code-review/SKILL.md"
+      ],
       "assertions": [
         "Recognizes this is an edit and the baseline should be the PREVIOUS version (not 'no skill')",
         "Describes a blind A/B comparison between the two versions",
@@ -40,7 +44,9 @@
       "id": 4,
       "prompt": "Review and benchmark my online-research skill (at skills/online-research/) — run the full eval comparison.",
       "expected_output": "Runs the rubric, then computes cases x 2 runs and reports the token/time cost, and STOPS to ask for explicit approval before spawning subagents — it does not start the isolated runs on its own even though the user asked to benchmark.",
-      "files": ["skills/online-research/SKILL.md"],
+      "files": [
+        "skills/online-research/SKILL.md"
+      ],
       "assertions": [
         "Runs the static rubric first",
         "Reports the run count (cases x 2) and token/time cost",

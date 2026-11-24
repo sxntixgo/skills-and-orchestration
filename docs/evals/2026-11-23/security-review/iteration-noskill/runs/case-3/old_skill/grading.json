@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Identifies mass assignment allowing privilege escalation via extra body fields (role/isVerified)",
+      "passed": true,
+      "evidence": "\"Critical: mass assignment. `req.body` goes straight into `User.update`, so any logged-in user can set their own `role` and `isVerified`\""
+    },
+    {
+      "text": "Gives the concrete exploit: include role=admin (or isVerified=true) in the request body",
+      "passed": true,
+      "evidence": "\"PUT /profile  {\"role\":\"admin\",\"isVerified\":true}\""
+    },
+    {
+      "text": "Fix: allowlist updatable fields; never bind sensitive fields from client input",
+      "passed": true,
+      "evidence": "\"The fix uses an allowlist, so only `name`, `bio` and `email` can come from the client. The server sets `role` and `isVerified`\""
+    },
+    {
+      "text": "Rates it High/Critical with exploit + fix",
+      "passed": true,
+      "evidence": "\"Critical: mass assignment.\" plus exploit `{\"role\":\"admin\",\"isVerified\":true}` and a zod `.strict()` allowlist fix"
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 388,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2748
+  }
+}

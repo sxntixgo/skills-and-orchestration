@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Identifies the empty-result IndexError on d[0] / missing not-found handling as a Must-fix correctness bug",
+      "passed": true,
+      "evidence": "🔴 Must fix 1. **Crashes when nothing matches** (snippet:1): `d[0]` raises `IndexError` when the query returns no rows, which is the normal \"not found\" case."
+    },
+    {
+      "text": "Flags the vague names (get, u, d) with better suggestions",
+      "passed": true,
+      "evidence": "`get`, `u`, `d` and `q` hide what is fetched... → For example, `get_user(user_id)`, `rows = db.query(...)`, with a return type hint (`-> User | None`)."
+    },
+    {
+      "text": "Every finding has a concrete fix and is severity-ordered (correctness first)",
+      "passed": true,
+      "evidence": "Each finding has a '→' fix (e.g. 'Return `None` (or raise a domain `NotFoundError`...)'). Order is 🔴 Must fix (IndexError), then 🟡 Should fix, then 🟢 Consider."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 435,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3031
+  }
+}

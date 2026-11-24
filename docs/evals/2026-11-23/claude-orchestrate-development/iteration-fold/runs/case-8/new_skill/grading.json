@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does not dispatch the MAX_ROWS constant as its own opencode task",
+      "passed": true,
+      "evidence": "\"I won't dispatch this task by itself.\""
+    },
+    {
+      "text": "Merges it into the task that uses MAX_ROWS (or does it as part of that task)",
+      "passed": true,
+      "evidence": "\"I'll fold it into the task that first uses `MAX_ROWS` (e.g. the pagination or export task), and that task's spec and tests will cover it.\""
+    },
+    {
+      "text": "Gives the size reason: the spec would be as long as the code",
+      "passed": true,
+      "evidence": "\"A one-line constant isn't worth an opencode run, because its spec would be as long as the code.\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 247,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2538
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Identifies the silent exception swallow (bare except: pass) as a Must-fix, not a style nit",
+      "passed": true,
+      "evidence": "Under '🔴 Must fix': 'Failed charges are silently treated as successful (snippet:1)' and 'The bare `except:` catches everything (snippet:1)'"
+    },
+    {
+      "text": "Explains the risk: payment/errors are hidden",
+      "passed": true,
+      "evidence": "'The bare `except: pass` hides every payment failure, so a declined or failed charge looks exactly like one that went through.'"
+    },
+    {
+      "text": "Recommends handling or propagating with context and narrowing the except clause",
+      "passed": true,
+      "evidence": "'Catch only the payment errors you expect, such as `except PaymentDeclined as e:`... return or raise a failure the caller has to handle.' plus 'Log the failure with context: order ID, amount and the gateway's error code.'"
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 316,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2595
+  }
+}

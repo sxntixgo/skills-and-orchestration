@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does not create .orchestra/ or a task graph",
+      "passed": true,
+      "evidence": "\"I don't create `.orchestra/`, `config.json` or `board.md`, and I don't spawn any spec, dispatch or review subagents.\""
+    },
+    {
+      "text": "Runs or proposes brainstorming with the user first",
+      "passed": true,
+      "evidence": "\"I'd use the `brainstorming` skill if it's installed. Otherwise I ask one question at a time about purpose, scope and constraints\" — and asks first question."
+    },
+    {
+      "text": "Plans writing-plans to save a plan in docs/plans/ before orchestrating",
+      "passed": true,
+      "evidence": "\"I'd use `writing-plans` if it's installed and save a phased plan ... to `docs/plans/2026-11-23-research-app-plan.md`.\" before step 6 orchestration."
+    },
+    {
+      "text": "Does not choose the stack/architecture itself",
+      "passed": true,
+      "evidence": "\"Choosing the stack, the runner design or the UI framework is your decision\"; offers options (a)/(b)/(c) instead of choosing."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 382,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2880
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Covers the 7-vs-8 length boundary explicitly",
+      "passed": true,
+      "evidence": "['abcdefg1', 'exactly 8 chars, letter + digit'] and ['abcdef1', '7 chars — one under the boundary']"
+    },
+    {
+      "text": "Covers missing-digit and missing-letter cases separately",
+      "passed": true,
+      "evidence": "['abcdefgh', 'no digit'], ['12345678', 'no letter']"
+    },
+    {
+      "text": "Includes at least one edge input (empty, null/undefined, or very long)",
+      "passed": true,
+      "evidence": "['', 'empty'] and it.each([null, undefined, 12345678, {}, []])('rejects non-string %p'"
+    },
+    {
+      "text": "Tests assert the boolean result (behavior), not internal implementation",
+      "passed": true,
+      "evidence": "expect(isValidPassword(pw)).toBe(true); / expect(isValidPassword(pw)).toBe(false); — no mocks or internal checks"
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 343,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2809
+  }
+}

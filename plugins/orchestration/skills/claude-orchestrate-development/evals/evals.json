@@ -28,7 +28,7 @@
     {
       "id": 3,
       "prompt": "T4 came back rejected for the third time (max_rejections is 3). What now?",
-      "expected_output": "Takes the task over instead of a fourth dispatch: picks the cheapest capable Claude model (haiku/sonnet/opus per references/takeover.md) as a subagent in the same worktree, reviews its result with tests, marks it taken-over with the model in board.md.",
+      "expected_output": "Takes the task over instead of a fourth dispatch: picks the cheapest capable Claude model (haiku/sonnet/opus per the model ladder) as a subagent in the same worktree, reviews its result with tests, marks it taken-over with the model in board.md.",
       "files": [],
       "assertions": [
         "Does not dispatch T4 a fourth time",

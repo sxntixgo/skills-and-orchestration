@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Reads .orchestra/<run>/board.md first",
+      "passed": true,
+      "evidence": "First step is \"ls -t .orchestra/*/board.md\", then on resume: \"Read only that run's `board.md` and the plan it points to.\""
+    },
+    {
+      "text": "Checks dispatched tasks for a live run or RESULT.md in their worktree",
+      "passed": true,
+      "evidence": "\"Check each `dispatched` task: Finished (the worktree has a `RESULT.md`)... Still running (process alive, log growing)... Dead with no `RESULT.md`\""
+    },
+    {
+      "text": "Continues from the recorded state instead of starting a new run",
+      "passed": true,
+      "evidence": "\"Carry on the loop from step 3 within `concurrency`\" and \"I would not rebuild a board... and I would not re-plan without the plan file.\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 746,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2981
+  }
+}

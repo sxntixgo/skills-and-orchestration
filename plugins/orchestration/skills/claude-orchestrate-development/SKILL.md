@@ -122,7 +122,7 @@ Read `board.md` and the plan only. For `dispatched` tasks check whether the run 
 | A task with no test or no observable outcome | Merge it into another task or drop it (YAGNI) |
 | Two concurrent tasks list the same file | Serialize them (add a dependency) |
 | A task that needs "and also…" to describe | Split it |
-| More running tasks than `concurrency` | Wait; more runs than atlas's slots only queue |
+| More running tasks than `concurrency` | Wait; runs beyond the model server's slots only queue |
 | Merging on RESULT.md's word | Never; `claude-review-merge` runs the tests itself |
 | A fourth dispatch of the same task | Stop: after 3 rejections it's a takeover |
 | About to push or deploy | Don't; report it as a step for the user |

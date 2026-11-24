@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Stubs/fakes the payments and email collaborators so tests are deterministic",
+      "passed": true,
+      "evidence": "vi.mock('./payments', () => ({ payments: { charge: vi.fn() } })); vi.mock('./email', () => ({ email: { sendReceipt: vi.fn() } }));"
+    },
+    {
+      "text": "Covers the happy path AND at least the charge-fails and email-fails error paths",
+      "passed": true,
+      "evidence": "'returns the charge id when payment and receipt succeed'; 'rejects with the payment error and sends no receipt when the charge fails'; 'rejects with the email error even though the card was already charged'"
+    },
+    {
+      "text": "Verifies observable outcomes (returned charge id, receipt sent) rather than only mock call counts",
+      "passed": true,
+      "evidence": "await expect(checkout(cart, card)).resolves.toBe('ch_123'); and expect(email.sendReceipt).toHaveBeenCalledWith('ana@example.com', 'ch_123');"
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 351,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4054
+  }
+}

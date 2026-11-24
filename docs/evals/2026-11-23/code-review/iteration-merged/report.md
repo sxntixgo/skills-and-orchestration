@@ -1,0 +1,11 @@
+# code-review — new_skill only
+total 33/33, tokens mean 15716.0
+case 1: 4/4 turns=2 tokens=13677
+case 2: 3/3 turns=2 tokens=13664
+case 3: 3/3 turns=2 tokens=13356
+case 4: 3/3 turns=5 tokens=29245
+case 5: 4/4 turns=2 tokens=13818
+case 6: 4/4 turns=2 tokens=13776
+case 7: 4/4 turns=2 tokens=14177
+case 8: 4/4 turns=2 tokens=14669
+case 9: 4/4 turns=2 tokens=15062

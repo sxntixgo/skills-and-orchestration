@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Takes over neither T2 nor T5",
+      "passed": true,
+      "evidence": "\"**Neither one yet.**\""
+    },
+    {
+      "text": "Sends both back to opencode with review notes (--continue)",
+      "passed": true,
+      "evidence": "\"so both go back to opencode with the review notes (`--continue`).\""
+    },
+    {
+      "text": "States takeover happens only after the 3rd rejection",
+      "passed": true,
+      "evidence": "\"A task is handed over to Claude only after `max_rejections` rejections, and the default is 3.\" Also: \"if it's rejected a third time, Claude takes it over.\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 367,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2610
+  }
+}

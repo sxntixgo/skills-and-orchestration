@@ -1,0 +1,19 @@
+{
+  "skill": "code-review",
+  "skill_path": "skills/code-review",
+  "baseline": "HEAD",
+  "model": "opus",
+  "new_rev": "0f6b1d6+worktree",
+  "date": "2026-11-23",
+  "cases": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ]
+}

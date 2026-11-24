@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Identifies second-order / stored SQL injection (not 'safe because it comes from the DB')",
+      "passed": true,
+      "evidence": "\"The audit query has a **critical second-order SQL injection**... the value is still attacker-controlled when the audit job reads it back.\""
+    },
+    {
+      "text": "Explains the payload was planted at signup and fires later in the audit query",
+      "passed": true,
+      "evidence": "\"An attacker registers with a username containing a single quote followed by SQL. The parameterized insert stores it unchanged. When the audit job runs, the quote closes the `actor` string literal\""
+    },
+    {
+      "text": "Fix: parameterize the second query; treat DB-sourced values as untrusted",
+      "passed": true,
+      "evidence": "\"Parameterize the read too: `db.query(\"SELECT * FROM logs WHERE actor = ?\", [user.username])`\" and \"Treat every value read from the DB as untrusted at every sink.\""
+    },
+    {
+      "text": "Rates it High/Critical with exploit + fix",
+      "passed": true,
+      "evidence": "Listed under \"🔴 Critical\" with \"**Exploit:** An attacker registers with a username containing a single quote...\" and \"**Fix:** Parameterize the read too\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 425,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2964
+  }
+}

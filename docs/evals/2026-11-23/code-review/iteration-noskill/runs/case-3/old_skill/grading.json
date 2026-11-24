@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Identifies the silent exception swallow (bare except: pass) as a Must-fix, not a style nit",
+      "passed": false,
+      "evidence": "The answer rejects the code (\"No, this isn't okay\") and lists the issue under \"Problems\", but it never labels it Must-fix or blocking. No explicit severity is given."
+    },
+    {
+      "text": "Explains the risk: payment/errors are hidden",
+      "passed": true,
+      "evidence": "\"if `charge(card)` fails ... the code carries on as if it worked. You could ship orders that were never paid for, and nothing would show it.\""
+    },
+    {
+      "text": "Recommends handling or propagating with context and narrowing the except clause",
+      "passed": true,
+      "evidence": "\"catch only the exceptions you expect, log them, and tell the caller.\" The example re-raises with `raise PaymentFailed(...) from e`, and the answer says \"unexpected exception should propagate.\""
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3,
+    "pass_rate": 0.667
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 665,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2298
+  }
+}

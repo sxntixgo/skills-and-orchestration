@@ -1,0 +1,54 @@
+{
+  "meta": {
+    "skill": "code-review",
+    "skill_path": "skills/code-review",
+    "baseline": "none",
+    "model": "opus",
+    "new_rev": "0f6b1d6+worktree",
+    "date": "2026-11-23",
+    "cases": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "run_summary": {
+    "new_skill": {
+      "pass_rate": {
+        "mean": 0.875
+      },
+      "assertions": "11/13",
+      "tokens": {
+        "mean": 15545.0
+      },
+      "time_seconds": {
+        "mean": 16.482
+      },
+      "cost_usd": {
+        "mean": 0.06
+      }
+    },
+    "old_skill": {
+      "pass_rate": {
+        "mean": 0.625
+      },
+      "assertions": "8/13",
+      "tokens": {
+        "mean": 6667.25
+      },
+      "time_seconds": {
+        "mean": 8.433
+      },
+      "cost_usd": {
+        "mean": 0.032
+      }
+    },
+    "delta": {
+      "pass_rate": 0.25,
+      "tokens": 8877.75,
+      "time_seconds": 8.049,
+      "cost_usd": 0.028
+    }
+  }
+}
