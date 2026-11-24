@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Runs scripts/dispatch.sh <run> T1 in the background (run_in_background or equivalent), not in the foreground",
+      "passed": true,
+      "evidence": "\"Start the run (Bash with `run_in_background: true`): bash plugins/orchestration/skills/claude-dispatch/scripts/dispatch.sh 2026-11-21-export T1\""
+    },
+    {
+      "text": "Marks T1 dispatched (with attempt/start time) in board.md",
+      "passed": true,
+      "evidence": "\"Set T1's row to `dispatched (attempt 1)`, started 2026-11-23 HH:MM.\""
+    },
+    {
+      "text": "Does other work or waits for the notification instead of polling",
+      "passed": true,
+      "evidence": "\"I won't poll or touch the worktree. I'll do other run work, such as writing the next ready task. The notification arrives when the command exits.\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 306,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3728
+  }
+}

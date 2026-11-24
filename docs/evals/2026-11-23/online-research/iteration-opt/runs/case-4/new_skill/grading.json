@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Recognizes that many pages echoing one claim are not independent corroboration",
+      "passed": true,
+      "evidence": "\"Bun's headline numbers are its own benchmarks.\" and \"The JCSI numbers are second-hand. They come only through Strapi's summary.\" It traces repeated claims back to a single origin."
+    },
+    {
+      "text": "Seeks primary benchmarks with methodology and distinguishes synthetic vs real-world results",
+      "passed": true,
+      "evidence": "\"holds for startup, package installs and synthetic hello-world HTTP tests... In realistic I/O-bound apps (a real database, real middleware), Bun, Node and Deno come out within a few percent\""
+    },
+    {
+      "text": "Gives a nuanced, cited answer with caveats instead of rubber-stamping the claim",
+      "passed": true,
+      "evidence": "\"I can't confirm it as stated.\" Followed by cited workload-specific results [1]-[5], plus \"Confidence is low on any exact multiplier, since hardware, versions and frameworks differ\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 637,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4356
+  }
+}

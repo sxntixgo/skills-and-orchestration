@@ -1,0 +1,53 @@
+{
+  "meta": {
+    "skill": "claude-dispatch",
+    "skill_path": "plugins/orchestration/skills/claude-dispatch",
+    "baseline": "HEAD",
+    "model": "opus",
+    "new_rev": "ec26d7e+worktree",
+    "date": "2026-11-23",
+    "cases": [
+      1,
+      2,
+      3
+    ]
+  },
+  "run_summary": {
+    "new_skill": {
+      "pass_rate": {
+        "mean": 1.0
+      },
+      "assertions": "10/10",
+      "tokens": {
+        "mean": 13509.667
+      },
+      "time_seconds": {
+        "mean": 11.18
+      },
+      "cost_usd": {
+        "mean": 0.057
+      }
+    },
+    "old_skill": {
+      "pass_rate": {
+        "mean": 1.0
+      },
+      "assertions": "10/10",
+      "tokens": {
+        "mean": 25134.333
+      },
+      "time_seconds": {
+        "mean": 16.751
+      },
+      "cost_usd": {
+        "mean": 0.098
+      }
+    },
+    "delta": {
+      "pass_rate": 0.0,
+      "tokens": -11624.666,
+      "time_seconds": -5.571,
+      "cost_usd": -0.041
+    }
+  }
+}

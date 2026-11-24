@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Identifies the silent exception swallow (bare except: pass) as a Must-fix, not a style nit",
+      "passed": true,
+      "evidence": "Under '🔴 Must fix': '1. **Silent swallow of payment failures** (snippet:1): if `charge` raises because the card was declined or the gateway timed out, nothing records it.'"
+    },
+    {
+      "text": "Explains the risk: payment/errors are hidden",
+      "passed": true,
+      "evidence": "'The code then keeps going as if the customer paid, so you could ship orders that were never paid for.'"
+    },
+    {
+      "text": "Recommends handling or propagating with context and narrowing the except clause",
+      "passed": true,
+      "evidence": "'Catch the specific payment errors, log them with context such as the order ID (never the card data), and then either re-raise or return a failure'"
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 281,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3602
+  }
+}

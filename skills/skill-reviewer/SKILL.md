@@ -5,75 +5,60 @@ description: Reviews a Claude Code skill against the repo's 8 authoring rules an
 
 # Skill Reviewer
 
-Judge a skill. `skill-creator` builds; you review. Always run the static rubric,
-then always proceed toward the baseline evals — but STOP for approval before
-spawning any isolated runs, because they cost tokens and time.
-
-The 8 authoring rules this rubric scores against are detailed in
-`references/rubric.md`. (When working inside this repo, the same rules are also
-documented in `CLAUDE.md`.)
+Judge a skill; `skill-creator` builds and fixes it. Always run the rubric (Stage A), then always
+end that reply at the Stage B gate. Never edit the target skill.
 
 ## Scope
-This skill DOES:
-- Score a skill against rules 1–8 (static rubric).
-- Run a baseline eval comparison (with-skill vs. without-skill), or a blind A/B
-  vs. the previous version for an edit.
-- Render a PASS / ITERATE verdict with the top fixes.
+DOES: score a skill against rules 1–8; run a baseline eval (with vs without the skill, or old vs
+new version for an edit) after approval; give PASS / ITERATE with the top fixes.
+Does NOT: rewrite the skill (→ `skill-creator`); start any eval run before the user approves.
 
-This skill does NOT:
-- Rewrite the skill → that's `skill-creator`. Report findings; the author fixes.
-- Spawn any isolated run before the user approves at the Stage B gate.
+## Stage A — rubric (one TodoWrite item per stage)
+Read the target's files **in one batch** (parallel Reads): `SKILL.md`, every `references/*.md`,
+`evals/evals.json`, and list `scripts/`. Score each rule; record only problems, rated
+🔴 must fix (breaks the skill, scope/safety violation, blocks evals) · 🟡 should fix · 🟢 consider,
+each with `file:line`:
 
-## Workflow
+| Rule | Check |
+|---|---|
+| 1 Frontmatter | `name` kebab-case = directory; third-person `description` with a concrete "Use when …" (🔴 if missing/vague); no trigger clash with siblings |
+| 2 Self-contained | no hard dependency outside its plugin (🔴); a sibling plugin's skill only as "if installed" with a fallback |
+| 3 Progressive disclosure | `SKILL.md` lean (< ~500 lines); detail in `references/`, named where used |
+| 4 Token-frugal | runs in one context window; subagents only as a measured default with an inline fallback (🔴 if mandatory); no repetition |
+| 5 Imperative | steps, checklists, tables — not an essay (🟡) |
+| 6 Checkpointed | multi-step skills write each step's output to disk and say where (🔴 if none) |
+| 7 Guardrails | Scope with a "does NOT" line; TodoWrite steps; STOP gates where scope could grow; Red flags; asks instead of guessing |
+| 8 Eval-backed | `evals/evals.json` with ≥ 3 realistic cases (`id`, `prompt`, `expected_output`, `files`, objective `assertions`) (🔴 if missing: Stage B can't run); scripts have tests |
 
-Create a TodoWrite item per stage. Checkpoint the Stage A rubric findings to
-`./.claude-skills-work/<skill>/review/` so a review can resume if interrupted.
-(The Stage B eval RUNS use a separate workspace,
-`./.claude-skills-work/evals/<skill>/iteration-N/` — see `references/running-evals.md`.
-The two paths are intentionally distinct: review findings vs. generated runs.)
+Write the findings (most severe first) to `./.claude-skills-work/<skill>/review/rubric.md` and
+report them.
 
-### Stage A — Static rubric (always)
-Read the skill's `SKILL.md`, references, scripts, and `evals/evals.json`. Score
-it against all 8 rules using `references/rubric.md`. Rate each finding:
-🔴 Must fix · 🟡 Should fix · 🟢 Consider. Write findings to
-`review/rubric.md` and report them. If rule 8 fails (no `evals/evals.json`),
-say so — Stage B can't run without cases.
+## Stage B — baseline evals ⛔ STOP GATE (end the Stage A reply with this, every time)
+State, with real numbers from `evals.json`: **cases N → runs = N × 2, plus N × 2 judge calls**;
+the baseline (`none` for a new skill; the previous git revision for an edit, graded blind); and
+the cost (each call is a fresh isolated `claude -p`: about $0.10 and 20–40 s; e.g. 4 cases = 16
+calls ≈ $1.60). Then ask: "Approve the eval run?" Start nothing until the user says yes, even when
+they asked to "run the benchmark".
 
-### Stage B — Baseline evals  ⛔ STOP GATE
-1. Count the work: `cases × 2 = runs` (with_skill + without_skill). For an EDIT,
-   the baseline is a snapshot of the previous version instead of "no skill".
-2. **Report the run count and that each run is a fresh isolated context with its
-   own token/time cost, then STOP and ask the user to approve before spawning
-   anything.**
-3. On approval, follow `references/running-evals.md`: spawn one subagent per run
-   from a clean context, save outputs + a `timing.json` (tokens, duration) per
-   run, grade each case against its `assertions` (or `expected_output` if
-   assertions aren't written yet), and aggregate a workspace `benchmark.json`
-   with `with_skill`, `without_skill`, and `delta`.
+On approval, from the repo root (details: `scripts/evals/README.md`):
+```
+python3 scripts/evals/abeval.py run    --skill <skill dir> --baseline <none|HEAD> --out .claude-skills-work/evals/<skill>/iteration-N
+python3 scripts/evals/abeval.py grade  --out <same>
+python3 scripts/evals/abeval.py report --out <same>     # benchmark.json + report.md
+```
+Without the script, follow `references/running-evals.md` (manual subagent method).
 
-### Stage C — Verdict
-Combine the rubric findings and the benchmark `delta` into a verdict:
-- **PASS** — no 🔴 findings and the skill measurably helps (positive pass-rate
-  delta at acceptable token/time cost).
-- **ITERATE** — list the top fixes (🔴 first) and which eval cases regressed or
-  failed, so `skill-creator` can address them.
+## Stage C — verdict
+**PASS**: no 🔴 and a positive pass-rate delta at acceptable token/time cost. **ITERATE**: the top
+fixes (🔴 first) and the failing or regressed cases, for `skill-creator`. If the user declined
+Stage B, say the verdict rests on the rubric only.
 
-## Red flags (stop and correct)
+## Red flags
 | If you notice… | Do this |
-|----------------|---------|
-| About to spawn runs without approval | STOP — the Stage B gate is mandatory |
-| Editing the skill yourself | Don't — report findings; `skill-creator` fixes |
-| Passing a skill on the rubric alone | A PASS also needs a positive eval delta |
-| Grading a PASS on a vague assertion | Require concrete evidence; quote the output |
-| Skipping Stage A because "evals will catch it" | Rubric is always run first |
-| No `evals/evals.json` present | Report rule 8 failure; ask author to add cases |
-
-## Done when
-- Rubric findings are written and reported.
-- Either the baseline benchmark exists with a `delta`, or the user declined the
-  eval run at the gate (note that in the verdict).
-- A PASS / ITERATE verdict is given with the top fixes.
-
-## References (load only when needed)
-- `references/rubric.md` — Stage A: the 8-rule checks + severity guidance.
-- `references/running-evals.md` — Stage B: spawning runs, grading, aggregating.
+|---|---|
+| About to run evals without a yes | STOP: the gate is mandatory |
+| Ending Stage A without the run count, cost and question | Add them |
+| Editing the target skill | Don't; report findings |
+| PASS on the rubric alone | A PASS also needs a positive eval delta |
+| A PASS on vague evidence | Quote the output |
+| No `evals/evals.json` | Rule 8 🔴; ask for cases |

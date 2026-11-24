@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Investigates WHY user is undefined (root cause) rather than only adding a null guard",
+      "passed": true,
+      "evidence": "\"I'd follow `user` back to where its value is set and check the usual causes: Async... Lookup misses... Wrong source... Regression\""
+    },
+    {
+      "text": "Distinguishes fixing the cause from masking the symptom (user?.id)",
+      "passed": true,
+      "evidence": "\"Adding `user?.id` would only hide the error, and nothing would explain why `user` is undefined.\""
+    },
+    {
+      "text": "Proposes verifying the cause and adding regression coverage",
+      "passed": true,
+      "evidence": "\"Add one assertion or log at the point I suspect, and predict what it will show\" ... \"Run the new test as the regression test, plus the tests around it.\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 276,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3547
+  }
+}

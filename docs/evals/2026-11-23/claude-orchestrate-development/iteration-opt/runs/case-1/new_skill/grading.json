@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Creates .orchestra/<run>/ and board.md with a task table",
+      "passed": true,
+      "evidence": "mkdir -p .orchestra/2026-11-23-csv-export/tasks ... `.orchestra/2026-11-23-csv-export/board.md` containing | id | phase | goal | implementer | depends_on | files | status |"
+    },
+    {
+      "text": "Each task lists files, dependencies and an exact test command",
+      "passed": true,
+      "evidence": "Table has depends_on and files columns per task; \"Test cmds: T1 `pytest tests/test_export_csv.py` · T2 `pytest tests/test_export_view.py` · T3 `pytest tests/test_jobs_list.py`\""
+    },
+    {
+      "text": "Concurrent tasks have disjoint files",
+      "passed": true,
+      "evidence": "T1/T2/T3 file lists are disjoint, and tasks form a serial chain: \"no two concurrent tasks share a file (the chain is serial anyway)\""
+    },
+    {
+      "text": "Starts dispatching without asking the user to approve the task table",
+      "passed": true,
+      "evidence": "\"I don't ask you to approve it; I plan it and proceed.\" then \"T1 is the only ready task... Dispatch\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 423,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4865
+  }
+}

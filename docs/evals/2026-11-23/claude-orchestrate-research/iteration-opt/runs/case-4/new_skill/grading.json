@@ -1,0 +1,26 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does not start an orchestrated research run",
+      "passed": true,
+      "evidence": "\"Nothing... So no run folder, no `brief.md`, no tasks, no dispatch, no subagents, no `report.md` and nothing logged.\""
+    },
+    {
+      "text": "Answers the fact directly (or after a quick lookup)",
+      "passed": true,
+      "evidence": "\"SQLite was first released in 2000. D. Richard Hipp released version 1.0 in August of that year.\""
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 0,
+    "total": 2,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 172,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 2620
+  }
+}

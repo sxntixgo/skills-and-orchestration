@@ -1,0 +1,46 @@
+{
+  "assertion_results": [
+    {
+      "text": "Writes brief.md",
+      "passed": true,
+      "evidence": "\"then write `runs/2026-11-23-selfhosted-search/brief.md`\" followed by full brief content"
+    },
+    {
+      "text": "Splits into 4-6 non-overlapping sub-question tasks without asking for approval",
+      "passed": true,
+      "evidence": "Four tasks S1-S4; \"They don't overlap: S1 and S2 split the engines by type\"; \"The goal is clear enough that I won't ask the user anything.\""
+    },
+    {
+      "text": "Dispatches researchers in parallel in the background (concurrency 3)",
+      "passed": true,
+      "evidence": "\"At most three run at once:\" with three `dispatch-research.sh ... &` calls, S4 started \"when the first finishes\""
+    },
+    {
+      "text": "Re-checks key claims (e.g. with fetch-text) before using them",
+      "passed": true,
+      "evidence": "\"For each claim, re-open the cited source with `fetch-text` and confirm the quote is there.\""
+    },
+    {
+      "text": "Writes report.md with the answer first, citations and verified/unverified marks",
+      "passed": true,
+      "evidence": "\"a 2–5 sentence answer\" listed first; \"inline `[n]` citations\"; \"each marked ✅ (verified by me) or ❓ (researcher-only)\""
+    },
+    {
+      "text": "Publishes the report to reports/",
+      "passed": true,
+      "evidence": "\"Copy it to `reports/2026-11-23 Self-hosted private search engines.md` with this header\""
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "total": 6,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 519,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 5648
+  }
+}

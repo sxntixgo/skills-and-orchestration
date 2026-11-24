@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Consults the primary source (IETF draft / oauth.net) rather than only blog summaries",
+      "passed": true,
+      "evidence": "\"the latest version is draft-ietf-oauth-v2-1-17 from 31 Oct 2026\"; sources list \"IETF Datatracker – draft-ietf-oauth-v2-1 (rev 17), §1.8 and §10\" and \"oauth.net – OAuth 2.1\""
+    },
+    {
+      "text": "Notes OAuth 2.1's draft / non-final status",
+      "passed": true,
+      "evidence": "\"It is still an IETF draft, not an RFC\" and \"the text could still change before it becomes an RFC.\""
+    },
+    {
+      "text": "Cites the specific sources read rather than answering from memory alone",
+      "passed": true,
+      "evidence": "Inline Datatracker link plus a Sources list naming the IETF draft, oauth.net, WorkOS, Stytch and Descope with URLs; \"I read this through a summarizing fetch tool\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 349,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3788
+  }
+}

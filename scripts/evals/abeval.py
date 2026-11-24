@@ -15,7 +15,7 @@ exactly what it would do; nothing is executed.
 Grading: one judge call per run, given only the case prompt, assertions and the answer (not
 which configuration produced it). PASS needs quoted evidence.
 """
-import argparse, concurrent.futures as cf, json, os, shutil, subprocess, sys, tarfile, io, time
+import argparse, concurrent.futures as cf, json, os, re, shutil, subprocess, sys, tarfile, io, time
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[2]
@@ -28,8 +28,9 @@ orchestration run, you are the orchestrator inside a devcontainer (git repo at /
 you have the Agent tool with a `model` parameter, Bash, and opencode on a local model via a
 dispatch script). Nothing in the task exists on disk: do NOT try to run commands or open project
 files. Where the task depends on files or state you can't see, assume plausible contents and say
-what you assume.
-{skill_line}
+what you assume. Assume plausible contents for files the user names; if the task needs an input
+the user neither named nor gave (e.g. a plan for "Phase 3"), treat it as not found.
+{tools_line}{skill_line}
 Respond to the user's message below as you would in the real session. Write down, in order,
 exactly what you would do: commands, files you'd write (with content if under ~40 lines),
 subagents you'd spawn (model + prompt), what you'd log, and your final message or reply.
@@ -65,11 +66,12 @@ def sh(cmd, **kw):
     return subprocess.run(cmd, check=True, capture_output=True, **kw)
 
 
-def claude(prompt, cwd, model, tools):
+def claude(prompt, cwd, model, tools, allowed=()):
     t0 = time.time()
+    extra = ["--allowedTools", *allowed, "--permission-mode", "acceptEdits"] if allowed else ["--permission-mode", "default"]
     p = subprocess.run(
         ["claude", "-p", "--safe-mode", "--model", model, "--output-format", "json",
-         "--tools", tools, "--permission-mode", "default"],
+         "--tools", tools, *extra],
         input=prompt.encode(), cwd=cwd, capture_output=True, timeout=1800)
     wall = int((time.time() - t0) * 1000)
     try:
@@ -113,9 +115,24 @@ def snapshot(out: Path, cfg: str, skill: Path, baseline: str):
     return dest
 
 
+LIMIT_RE = re.compile(r"hit your .*limit|usage limit|rate limit", re.I)
+
+
+def good_run(rd: Path) -> bool:
+    """A finished run worth keeping: an answer, no error, not a usage-limit message (rerun resumes)."""
+    try:
+        t = json.loads((rd / "timing.json").read_text())
+        ans = (rd / "answer.md").read_text()
+    except (OSError, ValueError):
+        return False
+    return bool(ans.strip()) and not t.get("is_error") and "error" not in t and not LIMIT_RE.search(ans[:300])
+
+
 def load_cases(skill: Path, only):
     d = json.loads((skill / "evals" / "evals.json").read_text())
     cases = [c for c in d["evals"] if not only or c["id"] in only]
+    for c in cases:  # optional per-file defaults: "eval_tools" (e.g. "Read,WebSearch,WebFetch"), "eval_allowed" (e.g. ["Bash(python3:*)"])
+        c.setdefault("eval_tools", d.get("eval_tools", "Read")); c.setdefault("eval_allowed", d.get("eval_allowed", []))
     for c in cases:
         if not c.get("assertions"):
             sys.exit(f"case {c['id']} has no assertions; add them first")
@@ -128,14 +145,23 @@ def cmd_run(a):
     only = {int(x) for x in a.cases.split(",")} if a.cases else None
     name, cases = load_cases(skill, only)
     skill_rel = skill.relative_to(REPO)
-    snaps = {cfg: snapshot(out, cfg, skill, a.baseline) for cfg in CONFIGS}
+    cfgs = [c for c in CONFIGS if not a.only or c == a.only]
+    snaps = {cfg: snapshot(out, cfg, skill, a.baseline) for cfg in cfgs}
     meta = {"skill": name, "skill_path": str(skill_rel), "baseline": a.baseline, "model": a.model,
             "new_rev": sh(["git", "-C", str(REPO), "rev-parse", "--short", "HEAD"]).stdout.decode().strip() + "+worktree",
             "date": time.strftime("%Y-%m-%d"), "cases": [c["id"] for c in cases]}
     (out / "meta.json").write_text(json.dumps(meta, indent=2) + "\n")
 
+    limited = []
+
     def one(case, cfg):
         rd = out / "runs" / f"case-{case['id']}" / cfg
+        if good_run(rd):
+            return f"case-{case['id']}/{cfg}: kept"
+        if limited:
+            return f"case-{case['id']}/{cfg}: SKIPPED (usage limit)"
+        for f in ("answer.md", "timing.json", "grading.json", "judge-raw.txt"):
+            (rd / f).unlink(missing_ok=True)
         rd.mkdir(parents=True, exist_ok=True)
         cwd = snaps[cfg]
         has_skill = cfg == "new_skill" or a.baseline != "none"
@@ -148,17 +174,26 @@ def cmd_run(a):
                 src = skill / f if (skill / f).exists() else REPO / f  # skill-relative or repo-relative
                 (shutil.copytree if src.is_dir() else shutil.copy)(src, fdir / Path(f).name)
             files_line = f"\nInput files for this task are in `case-files/{case['id']}/` (you may read them).\n"
-        prompt = RUN_PROMPT.format(skill_line=SKILL_LINE.format(skill_rel=skill_rel) if has_skill else "",
+        tools_line = "" if case["eval_tools"] == "Read" else (
+            f"Exception: you really have these tools: {case['eval_tools']}"
+            + (f" (allowed: {', '.join(case['eval_allowed'])}, only inside your working directory)" if case["eval_allowed"] else "")
+            + ". Use them for real (e.g. run the tests, search the web) instead of only describing.\n")
+        prompt = RUN_PROMPT.format(tools_line=tools_line, skill_line=SKILL_LINE.format(skill_rel=skill_rel) if has_skill else "",
                                    files_line=files_line, prompt=case["prompt"])
-        r = claude(prompt, cwd, a.model, "Read")
+        r = claude(prompt, cwd, a.model, case["eval_tools"], case["eval_allowed"])
         (rd / "answer.md").write_text(r.get("result") or r.get("error", ""))
         (rd / "timing.json").write_text(json.dumps({k: v for k, v in r.items() if k != "result"}, indent=2) + "\n")
+        if LIMIT_RE.search((r.get("result") or r.get("error", ""))[:300]):
+            limited.append(1)
+            return f"case-{case['id']}/{cfg}: USAGE LIMIT"
         return f"case-{case['id']}/{cfg}: {'ERROR' if 'error' in r or r.get('is_error') else 'ok'}"
 
-    jobs = [(c, cfg) for c in cases for cfg in CONFIGS]
+    jobs = [(c, cfg) for c in cases for cfg in cfgs]
     with cf.ThreadPoolExecutor(a.jobs) as ex:
         for line in ex.map(lambda j: one(*j), jobs):
             print(line, flush=True)
+    if limited:
+        sys.exit("usage limit reached: rerun the same command later; finished runs are kept")
 
 
 def cmd_grade(a):
@@ -175,10 +210,18 @@ def cmd_grade(a):
                                      assertions="\n".join(f"- {x}" for x in case["assertions"]))
         if (rd / "grading.json").exists() and not a.regrade:
             return f"{rd.parent.name}/{rd.name}: already graded"
+        if not good_run(rd):
+            return f"{rd.parent.name}/{rd.name}: NOT GRADED (run failed or hit a usage limit; rerun `run`)"
+        if limited:
+            return f"{rd.parent.name}/{rd.name}: SKIPPED (usage limit)"
         g = None
         for _ in range(3):
             r = claude(prompt, out, a.model, "")
             raw = r.get("result") or r.get("error") or ""
+            if LIMIT_RE.search(raw[:300]):
+                limited.append(1)
+                (rd / "judge-raw.txt").write_text(raw)
+                return f"{rd.parent.name}/{rd.name}: USAGE LIMIT"
             txt = raw.strip().strip("`")
             txt = txt[txt.find("{"):txt.rfind("}") + 1]
             try:
@@ -197,6 +240,7 @@ def cmd_grade(a):
         (rd / "grading.json").write_text(json.dumps(g, indent=2, ensure_ascii=False) + "\n")
         return f"{rd.parent.name}/{rd.name}: {n}/{len(res)}"
 
+    limited = []
     rds = sorted(p for p in (out / "runs").glob("case-*/*") if (p / "answer.md").exists())
     with cf.ThreadPoolExecutor(a.jobs) as ex:
         for line in ex.map(one, rds):
@@ -212,6 +256,17 @@ def cmd_report(a):
     out = Path(a.out).resolve()
     meta = json.loads((out / "meta.json").read_text())
     rows, summ = [], {}
+    present = [c for c in CONFIGS if (out / "runs" / f"case-{meta['cases'][0]}" / c / "grading.json").exists()]
+    if len(present) == 1:  # --only run: per-case scores, totals and failures, no delta
+        cfg = present[0]; tot = [0, 0]; toks = []; lines = [f"# {meta['skill']} — {cfg} only"]
+        for cid in meta["cases"]:
+            rd = out / "runs" / f"case-{cid}" / cfg
+            g = json.loads((rd / "grading.json").read_text()); t = json.loads((rd / "timing.json").read_text())
+            tot[0] += g["summary"]["passed"]; tot[1] += g["summary"]["total"]; toks.append(sum((t.get("tokens") or {}).values()))
+            lines.append(f"case {cid}: {g['summary']['passed']}/{g['summary']['total']} turns={t.get('num_turns')} tokens={toks[-1]}")
+            lines += [f"  FAIL {x['text']} — {x['evidence']}" for x in g["assertion_results"] if not x["passed"]]
+        lines.insert(1, f"total {tot[0]}/{tot[1]}, tokens mean {mean(toks)}")
+        (out / "report.md").write_text("\n".join(lines) + "\n"); print("\n".join(lines)); return
     for cfg in CONFIGS:
         pr, tok, tim, cost, p_all, t_all = [], [], [], [], 0, 0
         for cid in meta["cases"]:
@@ -264,6 +319,7 @@ def main():
     r = sp.add_parser("run"); r.add_argument("--skill", required=True); r.add_argument("--baseline", required=True)
     r.add_argument("--out", required=True); r.add_argument("--model", default="opus")
     r.add_argument("--jobs", type=int, default=4); r.add_argument("--cases", default="")
+    r.add_argument("--only", choices=CONFIGS, help="run one configuration (e.g. new_skill to profile the current skill)")
     g = sp.add_parser("grade"); g.add_argument("--out", required=True); g.add_argument("--model", default="opus")
     g.add_argument("--jobs", type=int, default=4)
     g.add_argument("--regrade", action="store_true", help="grade runs that already have grading.json too")

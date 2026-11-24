@@ -1,0 +1,15 @@
+{
+  "skill": "claude-write-task",
+  "skill_path": "plugins/orchestration/skills/claude-write-task",
+  "baseline": "HEAD",
+  "model": "opus",
+  "new_rev": "ec26d7e+worktree",
+  "date": "2026-11-23",
+  "cases": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ]
+}

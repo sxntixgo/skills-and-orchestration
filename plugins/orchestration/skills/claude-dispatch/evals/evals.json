@@ -1,8 +1,39 @@
 {
   "skill_name": "claude-dispatch",
   "evals": [
-    {"id": 1, "prompt": "T1's task file is ready in .orchestra/2026-11-21-export/tasks. Send it to opencode.", "expected_output": "Runs scripts/dispatch.sh <run> T1 in the background (not foreground), marks T1 dispatched in board.md, and does other work until notified.", "files": []},
-    {"id": 2, "prompt": "dispatch.sh printed: DISPATCH T2 exit=4 result=no log=... What do you do?", "expected_output": "Recognizes the llm endpoint is unreachable, pauses dispatching, checks atlas/ops status, and tells the user instead of retrying in a loop.", "files": []},
-    {"id": 3, "prompt": "Review sent T3 back with notes. Re-run it.", "expected_output": "Uses dispatch.sh <run> T3 --continue (same worktree and opencode session), not a fresh worktree.", "files": []}
+    {
+      "id": 1,
+      "prompt": "T1's task file is ready in .orchestra/2026-11-21-export/tasks. Send it to opencode.",
+      "expected_output": "Runs scripts/dispatch.sh <run> T1 in the background (not foreground), marks T1 dispatched in board.md, and does other work until notified.",
+      "files": [],
+      "assertions": [
+        "Runs scripts/dispatch.sh <run> T1 in the background (run_in_background or equivalent), not in the foreground",
+        "Marks T1 dispatched (with attempt/start time) in board.md",
+        "Does other work or waits for the notification instead of polling"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "dispatch.sh printed: DISPATCH T2 exit=4 result=no log=... What do you do?",
+      "expected_output": "Recognizes the llm endpoint is unreachable, pauses dispatching, checks atlas/ops status, and tells the user instead of retrying in a loop.",
+      "files": [],
+      "assertions": [
+        "Identifies exit=4 as the LLM endpoint being unreachable",
+        "Pauses dispatching instead of retrying in a loop",
+        "Checks the model server / ops status",
+        "Tells the user"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Review sent T3 back with notes. Re-run it.",
+      "expected_output": "Uses dispatch.sh <run> T3 --continue (same worktree and opencode session), not a fresh worktree.",
+      "files": [],
+      "assertions": [
+        "Uses dispatch.sh <run> T3 --continue",
+        "Reuses the same worktree and opencode session (no new worktree)",
+        "Runs it in the background"
+      ]
+    }
   ]
 }

@@ -5,65 +5,58 @@ description: Turns a spec or design into a phased implementation plan with verif
 
 # Writing Plans
 
-Produce a plan someone could execute without you. Every task says what to change,
-where, and how to verify it. Plan on paper first — don't start coding.
+A plan someone could execute without you: every task says **what** to change, **where**, and
+**how to verify** it. Plan, don't code.
 
 ## Scope
-This skill DOES:
-- Read the spec/design and the relevant code, then produce a phased plan where
-  each phase is independently verifiable and ordered by dependency.
-- Give each task a concrete verification step and mark review/STOP gates.
+DOES: read the spec/design and the relevant code; write a phased plan, ordered by dependency,
+each phase independently verifiable, with gates, risks and an explicit out-of-scope list.
+Does NOT: write implementation code (→ `software-development`); invent requirements for a vague
+ask; plan speculative future work (YAGNI → out of scope).
 
-This skill does NOT:
-- Write the implementation code → that's `software-development`.
-- Invent requirements from a vague ask → if the spec is unclear, stop and
-  clarify the requirements first, before planning.
-- Pad the plan with speculative future work → YAGNI; list it as out-of-scope.
+## Steps (TodoWrite items; the plan file is the checkpoint)
+1. **Ground it.** Read the spec and the code it touches (name the files you read or would read).
+   Restate the goal and observable success criteria in 1–2 sentences.
+   - **Plan now** when you can name the feature's core behaviour and where it lives ("rate-limit
+     POST /login", "password reset by email", "a URL shortener"), even if details are open:
+     record the open details as assumptions/questions in the plan.
+   - ⛔ **STOP and ask** only when you can't even name the behaviour ("plan out the new
+     dashboard": which data, for whom, what done means). Don't invent a plan from nothing.
+   - Extras the user adds "for the future" (analytics, teams, billing…) → plan today's core,
+     list the extras under Out of scope (YAGNI) with one line on how the design leaves room.
+2. **Phases:** small, ordered by dependency, the smallest slice with real behaviour first; one
+   you can't verify in a sitting is too big.
+3. **Tasks:** each with what, where (file/seam), and Verify (a test to write/run or a behaviour
+   to observe — "it works" isn't one). E.g. "In `handlers/user.py` return 400 on missing email;
+   Verify: a test posting `{}` asserts 400".
+4. **Gates, risks, scope:** a gate between phases (what to run/show, what it unblocks; always
+   before migrations, deletes, outward-facing changes); risks with mitigations (data loss,
+   breaking callers, races, abuse/false positives); assumptions; **Out of scope (YAGNI)**; open
+   questions.
+5. **Write** `docs/plans/YYYY-MM-DD-<topic>-plan.md` (incrementally; it's the checkpoint) and
+   hand off to `software-development`.
 
-## Steps
-Surface these as TodoWrite items. The plan file itself is the checkpoint — write
-it incrementally to `docs/plans/YYYY-MM-DD-<topic>-plan.md` so work resumes.
+## Format
+```markdown
+# <topic> plan
+Goal: … · Success: … · Context: spec link, key files, constraints
+### Phase 1 — <smallest slice with real behaviour>
+- [ ] <what> in `<file>` — Verify: <test/behaviour>
+Gate: <what to check before Phase 2>
+## Risks · Assumptions · Out of scope (YAGNI) · Open questions
+```
 
-### 1. Ground the plan  ⛔ STOP if the spec is unclear
-Read the spec/design AND the relevant existing code. Restate the goal and the
-observable success criteria in a sentence or two. If the ask is ambiguous or
-under-specified, STOP and clarify — do not invent requirements.
-
-### 2. Decompose into phases
-Break the work into small phases, each **independently verifiable** and, ideally,
-independently shippable. Order them by dependency so each builds on the last.
-Prefer the smallest slice that delivers real behavior first.
-
-### 3. Detail each task
-For every task write: **what** to change, **where** (file/seam), and **how to
-verify** it — a test to write/run, or a behavior to observe. A task with no
-verification step is not a real task. See `references/plan-structure.md`.
-
-### 4. Mark gates, risks, and out-of-scope
-Insert review/STOP checkpoints between phases. List risks and assumptions, an
-explicit **Out of scope (YAGNI)** section, and any open questions.
-
-### 5. Write the plan and hand off
-Write the finished plan to `docs/plans/YYYY-MM-DD-<topic>-plan.md`. Point the
-user to `software-development` to execute it phase by phase.
-
-## Red flags (stop and correct)
+## Red flags
 | If you notice… | Do this |
-|----------------|---------|
-| A task with no verification ("improve X", "handle errors") | Make it concrete + add how to verify |
-| A giant phase | Split into smaller independently verifiable slices |
-| Planning without reading the code | Read the actual code first (Step 1) |
-| Speculative "future-proofing" in the plan | Move it to Out of scope (YAGNI) |
-| Phases in arbitrary order | Order by dependency; smallest real slice first |
-| Planning from a vague spec | STOP and clarify the requirements before planning |
-| Starting to write implementation code | Stop — this skill plans; `software-development` builds |
+|---|---|
+| A task without what/where/verify ("improve X") | Make it concrete with a Verify |
+| A giant phase | Split it |
+| Planning without reading the code | Read it first |
+| Future-proofing in the phases | Move it to Out of scope |
+| Stopping to ask when the core behaviour is clear | Plan; put the open details in Assumptions/Questions |
+| Planning a request you can't even name | STOP and ask |
+| Writing implementation code | Stop: `software-development` builds |
 
 ## Done when
-- Every phase is independently verifiable and ordered by dependency.
-- Every task states what, where, and how to verify.
-- Risks, assumptions, out-of-scope, and open questions are listed.
-- The plan is written to `docs/plans/`.
-
-## References (load only when needed)
-- `references/plan-structure.md` — anatomy of a good plan: phase/task format,
-  verification, gates, and out-of-scope.
+Phases are ordered and independently verifiable; every task has what, where, verify; risks,
+assumptions, out-of-scope and questions are listed; the plan is in `docs/plans/`.

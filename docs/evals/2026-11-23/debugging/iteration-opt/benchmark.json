@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "skill": "debugging",
+    "skill_path": "skills/debugging",
+    "baseline": "HEAD",
+    "model": "opus",
+    "new_rev": "ec26d7e+worktree",
+    "date": "2026-11-23",
+    "cases": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
+  },
+  "run_summary": {
+    "new_skill": {
+      "pass_rate": {
+        "mean": 1.0
+      },
+      "assertions": "21/21",
+      "tokens": {
+        "mean": 47366.333
+      },
+      "time_seconds": {
+        "mean": 20.109
+      },
+      "cost_usd": {
+        "mean": 0.102
+      }
+    },
+    "old_skill": {
+      "pass_rate": {
+        "mean": 0.958
+      },
+      "assertions": "20/21",
+      "tokens": {
+        "mean": 48808.5
+      },
+      "time_seconds": {
+        "mean": 21.133
+      },
+      "cost_usd": {
+        "mean": 0.099
+      }
+    },
+    "delta": {
+      "pass_rate": 0.042,
+      "tokens": -1442.167,
+      "time_seconds": -1.024,
+      "cost_usd": 0.003
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "meta": {
+    "skill": "software-development",
+    "skill_path": "skills/software-development",
+    "baseline": "HEAD",
+    "model": "opus",
+    "new_rev": "ec26d7e+worktree",
+    "date": "2026-11-23",
+    "cases": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "run_summary": {
+    "new_skill": {
+      "pass_rate": {
+        "mean": 1.0
+      },
+      "assertions": "13/13",
+      "tokens": {
+        "mean": 14849.0
+      },
+      "time_seconds": {
+        "mean": 21.304
+      },
+      "cost_usd": {
+        "mean": 0.083
+      }
+    },
+    "old_skill": {
+      "pass_rate": {
+        "mean": 0.5
+      },
+      "assertions": "7/13",
+      "tokens": {
+        "mean": 22072.0
+      },
+      "time_seconds": {
+        "mean": 22.293
+      },
+      "cost_usd": {
+        "mean": 0.088
+      }
+    },
+    "delta": {
+      "pass_rate": 0.5,
+      "tokens": -7223.0,
+      "time_seconds": -0.989,
+      "cost_usd": -0.005
+    }
+  }
+}

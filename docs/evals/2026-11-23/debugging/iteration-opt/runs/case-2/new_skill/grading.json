@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Investigates WHY user is undefined (root cause) rather than only adding a null guard",
+      "passed": true,
+      "evidence": "\"First I need to find out why `user` is undefined.\" ... \"Follow `user` back from where it's used to where it's produced\""
+    },
+    {
+      "text": "Distinguishes fixing the cause from masking the symptom (user?.id)",
+      "passed": true,
+      "evidence": "\"Adding `user?.id` or a null check would just hide it\" ... \"fix why `user` is undefined, rather than guarding the property read.\""
+    },
+    {
+      "text": "Proposes verifying the cause and adding regression coverage",
+      "passed": true,
+      "evidence": "\"Verify before fixing. Predict what a log or assertion at the source will show\" ... \"keep it as a regression test, and run the surrounding test suite.\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 287,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3582
+  }
+}

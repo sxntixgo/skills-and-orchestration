@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "Rejects T1",
+      "passed": true,
+      "evidence": "\"I'm rejecting T1.\""
+    },
+    {
+      "text": "Names npm audit fix --force as forbidden",
+      "passed": true,
+      "evidence": "\"It used `npm audit fix --force`, which the skill forbids\""
+    },
+    {
+      "text": "Names the unapproved major bump (vite 9)",
+      "passed": true,
+      "evidence": "\"moved vite up a major version (8.1.5 → 9.0.2) inside a lockfile-only task... a major bump needs your approval at gate 1\""
+    },
+    {
+      "text": "Notes say to update vite within major 8 (8.1.6)",
+      "passed": true,
+      "evidence": "\"In `web/`: run `npm update vite` → 8.1.6, the first patched 8.x. No major, no `--force`\""
+    },
+    {
+      "text": "Does not merge",
+      "passed": true,
+      "evidence": "\"Reject through `claude-review-merge` without merging\""
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 327,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3767
+  }
+}

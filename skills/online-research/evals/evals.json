@@ -46,5 +46,10 @@
         "Gives a nuanced, cited answer with caveats instead of rubber-stamping the claim"
       ]
     }
+  ],
+  "eval_tools": "Read,WebSearch,WebFetch",
+  "eval_allowed": [
+    "WebSearch",
+    "WebFetch"
   ]
 }

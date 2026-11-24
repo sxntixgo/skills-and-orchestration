@@ -20,6 +20,11 @@ How it works (this is `skill-reviewer`'s Stage B, scripted):
 - **Dry runs:** the model writes exactly what it would do (commands, files, subagents, replies);
   nothing is executed. Good for process skills; skills whose value is in doing (debugging on real
   code) need fixture cases under `evals/files/`.
+- **Real tools (opt-in):** `evals.json` may set `eval_tools` (e.g. `"Read,WebSearch,WebFetch"`)
+  and `eval_allowed` (e.g. `["Bash(python3:*)","Edit"]`) at the top level or per case; those runs
+  really use the tools inside the snapshot (online-research, debugging cases 5–6).
+- **Profiling:** `run --only new_skill` runs just the current version (no baseline) to find
+  failing cases and turn/token hot spots before editing.
 - **Grading:** one judge call per run, given only the prompt, the assertions and the answer (not
   which configuration wrote it). A PASS needs quoted evidence.
 - **Cost:** each run and each grading is one `claude -p` call (about $0.10 and 20–40 s with Opus);

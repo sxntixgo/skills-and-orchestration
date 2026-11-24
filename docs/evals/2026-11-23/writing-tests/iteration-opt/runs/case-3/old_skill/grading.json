@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Identifies that asserting on cache.get is testing implementation, not behavior",
+      "passed": true,
+      "evidence": "\"The original test passes as long as `cache.get` gets called... even if `getUser` returns the wrong user\"; new tests \"don't depend on how it's built.\""
+    },
+    {
+      "text": "Rewrites the test to assert the returned user (observable output)",
+      "passed": true,
+      "evidence": "\"await expect(getUser(1, deps)).resolves.toEqual(alice);\""
+    },
+    {
+      "text": "Adds a not-found / error case",
+      "passed": true,
+      "evidence": "\"await expect(getUser(99, deps)).rejects.toBeInstanceOf(NotFoundError);\" plus a repo-failure test: \"rejects.toThrow('db down')\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 362,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4119
+  }
+}

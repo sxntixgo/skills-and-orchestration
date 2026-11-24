@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does NOT immediately write a caching implementation",
+      "passed": true,
+      "evidence": "\"No subagents and no code. This skill only designs.\" The reply asks a question; no cache code is written."
+    },
+    {
+      "text": "Clarifies requirements (what to cache, invalidation, constraints) one question at a time",
+      "passed": true,
+      "evidence": "Asks only \"What's the main reason you want caching?\" then \"Next turns (one question each): acceptable staleness and how data gets invalidated... whether adding Redis is OK.\""
+    },
+    {
+      "text": "Proposes 2-3 approaches with trade-offs and a recommendation",
+      "passed": false,
+      "evidence": "Lists three approaches with trade-offs (e.g., \"In-process LRU per instance: simplest. Copies can disagree across instances\") but never picks one; it says only \"I'd lay out three approaches and recommend one.\""
+    },
+    {
+      "text": "Defers implementation to writing-plans / software-development",
+      "passed": true,
+      "evidence": "\"then write it to `docs/plans/2026-11-23-caching-layer-design.md` and hand off to `writing-plans`.\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 1,
+    "total": 4,
+    "pass_rate": 0.75
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 622,
+    "cache_read_input_tokens": 658,
+    "cache_creation_input_tokens": 4818
+  }
+}

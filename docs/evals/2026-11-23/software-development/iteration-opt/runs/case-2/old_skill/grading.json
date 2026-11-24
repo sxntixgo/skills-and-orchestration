@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Handles loading, empty, error, and success states explicitly (not just the happy path)",
+      "passed": false,
+      "evidence": "Only planned, not implemented: \"I'll add loading, empty (\"No users found\") and error (\"Couldn't load users\") states.\" The answer says \"No code written,\" so this is stated intent with no component handling any state."
+    },
+    {
+      "text": "Writes tests first for the states and fetch behavior",
+      "passed": false,
+      "evidence": "No tests are written. It only promises: \"I'll write the plan, then build it test-first... with tests for each state.\" Its status line reads \"BLOCKED on user answers. No code written.\""
+    },
+    {
+      "text": "Uses semantic/accessible markup and keeps the component small",
+      "passed": false,
+      "evidence": "There is no markup at all, and no mention of semantic elements, roles, or accessibility. The hook/presentational split (\"a `useUsers` hook plus a presentational `UserList`\") is a plan only and does not cover the markup half."
+    }
+  ],
+  "summary": {
+    "passed": 0,
+    "failed": 3,
+    "total": 3,
+    "pass_rate": 0.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 896,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3532
+  }
+}

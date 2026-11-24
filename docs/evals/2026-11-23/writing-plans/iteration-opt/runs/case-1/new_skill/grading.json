@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Decomposes into small phases ordered by dependency, each independently verifiable",
+      "passed": true,
+      "evidence": "\"Phase 1 — Token model + service (no HTTP, no email)\" → Phase 2 request endpoint → Phase 3 confirm; each ends with a Gate, e.g. \"Gate: unit tests green; migration reviewed\""
+    },
+    {
+      "text": "Every task states what to change, where, and how to verify it (test or observable behavior)",
+      "passed": false,
+      "evidence": "Every task has a Verify step, but some give no location: \"Rate limit: 5/hour per IP and 3/hour per email\" names no file or middleware, and \"Pages: 'Forgot password' form and /reset-password form\" gives no file paths."
+    },
+    {
+      "text": "Lists risks/assumptions and an explicit out-of-scope section",
+      "passed": true,
+      "evidence": "\"## Risks - Account enumeration → same response...\"; \"## Assumptions Node/Express + Prisma + Postgres...\"; \"## Out of scope (YAGNI) SMS/2FA reset, magic-link login...\""
+    },
+    {
+      "text": "Does NOT write the implementation code",
+      "passed": true,
+      "evidence": "Contains only plan prose and checklists, e.g. \"`createResetToken(userId)` in `src/services/passwordReset.ts`: 32 random bytes, store the SHA-256 hash\"; no function bodies or code."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 1,
+    "total": 4,
+    "pass_rate": 0.75
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 762,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4798
+  }
+}

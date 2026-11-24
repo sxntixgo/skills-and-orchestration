@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Identifies exit=4 as the LLM endpoint being unreachable",
+      "passed": true,
+      "evidence": "\"exit=4 means the dispatcher couldn't reach the local LLM on atlas, so T2 never started.\""
+    },
+    {
+      "text": "Pauses dispatching instead of retrying in a loop",
+      "passed": true,
+      "evidence": "\"I'd start no new opencode runs, including no retry of T2.\" / \"I've paused all dispatching and marked T2 blocked\""
+    },
+    {
+      "text": "Checks the model server / ops status",
+      "passed": true,
+      "evidence": "\"I'd look at the atlas/LLM endpoint in Gatus (atlas/ops)...\" plus \"curl -s --max-time 5 http://atlas:1234/v1/models\""
+    },
+    {
+      "text": "Tells the user",
+      "passed": true,
+      "evidence": "\"Reply to you: T2 didn't run: dispatch.sh exited 4 because opencode couldn't reach the model on atlas... Can you check atlas\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 353,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3613
+  }
+}

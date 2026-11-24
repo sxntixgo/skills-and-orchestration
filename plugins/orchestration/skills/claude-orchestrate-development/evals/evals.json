@@ -20,7 +20,7 @@
       "files": [],
       "assertions": [
         "Identifies that T2 and T3 both change api/routes.py",
-        "Serializes T2 and T3 (adds a dependency) instead of running them together",
+        "Prevents T2 and T3 from changing api/routes.py at the same time (adds a dependency, or moves the routes.py edit into one task)",
         "Never has more than 2 tasks dispatched at once",
         "Keeps T2 after T1 when that dependency is stated"
       ]

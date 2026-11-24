@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Recognizes the plan's per-task model assignment and honors it",
+      "passed": true,
+      "evidence": "\"T3.2 goes to a subagent on the model the plan assigns. I won't build it on the small model.\""
+    },
+    {
+      "text": "Delegates implementation to a subagent on the assigned model rather than coding it off-model",
+      "passed": true,
+      "evidence": "\"I spawn one subagent for this one task, with the exact model.\" Agent call: `model: \"opus\"`; \"If something fails, I send it back to an `opus` subagent.\""
+    },
+    {
+      "text": "Does not downgrade the assignment to save time",
+      "passed": true,
+      "evidence": "\"I won't downgrade to save time.\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 246,
+    "cache_read_input_tokens": 658,
+    "cache_creation_input_tokens": 5268
+  }
+}

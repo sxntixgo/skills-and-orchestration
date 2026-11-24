@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Says to read the existing endpoint/middleware/code before planning",
+      "passed": true,
+      "evidence": "\"Read the code (assumed Node/Express + TypeScript...): `src/routes/auth.ts` (POST /login handler), `src/app.ts` (middleware order, `trust proxy`)\""
+    },
+    {
+      "text": "Produces small ordered phases each with a concrete verification step",
+      "passed": true,
+      "evidence": "\"Phase 1 — Per-IP limit... Verify: unit test that the 21st request in a window returns 429 with a `Retry-After` header\"; Phases 2-3 have Verify steps and Gates too"
+    },
+    {
+      "text": "Notes risks such as false-positive lockout or shared-IP/distributed-counter concerns",
+      "passed": true,
+      "evidence": "\"Shared IPs (NAT, corporate networks) get false positives\"; \"Attacker locks a real user out\"; \"Race conditions on counters → atomic Redis operations\""
+    },
+    {
+      "text": "Plans rather than implements",
+      "passed": true,
+      "evidence": "\"I didn't run any commands or open any files (dry run)\"; output is a plan file with unchecked tasks, handed to software-development"
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 412,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4301
+  }
+}

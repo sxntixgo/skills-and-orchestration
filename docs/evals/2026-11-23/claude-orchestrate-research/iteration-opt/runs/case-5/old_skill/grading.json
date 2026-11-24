@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Plans sub-questions that include video sources (talks/interviews) alongside documents",
+      "passed": true,
+      "evidence": "Q1: \"Recorded conference and university talks by Hipp\"; Q2: \"Podcast and text interviews\"; Q3: \"Written statements... sqlite.org serverless.html, whentouse.html\""
+    },
+    {
+      "text": "Uses the video tools (search --videos / fetch-media)",
+      "passed": true,
+      "evidence": "\"Use `fetch-media` for timestamped transcripts, and `--frames` for slide text.\" Verify step: \"re-open the cited source with `fetch-media <url>` at the timestamp\""
+    },
+    {
+      "text": "Cites talks with title and timestamp",
+      "passed": false,
+      "evidence": "Only requires citations (\"Give a quote, timestamp, date and URL for each claim\"). The final message and report plan never cite a talk title with a timestamp. The 'fopen()' quote has no source or timestamp."
+    },
+    {
+      "text": "Verifies quotes against the transcript at that timestamp",
+      "passed": true,
+      "evidence": "\"I re-open the cited source with `fetch-media <url>` at the timestamp, or `fetch-text`, and check that the quote is there.\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 1,
+    "total": 4,
+    "pass_rate": 0.75
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 832,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 5398
+  }
+}

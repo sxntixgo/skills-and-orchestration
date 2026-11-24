@@ -5,63 +5,44 @@ description: Enumerates and writes test cases for a change — happy path, edges
 
 # Writing Tests
 
-Test observable behavior, not implementation. First enumerate the cases that
-matter, then write them in the project's existing framework and style.
+Test observable behaviour, not implementation. List the cases that matter, then write them in
+the project's framework and style.
 
 ## Scope
-This skill DOES:
-- Enumerate the cases for a unit of behavior (happy / edge / boundary / error).
-- Write those tests in the project's framework, following its conventions.
+DOES: enumerate cases for a unit (happy / boundary / edge / error) and write them.
+Does NOT: implement or refactor production code (→ `software-development`); chase a coverage
+number. **100% line coverage is not the goal**: cover behaviour and risk; untested trivial lines
+are fine, an untested failure mode is not.
 
-This skill does NOT:
-- Implement or refactor the production code → that's `software-development`.
-- Chase a coverage percentage for its own sake → cover behavior and risk.
+## Steps (TodoWrite items; case list in `./.claude-skills-work/writing-tests/<unit>/cases.md`)
+1. **Contract:** inputs, outputs, side effects, the observable "done" — that is what you test,
+   not private helpers or internal state.
+2. **Enumerate** (write the list before coding):
+   - **Happy path** — one representative per class of input the code treats alike
+     (equivalence partitioning: "age 18–65" → `<18`, `18–65`, `>65`, not thirty values).
+   - **Boundaries** — just below, at, just above each limit (`17, 18, 19`); empty, one, max,
+     zero, negative.
+   - **Edges** — null/undefined, wrong types, duplicates, ordering, unicode.
+   - **Errors** — invalid/missing input, unauthorized, not-found, conflict, dependency
+     failure/timeout; assert the specific failure (status, message, no partial write).
+3. **Write:** one behaviour per test, a name stating the expectation ("returns 409 when the
+   email exists"); Arrange–Act–Assert; assert outputs, not internal calls (mocks only when the
+   interaction IS the behaviour, e.g. an email sent); independent and deterministic (stub/fake
+   clock, network, randomness at the seams; wrap what you don't own); follow the project's
+   layout and naming.
+4. **Run:** in TDD each test fails first for the right reason, then passes. A test that can't
+   fail tests nothing.
 
-## Workflow
-Surface these as TodoWrite items. Checkpoint the case list to
-`./.claude-skills-work/writing-tests/<unit>/cases.md` so it survives interruption.
-
-### Step 1 — Identify the unit and its contract
-State what the unit should do: inputs, outputs, side effects, and the observable
-"done" behavior. This is what you test — not private helpers or internal state.
-
-### Step 2 — Enumerate cases
-For the unit, list cases across these categories (see
-`references/test-design.md` for the techniques):
-- **Happy path** — the main expected behavior(s).
-- **Boundaries** — empty, zero, one, max, off-by-one, first/last.
-- **Edges** — nulls/undefined, unexpected types, duplicates, ordering, unicode.
-- **Error paths** — invalid input, dependency failure/timeout, unauthorized.
-Write the list to the checkpoint file before coding tests.
-
-### Step 3 — Write the tests
-- One behavior per test; a clear name that states the expectation
-  ("returns 409 when the email already exists").
-- Arrange–Act–Assert; assert on behavior/output, not internal calls, unless the
-  side effect IS the behavior.
-- Keep tests independent and deterministic (no shared mutable state, no real
-  clock/network/random — use test doubles at the seams).
-- Match the project's framework, file layout, and naming.
-
-### Step 4 — Run and confirm
-Run the tests. In a TDD flow they must fail first for the RIGHT reason, then
-pass once the code is written. A test that can't fail tests nothing.
-
-## Red flags (stop and correct)
+## Red flags
 | If you notice… | Do this |
-|----------------|---------|
-| Testing implementation details / private methods | Test observable behavior instead |
-| Only the happy path | Add boundary + error cases before finishing |
-| Asserting on mock call counts as the point | Assert on the resulting behavior/output |
-| A flaky test (time, network, order) | Inject a test double at the seam; make it deterministic |
-| Writing tests to hit a coverage number | Cover behavior and risk, not lines |
-| One test asserting many unrelated things | Split into focused tests |
+|---|---|
+| Testing private methods / implementation | Test behaviour |
+| Only the happy path | Add boundary + error cases |
+| Mock call counts as the assertion | Assert the outcome |
+| Flaky (time, network, order) | Inject a double; make it deterministic |
+| Tests written for a coverage number | Cover behaviour and risk; say 100% isn't the goal |
+| One test asserting many things | Split it |
 
 ## Done when
-- Every behavior of the unit has a test across happy/boundary/edge/error.
-- Tests are independent, deterministic, clearly named, and run green (or fail
-  correctly first, in TDD).
-
-## References (load only when needed)
-- `references/test-design.md` — techniques: equivalence partitioning, boundary
-  values, choosing test doubles, and what makes a test valuable.
+Each behaviour has tests across happy/boundary/edge/error; tests are independent,
+deterministic, clearly named, and green (or red for the right reason, in TDD).

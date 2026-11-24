@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does not dispatch the MAX_ROWS constant as its own opencode task",
+      "passed": true,
+      "evidence": "\"I won't dispatch that task to opencode by itself.\" and \"Spinning up opencode for one line isn't worth it.\""
+    },
+    {
+      "text": "Merges it into the task that uses MAX_ROWS (or does it as part of that task)",
+      "passed": true,
+      "evidence": "\"fold it into the neighbouring task that uses `MAX_ROWS`\" and \"I add the constant to that task's goal and add `config.py` to its files.\""
+    },
+    {
+      "text": "Gives the size reason: the spec would be as long as the code",
+      "passed": true,
+      "evidence": "\"Writing a spec for a one-line constant takes as long as just adding the constant\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 439,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3068
+  }
+}

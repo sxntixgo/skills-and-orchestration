@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Identifies the silent exception swallow (bare except: pass) as a Must-fix, not a style nit",
+      "passed": true,
+      "evidence": "Under '🔴 Must fix': 'A failed charge is silently treated as success' and 'A bare `except:` catches everything'"
+    },
+    {
+      "text": "Explains the risk: payment/errors are hidden",
+      "passed": true,
+      "evidence": "'The bare `except: pass` hides payment failures, so the caller can't tell a failed charge from a successful one.'"
+    },
+    {
+      "text": "Recommends handling or propagating with context and narrowing the except clause",
+      "passed": true,
+      "evidence": "'Catch only the exceptions you expect and either handle them or pass them up' with log.warning(... order.id, e.code) then raise; 'Name the specific gateway exception classes.'"
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 283,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3441
+  }
+}

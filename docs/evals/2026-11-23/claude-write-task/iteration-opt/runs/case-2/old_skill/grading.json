@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does not write a task from the vague request",
+      "passed": true,
+      "evidence": "\"No task file written yet.\" and \"I'd wait for the answer and write no file yet.\""
+    },
+    {
+      "text": "Asks what concretely to change or says the work must be split first",
+      "passed": true,
+      "evidence": "\"'Clean up and improve' covers too much for one implementer task... Which ones do you want?\" followed by five concrete candidate tasks."
+    },
+    {
+      "text": "Uses no 'improve/clean up' wording in a spec",
+      "passed": true,
+      "evidence": "Candidate specs use concrete verbs: \"Remove duplicated validation\", \"Fix N+1 query\", \"Paginate GET /books\". 'Clean up' appears only in the quoted request and the run slug \"books-cleanup\", not in a spec."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 439,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3460
+  }
+}

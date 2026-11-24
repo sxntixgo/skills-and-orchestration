@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Decomposes into small phases ordered by dependency, each independently verifiable",
+      "passed": true,
+      "evidence": "\"Phase 1 — Token storage and service (no HTTP, no email)\" → Phase 2 confirm endpoint → Phase 3 request/email → Phase 4 UI, each with a Gate, e.g. \"show the migration and passing unit tests\""
+    },
+    {
+      "text": "Every task states what to change, where, and how to verify it (test or observable behavior)",
+      "passed": true,
+      "evidence": "Every task names a change, a location and a Verify step, e.g. \"`createResetToken(userId)` in `src/auth/resetTokens.ts`... Verify: a unit test asserts the stored hash ≠ raw token and expiry ≈ now+1h\""
+    },
+    {
+      "text": "Lists risks/assumptions and an explicit out-of-scope section",
+      "passed": true,
+      "evidence": "Sections \"## Risks\" (\"Account enumeration → identical 202 response\"), \"## Assumptions (change the plan if wrong)\", and \"## Out of scope (YAGNI)\" listing \"Magic-link login, SMS or 2FA reset\""
+    },
+    {
+      "text": "Does NOT write the implementation code",
+      "passed": true,
+      "evidence": "No code is written. Tasks describe behavior only, e.g. \"It makes a 32-byte random token, stores only its SHA-256 hash with a 1h expiry\". The only code block is the markdown plan."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 507,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 5033
+  }
+}

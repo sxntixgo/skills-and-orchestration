@@ -69,13 +69,59 @@ two turns (brief, then "approved") before reading more into its score.
 - Objective `assertions` for all 20 cases of the three orchestration skills (the other 31
   orchestration cases still have none).
 
+## Round 2 — fewer tokens, higher pass rate, all Claude-side skills (frugal-skills 1.5.0, orchestration 0.5.0)
+
+Method: profile each skill at HEAD (`abeval.py run --only new_skill`), fix what failed and what
+cost turns, then A/B the new version against HEAD (blind judge, Opus, 1 run per case). Records:
+`docs/evals/2026-11-23/<skill>/iteration-opt/`.
+
+The main token lever: **every file a skill tells the model to read is one more turn that
+re-reads the whole context.** So each skill now carries what it needs on its page (references
+merged in or dropped; `contract.md` and sibling scripts no longer opened), with short output
+formats.
+
+| Skill | HEAD pass | HEAD tokens | new pass | new tokens | Δ pass |
+|---|:---:|---:|:---:|---:|:---:|
+| brainstorming | 9/14 | 22.0k | 13/14 | 13.6k | +0.31 |
+| writing-plans | 10/14 | 18.3k | 13/14 | 14.5k | +0.25 |
+| software-development | 7/13 | 22.1k | 13/13 | 14.8k | +0.50 |
+| build-phase | 9/12 | 14.0k | 9/12 | 13.6k | 0 |
+| code-review | 12/13 | 25.7k | 13/13 | 15.7k | +0.06 |
+| security-review | 20/20 | 26.7k | 20/20 | 15.3k | 0 |
+| debugging ¹ | 20/21 | 48.8k | 21/21 | 47.4k | +0.04 |
+| online-research ¹ | 12/13 | 73.6k | 13/13 | 56.5k | +0.08 |
+| writing-tests | 13/13 | 22.6k | 13/13 | 14.1k | 0 |
+| skill-reviewer | 12/13 | 48.8k | 13/13 | 45.7k | +0.08 |
+| claude-dispatch | 10/10 | 25.1k | 10/10 | 13.5k | 0 |
+| claude-fix-dependabot | 23/24 | 31.1k | 24/24 | 24.0k | +0.04 |
+| claude-orchestrate-research | 22/23 | 24.4k | 23/23 | 15.8k | +0.04 |
+| claude-write-task | 22/22 | 25.1k | 21/22 | 14.6k | −0.03 |
+| claude-orchestrate-development | 27/31 | 31.6k | 31/31 | 17.1k | +0.17 |
+| **all 15** | **228/256** | **460k** | **250/256** | **356k** | **+0.09** |
+
+¹ real tools (Bash/Edit on fixtures, WebSearch/WebFetch), so most tokens are tool output.
+
+Tokens per run fell 23% overall and 35–46% on skills that used to load a reference.
+Remaining failures: build-phase cases 1 and 3 (the eval gives no plan, so "stop and ask" — the
+right behaviour — fails the "read the plan / build test-first" assertions; eval design);
+brainstorming case 1 (offers options before purpose is known; judged against "purpose first");
+claude-write-task case 1 (no `page_size` cap; judge noise between runs, the HEAD version
+failed a different assertion of this case in the profile).
+
+Changes besides the rewrites:
+- `dispatch.sh` printed no `DISPATCH` line on early exits (2/3/4) although the skill reads it;
+  fixed, test `scripts/tests/test_dispatch.sh`.
+- `abeval.py`: `--only`, per-case `eval_tools`/`eval_allowed` (real tool runs), resumable runs
+  and fail-fast on usage limits; the run prompt treats unnamed inputs as missing.
+- Evals: assertions for claude-dispatch, claude-fix-dependabot, claude-orchestrate-research;
+  fixtures for code-review case 4 and debugging case 4 (a real order-dependent flaky test);
+  orchestrate-development case 2 accepts moving the shared edit into one task.
+
 ## Follow-ups
-1. Rewrite skill-creator cases 1, 2, 4 as two-turn cases; relax orchestrate-development case 2's
-   assertion to accept "move the shared edit into one task".
-2. Assertions + runs for claude-dispatch, claude-fix-dependabot, claude-orchestrate-research;
-   an opencode runner for opencode-develop / opencode-research.
-3. Point skill-reviewer's Stage B at `scripts/evals/abeval.py` (see `docs/review-2026-11-23.md`).
-4. Measure the frugal skills still missing from the scoreboard: software-development,
-   writing-tests, build-phase, code-review.
-5. A live check of the orchestrator: these are dry runs; the first real phase with the new
+1. Rewrite skill-creator cases 1, 2, 4 and build-phase cases 1, 3 so the eval supplies the
+   plan/brief (or asserts the gate).
+2. An opencode runner for opencode-develop / opencode-research.
+3. No-skill baselines for code-review, security-review, writing-tests, build-phase to decide
+   the consolidation proposed in `docs/review-2026-11-23.md` §8.
+4. A live check of the orchestrator: these are dry runs; the first real phase with the new
    flow should confirm that subagent replies stay one line and the session stops per phase.

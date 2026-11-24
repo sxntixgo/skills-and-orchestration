@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "The task.md references the plan section (path + heading) for the design details",
+      "passed": true,
+      "evidence": "\"Design, signature, CSV columns and the 4 test cases are in docs/plans/2026-11-23-export-plan.md, section \\\"T3 CSV export endpoint\\\" — read it first\""
+    },
+    {
+      "text": "It does not restate the plan's columns and all 4 test cases verbatim",
+      "passed": true,
+      "evidence": "Refers to them only by reference: \"Create tests/test_export.py with the 4 test cases from the plan section\"; \"header row = the plan's columns in that order\""
+    },
+    {
+      "text": "It still pins the files and an exact test command",
+      "passed": true,
+      "evidence": "\"may create: api/export.py, tests/test_export.py\"; \"must NOT touch: everything else\"; Done when: \"`uv run pytest tests/test_export.py -q` passes (4 passed)\""
+    },
+    {
+      "text": "The reply to the orchestrator is the task path only (or BLOCKED: …)",
+      "passed": true,
+      "evidence": "Reply block contains only: \".orchestra/2026-11-23-export/tasks/T3.task.md\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 402,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4062
+  }
+}

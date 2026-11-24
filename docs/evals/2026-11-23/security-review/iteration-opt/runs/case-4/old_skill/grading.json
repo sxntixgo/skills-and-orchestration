@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Identifies the open redirect (unvalidated req.query.next)",
+      "passed": true,
+      "evidence": "\"Open redirect (snippet:1) — Exploit: `next` goes straight to `res.redirect`, so `?apiKey=…&next=https://evil.example/login` sends the user to any site.\""
+    },
+    {
+      "text": "Identifies the non-constant-time secret comparison (=== on API key -> timing attack)",
+      "passed": true,
+      "evidence": "\"Key compared in non-constant time... `===` returns as soon as a character differs. In theory the response time reveals the key one byte at a time.\""
+    },
+    {
+      "text": "Provides fixes for BOTH: allowlist/validate redirect target AND constant-time compare",
+      "passed": true,
+      "evidence": "\"Require `next` to be a string starting with a single `/`... Or map `next` to an allowlist\"; \"compare the digests with `crypto.timingSafeEqual`\""
+    },
+    {
+      "text": "Follows the severity-rated exploit + fix format (breadth: does not stop at the first issue)",
+      "passed": true,
+      "evidence": "Seven findings under 🔴 Critical / 🟠 High / 🟡 Medium / 🟢 Low headings, each with \"Exploit:\" and \"Fix:\" bullets."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 442,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4569
+  }
+}

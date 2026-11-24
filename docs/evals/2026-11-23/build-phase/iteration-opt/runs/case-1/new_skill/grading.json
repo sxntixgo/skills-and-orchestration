@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Finds and reads the plan/spec section for the phase before writing code",
+      "passed": false,
+      "evidence": "It searched but read no plan: \"no plan file turned up, and nothing defines a 'Phase 3'.\" No plan or spec section was read."
+    },
+    {
+      "text": "Restates the phase's explicit done-criteria",
+      "passed": false,
+      "evidence": "No done-criteria are restated. It only promises to \"list Phase 3's done-criteria\" once a plan is provided."
+    },
+    {
+      "text": "STOPS and asks if no plan exists or the phase scope is undefined",
+      "passed": true,
+      "evidence": "\"The skill says to stop and ask in this case, so I stop at step 1.\" It then asks: \"Could you point me to the plan, either by giving its path or pasting the Phase 3 section?\""
+    }
+  ],
+  "summary": {
+    "passed": 1,
+    "failed": 2,
+    "total": 3,
+    "pass_rate": 0.333
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 460,
+    "cache_read_input_tokens": 658,
+    "cache_creation_input_tokens": 4084
+  }
+}

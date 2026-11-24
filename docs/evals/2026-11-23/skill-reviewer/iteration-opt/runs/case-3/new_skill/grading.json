@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Recognizes this is an edit and the baseline should be the PREVIOUS version (not 'no skill')",
+      "passed": true,
+      "evidence": "\"I'm assuming the edit isn't committed yet, so the old version is at `HEAD`. If it's already committed, the old version is `HEAD~1`.\" Also \"--baseline HEAD\"."
+    },
+    {
+      "text": "Describes a blind A/B comparison between the two versions",
+      "passed": true,
+      "evidence": "\"3 cases → 6 runs (new vs old version) plus 6 blind judge calls = 12 isolated `claude -p` calls\""
+    },
+    {
+      "text": "Still respects the Stage B approval gate before running",
+      "passed": true,
+      "evidence": "\"Stage B A/B evals (needs your approval)\"; \"I won't start anything after it until you say yes.\"; \"Approve the eval run?\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 439,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4037
+  }
+}

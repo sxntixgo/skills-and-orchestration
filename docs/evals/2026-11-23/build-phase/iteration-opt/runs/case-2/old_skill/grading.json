@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Recognizes the plan's per-task model assignment and honors it",
+      "passed": true,
+      "evidence": "\"Small-model-only work would stay off this task either way: building it on a weaker model than assigned is a red flag in the skill.\""
+    },
+    {
+      "text": "Delegates implementation to a subagent on the assigned model rather than coding it off-model",
+      "passed": false,
+      "evidence": "No delegation happened. It is only conditional future intent: \"Once I have both, I'll start a subagent on that exact model (`Agent`, `model: <id>`)\". No subagent was spawned."
+    },
+    {
+      "text": "Does not downgrade the assignment to save time",
+      "passed": true,
+      "evidence": "\"building it on a weaker model than assigned is a red flag\" and \"I write no code, spawn no subagent and change no files.\""
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3,
+    "pass_rate": 0.667
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 599,
+    "cache_read_input_tokens": 658,
+    "cache_creation_input_tokens": 4249
+  }
+}

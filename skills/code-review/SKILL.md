@@ -5,90 +5,58 @@ description: Reviews a diff or file for correctness, readability, maintainabilit
 
 # Code Review
 
-Review for correctness and quality. Report findings with `file:line` and a fix,
-rated: 🔴 Must fix · 🟡 Should fix · 🟢 Consider · ✅ Good (call out real
-strengths too). This is a quality review, not a security audit.
-
-## Where this skill adds value
-Be honest about what this buys you. On a strong model, this skill does **not**
-catch bugs an unaided review would miss. Its value is **consistency and
-coverage**: it works through *every* review dimension (correctness, naming,
-complexity, error handling, duplication, consistency, tests) so none is skipped,
-applies one severity scale, and always anchors findings to `file:line` with a
-concrete fix. That reliability matters most for a team standard, a large diff,
-or a weaker model. So: deliver a *complete, uniformly rated* review, not just
-the first issue you spot.
+A complete, uniformly rated review: every dimension checked, every finding anchored to
+`file:line` with a concrete fix. Ratings: 🔴 Must fix · 🟡 Should fix · 🟢 Consider · ✅ Good.
+Quality review, not a security audit (→ `security-review`).
 
 ## Scope
-This skill DOES:
-- Review correctness, readability, maintainability, simplicity, and consistency
-  with the codebase's existing patterns.
-- Give specific, actionable feedback anchored to lines, each with a concrete fix.
+DOES: review correctness, readability, complexity, error handling, duplication, consistency and
+test adequacy; give actionable, line-anchored fixes.
+Does NOT: rewrite the code (suggest; the author decides); audit security; nitpick what a
+formatter/linter enforces.
 
-This skill does NOT:
-- Rewrite the code for the author — suggest; the author decides.
-- Perform a security audit (vuln classes, authz, secrets) — out of scope here.
-- Nitpick style a formatter/linter already enforces.
-
-## Steps
-Surface as TodoWrite items. Checkpoint findings to
-`./.claude-skills-work/code-review/<target>/findings.md` as you go.
-
-1. **Get the diff/context.** Read the change and enough surrounding code to
-   judge it. Note the change's intent and the patterns already used nearby.
-2. **Review each dimension** (see `references/checklist.md` for detail):
-   correctness, naming/readability, function/complexity, error handling,
-   duplication & simplicity, consistency, and test adequacy.
-3. **Rate and locate.** For each finding: severity, `file:line`, the problem,
-   and a concrete fix. Prioritize correctness over style.
-4. **Report** in the output format below, most severe first.
-
-## Review dimensions (quick reference)
-- **Correctness** — does it do what it claims? Edge cases, off-by-one, null/empty
-  inputs, error paths, concurrency, resource cleanup. Highest priority.
-- **Naming & readability** — intent-revealing names; avoid `data`/`tmp`/`handle`;
-  code reads top-to-bottom without puzzle-solving.
-- **Function & complexity** — small focused units; shallow nesting; guard
-  clauses over deep `if` trees.
-- **Error handling** — no silent swallow; failures surface with useful context;
-  the unhappy path is handled.
-- **Duplication & simplicity** — no copy-paste of real logic (DRY); no
-  speculative generality (YAGNI); simplest thing that works (KISS).
-- **Consistency** — matches existing project idioms, structure, conventions.
-- **Tests** — do tests cover the new/changed behavior, including edges? (Assess
-  adequacy; authoring cases is a separate concern.)
-
-## Output format
+## Steps (TodoWrite items; findings in `./.claude-skills-work/code-review/<target>/findings.md`)
+1. **Context:** read the change and enough surrounding code (callers, nearby patterns) to judge
+   it; note its intent.
+2. **Check every dimension:**
+   - **Correctness** (first): does it do what it claims? Inputs at and past their valid range
+     (empty, null, zero, negative, one, max, > 1 for ratios), off-by-one, error paths,
+     concurrency/check-then-act, resource cleanup, return types vs callers.
+   - **Readability:** intent-revealing names (flag `data`, `tmp`, `handle`, `process`),
+     predicates for booleans, comments say why, no commented-out code.
+   - **Complexity:** one job per function; guard clauses over deep nesting.
+   - **Errors:** no empty/catch-all swallow; messages with context (ids, not secrets).
+   - **Duplication & simplicity:** DRY for knowledge in 3+ places (not look-alikes); YAGNI
+     (unused params, one-caller abstractions); KISS.
+   - **Consistency** with the module's structure, naming, error format, idioms.
+   - **Tests:** changed behaviour covered, including one edge and one error case; behaviour,
+     not implementation; no real time/network/order dependence.
+3. **Rate and order.** Within a severity, order by impact: silently wrong results or corrupted
+   data for plausible inputs first (e.g. a discount > 1 making totals negative), then crashes,
+   then design, naming, style. A pile of 🟢 never buries a 🔴. Every finding gets a fix, also
+   ones outside this review's scope (a suspected injection: "parameterize the query; run
+   `security-review`").
+4. **Report** in this format, most severe first:
 ```markdown
 ## Code Review: <target>
-
 ### 🔴 Must fix
 1. **<issue>** (path:line) — <problem> → <fix>
-
 ### 🟡 Should fix
-1. **<issue>** (path:line) — <problem> → <fix>
-
 ### 🟢 Consider
-1. **<suggestion>** (path:line)
-
 ### ✅ Good
-- <genuine strength worth keeping>
+- <real strength>
 ```
 
-## Red flags (stop and correct)
+## Red flags
 | If you notice… | Do this |
-|----------------|---------|
-| Reviewing without reading surrounding context | Read enough to judge before commenting |
-| Vague feedback ("could be cleaner") | Name the problem and give a concrete fix |
-| Findings with no line reference | Anchor every finding to `file:line` |
-| Bikeshedding formatter/lint style | Skip it; focus on correctness and design |
-| Only listing negatives | Note real strengths in ✅ Good too |
-| Rewriting the whole change yourself | Suggest; the author owns the code |
+|---|---|
+| Commenting without reading the context | Read callers and nearby code first |
+| Vague feedback ("could be cleaner") | Name the problem and a concrete fix |
+| A finding without `file:line` | Anchor it |
+| Lint-level style nits | Skip them |
+| Only negatives | Add real strengths under ✅ |
+| Rewriting the change | Suggest; the author owns it |
 
 ## Done when
-- Each finding has a severity, a `file:line`, and a concrete fix.
-- Findings are ordered most-severe-first, correctness prioritized.
-- Report follows the output format.
-
-## References (load only when needed)
-- `references/checklist.md` — per-dimension checks with good/bad examples.
+Every finding has severity, `file:line` and a fix; ordered by severity then impact; the report
+follows the format.

@@ -37,37 +37,61 @@
     },
     {
       "id": 4,
-      "prompt": "This test passes sometimes and fails other times. Just make it pass.",
+      "prompt": "This test passes sometimes and fails other times (`python3 test_cart.py`). Just make it pass.",
       "expected_output": "Does not blindly rerun, add sleeps, or retry to force a pass. Investigates the source of nondeterminism (shared/leaking state, test ordering, real clock/network/random, async timing) via isolation, then fixes the determinism (inject clock/seed, control ordering, reset state) rather than masking it. Notes that a flaky test hidden, not fixed, will recur.",
-      "files": [],
+      "files": [
+        "evals/files/flaky/cart.py",
+        "evals/files/flaky/test_cart.py"
+      ],
       "assertions": [
         "Does NOT just rerun/retry or add arbitrary sleeps to force a pass",
         "Investigates the source of nondeterminism (shared state, ordering, timing, clock/random)",
         "Fixes the determinism / root cause rather than masking the flakiness"
+      ],
+      "eval_tools": "Read,Edit,Bash",
+      "eval_allowed": [
+        "Bash(python3:*)",
+        "Edit"
       ]
     },
     {
       "id": 5,
       "prompt": "In the attached code, running `python3 test_scores.py` fails on the second assertion (get_score('ann','summer') returns 13 instead of 23). Find and fix the bug so the test passes.",
       "expected_output": "Reproduces by running the test, isolates to the cache in get_score, and identifies the ROOT cause: the cache key is just `player`, ignoring `season`, so the second season returns the first season's cached score. Fixes the cause by including season in the key (e.g. key = (player, season)) — NOT by disabling/clearing the cache, editing the test, or special-casing. Reruns the test to confirm it passes.",
-      "files": ["evals/files/cache-bug/scores.py", "evals/files/cache-bug/test_scores.py"],
+      "files": [
+        "evals/files/cache-bug/scores.py",
+        "evals/files/cache-bug/test_scores.py"
+      ],
       "assertions": [
         "Runs the failing test to reproduce the bug before changing code",
         "Identifies the root cause: the cache key omits `season`",
         "Fixes the cause (season in the cache key), not a symptom (disabling/clearing the cache, or editing the test)",
         "Reruns the test and confirms it now passes"
+      ],
+      "eval_tools": "Read,Edit,Bash",
+      "eval_allowed": [
+        "Bash(python3:*)",
+        "Edit"
       ]
     },
     {
       "id": 6,
       "prompt": "In the attached code, `python3 test_paginate.py` fails: page(items, 1, 10) returns items 10..19 instead of 0..9. Pages are meant to be 1-indexed. Fix the bug.",
       "expected_output": "Reproduces by running the test, isolates to the slice bounds in page(), and identifies the off-by-one ROOT cause: `start = page_num * per_page` assumes 0-indexed pages, but pages are 1-indexed, so page 1 should start at 0. Fixes the computation generally (start = (page_num - 1) * per_page) — NOT by special-casing page 1 or editing the test — and verifies page 2 still returns 10..19.",
-      "files": ["evals/files/pagination/paginate.py", "evals/files/pagination/test_paginate.py"],
+      "files": [
+        "evals/files/pagination/paginate.py",
+        "evals/files/pagination/test_paginate.py"
+      ],
       "assertions": [
         "Runs the failing test to reproduce before changing code",
         "Identifies the off-by-one root cause (start index uses page_num instead of page_num-1 for 1-indexed pages)",
         "Fixes the index computation generally, not a special-case hack or a test edit",
         "Verifies the fix holds across pages (page 1 and page 2 both correct)"
+      ],
+      "eval_tools": "Read,Edit,Bash",
+      "eval_allowed": [
+        "Bash(python3:*)",
+        "Edit"
       ]
     }
   ]

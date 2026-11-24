@@ -1,0 +1,54 @@
+{
+  "meta": {
+    "skill": "writing-tests",
+    "skill_path": "skills/writing-tests",
+    "baseline": "HEAD",
+    "model": "opus",
+    "new_rev": "ec26d7e+worktree",
+    "date": "2026-11-23",
+    "cases": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "run_summary": {
+    "new_skill": {
+      "pass_rate": {
+        "mean": 1.0
+      },
+      "assertions": "13/13",
+      "tokens": {
+        "mean": 14120.25
+      },
+      "time_seconds": {
+        "mean": 17.814
+      },
+      "cost_usd": {
+        "mean": 0.071
+      }
+    },
+    "old_skill": {
+      "pass_rate": {
+        "mean": 1.0
+      },
+      "assertions": "13/13",
+      "tokens": {
+        "mean": 22601.25
+      },
+      "time_seconds": {
+        "mean": 21.502
+      },
+      "cost_usd": {
+        "mean": 0.085
+      }
+    },
+    "delta": {
+      "pass_rate": 0.0,
+      "tokens": -8481.0,
+      "time_seconds": -3.688,
+      "cost_usd": -0.014
+    }
+  }
+}

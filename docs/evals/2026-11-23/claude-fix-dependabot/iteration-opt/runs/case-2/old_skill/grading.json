@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "Starts with preflight: clean default branch, gh auth, the repo's test/build commands",
+      "passed": true,
+      "evidence": "\"git status --porcelain # must be empty\", \"gh auth status\", \"read CLAUDE.md, README.md and .github/workflows/*.yml to find the test and build commands\""
+    },
+    {
+      "text": "Collects alerts with scripts/alerts.sh into .orchestra/<date>-dependabot/alerts.tsv",
+      "passed": true,
+      "evidence": "\"<skill-base>/scripts/alerts.sh sxntixgo/learn > .orchestra/2026-11-23-dependabot/alerts.tsv\""
+    },
+    {
+      "text": "Triages before writing any task",
+      "passed": true,
+      "evidence": "Step 3 Triage writes triage.md; tasks written only after Gate 1: \"After you answer, the run would continue: Write tasks with claude-write-task\""
+    },
+    {
+      "text": "Does not push or dismiss alerts",
+      "passed": true,
+      "evidence": "\"stays open (reported, not dismissed)\"; \"⛔ Gate 2 before any push\"; \"Nothing gets pushed until you've seen the test and build results\""
+    },
+    {
+      "text": "Mentions the approval gate before dispatching",
+      "passed": true,
+      "evidence": "\"⛔ Gate 1. I stop here, and nothing is dispatched until you reply.\""
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 478,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4835
+  }
+}

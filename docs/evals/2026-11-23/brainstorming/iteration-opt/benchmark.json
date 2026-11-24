@@ -1,0 +1,54 @@
+{
+  "meta": {
+    "skill": "brainstorming",
+    "skill_path": "skills/brainstorming",
+    "baseline": "HEAD",
+    "model": "opus",
+    "new_rev": "ec26d7e+worktree",
+    "date": "2026-11-23",
+    "cases": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "run_summary": {
+    "new_skill": {
+      "pass_rate": {
+        "mean": 0.938
+      },
+      "assertions": "13/14",
+      "tokens": {
+        "mean": 13630.75
+      },
+      "time_seconds": {
+        "mean": 13.848
+      },
+      "cost_usd": {
+        "mean": 0.064
+      }
+    },
+    "old_skill": {
+      "pass_rate": {
+        "mean": 0.625
+      },
+      "assertions": "9/14",
+      "tokens": {
+        "mean": 22006.5
+      },
+      "time_seconds": {
+        "mean": 15.625
+      },
+      "cost_usd": {
+        "mean": 0.075
+      }
+    },
+    "delta": {
+      "pass_rate": 0.313,
+      "tokens": -8375.75,
+      "time_seconds": -1.777,
+      "cost_usd": -0.011
+    }
+  }
+}

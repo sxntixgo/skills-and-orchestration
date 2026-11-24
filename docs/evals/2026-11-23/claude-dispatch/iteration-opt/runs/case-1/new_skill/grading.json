@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Runs scripts/dispatch.sh <run> T1 in the background (run_in_background or equivalent), not in the foreground",
+      "passed": true,
+      "evidence": "\"Start the run with Bash `run_in_background: true`: bash <skill-dir>/scripts/dispatch.sh 2026-11-21-export T1\""
+    },
+    {
+      "text": "Marks T1 dispatched (with attempt/start time) in board.md",
+      "passed": true,
+      "evidence": "\"| T1 | dispatched | attempt 1 | started 2026-11-23 <HH:MM> | worktree .worktrees/2026-11-21-export/T1 |\""
+    },
+    {
+      "text": "Does other work or waits for the notification instead of polling",
+      "passed": true,
+      "evidence": "\"Wait without polling. I'd do other orchestration work until the exit notification.\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 294,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3596
+  }
+}

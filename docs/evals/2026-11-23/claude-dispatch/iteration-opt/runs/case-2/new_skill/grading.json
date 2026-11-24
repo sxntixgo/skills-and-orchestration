@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Identifies exit=4 as the LLM endpoint being unreachable",
+      "passed": true,
+      "evidence": "\"Exit 4 means opencode couldn't reach the model server (the LLM endpoint).\""
+    },
+    {
+      "text": "Pauses dispatching instead of retrying in a loop",
+      "passed": true,
+      "evidence": "\"I'd pause all dispatching and wouldn't retry.\" / \"I wouldn't retry in a loop.\""
+    },
+    {
+      "text": "Checks the model server / ops status",
+      "passed": true,
+      "evidence": "\"Check the server once\" with \"curl -sS -m 5 http://host.docker.internal:1234/v1/models\"; \"I'd also check the ops status\""
+    },
+    {
+      "text": "Tells the user",
+      "passed": true,
+      "evidence": "\"Reply to user: T2 didn't run... I've paused all dispatching... Please check that the model server is up\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 314,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3224
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "Verifies the targeted GHSA ids are gone (npm audit) before declaring done",
+      "passed": true,
+      "evidence": "\"npm audit --json > /tmp/audit-root.json ... Then confirm none of the GHSA ids listed in `triage.md` still appear.\" It also refuses to declare done: \"Not yet.\""
+    },
+    {
+      "text": "Runs the full test and build on the merged branch",
+      "passed": true,
+      "evidence": "\"Run the full test and build on merged `main`: the repo's test command plus `npm run build`, not just tests.\""
+    },
+    {
+      "text": "Updates triage.md with fixed/remaining",
+      "passed": true,
+      "evidence": "\"Update `triage.md`: mark each baseline alert fixed or remaining, with a reason.\""
+    },
+    {
+      "text": "Stops at gate 2 asking for OK before pushing; does not push",
+      "passed": true,
+      "evidence": "\"Gate 2: show you the merged tasks, test/build results... Only after your OK: `git push origin main`\". It ends by asking before running anything."
+    },
+    {
+      "text": "Mentions checking CI and GitHub's alert count after the push",
+      "passed": true,
+      "evidence": "\"`gh run watch` until CI is green, then wait a few minutes and re-run `alerts.sh <owner>/learn` to confirm GitHub's alert count went down.\""
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 715,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3306
+  }
+}

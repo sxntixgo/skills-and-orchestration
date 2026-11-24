@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Verifies beyond unit tests (typecheck/lint, build, real behavior exercised)",
+      "passed": true,
+      "evidence": "npm run typecheck / npm run lint / npm run build ... Then I'd exercise the real behavior... run the CLI command or call the endpoint the phase added, and capture its output."
+    },
+    {
+      "text": "Updates the plan and reports files changed + results + any deviation",
+      "passed": true,
+      "evidence": "Update PLAN.md: Mark this phase's done-criteria as complete... Files changed: ... Tests: X passed, 0 failed ... Deviations from the plan: none, or <what changed + why>."
+    },
+    {
+      "text": "Does not git commit unless explicitly asked",
+      "passed": true,
+      "evidence": "No `git commit`. You control commits."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 272,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3430
+  }
+}

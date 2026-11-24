@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "skill": "claude-fix-dependabot",
+    "skill_path": "plugins/orchestration/skills/claude-fix-dependabot",
+    "baseline": "HEAD",
+    "model": "opus",
+    "new_rev": "ec26d7e+worktree",
+    "date": "2026-11-23",
+    "cases": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "run_summary": {
+    "new_skill": {
+      "pass_rate": {
+        "mean": 1.0
+      },
+      "assertions": "24/24",
+      "tokens": {
+        "mean": 23987.2
+      },
+      "time_seconds": {
+        "mean": 24.392
+      },
+      "cost_usd": {
+        "mean": 0.106
+      }
+    },
+    "old_skill": {
+      "pass_rate": {
+        "mean": 0.96
+      },
+      "assertions": "23/24",
+      "tokens": {
+        "mean": 31144.4
+      },
+      "time_seconds": {
+        "mean": 27.735
+      },
+      "cost_usd": {
+        "mean": 0.131
+      }
+    },
+    "delta": {
+      "pass_rate": 0.04,
+      "tokens": -7157.2,
+      "time_seconds": -3.343,
+      "cost_usd": -0.025
+    }
+  }
+}

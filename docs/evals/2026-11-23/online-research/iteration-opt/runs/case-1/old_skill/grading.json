@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Prefers primary/official pricing/latency sources over SEO aggregators, and says so",
+      "passed": true,
+      "evidence": "\"Pricing (from the official pages, November 2026)\"; \"Confidence is medium on pricing, because I read it on the vendors' own pages\"; third-party tracker flagged as \"the only source for it.\""
+    },
+    {
+      "text": "Flags that public latency benchmarks are often vendor-run / not independent",
+      "passed": true,
+      "evidence": "\"Zilliz runs this benchmark, so expect bias in its favour\"; \"the only head-to-head test of managed services was run by Zilliz\"; Qdrant's benchmarks are \"self-hosted only.\""
+    },
+    {
+      "text": "Cites sources it actually read and states a confidence level plus gaps",
+      "passed": true,
+      "evidence": "Links to the four pricing pages, the VDBBench leaderboard and qdrant.tech/benchmarks. \"Confidence is medium on pricing... low to medium on latency\". A \"Gaps:\" section lists \"No managed latency data for Weaviate.\""
+    },
+    {
+      "text": "Does not present unverified numbers as established fact",
+      "passed": true,
+      "evidence": "\"A third-party tracker says $4 per million vCUs, but that's the only source for it\"; write-up \"doesn't name its benchmark sources, so it's only weak support\"; \"That's my calculation.\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 826,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4629
+  }
+}

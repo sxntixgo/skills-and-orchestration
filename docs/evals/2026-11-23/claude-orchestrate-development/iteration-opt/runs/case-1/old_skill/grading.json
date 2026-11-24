@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Creates .orchestra/<run>/ and board.md with a task table",
+      "passed": true,
+      "evidence": "\"mkdir -p .orchestra/2026-11-23-csv-export/{tasks,logs}\" and \"I'd write `.orchestra/2026-11-23-csv-export/board.md`\" containing a table with columns \"| id | phase | goal | implementer | depends_on | files | status |\""
+    },
+    {
+      "text": "Each task lists files, dependencies and an exact test command",
+      "passed": true,
+      "evidence": "Board rows give files and depends_on for each task (e.g. T2 depends on T1, files \"app/api/jobs_export.py, ...\"). Self-check gives exact commands in task order: \"`uv run pytest tests/export -q`, `uv run pytest tests/api/test_jobs_export.py -q`, and `npm --prefix web test -- ExportButton`\". The commands are not a board column, but each task has one exact command."
+    },
+    {
+      "text": "Concurrent tasks have disjoint files",
+      "passed": true,
+      "evidence": "\"No two tasks that run at the same time share a file.\" The tasks are chained T1→T2→T3, and their file lists don't overlap anyway."
+    },
+    {
+      "text": "Starts dispatching without asking the user to approve the task table",
+      "passed": true,
+      "evidence": "\"I'd write `.orchestra/2026-11-23-csv-export/board.md` without asking for approval\", then \"Dispatch T1 in the background: bash <plugin>/skills/claude-dispatch/scripts/dispatch.sh 2026-11-23-csv-export T1\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 975,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 5193
+  }
+}

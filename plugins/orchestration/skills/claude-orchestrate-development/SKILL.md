@@ -6,8 +6,8 @@ description: Runs a feature or plan as a set of small tasks implemented by openc
 # Orchestrate
 
 Claude is the orchestrator and reviewer; opencode is the implementor. You turn a plan into
-small tasks, hand them out, check every result, and merge. The file formats are in
-`../../contract.md` (relative to this skill's base directory): read it first.
+small tasks, hand them out, check every result, and merge. What you need is on this page; don't
+open `contract.md` or the other skills' files (the spec and review subagents read their own).
 
 ## Scope
 Input: a **written, committed plan** (e.g. `docs/plans/*-plan.md`, built on a design settled
@@ -57,7 +57,9 @@ long orchestrator session is the biggest token cost, more than writing or review
    and fix the tests").
 1. **Set up the run.** Read the plan and the repo's `CLAUDE.md`/`AGENTS.md`.
    Create `.orchestra/<run>/` (run = `YYYY-MM-DD-<slug>`), add `.orchestra/` and `.worktrees/`
-   to `.git/info/exclude`, read or create `.orchestra/config.json` (contract defaults).
+   to `.git/info/exclude`, read or create `.orchestra/config.json` (defaults: `concurrency` 2,
+   `max_rejections` 3, `task_timeout_min` 30, `base_branch` main, `spec_model`/`review_model`
+   sonnet; set `test_cmd`/`lint_cmd` from the repo's `CLAUDE.md`).
    Check: working tree clean on `base_branch`; the repo's test command works. ⛔ STOP if not.
 2. **Task graph** (no user approval: plan well and proceed). Write `board.md`: a table
    `id | phase | goal | implementer | depends_on | files | status` (status: todo, dispatched, review,
@@ -79,13 +81,16 @@ long orchestrator session is the biggest token cost, more than writing or review
      with any task currently dispatched.
    - For each: spec via a subagent running `claude-write-task` (it replies with the task path
      only), then `claude-dispatch` here. Tasks marked Claude: a subagent on the cheapest capable
-     model (`claude-review-merge/references/takeover.md`) implements them in a worktree, then they
-     are reviewed like opencode's.
+     model implements them in a worktree, then they are reviewed like opencode's.
+     **Model ladder** (Claude tasks and takeovers): `haiku` = mechanical, fully specified, ≤ 2
+     files; `sonnet` (default) = normal feature work; `opus` = judgment, security, concurrency,
+     a design flaw. Start at the lowest that fits; after one rejection go up one row.
    - When a run finishes: a subagent runs `claude-review-merge` (model `review_model`, or `opus`
      for tasks marked `review: opus`) and replies with its verdict line. One review subagent at a
      time (each may merge into `base_branch`); reviews are short next to opencode runs.
      Rejected → back to dispatch (attempt + 1). After
-     `max_rejections` (default 3): takeover, marked `taken-over`.
+     `max_rejections` (default 3): takeover on the model ladder (full task + review notes + the
+     rules TDD/YAGNI/DRY in the prompt), reviewed again, marked `taken-over` + model.
    - After every state change: update `board.md` (table + one Log line with time and outcome).
 4. **End of phase.** A subagent on `opus` reviews the whole phase (with the `code-review` skill
    if installed)

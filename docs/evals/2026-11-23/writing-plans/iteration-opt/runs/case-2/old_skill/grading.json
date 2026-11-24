@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Recognizes the spec is too vague/under-specified to plan",
+      "passed": true,
+      "evidence": "\"Plan out the new dashboard\" has no requirements, and the skill says to stop and clarify rather than make them up."
+    },
+    {
+      "text": "STOPS and asks for scope/requirements/success criteria instead of inventing a plan",
+      "passed": true,
+      "evidence": "\"Stop at Step 1.\" ... asks \"Done when: What observable result makes v1 a success? ... anything explicitly out of scope?\""
+    },
+    {
+      "text": "Does not fabricate a detailed plan from nothing",
+      "passed": true,
+      "evidence": "\"I write no plan file, read no code to guide decomposition and spawn no subagents.\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 256,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3206
+  }
+}

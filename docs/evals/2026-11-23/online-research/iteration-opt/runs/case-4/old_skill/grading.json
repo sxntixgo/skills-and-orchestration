@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Recognizes that many pages echoing one claim are not independent corroboration",
+      "passed": false,
+      "evidence": "Closest is 'I ignored SEO \"2026 comparison\" posts whose numbers conflict' and labeling vendor numbers as biased. It never says the many pages repeating the claim are echoes rather than independent confirmation."
+    },
+    {
+      "text": "Seeks primary benchmarks with methodology and distinguishes synthetic vs real-world results",
+      "passed": true,
+      "evidence": "'This is a vendor benchmark of minimal workloads. Reproduction scripts are published' vs 'A URL shortener with JSON parsing, validation and Postgres through an ORM'"
+    },
+    {
+      "text": "Gives a nuanced, cited answer with caveats instead of rubber-stamping the claim",
+      "passed": true,
+      "evidence": "'Not as a blanket statement. Bun is usually fastest on simple HTTP benchmarks... On realistic apps the lead mostly disappears, and on some workloads Node wins.' Inline citations are included."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3,
+    "pass_rate": 0.667
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 654,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4422
+  }
+}

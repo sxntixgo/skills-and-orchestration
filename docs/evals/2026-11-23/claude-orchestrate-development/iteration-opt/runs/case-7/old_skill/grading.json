@@ -1,0 +1,46 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does not read diffs, source files, test output or logs in the orchestrator thread",
+      "passed": true,
+      "evidence": "\"I check only that RESULT.md exists. I don't open it or any diff or log in this thread.\""
+    },
+    {
+      "text": "Delegates specs and reviews to subagents with a named model (spec_model/review_model or sonnet)",
+      "passed": true,
+      "evidence": "Review: \"Review T1. Agent, model `sonnet`\"; spec: \"Spec subagent, model `sonnet`: Use the `claude-write-task` skill\""
+    },
+    {
+      "text": "Expects or requests one-line replies from the subagents",
+      "passed": true,
+      "evidence": "\"Reply with one line: `MERGED <id> <commit> tests=<n passed>` | `REJECTED <id> attempt=<n> notes=<count>`\" and \"Reply with one line: the path, or `BLOCKED: <reason>`\""
+    },
+    {
+      "text": "Sends small bugs back as review notes instead of fixing them inline",
+      "passed": true,
+      "evidence": "\"If it's `REJECTED T2 attempt=1 notes=3`: board → `sent-back`. I redispatch with `--continue` ... using the notes the review wrote into the task.\""
+    },
+    {
+      "text": "At the end of phase 1 runs a phase-level review on opus over the phase diff",
+      "passed": true,
+      "evidence": "\"Phase 1 review ... Agent, model `opus`: ... `git diff <phase-1 start commit>..main`\""
+    },
+    {
+      "text": "Stops after phase 1 and tells the user to start a new session to resume the run",
+      "passed": true,
+      "evidence": "\"I don't continue into phase 2 in this session.\" and \"Start a new session and say: resume run `2026-11-23-export`.\""
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "total": 6,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 852,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4548
+  }
+}

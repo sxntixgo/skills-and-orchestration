@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Asks about the deciding constraints (clients, query patterns, team, caching) before deciding",
+      "passed": true,
+      "evidence": "\"One question: who will use this API in the next 6–12 months?\" with options like \"web app plus mobile apps, with different screens and data needs\". It leans toward (A) without finalizing."
+    },
+    {
+      "text": "Presents both options with concrete trade-offs tied to the user's context",
+      "passed": true,
+      "evidence": "REST: \"when screens need data from several resources, you get chatty calls\"; GraphQL: \"N+1 queries via DataLoader... harder caching, and a learning curve for the team\""
+    },
+    {
+      "text": "Leads with a reasoned recommendation rather than declaring unilaterally or staying neutral",
+      "passed": true,
+      "evidence": "\"I'd lean to (A) because it's cheaper and easier to run for a first API with one known client. That changes unless you have several clients...\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 656,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3533
+  }
+}

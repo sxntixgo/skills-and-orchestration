@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does not accept the single blog as sufficient; seeks the primary/official source",
+      "passed": true,
+      "evidence": "Cites the regulation itself: \"Regulation (EU) 2024/1689, Article 5(1)(h)\", and the official source \"[1] Article 5 — AI Act Service Desk, European Commission\""
+    },
+    {
+      "text": "Checks the date and corroborates across independent sources",
+      "passed": true,
+      "evidence": "\"The prohibition has applied since 2 Feb 2025 [3][4]\". The core ban is backed by [1][2]. It also checks the claimed timing: \"didn't pass a new regulation last month (October 2026)\""
+    },
+    {
+      "text": "Reports what is actually supported vs. contested, labeling unverified/single-source claims",
+      "passed": true,
+      "evidence": "\"The Omnibus regulation number, its dates, and the claim that it leaves Article 5 unchanged come only from [4]... I didn't open a second source.\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 336,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3947
+  }
+}

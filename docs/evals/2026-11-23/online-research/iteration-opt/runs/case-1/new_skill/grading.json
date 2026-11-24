@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Prefers primary/official pricing/latency sources over SEO aggregators, and says so",
+      "passed": true,
+      "evidence": "\"Each pricing fact rests on the vendor's own page, which is the authoritative source for its own prices\"; third-party Qdrant summaries \"contradict each other... I ignored them.\""
+    },
+    {
+      "text": "Flags that public latency benchmarks are often vendor-run / not independent",
+      "passed": true,
+      "evidence": "\"The public benchmarks (VectorDBBench from Zilliz, Qdrant's own benchmarks) are run by vendors and tend to favour their authors.\""
+    },
+    {
+      "text": "Cites sources it actually read and states a confidence level plus gaps",
+      "passed": true,
+      "evidence": "Sources [1] Pinecone Pricing and [2] Qdrant Cloud Pricing; \"Confidence: Medium for the Pinecone and Qdrant pricing structure. Low for the overall comparison.\" A Gaps section is included."
+    },
+    {
+      "text": "Does not present unverified numbers as established fact",
+      "passed": true,
+      "evidence": "The $8.25 launch rate is flagged: \"That figure comes from the search summary only, so it's a lead.\" Latency and Weaviate claims sit under \"Unverified, from memory only.\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 712,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4155
+  }
+}

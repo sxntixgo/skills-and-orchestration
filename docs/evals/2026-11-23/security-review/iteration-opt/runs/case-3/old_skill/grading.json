@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Identifies mass assignment allowing privilege escalation via extra body fields (role/isVerified)",
+      "passed": true,
+      "evidence": "\"Mass assignment → privilege escalation ... The handler writes `role` to the user's own record without checking it.\""
+    },
+    {
+      "text": "Gives the concrete exploit: include role=admin (or isVerified=true) in the request body",
+      "passed": true,
+      "evidence": "\"any logged-in user sends `PUT /profile` with `{\"role\":\"admin\"}`\" and \"the user sends `{\"isVerified\":true}`\""
+    },
+    {
+      "text": "Fix: allowlist updatable fields; never bind sensitive fields from client input",
+      "passed": true,
+      "evidence": "\"only allow the fields a user may edit, and derive `role` on the server only\"; \"leave `isVerified` out of the allowlist\""
+    },
+    {
+      "text": "Rates it High/Critical with exploit + fix",
+      "passed": true,
+      "evidence": "Listed under \"🔴 Critical\" with \"Exploit: ... {\"role\":\"admin\"}\" and \"Fix: only allow the fields a user may edit\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 397,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4660
+  }
+}

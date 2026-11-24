@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Verifies beyond unit tests (typecheck/lint, build, real behavior exercised)",
+      "passed": true,
+      "evidence": "\"`npm run typecheck` and `npm run lint`: both must be clean.\" \"`npm run build`: must be green.\" \"Exercise the real behaviour, not just the types... run the CLI or endpoint the phase added\""
+    },
+    {
+      "text": "Updates the plan and reports files changed + results + any deviation",
+      "passed": true,
+      "evidence": "\"Update `PLAN.md`: Mark the Phase 2 tasks done.\" Report template: \"**Files changed:** `src/…`\", \"**Tests:** N passed, 0 failed\", \"**Deviations:** `<item: reason>`, or none.\""
+    },
+    {
+      "text": "Does not git commit unless explicitly asked",
+      "passed": true,
+      "evidence": "\"**No `git commit`.** You handle commits.\" and \"The changes are ready for you to review and commit.\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 342,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3489
+  }
+}

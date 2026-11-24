@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Runs the static rubric first",
+      "passed": true,
+      "evidence": "Step 3: \"Score rules 1–8. No edits to the target skill.\" Step 4 writes rubric.md with findings (🔴 R8, 🟡 R4/R7, ...) before reaching the Stage B gate."
+    },
+    {
+      "text": "Reports the run count (cases x 2) and token/time cost",
+      "passed": true,
+      "evidence": "\"runs = N × 2, plus N × 2 judge calls, at about $0.10 and 20–40 s per call. For example, 3 cases = 12 calls ≈ $1.20\". Cost is given in dollars, not tokens; there is no actual count because there are 0 cases."
+    },
+    {
+      "text": "STOPS to ask explicit approval before spawning any runs, despite being told to benchmark",
+      "passed": true,
+      "evidence": "\"Stop at the Stage B gate. No subagents and no `abeval.py` runs.\" and \"Once the cases exist: **approve the eval run?**\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 621,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3934
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Writes failing tests BEFORE the implementation (TDD order), including invalid-email and duplicate cases",
+      "passed": true,
+      "evidence": "\"For each case: write the test, run `npm test -- users.post`, and confirm it fails for the right reason... Then write the simplest code that passes\". The cases include \"A duplicate email returns 409\" and \"malformed email (`\\\"foo\\\"`, `\\\"a@\\\"`) returns 400\"."
+    },
+    {
+      "text": "Validates input at the boundary and returns meaningful status codes (201/400/409)",
+      "passed": true,
+      "evidence": "\"It returns `201 {id}`, `400 {error}` or `409 {error}`\". createUser throws ValidationError on a bad email or name before the insert, and maps 23505 to ConflictError."
+    },
+    {
+      "text": "Actually runs/exercises the endpoint to confirm, not just typecheck",
+      "passed": true,
+      "evidence": "\"start the dev server and send real requests: curl -si -XPOST localhost:3000/api/users ... # expect 201\". It also checks for 409 and 400, and records the observed status lines."
+    },
+    {
+      "text": "Adds no speculative fields, config, or abstraction (YAGNI/KISS)",
+      "passed": true,
+      "evidence": "\"name: required non-empty string (trimmed); no other rules (YAGNI)\" and \"Out of scope: password, roles, email verification, GET/PUT\". It also says \"no pre-check SELECT... (KISS)\" and adds a migration only if the unique index is missing."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 918,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4826
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "assertion_results": [
+    {
+      "text": "Reads the route and an existing paginated pattern before writing",
+      "passed": true,
+      "evidence": "\"Open `api/routes.py` (the `GET /jobs` handler)... look for any existing endpoint that already uses query parameters.\" No paginated endpoint exists, so it uses GET /jobs/{id} instead of citing a fake one."
+    },
+    {
+      "text": "Lists exact files it may change/create",
+      "passed": true,
+      "evidence": "\"may change: api/routes.py, tests/test_routes.py\" / \"must NOT touch: everything else\""
+    },
+    {
+      "text": "Steps are test-first",
+      "passed": true,
+      "evidence": "\"1. In tests/test_routes.py add tests named `test_jobs_pagination_*`... 2. Run them; see them fail.\" The handler change comes in step 3."
+    },
+    {
+      "text": "Gives an exact runnable test command",
+      "passed": true,
+      "evidence": "\"`pytest tests/test_routes.py -k jobs_pagination -q` passes\""
+    },
+    {
+      "text": "Covers page 0 / beyond the end / page_size cap edge cases",
+      "passed": false,
+      "evidence": "Page 0 and past-end are covered (\"page=0 → 422\", \"page=4&page_size=10 → 200, []\"), but there is no cap: \"No upper limit on `page_size`: a client can request any size.\""
+    },
+    {
+      "text": "Has an Out of scope section",
+      "passed": true,
+      "evidence": "\"## Out of scope - Response envelope (total, next links), cursor pagination - Paginating other endpoints\""
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 1,
+    "total": 6,
+    "pass_rate": 0.833
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 1002,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3884
+  }
+}

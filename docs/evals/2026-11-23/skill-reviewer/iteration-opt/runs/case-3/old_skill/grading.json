@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Recognizes this is an edit and the baseline should be the PREVIOUS version (not 'no skill')",
+      "passed": true,
+      "evidence": "\"I'd compare the new version against the old one from git\" and \"(`with_skill` = new, `old_skill` = HEAD)\""
+    },
+    {
+      "text": "Describes a blind A/B comparison between the two versions",
+      "passed": true,
+      "evidence": "\"compare the new version against the old one from git, blind\" and \"A blind judge compares each pair.\""
+    },
+    {
+      "text": "Still respects the Stage B approval gate before running",
+      "passed": true,
+      "evidence": "\"Approve: (a) the 6 runs only, (b) 6 runs plus the trigger check, or (c) skip the evals?\" ... \"Nothing gets spawned until you answer.\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 282,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3968
+  }
+}

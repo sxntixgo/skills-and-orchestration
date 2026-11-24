@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Identifies that asserting on cache.get is testing implementation, not behavior",
+      "passed": true,
+      "evidence": "\"The test asserts an internal call (`cache.get`), not anything `getUser` returns. I'd replace it with tests that check what callers actually get back.\""
+    },
+    {
+      "text": "Rewrites the test to assert the returned user (observable output)",
+      "passed": true,
+      "evidence": "\"await expect(getUser(1)).resolves.toEqual(alice);\" in 'returns the user from the repo on a cache miss'"
+    },
+    {
+      "text": "Adds a not-found / error case",
+      "passed": true,
+      "evidence": "\"test('throws NotFoundError for an unknown id and caches nothing'... await expect(getUser(42)).rejects.toThrow(NotFoundError);\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 277,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4157
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "assertion_results": [
+    {
+      "text": "Writes brief.md",
+      "passed": true,
+      "evidence": "\"`runs/2026-11-23-selfhosted-search/brief.md`:\" followed by full content with Question, Why, Good answer, Candidates, Freshness, Out of scope."
+    },
+    {
+      "text": "Splits into 4-6 non-overlapping sub-question tasks without asking for approval",
+      "passed": true,
+      "evidence": "\"The goal is clear enough that I don't ask the user anything.\" Six task files q1-landscape through q6-ai-layer; \"They share the candidate list so they don't overlap.\""
+    },
+    {
+      "text": "Dispatches researchers in parallel in the background (concurrency 3)",
+      "passed": true,
+      "evidence": "\"Background, 3 at a time:\" followed by three `dispatch-research.sh ... &` lines and \"# as each exits: q4-maintenance, q5-privacy, q6-ai-layer\""
+    },
+    {
+      "text": "Re-checks key claims (e.g. with fetch-text) before using them",
+      "passed": true,
+      "evidence": "\"For each claim I re-open the cited source with `fetch-text` and check the quote. Contested ones ... get a second independent source via `search`.\""
+    },
+    {
+      "text": "Writes report.md with the answer first, citations and verified/unverified marks",
+      "passed": true,
+      "evidence": "\"`report.md` contains: the answer; themes ... with `[n]` citations; ... the source list with ✅/❓ marks\""
+    },
+    {
+      "text": "Publishes the report to reports/",
+      "passed": true,
+      "evidence": "\"I copy it to `reports/2026-11-23 Self-hosted private search engines for a homelab.md` with:\" frontmatter type/tags/updated"
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "total": 6,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 896,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 6041
+  }
+}

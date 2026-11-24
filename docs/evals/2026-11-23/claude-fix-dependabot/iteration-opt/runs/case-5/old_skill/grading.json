@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "Verifies the targeted GHSA ids are gone (npm audit) before declaring done",
+      "passed": true,
+      "evidence": "\"Check that each targeted GHSA id is gone, once per lockfile folder: npm audit --json ...\" and \"compare that list with the GHSA ids in each task's Done-when.\""
+    },
+    {
+      "text": "Runs the full test and build on the merged branch",
+      "passed": true,
+      "evidence": "\"Run the full test **and build** on `main`, using the commands recorded at preflight (assumed `npm test` and `npm run build`).\""
+    },
+    {
+      "text": "Updates triage.md with fixed/remaining",
+      "passed": true,
+      "evidence": "\"Update `triage.md`: mark each baseline alert fixed or remaining, with a reason for each remaining one\""
+    },
+    {
+      "text": "Stops at gate 2 asking for OK before pushing; does not push",
+      "passed": true,
+      "evidence": "\"⛔ Gate 2: stop and ask. No push without your OK.\" and \"Nothing is pushed yet... Push `main` to origin?\""
+    },
+    {
+      "text": "Mentions checking CI and GitHub's alert count after the push",
+      "passed": true,
+      "evidence": "\"Once you say yes, I'll check that CI is green and that the open-alert count drops (it can take a few minutes to refresh).\""
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 455,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3590
+  }
+}

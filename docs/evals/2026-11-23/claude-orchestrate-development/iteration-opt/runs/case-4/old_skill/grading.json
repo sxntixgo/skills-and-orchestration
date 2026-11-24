@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Reads .orchestra/<run>/board.md first",
+      "passed": false,
+      "evidence": "Step 1 reads `plugins/orchestration/contract.md` first. It only globs `ls .orchestra/*/board.md` and never reads a board. Reading it is only promised: \"Once I have the run, I'll read its board.md\"."
+    },
+    {
+      "text": "Checks dispatched tasks for a live run or RESULT.md in their worktree",
+      "passed": false,
+      "evidence": "Stated only as future intent: \"For tasks marked `dispatched`, I'll check whether opencode is still running... or has finished (`RESULT.md` in the worktree).\" No check was performed."
+    },
+    {
+      "text": "Continues from the recorded state instead of starting a new run",
+      "passed": false,
+      "evidence": "It correctly declines a new run (\"No new run or task graph, because rebuilding one from memory could re-run or overwrite finished work\"), but it never continues from any recorded state. It stops to ask which run, and resuming is only promised."
+    }
+  ],
+  "summary": {
+    "passed": 0,
+    "failed": 3,
+    "total": 3,
+    "pass_rate": 0.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 1064,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3186
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Applies the 8-rule rubric with severity-rated findings and file:line references",
+      "passed": true,
+      "evidence": "\"🟡 Rule 7 — No stop-and-ask when the contract is unclear (SKILL.md:18).\" Also: \"Rules 2, 3 and 4 have no findings.\""
+    },
+    {
+      "text": "STOPS at the Stage B gate and asks approval before spawning eval runs",
+      "passed": false,
+      "evidence": "Stage B was skipped, not gated: \"run count 0, so the approval gate never came up.\" Approval is only promised for later (\"wait for your approval before starting them\"), which is intent."
+    },
+    {
+      "text": "Does not edit the target skill (reports findings only)",
+      "passed": true,
+      "evidence": "Only writes \"./.claude-skills-work/writing-tests/review/rubric.md\". Fixes are given as suggestions, e.g. \"Top fixes: add the eval cases, then the two STOP gates.\""
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3,
+    "pass_rate": 0.667
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 697,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4083
+  }
+}

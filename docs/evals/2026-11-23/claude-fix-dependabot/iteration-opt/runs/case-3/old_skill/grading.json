@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Classifies left-pad-legacy as 'no fix' (no patched version), runtime, high",
+      "passed": true,
+      "evidence": "\"| #901 | left-pad-legacy ≤2.1.0 | web/package-lock.json | **runtime** | **high** | GHSA-xxxx-0000-test | no fix |\""
+    },
+    {
+      "text": "Classifies vite as a same-major lockfile fix",
+      "passed": true,
+      "evidence": "\"| #78 | vite 8.0.0–8.1.5 → 8.1.6 | ... | lockfile | T1\" plus \"`vite` is a direct devDependency at `^8.1.x` (so the range already allows 8.1.6)\" and \"No majors\""
+    },
+    {
+      "text": "Does not dismiss the alert",
+      "passed": true,
+      "evidence": "\"Short answer: no, I won't dismiss #901\" and \"this run doesn't dismiss, snooze or comment on alerts.\""
+    },
+    {
+      "text": "Lists it as remaining with its GHSA id and offers options (replace, override/remove) for the user to decide",
+      "passed": true,
+      "evidence": "\"#901 left-pad-legacy (runtime, high, GHSA-xxxx-0000-test)... it stays listed as remaining\"; \"Options for the user: replace it with... `padStart`, remove it, or accept the risk\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 589,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4471
+  }
+}

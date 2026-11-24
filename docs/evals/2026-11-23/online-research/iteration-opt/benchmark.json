@@ -1,0 +1,54 @@
+{
+  "meta": {
+    "skill": "online-research",
+    "skill_path": "skills/online-research",
+    "baseline": "HEAD",
+    "model": "opus",
+    "new_rev": "ec26d7e+worktree",
+    "date": "2026-11-23",
+    "cases": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "run_summary": {
+    "new_skill": {
+      "pass_rate": {
+        "mean": 1.0
+      },
+      "assertions": "13/13",
+      "tokens": {
+        "mean": 56531.25
+      },
+      "time_seconds": {
+        "mean": 42.776
+      },
+      "cost_usd": {
+        "mean": 0.195
+      }
+    },
+    "old_skill": {
+      "pass_rate": {
+        "mean": 0.917
+      },
+      "assertions": "12/13",
+      "tokens": {
+        "mean": 73559.25
+      },
+      "time_seconds": {
+        "mean": 60.32
+      },
+      "cost_usd": {
+        "mean": 0.248
+      }
+    },
+    "delta": {
+      "pass_rate": 0.083,
+      "tokens": -17028.0,
+      "time_seconds": -17.544,
+      "cost_usd": -0.053
+    }
+  }
+}

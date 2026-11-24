@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Uses dispatch.sh <run> T3 --continue",
+      "passed": true,
+      "evidence": "bash plugins/orchestration/skills/claude-dispatch/scripts/dispatch.sh <run> T3 --continue"
+    },
+    {
+      "text": "Reuses the same worktree and opencode session (no new worktree)",
+      "passed": true,
+      "evidence": "T3 goes back to its own opencode session with `--continue`. It reuses the same worktree and does not create a new one."
+    },
+    {
+      "text": "Runs it in the background",
+      "passed": true,
+      "evidence": "Dispatch in the background (Bash, `run_in_background: true`)"
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 223,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3416
+  }
+}

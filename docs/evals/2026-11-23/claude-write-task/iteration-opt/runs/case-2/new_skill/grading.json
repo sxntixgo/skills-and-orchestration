@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does not write a task from the vague request",
+      "passed": true,
+      "evidence": "\"I won't write this task yet. 'Clean up and improve' is too vague to hand to the implementer model.\""
+    },
+    {
+      "text": "Asks what concretely to change or says the work must be split first",
+      "passed": true,
+      "evidence": "\"I need one specific change before I can write the task... Which of these do you want? Or tell me your own.\""
+    },
+    {
+      "text": "Uses no 'improve/clean up' wording in a spec",
+      "passed": true,
+      "evidence": "No spec written; options use concrete wording, e.g. \"Make it return `404 {\"error\": \"book not found\"}`\" and \"add `?limit=&offset=`\"."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 249,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3058
+  }
+}

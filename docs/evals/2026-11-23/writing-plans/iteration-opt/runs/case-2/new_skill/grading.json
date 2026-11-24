@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Recognizes the spec is too vague/under-specified to plan",
+      "passed": true,
+      "evidence": "\"I can't plan this yet because I don't know what the dashboard should do, and I didn't find a spec for it.\""
+    },
+    {
+      "text": "STOPS and asks for scope/requirements/success criteria instead of inventing a plan",
+      "passed": true,
+      "evidence": "\"Stop at the skill's step 1 gate.\" and asks \"What does 'done' look like?\" plus who uses it, what it shows, constraints."
+    },
+    {
+      "text": "Does not fabricate a detailed plan from nothing",
+      "passed": true,
+      "evidence": "\"Write nothing: no `docs/plans/` file, no TodoWrite items, no subagents.\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 261,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3092
+  }
+}

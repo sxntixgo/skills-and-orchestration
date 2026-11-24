@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "Starts with preflight: clean default branch, gh auth, the repo's test/build commands",
+      "passed": true,
+      "evidence": "\"git status --porcelain # must be empty ... gh auth status ... I'd take the test and build commands from CLAUDE.md, README or CI. Assumed: `npm test` and `npm run build`\""
+    },
+    {
+      "text": "Collects alerts with scripts/alerts.sh into .orchestra/<date>-dependabot/alerts.tsv",
+      "passed": true,
+      "evidence": "\"<skill-dir>/scripts/alerts.sh sxntixgo/learn > .orchestra/2026-11-23-dependabot/alerts.tsv\""
+    },
+    {
+      "text": "Triages before writing any task",
+      "passed": true,
+      "evidence": "Step 3 Triage (\"I'd write `triage.md` with one row per alert\") precedes step 5: \"Tasks: I'd write them with `claude-write-task`\" after gate 1."
+    },
+    {
+      "text": "Does not push or dismiss alerts",
+      "passed": true,
+      "evidence": "\"Otherwise it stays open, and it won't be dismissed.\" and \"I push only with your OK\"; this run stops at gate 1."
+    },
+    {
+      "text": "Mentions the approval gate before dispatching",
+      "passed": true,
+      "evidence": "\"⛔ Gate 1. I'd send the message below and wait. Nothing is dispatched until you reply.\""
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 489,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4701
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "assertion_results": [
+    {
+      "text": "Reads the route and an existing paginated pattern before writing",
+      "passed": true,
+      "evidence": "Step 1 precedes the spec: \"api/routes.py: list_jobs and the /runs handler (the Query pattern)\". This is borderline: /runs is a Query-param pattern, not a paginated one (\"No pagination helper exists yet\"), and the answer says nothing was executed."
+    },
+    {
+      "text": "Lists exact files it may change/create",
+      "passed": true,
+      "evidence": "\"may change: api/routes.py, tests/test_routes.py\" / \"must NOT touch: everything else (and never .orchestra/, .git/)\""
+    },
+    {
+      "text": "Steps are test-first",
+      "passed": true,
+      "evidence": "Step 1 adds tests to tests/test_routes.py; \"2. Run the test command; see the new tests fail.\" Step 3 then adds the params."
+    },
+    {
+      "text": "Gives an exact runnable test command",
+      "passed": true,
+      "evidence": "\"`uv run pytest tests/test_routes.py -q -k jobs` passes\""
+    },
+    {
+      "text": "Covers page 0 / beyond the end / page_size cap edge cases",
+      "passed": true,
+      "evidence": "\"test_list_jobs_page_past_end: GET /jobs?page=4&page_size=10 → 200, []\"; \"page=0, page_size=0, page_size=101 → each 422\""
+    },
+    {
+      "text": "Has an Out of scope section",
+      "passed": true,
+      "evidence": "\"## Out of scope - Response envelope / total count / Link headers / next-page URLs - Pagination on any other endpoint\""
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "total": 6,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 1173,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4202
+  }
+}

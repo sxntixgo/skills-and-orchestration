@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Asks about the deciding constraints (clients, query patterns, team, caching) before deciding",
+      "passed": true,
+      "evidence": "Asks \"who will mainly use this API?\" before deciding; checkpoint lists open questions \"Data shape / query variety, team familiarity, caching/perf needs, deadline\"."
+    },
+    {
+      "text": "Presents both options with concrete trade-offs tied to the user's context",
+      "passed": false,
+      "evidence": "The final reply only asks a clarifying question about consumers. It gives no REST vs GraphQL trade-offs."
+    },
+    {
+      "text": "Leads with a reasoned recommendation rather than declaring unilaterally or staying neutral",
+      "passed": false,
+      "evidence": "No recommendation is given. The reply defers with \"the answer depends on who will use the API\" and asks a question instead."
+    }
+  ],
+  "summary": {
+    "passed": 1,
+    "failed": 2,
+    "total": 3,
+    "pass_rate": 0.333
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 288,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3227
+  }
+}

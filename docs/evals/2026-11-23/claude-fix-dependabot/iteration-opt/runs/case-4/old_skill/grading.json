@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "Rejects T1",
+      "passed": true,
+      "evidence": "\"**Verdict: reject T1.**\" and board entry \"T1 REJECTED attempt=1\""
+    },
+    {
+      "text": "Names npm audit fix --force as forbidden",
+      "passed": true,
+      "evidence": "\"It uses `npm audit fix --force`, which the skill forbids\""
+    },
+    {
+      "text": "Names the unapproved major bump (vite 9)",
+      "passed": true,
+      "evidence": "\"vite ^8.1.5→^9.0.2 via `npm audit fix --force`: major bump not approved\""
+    },
+    {
+      "text": "Notes say to update vite within major 8 (8.1.6)",
+      "passed": false,
+      "evidence": "The notes only give generic guidance: \"npm install <direct>@<same-major>\". They never name a vite 8.x target such as 8.1.6, and they don't say to update vite within major 8."
+    },
+    {
+      "text": "Does not merge",
+      "passed": true,
+      "evidence": "\"Review-merge reply: `REJECTED T1 attempt=2 notes=4`\". It re-dispatches for attempt 2 and never merges."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 1,
+    "total": 5,
+    "pass_rate": 0.8
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 551,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4065
+  }
+}

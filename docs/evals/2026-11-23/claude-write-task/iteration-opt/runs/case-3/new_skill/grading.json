@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Keeps the existing task content",
+      "passed": true,
+      "evidence": "\"I kept the original spec\"; template shows \"## Context (unchanged from attempt 1)\" and \"(unchanged steps 1–N, plus:)\""
+    },
+    {
+      "text": "Bumps attempt to 2",
+      "passed": true,
+      "evidence": "Front matter shows \"attempt: 2\"; the answer also says \"set `attempt: 2`\""
+    },
+    {
+      "text": "Adds Notes from review with file:line, problem and fix for each point",
+      "passed": true,
+      "evidence": "\"web/src/App.tsx:14 — file not allowed; ... — revert it entirely\" and \"api/routes/items.py:31 — `rows[0]` raises ... — return `[]` with 200\""
+    },
+    {
+      "text": "Covers both the App.tsx scope violation and the empty-list 500",
+      "passed": true,
+      "evidence": "Notes cover both \"web/src/App.tsx:14 — file not allowed\" and \"the empty list returns 500\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 510,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3751
+  }
+}

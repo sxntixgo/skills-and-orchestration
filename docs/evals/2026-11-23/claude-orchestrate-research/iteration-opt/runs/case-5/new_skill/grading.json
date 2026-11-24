@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Plans sub-questions that include video sources (talks/interviews) alongside documents",
+      "passed": true,
+      "evidence": "\"3 parallel researchers, one per source type (video talks, podcast audio, written interviews)\"; tasks/talks.md: \"Video talks by Hipp and other core developers\""
+    },
+    {
+      "text": "Uses the video tools (search --videos / fetch-media)",
+      "passed": true,
+      "evidence": "\"Use `search --videos` (YouTube, CMU Database Group, conference channels), then `fetch-media` for timestamped transcripts\""
+    },
+    {
+      "text": "Cites talks with title and timestamp",
+      "passed": true,
+      "evidence": "\"[2] \"The Untold Story of SQLite\", CoRecursive, D. R. Hipp, 2021, 14:05\"; talks cited as \"title + speaker + date + timestamp\""
+    },
+    {
+      "text": "Verifies quotes against the transcript at that timestamp",
+      "passed": true,
+      "evidence": "\"Re-open each cited source myself with `fetch-media` at the timestamp, or `fetch-text`, and confirm the quote is really there.\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 393,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 5086
+  }
+}

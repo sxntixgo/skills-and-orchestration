@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Runs the static rubric first",
+      "passed": true,
+      "evidence": "\"Stage A rubric is done: no 🔴 findings, two 🟡, three 🟢. Stage B is ready but stopped at the approval gate\""
+    },
+    {
+      "text": "Reports the run count (cases x 2) and token/time cost",
+      "passed": true,
+      "evidence": "\"5 cases × 2 configs ... = **10 runs**. Each run is a fresh isolated subagent with its own token and time cost.\""
+    },
+    {
+      "text": "STOPS to ask explicit approval before spawning any runs, despite being told to benchmark",
+      "passed": true,
+      "evidence": "\"stopped at the approval gate, so no eval runs have been spawned\" ... \"Run all 10, run the A/B against `HEAD`, or skip evals?\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 284,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3626
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "meta": {
+    "skill": "writing-plans",
+    "skill_path": "skills/writing-plans",
+    "baseline": "HEAD",
+    "model": "opus",
+    "new_rev": "ec26d7e+worktree",
+    "date": "2026-11-23",
+    "cases": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "run_summary": {
+    "new_skill": {
+      "pass_rate": {
+        "mean": 0.938
+      },
+      "assertions": "13/14",
+      "tokens": {
+        "mean": 14452.75
+      },
+      "time_seconds": {
+        "mean": 19.251
+      },
+      "cost_usd": {
+        "mean": 0.074
+      }
+    },
+    "old_skill": {
+      "pass_rate": {
+        "mean": 0.688
+      },
+      "assertions": "10/14",
+      "tokens": {
+        "mean": 18301.0
+      },
+      "time_seconds": {
+        "mean": 17.568
+      },
+      "cost_usd": {
+        "mean": 0.06
+      }
+    },
+    "delta": {
+      "pass_rate": 0.25,
+      "tokens": -3848.25,
+      "time_seconds": 1.683,
+      "cost_usd": 0.014
+    }
+  }
+}

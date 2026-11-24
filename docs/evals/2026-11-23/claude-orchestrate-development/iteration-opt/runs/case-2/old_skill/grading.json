@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Identifies that T2 and T3 both change api/routes.py",
+      "passed": true,
+      "evidence": "\"One problem in the table also needs fixing before dispatch: T2 and T3 both edit `api/routes.py`.\""
+    },
+    {
+      "text": "Prevents T2 and T3 from changing api/routes.py at the same time (adds a dependency, or moves the routes.py edit into one task)",
+      "passed": true,
+      "evidence": "\"Two tasks that run at the same time can't edit the same file, so T3 will wait for T2 (`depends_on: [T2]`)\""
+    },
+    {
+      "text": "Never has more than 2 tasks dispatched at once",
+      "passed": true,
+      "evidence": "Nothing is dispatched: \"nothing else happens: no `.orchestra/` run, no `board.md`, no worktrees, no dispatches.\" The planned graph also runs tasks one after another."
+    },
+    {
+      "text": "Keeps T2 after T1 when that dependency is stated",
+      "passed": true,
+      "evidence": "The table gives T2 `depends_on` T1, and the answer says \"T2 needs T1's function, so the three run one after another.\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 583,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3375
+  }
+}

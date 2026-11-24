@@ -5,74 +5,72 @@ description: Fixes a GitHub repo's open Dependabot security alerts by triaging t
 
 # Fix Dependabot alerts
 
-Claude triages and reviews; opencode implements. Turn the open alerts into a few small,
-verifiable tasks (one per lockfile, one per approved major bump) and run them through the normal
-orchestration flow. Most alerts in these repos are development-only JS packages: fix them, but
-say plainly which ones reach production (runtime scope, in a deployed image).
+Claude triages and reviews; opencode implements. Turn the open alerts into a few small, verifiable
+tasks (one per lockfile, one per approved major) and run them through the orchestration flow
+(`claude-write-task` → `claude-dispatch` → `claude-review-merge`). Most alerts are dev-only JS
+packages: fix them, but say plainly which reach production (runtime scope, in a deployed app).
+Everything you need is on this page: don't open `contract.md` or the script.
 
 ## Scope
-This skill DOES:
-- Read open alerts (`scripts/alerts.sh <owner/repo>`), classify each, plan and run fix tasks.
-- Use the plugin's run conventions (`../../contract.md`): board, task files, worktrees, dispatch, review.
-- Report fixed vs remaining alerts, runtime vs development, and which deployed apps would change.
+DOES: read open alerts, classify each, plan and run fix tasks; report fixed vs remaining, runtime
+vs development, and which deployed apps change.
+Does NOT: dismiss, snooze or comment on alerts, or change Dependabot settings; push, open PRs or
+deploy without the user's OK; use `npm audit fix --force`, `--legacy-peer-deps` or hand-edited
+lockfiles; make unrelated upgrades.
 
-This skill does NOT:
-- Dismiss, snooze or comment on alerts, or change Dependabot settings.
-- Push, open PRs or deploy without the user's OK (deploys are a separate ask).
-- Use `npm audit fix --force`, `--legacy-peer-deps`, or hand-edit lockfiles; make unrelated upgrades.
+## Steps (one TodoWrite item each; state in `.orchestra/<date>-dependabot/`)
+1. **Preflight.** Repo clean, on the default branch, up to date; `gh auth status` OK; model server
+   reachable; `.orchestra/config.json` `base_branch` = default branch (alerts are for it). Note the
+   repo's test/build commands (CLAUDE.md, README, CI). Look for earlier fix work:
+   `git branch -a | grep -iE 'deps|security|dependabot'`, `gh pr list --author app/dependabot`; an
+   unmerged fix branch → offer reuse (rebase, regenerate lockfile, verify) or supersede, at gate 1.
+   Several repos → one run per repo, in turn.
+2. **Collect:** `<skill-dir>/scripts/alerts.sh <owner/repo> > .orchestra/<date>-dependabot/alerts.tsv`
+   (or `alerts.sh --file <saved.json>` for a saved API reply). TSV columns: number, severity,
+   scope (runtime/development), ecosystem, manifest, package, vulnerable range, first patched
+   (`none` = no fix), GHSA id. The row count is the baseline.
+3. **Triage** each row: find who pulls it (npm `npm ls <pkg> --all`; pnpm `pnpm why`; uv
+   `uv tree --invert --package`; pip: the requirements pins) and whether each path's range allows
+   `first_patched` (`npm view <parent>@<installed> dependencies.<pkg>`). Kind:
+   | Kind | When | Fix |
+   |---|---|---|
+   | lockfile | every path allows the patched version | `npm update <pkg>` / `pnpm update` / `uv lock --upgrade-package` |
+   | same-major | a direct dep must move within its major | bump its range, reinstall |
+   | major | only a new major of a direct dep fixes it | own task, after gate 1; check peers/engines/CI/Dockerfile pins |
+   | pin | pip `==`/`>=` pin | raise to `>= first_patched` |
+   | no fix | first patched = none | report with the GHSA id + options (replace the dep, override/remove); never dismiss |
+   | override | parent pins an old range and has no fixed release | npm/pnpm `overrides`, only if OK'd at gate 1 |
+   Write `triage.md`: alert → package → scope → kind → task, plus proposed majors and what they force.
+4. ⛔ **Gate 1.** Show counts per kind, runtime alerts called out (and in which app), the tasks
+   (one per lockfile, parallel across lockfiles), the majors/overrides on offer; ask which to
+   include. Dispatch nothing before the answer.
+5. **Tasks:** one per lockfile (its lockfile/same-major/pin rows), one per approved major
+   (depends on its lockfile task). Steps name exact commands and target versions; Done when:
+   the GHSA ids gone from `npm audit` (list them), the repo's test + build pass, `git diff --stat`
+   touches only manifest + lockfile (+ files a major forces).
+6. **Dispatch** up to `concurrency`; **review** each result: only manifest + lockfile changed, no
+   `--force` traces, tests + build pass. On reject, notes name the allowed fix exactly
+   (e.g. "`npm update vite` → 8.1.6, the first patched 8.x; no major").
+7. **Verify on the merged branch:** each targeted GHSA id gone from `npm audit` (per lockfile
+   folder), pins ≥ first patched, full test + build. Update `triage.md`: fixed / remaining + reason.
+8. ⛔ **Gate 2.** Show merged tasks, test/build results, alerts expected to close vs remain,
+   deployed apps whose runtime changes. Push only on OK; then check CI is green and GitHub's alert
+   count dropped (it refreshes after a few minutes).
 
-## Steps (one TodoWrite item each)
-1. **Preflight.** Repo clean, on the default branch, up to date with origin; `gh auth status` OK;
-   atlas reachable (the dispatcher checks too); `.orchestra/config.json` `base_branch` is the
-   default branch (alerts are for it — fix the config, or ask). Note the repo's test/build commands
-   (CLAUDE.md, README, CI workflow). **Look for earlier fix work** before planning new tasks:
-   `git branch -a | grep -i -E 'deps|security|dependabot'` and `gh pr list --author app/dependabot`.
-   An unmerged fix branch → compare its lockfile with the alerts; offer to reuse it (rebase onto the
-   default branch, regenerate the lockfile on conflict, verify) or supersede it — ask at gate 1.
-   Several repos asked at once → one run per repo, one after the other; gate 1 may show one
-   combined table.
-2. **Collect.** Run the script from this skill's base directory:
-   `<base>/scripts/alerts.sh <owner/repo> > .orchestra/<date>-dependabot/alerts.tsv`. Count rows; this is the baseline.
-3. **Triage** each row with `references/triage.md`: who pulls it, which kind (lockfile /
-   same-major / major / pin / no fix / override). Write `triage.md` in the run folder: a table
-   alert# → package → scope → kind → task id, plus the proposed majors with what they force
-   (peer deps, Node/engine, CI and Dockerfile pins).
-4. ⛔ **STOP — gate 1.** Show the triage table summary (counts per kind, runtime alerts called out)
-   and ask which majors (and any override) to include. Nothing is dispatched before the answer.
-5. **Write tasks** (claude-write-task): one per lockfile for its lockfile/same-major/pin rows,
-   one per approved major (depends on its lockfile's task). Steps name the exact commands; Done-when
-   names the GHSA ids that must disappear from `npm audit` and the repo's test + build commands.
-6. **Dispatch** (claude-dispatch) up to the repo's `concurrency`; tasks on different lockfiles run
-   in parallel. **Review and merge** each result (claude-review-merge): diff touches only the
-   manifest + lockfile (+ files a major forces), no `--force` traces, tests and build pass.
-7. **Verify on the merged branch.** Locally: each targeted GHSA id is gone from `npm audit` (per
-   lockfile folder), pins are ≥ first patched; run the full test + build. GitHub's alert list only
-   changes after the push (step 8). Update `triage.md` with fixed / remaining (reason for each).
-8. ⛔ **STOP — gate 2.** Show: merged tasks, test/build results, alerts expected to close vs remain,
-   deployed apps whose runtime image changes. Push only on the user's OK; then confirm CI is green
-   and the alert count on GitHub dropped (it can take a few minutes to refresh).
+Resume: read `board.md` and `triage.md`, continue from the first unfinished step.
 
-## Checkpoints
-Everything lives in `.orchestra/<date>-dependabot/` (alerts.tsv, triage.md, board.md, tasks/,
-logs/). To resume, read board.md and triage.md and continue from the first unfinished step.
-
-## Red flags (stop and correct)
+## Red flags
 | If you notice… | Do this |
 |---|---|
-| A task or result using `--force` / `--legacy-peer-deps` | Reject; find the direct dependency to bump, or propose an override at gate 1 |
-| A lockfile diff with no manifest reason, or a hand-edited lockfile | Reject; regenerate with the package manager |
-| A major bump sneaking into a lockfile task | Split it out; it needs gate 1 approval and the peer/engine check |
-| Calling an alert "fixed" because tests pass | Fixed = the GHSA id is gone from `npm audit` / the pin is ≥ first patched |
-| About to dismiss an alert as "dev only" | Don't; fix it or list it as remaining with the reason |
-| Alerts on a non-default branch's code | Alerts are for the default branch; work there (merge feature branches first or ask) |
-| Planning new tasks while an old `deps/…` branch already fixes them | Reuse or supersede it explicitly (gate 1) |
+| `--force` / `--legacy-peer-deps` in a task or result | Reject; bump the direct dep, or offer an override at gate 1 |
+| A major bump inside a lockfile task | Reject/split it; majors need gate 1 + the peer/engine check |
+| Lockfile diff with no manifest reason, or hand-edited | Reject; regenerate it |
+| "Fixed" because tests pass | Fixed = GHSA id gone from `npm audit` / pin ≥ first patched |
+| Dismissing an alert ("dev only", "no fix") | Don't; fix it or list it as remaining with the reason |
+| Work on a non-default branch | Alerts are for the default branch |
+| An old `deps/…` branch already fixes it | Reuse or supersede it explicitly (gate 1) |
 | Pushing before gate 2 | Stop and ask |
 
 ## Done when
-- triage.md lists every baseline alert with its kind and outcome (fixed / remaining + reason).
-- All approved tasks merged, the repo's tests and build pass on the merged branch.
-- After the user's OK: pushed, CI green, GitHub's open-alert count reflects the fixes.
-
-## References (load only when needed)
-- `references/triage.md` — step 3: who pulls a package, kind table, task grouping, Done-when lines.
-- `scripts/alerts.sh` — step 2 (and `--file` for a saved JSON reply, used by the evals).
+`triage.md` lists every baseline alert with kind and outcome; approved tasks merged; tests + build
+pass on the merged branch; after the OK: pushed, CI green, GitHub's alert count reflects the fixes.

@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Explains that 100% line coverage is not the goal; covering behavior and risk is",
+      "passed": true,
+      "evidence": "\"I didn't push it to 100% on purpose: the goal is to test behaviour and risk, and a 100% number can be hit with tests that assert nothing useful.\""
+    },
+    {
+      "text": "Targets meaningful untested branches / edge cases rather than trivial line-hitting tests",
+      "passed": true,
+      "evidence": "\"If it's a failure mode or real branch, add a test for it. If it's trivial or unreachable (a defensive `default:`...), leave it and list it.\""
+    },
+    {
+      "text": "Does not add assertion-free or tautological tests just to raise the number",
+      "passed": true,
+      "evidence": "\"Arrange–Act–Assert, asserting on returned values or thrown errors.\" plus \"Confirm each new test can fail for the right reason by briefly breaking one boundary\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 317,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4080
+  }
+}

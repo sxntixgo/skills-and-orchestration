@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Identifies the empty-result IndexError on d[0] / missing not-found handling as a Must-fix correctness bug",
+      "passed": true,
+      "evidence": "Under '🔴 Must fix': \"No-match case crashes (snippet:1) — `d[0]` raises `IndexError` when `db.q(u)` returns no rows\""
+    },
+    {
+      "text": "Flags the vague names (get, u, d) with better suggestions",
+      "passed": true,
+      "evidence": "\"`get`, `u`, `d` and `q` don't tell the reader what is fetched... → For example `def get_user(user_id: int) -> User | None: rows = db.q(user_id)`\""
+    },
+    {
+      "text": "Every finding has a concrete fix and is severity-ordered (correctness first)",
+      "passed": true,
+      "evidence": "Ordered 🔴 Must fix → 🟡 Should fix → 🟢 Consider, correctness bugs first. Each finding has a fix, e.g. \"`if not rows: raise UserNotFound(...)`\", \"Put one statement on each line.\" The ✅ Good item is praise, not a finding."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 490,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3641
+  }
+}

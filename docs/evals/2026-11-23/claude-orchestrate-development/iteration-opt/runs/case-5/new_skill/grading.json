@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Takes over neither T2 nor T5",
+      "passed": true,
+      "evidence": "\"**Neither yet.** Takeover starts only after `max_rejections` rejections.\" and \"No takeover yet.\""
+    },
+    {
+      "text": "Sends both back to opencode with review notes (--continue)",
+      "passed": true,
+      "evidence": "\"**Resend T2** (attempt 2) with `claude-dispatch --continue` and the review notes\"; \"**Resend T5** (attempt 3) the same way.\""
+    },
+    {
+      "text": "States takeover happens only after the 3rd rejection",
+      "passed": true,
+      "evidence": "\"Takeover comes after 3 rejections (`max_rejections`).\" and \"If T5 is rejected a third time, a Claude subagent takes it over.\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 276,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3394
+  }
+}

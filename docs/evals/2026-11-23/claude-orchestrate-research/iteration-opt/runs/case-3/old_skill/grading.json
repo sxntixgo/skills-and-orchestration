@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does not accept the 40 MB claim as is",
+      "passed": true,
+      "evidence": "\"T2 fails review: its recommendation-critical claim (\\\"Tool X uses 40 MB RAM\\\") has one source and no quote.\""
+    },
+    {
+      "text": "Re-opens the source or finds an independent primary source",
+      "passed": true,
+      "evidence": "\"`fetch-text <blog URL>`: confirm the post actually says 40 MB\" and \"I need at least one independent source that agrees.\""
+    },
+    {
+      "text": "Marks the claim verified or unverified (❓) in the report",
+      "passed": true,
+      "evidence": "\"Confirmed by a second source: mark the claim ✅\" / \"Only the blog says it: mark it ❓ and make the recommendation conditional\""
+    },
+    {
+      "text": "May send T2 back asking for a primary source",
+      "passed": true,
+      "evidence": "\"at least one independent source, preferably primary: official docs or system requirements, the project's own benchmarks\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 343,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3801
+  }
+}

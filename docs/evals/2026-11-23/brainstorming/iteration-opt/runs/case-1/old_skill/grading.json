@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Asks clarifying questions ONE at a time rather than a big batch or an immediate full design",
+      "passed": true,
+      "evidence": "Final reply asks a single question: \"First question: what's the main way users should get these notifications?\" The plan also says \"One question per turn\" and \"I wouldn't propose approaches or a design in this turn.\""
+    },
+    {
+      "text": "Focuses on purpose, constraints, and success criteria before proposing a solution",
+      "passed": true,
+      "evidence": "Restates the purpose (\"let users know when something relevant happens in the app\") and sequences \"what triggers notifications → success criteria → constraints → what's out of scope. Then 2–3 approaches\". The first actual question is about channel, not purpose."
+    },
+    {
+      "text": "Explores 2-3 approaches with trade-offs and a recommendation before finalizing",
+      "passed": false,
+      "evidence": "Three approaches with brief trade-offs appear only as a plan for later turns (\"In-app table plus polling (simplest)…\"). None is recommended; \"with a recommendation\" is stated intent only. The user is not shown any approaches."
+    },
+    {
+      "text": "Does not jump to writing implementation code",
+      "passed": true,
+      "evidence": "Only a markdown checkpoint file and read-only commands. No implementation code; it ends with \"Stop and wait for the user's answer.\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 1,
+    "total": 4,
+    "pass_rate": 0.75
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 1082,
+    "cache_read_input_tokens": 658,
+    "cache_creation_input_tokens": 4835
+  }
+}

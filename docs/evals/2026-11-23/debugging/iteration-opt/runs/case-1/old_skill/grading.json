@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Seeks a reliable reproduction (exact steps/inputs/conditions) before proposing a fix",
+      "passed": true,
+      "evidence": "\"Reproduce (⛔ the gate)\" ... \"Log the exact steps and conditions in notes.md.\" ... \"If I can't reproduce it, I stop and ask the user\""
+    },
+    {
+      "text": "Treats the intermittency as something to pin down (state/timing/error), not ignore",
+      "passed": true,
+      "evidence": "\"empty data, large data, slow network (throttled), double-click, export a second time after a failed one, a different browser.\""
+    },
+    {
+      "text": "Forms and verifies a root-cause hypothesis before fixing",
+      "passed": true,
+      "evidence": "\"State one testable root cause... Verify it with a log or assertion on isExporting at click time, changing one variable at a time.\""
+    },
+    {
+      "text": "Plans a regression test / way to confirm the fix",
+      "passed": true,
+      "evidence": "\"The repro test now passes and stays in as a regression test.\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 353,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3939
+  }
+}

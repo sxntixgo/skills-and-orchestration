@@ -1,0 +1,54 @@
+{
+  "meta": {
+    "skill": "build-phase",
+    "skill_path": "skills/build-phase",
+    "baseline": "HEAD",
+    "model": "opus",
+    "new_rev": "ec26d7e+worktree",
+    "date": "2026-11-23",
+    "cases": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "run_summary": {
+    "new_skill": {
+      "pass_rate": {
+        "mean": 0.75
+      },
+      "assertions": "9/12",
+      "tokens": {
+        "mean": 13560.0
+      },
+      "time_seconds": {
+        "mean": 12.883
+      },
+      "cost_usd": {
+        "mean": 0.059
+      }
+    },
+    "old_skill": {
+      "pass_rate": {
+        "mean": 0.75
+      },
+      "assertions": "9/12",
+      "tokens": {
+        "mean": 14047.0
+      },
+      "time_seconds": {
+        "mean": 12.044
+      },
+      "cost_usd": {
+        "mean": 0.064
+      }
+    },
+    "delta": {
+      "pass_rate": 0.0,
+      "tokens": -487.0,
+      "time_seconds": 0.839,
+      "cost_usd": -0.005
+    }
+  }
+}

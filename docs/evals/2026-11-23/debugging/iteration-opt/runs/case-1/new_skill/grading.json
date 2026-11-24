@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Seeks a reliable reproduction (exact steps/inputs/conditions) before proposing a fix",
+      "passed": true,
+      "evidence": "\"Reproduce ⛔ (no fix before this step passes)\" ... \"Mock `/api/export` to reject once (500 or timeout), then succeed. Click, wait for the failure, click again.\""
+    },
+    {
+      "text": "Treats the intermittency as something to pin down (state/timing/error), not ignore",
+      "passed": true,
+      "evidence": "\"two fast double-clicks; a slow response (fake timers at 5s+); an empty dataset; Safari's popup blocking when `window.open` runs after an `await`\""
+    },
+    {
+      "text": "Forms and verifies a root-cause hypothesis before fixing",
+      "passed": true,
+      "evidence": "\"`isExporting` stays `true` after a failed or aborted request...\" then \"Verify before fixing... Prediction: the second click logs `isExporting: true` and makes no request.\""
+    },
+    {
+      "text": "Plans a regression test / way to confirm the fix",
+      "passed": true,
+      "evidence": "\"`npm test -- ExportButton` shows the new test passing; it stays as the regression test. `npm test` runs the full suite.\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 421,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4121
+  }
+}

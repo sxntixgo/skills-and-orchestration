@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does not accept the 40 MB claim as is",
+      "passed": true,
+      "evidence": "\"T2 is rejected: its key claim has one source and no quote.\""
+    },
+    {
+      "text": "Re-opens the source or finds an independent primary source",
+      "passed": true,
+      "evidence": "\"`fetch-text <blog-url>`: confirm the post actually says 40 MB\" and \"search ... look for an independent source, preferably primary\""
+    },
+    {
+      "text": "Marks the claim verified or unverified (❓) in the report",
+      "passed": true,
+      "evidence": "\"the 40 MB claim is marked ✅ or ❓ in the source list\""
+    },
+    {
+      "text": "May send T2 back asking for a primary source",
+      "passed": true,
+      "evidence": "\"Find at least one independent source. Prefer the official docs, the project's benchmarks...\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 289,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3687
+  }
+}

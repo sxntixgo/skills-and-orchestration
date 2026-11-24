@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Finds and reads the plan/spec section for the phase before writing code",
+      "passed": false,
+      "evidence": "It searched but found nothing to read: \"None of these turned up a plan, a spec, or a Phase 3 section.\" It wrote no code, but no phase section was read."
+    },
+    {
+      "text": "Restates the phase's explicit done-criteria",
+      "passed": false,
+      "evidence": "It restates no done-criteria. It asks the user for them instead: \"paste the section with its done-criteria.\""
+    },
+    {
+      "text": "STOPS and asks if no plan exists or the phase scope is undefined",
+      "passed": true,
+      "evidence": "\"Stopped at step 1... I didn't spawn any subagents, write any code or touch any files.\" It then asks: \"Where's the plan or spec that defines Phase 3?\""
+    }
+  ],
+  "summary": {
+    "passed": 1,
+    "failed": 2,
+    "total": 3,
+    "pass_rate": 0.333
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 525,
+    "cache_read_input_tokens": 658,
+    "cache_creation_input_tokens": 3995
+  }
+}

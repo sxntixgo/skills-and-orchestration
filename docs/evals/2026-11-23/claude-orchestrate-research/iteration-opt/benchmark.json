@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "skill": "claude-orchestrate-research",
+    "skill_path": "plugins/orchestration/skills/claude-orchestrate-research",
+    "baseline": "HEAD",
+    "model": "opus",
+    "new_rev": "ec26d7e+worktree",
+    "date": "2026-11-23",
+    "cases": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
+  },
+  "run_summary": {
+    "new_skill": {
+      "pass_rate": {
+        "mean": 1.0
+      },
+      "assertions": "23/23",
+      "tokens": {
+        "mean": 15825.167
+      },
+      "time_seconds": {
+        "mean": 22.679
+      },
+      "cost_usd": {
+        "mean": 0.089
+      }
+    },
+    "old_skill": {
+      "pass_rate": {
+        "mean": 0.958
+      },
+      "assertions": "22/23",
+      "tokens": {
+        "mean": 24446.0
+      },
+      "time_seconds": {
+        "mean": 23.028
+      },
+      "cost_usd": {
+        "mean": 0.097
+      }
+    },
+    "delta": {
+      "pass_rate": 0.042,
+      "tokens": -8620.833,
+      "time_seconds": -0.349,
+      "cost_usd": -0.008
+    }
+  }
+}

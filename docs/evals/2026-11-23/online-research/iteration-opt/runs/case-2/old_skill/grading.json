@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does not accept the single blog as sufficient; seeks the primary/official source",
+      "passed": true,
+      "evidence": "\"The Article 5 text comes from the Commission's official AI Act service desk\"; cites Regulation (EU) 2024/1689 Art. 5(1)(h) and Art. 113."
+    },
+    {
+      "text": "Checks the date and corroborates across independent sources",
+      "passed": true,
+      "evidence": "\"No new EU regulation last month (October 2026)\"; \"the dates match across independent sources\"; \"checked the Omnibus contents through two independent secondary sources\""
+    },
+    {
+      "text": "Reports what is actually supported vs. contested, labeling unverified/single-source claims",
+      "passed": true,
+      "evidence": "\"I didn't open that article and couldn't confirm what the decree says\"; flags stateofsurveillance.org August 2026 claim \"contradicts Article 113. I'd treat it as wrong.\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 326,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4078
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Does NOT immediately write a caching implementation",
+      "passed": true,
+      "evidence": "\"No code, no subagents, no task plan.\" and \"I won't build a cache until I know what problem it solves\""
+    },
+    {
+      "text": "Clarifies requirements (what to cache, invalidation, constraints) one question at a time",
+      "passed": true,
+      "evidence": "\"One question: what's driving this?\" with options (a)-(d); staleness and scope are queued in the WIP file: \"Success criteria (p95 target?), staleness tolerance, scope\""
+    },
+    {
+      "text": "Proposes 2-3 approaches with trade-offs and a recommendation",
+      "passed": true,
+      "evidence": "Options A (in-process TTL), B (Redis cache-aside), C (HTTP caching), each with trade-offs, then \"My recommendation is A.\""
+    },
+    {
+      "text": "Defers implementation to writing-plans / software-development",
+      "passed": true,
+      "evidence": "TodoWrite item: \"Write `docs/plans/` → Hand off to `writing-plans`.\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 601,
+    "cache_read_input_tokens": 658,
+    "cache_creation_input_tokens": 4736
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Identifies that T2 and T3 both change api/routes.py",
+      "passed": true,
+      "evidence": "\"T3 depends on T2. Both edit `api/routes.py`, so they can't run at the same time.\""
+    },
+    {
+      "text": "Prevents T2 and T3 from changing api/routes.py at the same time (adds a dependency, or moves the routes.py edit into one task)",
+      "passed": true,
+      "evidence": "\"T3 depends on T2.\" and \"The `routes.py` part moves into T2, leaving T3 as `web/src/Jobs.tsx` plus its test.\""
+    },
+    {
+      "text": "Never has more than 2 tasks dispatched at once",
+      "passed": true,
+      "evidence": "\"Not dispatching yet\"; zero tasks are dispatched. The plan is a chain: \"concurrency 2 won't actually run anything in parallel for this feature.\""
+    },
+    {
+      "text": "Keeps T2 after T1 when that dependency is stated",
+      "passed": true,
+      "evidence": "\"T2 depends on T1. The route calls `export_csv()`.\" and \"The result is a chain, T1 → T2 → T3\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 550,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3376
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Applies the 8-rule rubric with severity-rated findings and file:line references",
+      "passed": true,
+      "evidence": "\"I scored `writing-tests` against the 8 rules\"; severity tiers 🔴 Must fix / 🟡 Should fix / 🟢 Consider; e.g. \"Rule 7 — guesses instead of asking (`SKILL.md:18-19`)\""
+    },
+    {
+      "text": "STOPS at the Stage B gate and asks approval before spawning eval runs",
+      "passed": true,
+      "evidence": "\"Stop at the Stage B gate and start no eval runs.\" ... \"Stage B — baseline evals ⛔ approval needed\" ... \"Approve the eval run?\""
+    },
+    {
+      "text": "Does not edit the target skill (reports findings only)",
+      "passed": true,
+      "evidence": "\"I won't edit the skill; fixes go through `skill-creator`.\" Findings are written only to ./.claude-skills-work/writing-tests/review/rubric.md"
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 351,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4143
+  }
+}

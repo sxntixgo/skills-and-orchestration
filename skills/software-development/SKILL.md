@@ -5,79 +5,51 @@ description: Builds a backend or frontend feature end-to-end with a test-driven 
 
 # Software Development
 
-Build the smallest correct slice, test-first, then keep it simple. Follow the
-five stages in order; each is a checkpoint you can resume from.
+Build the smallest correct slice, test-first, keep it simple, and run it. Everything you need is
+on this page.
 
 ## Scope
-This skill DOES:
-- Take a feature/bugfix from understanding → plan → TDD implementation →
-  refactor → verify it runs.
-- Apply DRY, YAGNI, KISS at the refactor step.
-- Use the TDD red→green→refactor loop (this skill owns the loop).
+DOES: understand → plan the slice → TDD loop (red → green → refactor) → DRY/YAGNI/KISS → run it.
+Does NOT: invent requirements; build for hypothetical futures; stop at "it compiles". For a long
+list of test cases, `writing-tests` helps (if installed).
 
-This skill does NOT:
-- Enumerate or author the actual test cases → delegate that to `writing-tests`.
-- Add features nobody asked for (YAGNI) or design for hypothetical futures.
-- Skip running the code — "compiles" is not "works" (that's `verify`/`run`).
+## Stages (TodoWrite item each; notes in `./.claude-skills-work/software-development/<task>/`)
+1. **Understand.** Restate inputs, outputs, and the observable "done" in 1–2 sentences.
+   - Build now when the core behaviour is clear; state small assumptions ("ISO 8601 dates, since
+     that's what the API sends") and move on.
+   - Speculative asks ("configurable, extensible, any future format") → build only today's
+     need, say in one line why the rest waits (YAGNI), and keep going.
+   - ⛔ STOP and ask only when you'd be guessing the core behaviour itself.
+2. **Plan the slice:** the one or few files and seams; extend existing patterns.
+   - Backend: contract first (inputs, outputs, status codes: 201 created, 400 invalid, 404, 409
+     conflict); validate at the boundary; thin handler → logic → data; parameterized queries;
+     authn + authz per resource; no secrets/PII in logs or responses; transactions for
+     multi-step writes.
+   - Frontend: explicit **loading, empty, error, success** states for every fetch; semantic HTML
+     (`<button>`, `<ul>`, labels), keyboard-operable; small component, derived state; ignore
+     stale responses; no new state/CSS library for one feature.
+3. **TDD loop**, per behaviour: **red** — write the test, run it, see it fail for the right
+   reason; **green** — the simplest code that passes; **refactor** — clean up, rerun.
+   Cases: happy path, each validation/error path, and boundaries (empty, one item, null/
+   undefined, zero, max). **Bugfix:** first a test reproducing the bug (fails), then the minimal
+   fix, then tests for the bug's neighbours (empty → also one item and null).
+4. **DRY / YAGNI / KISS** (after green): remove duplicated *knowledge* (not look-alikes that
+   change for different reasons); delete unused params, config, "just in case" branches; fewer
+   moving parts, clear names, shallow nesting.
+5. **Run it:** the full tests AND the real behaviour (call the endpoint, render the component,
+   run the function). Report what you ran and observed; if you couldn't run something, say so.
 
-## Workflow
-
-Create a TodoWrite item per stage. Checkpoint each stage to
-`./.claude-skills-work/software-development/<task>/` (plan, decisions, progress)
-so work resumes if interrupted.
-
-### Stage 1 — Understand  ⛔ STOP if unclear
-Restate the task in one or two sentences: inputs, outputs, and the observable
-behavior that means "done". List unknowns. If a requirement is ambiguous or
-you'd be guessing at intent, STOP and ask — do not invent requirements (YAGNI).
-
-### Stage 2 — Plan the smallest slice
-Pick the smallest end-to-end slice that delivers real behavior. Identify the one
-or few files to touch and the seams. Write the plan to the checkpoint file.
-Prefer extending existing patterns in the codebase over introducing new ones.
-For stack-specific guidance read `references/backend.md` or
-`references/frontend.md` now.
-
-### Stage 3 — TDD loop (red → green → refactor)
-Repeat per behavior in the slice:
-1. **Red** — write a failing test for the next behavior. For WHICH cases to
-   write (happy path, edges, boundaries, error paths), use `writing-tests`.
-   Run it; confirm it fails for the right reason.
-2. **Green** — write the simplest code that makes it pass. No extra
-   abstraction, no speculative options (KISS, YAGNI).
-3. **Refactor** — with tests green, clean up (see Stage 4 principles). Rerun
-   tests. Commit-sized, behavior-preserving.
-
-### Stage 4 — Refactor for DRY / YAGNI / KISS
-Apply after green, never at the cost of a failing test:
-- **DRY** — remove real duplication of *knowledge*. Don't over-DRY: two things
-  that look alike but change for different reasons should stay separate.
-- **YAGNI** — delete anything not needed by a current requirement (unused
-  params, config, hooks, "just in case" branches).
-- **KISS** — prefer the simplest thing that works; fewer moving parts, clear
-  names, shallow nesting. If a reviewer would ask "why so complex?", simplify.
-
-### Stage 5 — Verify it runs
-Run the tests AND exercise the actual behavior (invoke the endpoint, render the
-component, run the CLI) — not just a typecheck. If a project `verify`/`run`
-skill exists, use it. Report what you ran and what you observed.
-
-## Red flags (stop and correct)
+## Red flags
 | If you notice… | Do this |
-|----------------|---------|
-| Writing code before a failing test | Stop; write the test first (Stage 3) |
-| Building for a future requirement | Delete it — YAGNI; add it when needed |
-| A clever/complex solution | Prefer the simplest that passes (KISS) |
-| Copy-pasting logic a third time | Extract the shared knowledge (DRY) |
-| DRY-ing two things that just look alike | Leave them separate — coincidental duplication |
-| Guessing an ambiguous requirement | STOP and ask |
-| "It compiles / types pass, so it works" | Actually run it (Stage 5) |
+|---|---|
+| Code before a failing test | Write the test first |
+| Building for a future requirement | Delete it (YAGNI) |
+| Stopping to ask when only details are open | State the assumption and build |
+| A clever solution | The simplest that passes (KISS) |
+| Logic copied a third time | Extract the shared knowledge (DRY) |
+| A fetch with only the happy path | Add loading/empty/error states |
+| "Types pass, so it works" | Run it |
 
 ## Done when
-- The slice's behavior is covered by tests written test-first, and they pass.
-- Code satisfies DRY/YAGNI/KISS (no speculative or duplicated logic).
-- You ran the real behavior and observed it working.
-
-## References (load only when needed)
-- `references/backend.md` — backend concerns (APIs, data, errors, security seams).
-- `references/frontend.md` — frontend concerns (state, components, a11y, UX).
+The slice's behaviour is covered by tests written first, all pass; no speculative or duplicated
+logic; you ran the real behaviour and reported what you saw.

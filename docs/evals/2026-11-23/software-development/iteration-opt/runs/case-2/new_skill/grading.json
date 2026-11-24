@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Handles loading, empty, error, and success states explicitly (not just the happy path)",
+      "passed": true,
+      "evidence": "Component returns `<p role=\"status\">Loading users…</p>`, `<p role=\"alert\">Could not load users.</p>`, `<p>No users yet.</p>`, and a `<ul>` of users."
+    },
+    {
+      "text": "Writes tests first for the states and fetch behavior",
+      "passed": true,
+      "evidence": "\"Red: write the test first.\" Tests cover loading/list, empty, HTTP and network errors, and `toHaveBeenCalledWith('/api/users', ...)`. They are run to fail before the component exists."
+    },
+    {
+      "text": "Uses semantic/accessible markup and keeps the component small",
+      "passed": true,
+      "evidence": "\"Semantic `<ul>`/`<li>` markup, `role=\\\"status\\\"` for loading and `role=\\\"alert\\\"` for errors.\" The component is about 35 lines with one status union and no new libraries."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 353,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4840
+  }
+}

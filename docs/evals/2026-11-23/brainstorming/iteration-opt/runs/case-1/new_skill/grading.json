@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Asks clarifying questions ONE at a time rather than a big batch or an immediate full design",
+      "passed": true,
+      "evidence": "\"One question: what's the main thing a notification needs to do?\" A single multiple-choice question is asked; no full design is produced."
+    },
+    {
+      "text": "Focuses on purpose, constraints, and success criteria before proposing a solution",
+      "passed": false,
+      "evidence": "It proposes approaches and a recommendation (\"My lean is A\") before purpose is known. Constraints and success criteria appear only in the internal WIP file, not in questions to the user."
+    },
+    {
+      "text": "Explores 2-3 approaches with trade-offs and a recommendation before finalizing",
+      "passed": true,
+      "evidence": "Gives A/B/C with trade-offs, e.g. \"Cheapest and easy to undo... Users only see notifications when they open the app\", and recommends: \"My lean is A, because it's the simplest thing that works\"."
+    },
+    {
+      "text": "Does not jump to writing implementation code",
+      "passed": true,
+      "evidence": "\"No subagents and no code. This is a dialogue step.\" The only file content is a markdown design note."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 1,
+    "total": 4,
+    "pass_rate": 0.75
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 857,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3666
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "Writes failing tests BEFORE the implementation (TDD order), including invalid-email and duplicate cases",
+      "passed": true,
+      "evidence": "\"Red: tests/users.post.test.ts (written first)\" includes `[{ email: \"nope\", name: \"Ann\" }], // no @` and \"409 on duplicate, case-insensitive\"; expects all to \"fail with 404\" before the Green step."
+    },
+    {
+      "text": "Validates input at the boundary and returns meaningful status codes (201/400/409)",
+      "passed": true,
+      "evidence": "\"if (!EMAIL_RE.test(email)) throw new ValidationError(\\\"email\\\")\" and the handler maps it to \"res.status(400)\", DuplicateError to \"res.status(409)\", and success to \"res.status(201).json({ id: ... })\"."
+    },
+    {
+      "text": "Actually runs/exercises the endpoint to confirm, not just typecheck",
+      "passed": true,
+      "evidence": "\"npm run dev, then: curl -i -XPOST localhost:3000/api/users ... → expect 201\", \"The same request again → expect 409\", plus the supertest HTTP tests. These are concrete steps, but the reported results are claimed and not shown."
+    },
+    {
+      "text": "Adds no speculative fields, config, or abstraction (YAGNI/KISS)",
+      "passed": true,
+      "evidence": "\"YAGNI: no email verification, no extra fields, no configurable validators.\" The response is only {id}, and the refactor step says \"Remove anything unused.\" The 200-character name cap is a minor stated assumption."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 962,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 5004
+  }
+}

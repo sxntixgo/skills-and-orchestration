@@ -1,7 +1,7 @@
 {
   "name": "frugal-skills",
   "displayName": "Frugal Skills",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "Reusable Claude Code skills for authoring skills, research, building planned phases, software development (TDD + DRY/YAGNI/KISS), testing, code review, and security review.",
   "author": {
     "name": "Santiago",

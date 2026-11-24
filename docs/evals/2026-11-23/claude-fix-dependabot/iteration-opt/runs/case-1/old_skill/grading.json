@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "Groups the alerts by lockfile: web/package-lock.json and mobile/package-lock.json",
+      "passed": true,
+      "evidence": "The triage table has a 'lockfile' column with values 'web' / 'mobile'. The summary says '7 in `web/` (all development-only) and 5 in `mobile/`'."
+    },
+    {
+      "text": "Identifies the runtime alerts as being in the mobile app, not the deployed web service",
+      "passed": true,
+      "evidence": "\"web: all dev-only. The deployed image's runtime contents don't change\"; \"zod #45 (high) ships in the mobile app.\""
+    },
+    {
+      "text": "Proposes one task per lockfile that can run in parallel",
+      "passed": true,
+      "evidence": "\"T1 web lockfile: `npm update vite source-map-js`... Runs in parallel with T2. T2 mobile lockfile: `npm update zod brace-expansion`.\""
+    },
+    {
+      "text": "Flags fixes that may need a major version bump",
+      "passed": true,
+      "evidence": "\"The other 4 (glob, minimatch, two for image-size) can only be fixed with a major bump or an `overrides` entry\""
+    },
+    {
+      "text": "Stops at gate 1 asking which majors to include, dispatching nothing",
+      "passed": true,
+      "evidence": "\"Stopped at **gate 1**\"; \"No subagents are spawned and nothing is dispatched yet\"; \"For #58, #59, #33 and #34, pick one: A)... B)...\""
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 900,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 5610
+  }
+}

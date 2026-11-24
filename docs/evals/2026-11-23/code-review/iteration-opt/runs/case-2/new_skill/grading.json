@@ -1,0 +1,31 @@
+{
+  "assertion_results": [
+    {
+      "text": "Identifies the empty-result IndexError on d[0] / missing not-found handling as a Must-fix correctness bug",
+      "passed": true,
+      "evidence": "Under '🔴 Must fix': 'No row found crashes (snippet:1): when nothing matches, db.q(u) returns [] and d[0] raises a bare IndexError'"
+    },
+    {
+      "text": "Flags the vague names (get, u, d) with better suggestions",
+      "passed": true,
+      "evidence": "'Names don't reveal intent... get, u, d and q don't say what is fetched' → 'def get_user(user_id): rows = db.query(...)'"
+    },
+    {
+      "text": "Every finding has a concrete fix and is severity-ordered (correctness first)",
+      "passed": true,
+      "evidence": "All 8 findings carry '→' fixes (e.g. '→ check len(d) == 1 and raise if not'). Order runs 🔴 Must fix (correctness #1-2), then 🟡 Should fix, then 🟢 Consider."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 504,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3690
+  }
+}

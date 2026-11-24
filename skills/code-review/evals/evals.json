@@ -37,9 +37,12 @@
     },
     {
       "id": 4,
-      "prompt": "Can you review my code? Mostly I want to know if the variable names and indentation match our Prettier config.",
+      "prompt": "Can you review my code in orders.js? Mostly I want to know if the variable names and indentation match our Prettier config.",
       "expected_output": "Focuses the review on correctness, design, and consistency rather than formatter-enforced style, noting that Prettier/lint already handles indentation. Still surfaces any real naming problems that affect readability, with line references and fixes.",
-      "files": [],
+      "files": [
+        "evals/files/naming/orders.js",
+        "evals/files/naming/.prettierrc"
+      ],
       "assertions": [
         "Notes that indentation/formatting is handled by Prettier/lint and does not spend the review on it",
         "Redirects focus to correctness, design, and consistency",

@@ -14,10 +14,12 @@ set -uo pipefail
 run="${1:-}"; id="${2:-}"; mode="${3:-}"
 [[ -n "$run" && -n "$id" ]] || { echo "usage: dispatch.sh <run> <id> [--continue]" >&2; exit 2; }
 
-root="$(git rev-parse --show-toplevel 2>/dev/null)" || { echo "not inside a git repo" >&2; exit 2; }
+# Every exit prints the DISPATCH line (also early ones: setup error 2, no slot 3, endpoint down 4).
+die() { echo "$2" >&2; echo "DISPATCH $id exit=$1 result=no log=-"; exit "$1"; }
+root="$(git rev-parse --show-toplevel 2>/dev/null)" || die 2 "not inside a git repo"
 cd "$root"
 dir=".orchestra/$run"; task="$root/$dir/tasks/$id.task.md"
-[[ -f "$task" ]] || { echo "missing $task" >&2; exit 2; }
+[[ -f "$task" ]] || die 2 "missing $task"
 mkdir -p "$dir/logs" "$dir/running"
 
 cfg=".orchestra/config.json"
@@ -40,24 +42,24 @@ for p in "$dir"/running/*.pid; do
   [[ -e "$p" ]] || continue
   if kill -0 "$(cat "$p")" 2>/dev/null; then alive=$((alive + 1)); else rm -f "$p"; fi
 done
-(( alive < concurrency )) || { echo "no free slot ($alive running, concurrency $concurrency)" >&2; exit 3; }
+(( alive < concurrency )) || die 3 "no free slot ($alive running, concurrency $concurrency)"
 
 # Endpoint up? (only when the atlas token is mounted, as in the devcontainers)
 tok=/opt/secrets/atlas-token
 if [[ -r "$tok" ]]; then
   code=$(curl -s -o /dev/null -m 15 -w '%{http_code}' -H "Authorization: Bearer $(cat "$tok")" \
     https://llm.example.internal/v1/models)
-  [[ "$code" == 200 ]] || { echo "llm.h answered $code" >&2; exit 4; }
+  [[ "$code" == 200 ]] || die 4 "llm.h answered $code"
 fi
 
 # Worktree
 wt="$root/.worktrees/$run/$id"; branch="orchestra/$run/$id"
 grep -qxF '.orchestra/' .git/info/exclude 2>/dev/null || printf '.orchestra/\n.worktrees/\n' >> .git/info/exclude
 if [[ "$mode" != "--continue" ]]; then
-  [[ -e "$wt" ]] && { echo "$wt exists; use --continue or remove it" >&2; exit 2; }
-  git worktree add -q -b "$branch" "$wt" "$base" || exit 2
+  [[ -e "$wt" ]] && die 2 "$wt exists; use --continue or remove it"
+  git worktree add -q -b "$branch" "$wt" "$base" || die 2 "git worktree add failed"
 else
-  [[ -d "$wt" ]] || { echo "no worktree $wt to continue" >&2; exit 2; }
+  [[ -d "$wt" ]] || die 2 "no worktree $wt to continue"
   rm -f "$wt/RESULT.md"
 fi
 

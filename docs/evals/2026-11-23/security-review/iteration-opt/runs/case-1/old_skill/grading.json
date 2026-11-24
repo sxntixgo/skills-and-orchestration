@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "States that jwt.decode does not verify the signature (token is forgeable) — distinct from just 'trusting the role claim'",
+      "passed": true,
+      "evidence": "\"JWT signature never verified\" ... \"`jwt.decode()` only base64-decodes the token and never checks the signature.\""
+    },
+    {
+      "text": "Describes the exploit: forge/modify a token to role=admin (or alg=none) to bypass auth",
+      "passed": true,
+      "evidence": "\"An attacker builds a token with `{\"role\":\"admin\"}` in the payload and any signature, or none, and sends it in `Authorization`.\""
+    },
+    {
+      "text": "Fix: verify the signature with jwt.verify (key + expiry) before trusting any claim",
+      "passed": true,
+      "evidence": "\"Use `jwt.verify(token, key, { algorithms: ['RS256'] ... })`... Rely on `exp` being enforced (verify does this by default).\""
+    },
+    {
+      "text": "Rates it Critical/High and follows the exploit + impact + fix format",
+      "passed": true,
+      "evidence": "\"### 🔴 Critical 1. Broken authentication...\" with \"- Exploit:\", \"- Impact: Anyone... gets admin.\", \"- Fix:\" bullets"
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 435,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4029
+  }
+}
