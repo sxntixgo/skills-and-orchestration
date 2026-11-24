@@ -30,10 +30,9 @@ Change it only with a version bump here and in every file that cites it.
 orchestrator's own context stays small. Tasks marked `review: opus` (auth, secrets, input parsing,
 files, network) and the end-of-phase review use `opus`. (Added in v1.1.)
 `concurrency` = how many opencode tasks may run at once, each in its own worktree. 2 is measured
-the number of slots atlas serves at once: 2 since 2026-11-21 (LM Studio; re-measured 2026-11-24 on the
-MLX build: two requests 10.6 s together vs ~9 s alone, a third waits for a slot. Before 2026-11-21, one
-slot, where two runs still filled each other's tool-running gaps: 265 s vs 310 s). A third run only
-queues; chat and news share the same slots.
+the number of slots atlas serves at once: 2 since 2026-11-21 (GGUF on llama.cpp; before, one slot,
+where two runs still filled each other's tool-running gaps: 265 s vs 310 s). A third run only queues;
+chat and news share the same slots.
 `stall_empty_s` / `stall_s` = the dispatcher kills a run whose log is still empty after
 `stall_empty_s`, or has not grown for `stall_s` (long enough for a quiet install or test run), and
 retries it `stall_retries` times (continuing the session if one started); then exit 125.
