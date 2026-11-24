@@ -5,7 +5,7 @@ Claude Code plugins, each skill small, self-contained and measured:
 | Plugin | What it is |
 |---|---|
 | **frugal-skills** (3.0.0) | 6 skills for building software: design, plan, build (TDD), debug, review, research |
-| **orchestration** (0.6.0) | Claude plans, reviews and merges; [opencode](https://opencode.ai) on a local model implements small tasks in git worktrees (also research and Dependabot fixes) |
+| **orchestration** (0.6.1) | Claude plans, reviews and merges; [opencode](https://opencode.ai) on a local model implements small tasks in git worktrees (also research and Dependabot fixes) |
 | **skill-authoring** (0.2.0) | `skill-creator` and `skill-reviewer`: write lean skills and prove they help |
 
 Every skill is:

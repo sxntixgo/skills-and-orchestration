@@ -54,19 +54,23 @@ fi
 tmo=(); command -v timeout >/dev/null && tmo=(timeout "${timeout_min}m")
 
 echo $$ > "$dir/running/$id.pid"
-# opencode keeps its state in SQLite: two runs starting at the same moment can fail with
-# "database is locked" before a session exists. Retry those (only those) after a random pause.
+# Two runs starting at the same moment can fail before a session exists: "database is locked"
+# (opencode's SQLite) or, on opencode 2, "Standalone server exited before reporting readiness".
+# Retry those (only those) after a random pause. opencode 2 writes "sessionID":"" on such errors,
+# so only a non-empty ID counts as a session.
+session_id() { grep -o '"sessionID":"[^"][^"]*"' "$1" | head -1 | cut -d'"' -f4; }
 for try in 1 2 3; do
   # opencode 2 has no --dir: it works in its current directory (the run dir)
   ( cd "$root/$dir" && exec ${tmo[@]+"${tmo[@]}"} opencode run --agent researcher --model "$model" --format json \
     --title "research $run/$id#$n" ${session_args[@]+"${session_args[@]}"} "$msg" -f "$task" ) > "$log" 2>&1
   rc=$?
-  grep -q '"sessionID"' "$log" || ! grep -q "database is locked" "$log" || [[ $try == 3 ]] && break
+  [[ -n "$(session_id "$log")" ]] || ! grep -qE "database is locked|exited before reporting readiness" "$log" ||
+    [[ $try == 3 ]] && break
   sleep "${DISPATCH_RETRY_S:-$((3 + RANDOM % 8))}"
 done
 rm -f "$dir/running/$id.pid"
 
-sid=$(grep -o '"sessionID":"[^"]*"' "$log" | head -1 | cut -d'"' -f4)
+sid=$(session_id "$log")
 [[ -n "$sid" ]] && echo "$sid" > "$dir/logs/$id.session"
 # Final answer = the text parts after the last step_start
 out=$(grep '^{' "$log" | jq -rs '(map(.type) | rindex("step_start")) as $i

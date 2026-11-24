@@ -106,10 +106,13 @@ run_once() {
   return 0
 }
 
-# Retries: opencode keeps its state in SQLite, so two runs starting at the same moment can fail with
-# "database is locked" before a session exists (up to 3 tries, random pause); a stalled run is
-# retried stall_retries times (its log kept as <log>.stalled-<k>).
-locked_tries=0; stalls=0
+# Retries: two runs starting at the same moment can fail before a session exists: "database is
+# locked" (opencode's SQLite) or, on opencode 2, "Standalone server exited before reporting
+# readiness" (2026-11-24 live check). Up to 3 tries, random pause, each failed log kept as
+# <log>.startfail-<k>. opencode 2 writes "sessionID":"" on such errors, so only a non-empty ID
+# counts as a session. A stalled run is retried stall_retries times (log kept as <log>.stalled-<k>).
+session_id() { grep -o '"sessionID":"[^"][^"]*"' "$1" | head -1 | cut -d'"' -f4; }
+start_tries=0; stalls=0
 while :; do
   run_once
   if [[ $rc -eq 125 ]]; then
@@ -117,18 +120,21 @@ while :; do
     echo "stalled (no log output: empty ${stall_empty_s}s / quiet ${stall_s}s), killed" >&2
     (( stalls > stall_retries )) && break
     mv "$log" "$log.stalled-$stalls"
-    sid=$(grep -o '"sessionID":"[^"]*"' "$log.stalled-$stalls" | head -1 | cut -d'"' -f4)
+    sid=$(session_id "$log.stalled-$stalls")
     [[ -n "$sid" ]] && session_args=(--session "$sid")
     continue
   fi
-  if ! grep -q '"sessionID"' "$log" && grep -q "database is locked" "$log" && (( ++locked_tries < 3 )); then
-    sleep $((3 + RANDOM % 8)); continue
+  if [[ -z "$(session_id "$log")" ]] &&
+     grep -qE "database is locked|exited before reporting readiness" "$log" && (( ++start_tries < 3 )); then
+    echo "opencode failed to start ($(grep -oE 'database is locked|exited before reporting readiness' "$log" | head -1)), retrying" >&2
+    mv "$log" "$log.startfail-$start_tries"
+    sleep "${DISPATCH_RETRY_S:-$((3 + RANDOM % 8))}"; continue
   fi
   break
 done
 rm -f "$dir/running/$id.pid"
 
-sid=$(grep -o '"sessionID":"[^"]*"' "$log" | head -1 | cut -d'"' -f4)
+sid=$(session_id "$log")
 [[ -n "$sid" ]] && echo "$sid" > "$dir/logs/$id.session"
 res=no; [[ -s "$wt/RESULT.md" ]] && res=yes
 echo "DISPATCH $id exit=$rc result=$res log=$log"

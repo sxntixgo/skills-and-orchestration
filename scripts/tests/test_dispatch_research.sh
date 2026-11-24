@@ -13,7 +13,7 @@ fail=0
 ok() { echo "ok   $1"; }
 no() { echo "FAIL $1: $2"; fail=1; }
 
-# stub opencode: records its args, then plays $STUB (answer | fenced | empty | locked-once | crash)
+# stub opencode: records its args, then plays $STUB (answer | fenced | empty | locked-once | startfail-once | crash)
 mkdir -p "$tmp/bin"
 cat > "$tmp/bin/opencode" <<'EOF'
 #!/usr/bin/env bash
@@ -28,6 +28,9 @@ case "$STUB" in
   empty)   echo "$step" ;;
   locked-once) if [[ $n == 1 ]]; then echo "Error: database is locked"; exit 1; fi
            echo "$step"; echo '{"type":"text","sessionID":"ses_1","part":{"text":"after retry"}}' ;;
+  startfail-once) if [[ $n == 1 ]]; then   # opencode 2, two runs starting at once (empty sessionID)
+             echo '{"type":"error","sessionID":"","error":{"message":"Standalone server exited before reporting readiness"}}'; exit 1; fi
+           echo "$step"; echo '{"type":"text","sessionID":"ses_1","part":{"text":"after start retry"}}' ;;
   crash)   echo "Error: boom"; exit 7 ;;
 esac
 EOF
@@ -74,6 +77,9 @@ rm -f $F; STUB=empty run "empty answer -> findings=no" 0 no
 
 STUB=locked-once run "database locked -> retried" 0 yes
 [[ "$(cat "$tmp/calls")" == 2 ]] && ok "retried once" || no "retry count" "$(cat "$tmp/calls")"
+
+STUB=startfail-once run "opencode 2 start failure (empty sessionID) -> retried" 0 yes
+[[ "$(cat "$tmp/calls")" == 2 ]] && ok "start failure retried once" || no "start retry count" "$(cat "$tmp/calls")"
 
 STUB=crash run "opencode exit code passed through" 7 no
 

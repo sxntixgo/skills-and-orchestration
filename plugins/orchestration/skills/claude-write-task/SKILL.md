@@ -68,6 +68,7 @@ attempt: 1
 | "Improve", "clean up", "as needed", "etc." anywhere (incl. run slug, title) | Replace with the concrete change |
 | A vague request ("clean up X") | Don't write it: ask what to change, or say it must be split |
 | No exact test command | Add one; a task without a check can't be reviewed |
+| Steps run a test command different from the one under Done when (e.g. `-race` only in Steps) | Use the same command, flags included: review runs only Done when's |
 | Long *why*, little *what* | Cut Context to 2–6 lines |
 | A new dependency | Name it yourself, or keep it out of scope |
 | A version bump with no requirements checked | Check peers/engines; CI and Dockerfile pins are part of it |

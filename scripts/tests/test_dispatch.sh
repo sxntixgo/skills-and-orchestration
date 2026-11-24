@@ -25,4 +25,33 @@ check "no free slot -> 3" 3 r1 T1
 kill $sleeper 2>/dev/null; wait $sleeper 2>/dev/null
 ORCHESTRA_LLM_URL=http://127.0.0.1:9/v1 check "model server unreachable -> 4" 4 r1 T1
 
+# Startup failure (opencode 2, two runs starting at once): the first try dies with an empty
+# sessionID; dispatch keeps that log and retries. Stub opencode: fails <fails> times, then works.
+mkdir -p "$tmp/bin"
+cat > "$tmp/bin/opencode" <<'EOF'
+#!/usr/bin/env bash
+n=$(( $(cat "$STUB_COUNT" 2>/dev/null || echo 0) + 1 )); echo $n > "$STUB_COUNT"
+if (( n <= STUB_FAILS )); then
+  echo '{"type":"error","timestamp":1,"sessionID":"","error":{"type":"unknown","message":"Standalone server exited before reporting readiness"}}'
+  exit 1
+fi
+echo '{"type":"step_start","timestamp":2,"sessionID":"ses_stub1","part":{}}'
+echo done > RESULT.md
+EOF
+chmod +x "$tmp/bin/opencode"
+git add -A >/dev/null 2>&1; git commit -q -m fixture >/dev/null 2>&1
+startfail() {  # startfail <name> <fails> <want exit> <want result> <want tries>
+  local name=$1 out rc last tries
+  rm -rf .worktrees/r1/T1 .orchestra/r1/logs; git worktree prune; git branch -qD orchestra/r1/T1 2>/dev/null
+  echo 0 > "$tmp/count"
+  out=$(PATH="$tmp/bin:$PATH" STUB_COUNT="$tmp/count" STUB_FAILS=$2 DISPATCH_RETRY_S=0 DISPATCH_POLL_S=1 \
+    bash "$DS" r1 T1 2>/dev/null); rc=$?; last=$(tail -1 <<<"$out"); tries=$(cat "$tmp/count")
+  if [[ $rc -eq $3 && "$last" == "DISPATCH T1 exit=$3 result=$4 log="* && $tries -eq $5 ]]; then echo "ok   $name"
+  else echo "FAIL $name: exit $rc, tries $tries, last line: $last"; fail=1; fi
+}
+startfail "start failure retried, then works -> 0" 1 0 yes 2
+[[ -f .orchestra/r1/logs/T1.1.jsonl.startfail-1 && "$(cat .orchestra/r1/logs/T1.session)" == ses_stub1 ]] &&
+  echo "ok   failed start log kept, real session recorded" || { echo "FAIL startfail log/session"; fail=1; }
+startfail "start failure 3 times -> gives up with opencode's exit" 5 1 no 3
+
 exit $fail

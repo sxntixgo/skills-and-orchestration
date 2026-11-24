@@ -117,3 +117,27 @@ deny by default, then allow only what each role needs; `"automations": false` in
 containers' `opencode.json`. Both dispatchers were tested end to end on 2.4.1 (dispatch, research
 with `--continue` on the same session). npm's `opencode-ai` package stays on 1.x: v2 is
 `@opencode/cli` or the GitHub release tarballs.
+
+## Live check: a real phase on opencode 2 (same day)
+
+Phase 1 of live-view's atlas-lane plan (run `2026-11-24-atlas-lane`), orchestrated headless
+(`claude -p`, auto permission mode) in a rebuilt devcontainer, opencode 2.4.1 on the local model.
+~12 min, ~$2.83 of Claude.
+
+| Task | Implementer | Outcome |
+|---|---|---|
+| T1 status reader package (review: opus) | opencode | merged, first try after a start-up crash was redispatched |
+| T2 `GET /atlas` endpoint (parallel with T1) | opencode | merged, first try |
+| T3 wiring + page lane | Claude (sonnet) | merged |
+| T4 end-of-phase review fixes (2 nits) | Claude (sonnet) | merged |
+
+Fixed afterwards (0.6.1):
+- Two opencode 2 runs starting together: one died with "Standalone server exited before reporting
+  readiness" and an empty `"sessionID":""`. Both dispatchers only retried "database is locked" and
+  took any `sessionID` key as a session, so neither retry could fire on opencode 2. Now: a
+  non-empty session ID is required, both start errors are retried (up to 3, random pause), and
+  dispatch.sh keeps each failed log as `<log>.startfail-<k>`. Tests added for both scripts.
+- A review subagent wrote a stale `board.md` back over another task's row: review-merge now edits
+  only its row and appends one Log line.
+- A spec ran `go test -race` in its Steps but not under Done when, so review ran it without
+  `-race`: write-task now requires the same command in both.

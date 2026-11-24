@@ -45,7 +45,9 @@ fix the implementer's code on accept.
      (spec design flaw, cross-cutting). The cheapest capable model implements it in `W`
      (choose with `references/takeover.md`); then review it with steps 2–4 and mark
      `taken-over` + model.
-5. **Log** verdict, test numbers and reason in `board.md`.
+5. **Log** verdict, test numbers and reason in `board.md`: change only your task's row and append
+   one Log line, as small in-place edits of the file as it is now (others write it while you
+   review); never write the whole file back.
 6. **Reply** with one line only: `MERGED <id> <commit> tests=<summary>` |
    `REJECTED <id> attempt=<n> notes=<count>` | `TAKEOVER <id> <model> <reason>`.
 
