@@ -50,7 +50,7 @@ res=no; [[ -s "$wt/RESULT.md" ]] && res=yes
 # --- commands
 runc() {  # runc <label> <command>: prints one status line (+ tail on failure), sets last
   local label="$1" cmd="$2" outf rc
-  outf=$(mktemp); (cd "$wt" && "${tmo[@]}" bash -c "$cmd") >"$outf" 2>&1; rc=$?
+  outf=$(mktemp); (cd "$wt" && ${tmo[@]+"${tmo[@]}"} bash -c "$cmd") >"$outf" 2>&1; rc=$?
   if (( rc == 0 )); then last=pass; echo "$label pass: $(grep -E '[0-9]+ (passed|failed|tests?)|^ok |PASS|FAIL' "$outf" | tail -2 | tr '\n' ' ' | cut -c1-200)"
   else last=fail; ok=0; echo "$label FAIL rc=$rc ($cmd), last 25 lines:"; tail -25 "$outf"; fi
   rm -f "$outf"

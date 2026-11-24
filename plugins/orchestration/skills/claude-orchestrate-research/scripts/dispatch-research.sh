@@ -9,12 +9,14 @@
 # The researcher can't write files: its last message IS the findings.
 # Last line: DISPATCH <id> exit=<rc> findings=<yes|no> log=<path>
 # Exit: 0 finished, 2 usage/setup, 3 no free slot, 4 llm unreachable, 124 timeout, other = opencode's.
+# Every exit prints the DISPATCH line (also early ones: setup error 2, no slot 3, endpoint down 4).
 set -uo pipefail
 run="${1:-}"; id="${2:-}"; mode="${3:-}"
-[[ -n "$run" && -n "$id" ]] || { echo "usage: dispatch-research.sh <run> <id> [--continue]" >&2; exit 2; }
+die() { echo "$2" >&2; echo "DISPATCH ${id:--} exit=$1 findings=no log=-"; exit "$1"; }
+[[ -n "$run" && -n "$id" ]] || die 2 "usage: dispatch-research.sh <run> <id> [--continue]"
 root="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"; cd "$root"
 dir="runs/$run"; task="$root/$dir/tasks/$id.md"
-[[ -f "$task" ]] || { echo "missing $task" >&2; exit 2; }
+[[ -f "$task" ]] || die 2 "missing $task"
 mkdir -p "$dir/logs" "$dir/findings" "$dir/running"
 
 cfg="runs/config.json"
@@ -28,7 +30,7 @@ for p in "$dir"/running/*.pid; do
   [[ -e "$p" ]] || continue
   if kill -0 "$(cat "$p")" 2>/dev/null; then alive=$((alive + 1)); else rm -f "$p"; fi
 done
-(( alive < concurrency )) || { echo "no free slot ($alive running, concurrency $concurrency)" >&2; exit 3; }
+(( alive < concurrency )) || die 3 "no free slot ($alive running, concurrency $concurrency)"
 
 # Endpoint up? Only when the model server is configured (the private devcontainers set both):
 #   ORCHESTRA_LLM_URL         OpenAI-compatible base URL, e.g. http://localhost:1234/v1
@@ -37,7 +39,7 @@ if [[ -n "${ORCHESTRA_LLM_URL:-}" ]]; then
   auth=(); tok="${ORCHESTRA_LLM_TOKEN_FILE:-}"
   [[ -n "$tok" && -r "$tok" ]] && auth=(-H "Authorization: Bearer $(cat "$tok")")
   code=$(curl -s -o /dev/null -m 15 -w '%{http_code}' ${auth[@]+"${auth[@]}"} "${ORCHESTRA_LLM_URL%/}/models")
-  [[ "$code" == 200 ]] || { echo "model server answered $code" >&2; exit 4; }
+  [[ "$code" == 200 ]] || die 4 "model server answered $code"
 fi
 
 n=$(ls "$dir/logs/$id".*.jsonl 2>/dev/null | wc -l | tr -d ' '); n=$((n + 1))
@@ -55,11 +57,11 @@ echo $$ > "$dir/running/$id.pid"
 # opencode keeps its state in SQLite: two runs starting at the same moment can fail with
 # "database is locked" before a session exists. Retry those (only those) after a random pause.
 for try in 1 2 3; do
-  "${tmo[@]}" opencode run --agent researcher --model "$model" --format json --dir "$root/$dir" \
-  --title "research $run/$id#$n" "${session_args[@]}" "$msg" -f "$task" > "$log" 2>&1   # -f last: greedy
+  ${tmo[@]+"${tmo[@]}"} opencode run --agent researcher --model "$model" --format json --dir "$root/$dir" \
+  --title "research $run/$id#$n" ${session_args[@]+"${session_args[@]}"} "$msg" -f "$task" > "$log" 2>&1   # -f last: greedy
   rc=$?
   grep -q '"sessionID"' "$log" || ! grep -q "database is locked" "$log" || [[ $try == 3 ]] && break
-  sleep $((3 + RANDOM % 8))
+  sleep "${DISPATCH_RETRY_S:-$((3 + RANDOM % 8))}"
 done
 rm -f "$dir/running/$id.pid"
 
