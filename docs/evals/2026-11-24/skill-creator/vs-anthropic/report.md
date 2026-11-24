@@ -1,6 +1,6 @@
 # skill-creator — eval 2026-11-24
 
-new = working tree (369cdd8+worktree), baseline = another skill (/Users/santiago/.claude/plugins/marketplaces/claude-plugins-official/plugins/skill-creator/skills/skill-creator); both with the repo's CLAUDE.md; model opus; `claude -p --safe-mode`, dry runs, blind judge.
+new = working tree (369cdd8+worktree), baseline = another skill (~/.claude/plugins/marketplaces/claude-plugins-official/plugins/skill-creator/skills/skill-creator); both with the repo's CLAUDE.md; model opus; `claude -p --safe-mode`, dry runs, blind judge.
 
 | Case | new | baseline |
 |---|:---:|:---:|

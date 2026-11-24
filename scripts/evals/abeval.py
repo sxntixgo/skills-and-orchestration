@@ -141,6 +141,17 @@ def good_run(rd: Path) -> bool:
     return bool(ans.strip()) and not t.get("is_error") and "error" not in t and not LIMIT_RE.search(ans[:300])
 
 
+def rel(p: Path) -> str:
+    """Repo-relative or ~-relative path for records that get committed (no local user paths)."""
+    p = p.resolve()
+    for base, label in ((REPO, ""), (Path.home(), "~/")):
+        try:
+            return label + str(p.relative_to(base))
+        except ValueError:
+            pass
+    return str(p)
+
+
 def load_cases(skill: Path, only, evals_file=""):
     d = json.loads((Path(evals_file) if evals_file else skill / "evals" / "evals.json").read_text())
     cases = [c for c in d["evals"] if not only or c["id"] in only]
@@ -164,8 +175,8 @@ def cmd_run(a):
     snaps = {cfg: (out / "snap" / cfg) if (out / "snap" / cfg).is_dir() and not a.resnapshot
              else snapshot(out, cfg, skill, a.baseline, a.baseline_skill) for cfg in cfgs}
     meta = {"skill": name, "skill_path": str(skill_rel), "model": a.model, "claudemd": a.claudemd,
-            "evals_file": str(Path(a.evals).resolve()) if a.evals else "",
-            "baseline": f"skill:{a.baseline_skill}" if a.baseline_skill else a.baseline,
+            "evals_file": rel(Path(a.evals).resolve()) if a.evals else "",
+            "baseline": f"skill:{rel(Path(a.baseline_skill).expanduser())}" if a.baseline_skill else a.baseline,
             "new_rev": sh(["git", "-C", str(REPO), "rev-parse", "--short", "HEAD"]).stdout.decode().strip() + "+worktree",
             "date": time.strftime("%Y-%m-%d"), "cases": [c["id"] for c in cases]}
     (out / "meta.json").write_text(json.dumps(meta, indent=2) + "\n")
@@ -220,7 +231,9 @@ def cmd_grade(a):
     out = Path(a.out).resolve()
     meta = json.loads((out / "meta.json").read_text())
     skill = REPO / meta["skill_path"]
-    _, cases = load_cases(skill, set(meta["cases"]), meta.get("evals_file", ""))
+    ef = meta.get("evals_file", "")
+    ef = str(Path(ef).expanduser()) if ef.startswith("~/") else (str(REPO / ef) if ef else "")
+    _, cases = load_cases(skill, set(meta["cases"]), ef)
     byid = {c["id"]: c for c in cases}
 
     def one(rd: Path):

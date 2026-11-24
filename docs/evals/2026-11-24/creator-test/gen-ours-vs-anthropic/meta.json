@@ -3,8 +3,8 @@
   "skill_path": "plugins/skill-authoring/skills/skill-creator",
   "model": "opus",
   "claudemd": true,
-  "evals_file": "/Users/santiago/Dev/skills-and-orchestration/scripts/evals/creator-test/generate.json",
-  "baseline": "skill:/Users/santiago/.claude/plugins/marketplaces/claude-plugins-official/plugins/skill-creator/skills/skill-creator",
+  "evals_file": "scripts/evals/creator-test/generate.json",
+  "baseline": "skill:~/.claude/plugins/marketplaces/claude-plugins-official/plugins/skill-creator/skills/skill-creator",
   "new_rev": "57349c7+worktree",
   "date": "2026-11-24",
   "cases": [

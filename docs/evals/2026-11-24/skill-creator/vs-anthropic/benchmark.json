@@ -4,7 +4,7 @@
     "skill_path": "plugins/skill-authoring/skills/skill-creator",
     "model": "opus",
     "claudemd": true,
-    "baseline": "skill:/Users/santiago/.claude/plugins/marketplaces/claude-plugins-official/plugins/skill-creator/skills/skill-creator",
+    "baseline": "skill:~/.claude/plugins/marketplaces/claude-plugins-official/plugins/skill-creator/skills/skill-creator",
     "new_rev": "369cdd8+worktree",
     "date": "2026-11-24",
     "cases": [

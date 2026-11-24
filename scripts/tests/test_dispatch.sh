@@ -22,4 +22,7 @@ echo '{"concurrency":1}' > .orchestra/config.json
 sleep 60 & sleeper=$!; echo $sleeper > .orchestra/r1/running/T0.pid
 check "no free slot -> 3" 3 r1 T1
 
+kill $sleeper 2>/dev/null; wait $sleeper 2>/dev/null
+ORCHESTRA_LLM_URL=http://127.0.0.1:9/v1 check "model server unreachable -> 4" 4 r1 T1
+
 exit $fail

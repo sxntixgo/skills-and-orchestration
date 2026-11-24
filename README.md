@@ -1,62 +1,89 @@
-# frugal-skills
+# skills-and-orchestration
 
-A collection of reusable [Claude Code](https://code.claude.com/docs) skills,
-packaged as a Claude Code plugin. The skills cover authoring skills, online
-research, software development, testing, and reviewing software.
+Claude Code plugins, each skill small, self-contained and measured:
 
-Every skill is designed to be:
+| Plugin | What it is |
+|---|---|
+| **frugal-skills** (3.0.0) | 6 skills for building software: design, plan, build (TDD), debug, review, research |
+| **orchestration** (0.5.0) | Claude plans, reviews and merges; [opencode](https://opencode.ai) on a local model implements small tasks in git worktrees (also research and Dependabot fixes) |
+| **skill-authoring** (0.2.0) | `skill-creator` and `skill-reviewer`: write lean skills and prove they help |
 
-- **Self-contained** — no dependency on any other plugin.
-- **Token-frugal** — runnable in a single context window; detail lives in
-  `references/*.md` loaded only when needed.
-- **Checkpointed / resumable** — multi-step skills write intermediate outputs to
-  disk so you can pause and continue from any step.
-- **Guarded** — explicit scope, a required-steps checklist, and STOP gates keep
-  Claude on task.
-- **Eval-backed** — each skill ships `evals/evals.json` and is validated by a
-  baseline comparison (with-skill vs. skill-disabled).
+Every skill is:
+
+- **Self-contained and token-frugal** — one page that holds only the process the model
+  wouldn't follow on its own; every extra file read is a turn that re-reads the whole context.
+- **Checkpointed** — multi-step skills write their progress to disk, so work can resume.
+- **Guarded** — explicit scope, steps, stop points only where they protect something, red flags.
+- **Eval-backed** — each skill ships `evals/evals.json`; it stays only if a measured comparison
+  shows it helps (see [Evaluation results](#evaluation-results)).
 
 ## Install
 
 ```bash
-/plugin marketplace add sxntixgo/frugal-skills
+/plugin marketplace add sxntixgo/skills-and-orchestration
 /plugin install frugal-skills@frugal-skills
+/plugin install orchestration@frugal-skills      # optional: Claude + opencode
+/plugin install skill-authoring@frugal-skills    # optional: to write skills
 ```
 
-After installing, run `/reload-plugins`. Skills are namespaced by the plugin,
-e.g. `frugal-skills:code-review`.
+Run `/reload-plugins` afterwards. Skills are namespaced, e.g. `frugal-skills:code-review`.
 
-To author skills in this repo's style: `/plugin install skill-authoring@frugal-skills`
-(`skill-creator`, `skill-reviewer`; separate since 2026-11-24 so skill users don't get them).
-
-## Skills
+## frugal-skills
 
 | Skill | Use it when… |
 |-------|--------------|
-| `online-research` | doing structured web research with cited sources |
 | `brainstorming` | turning a vague idea into a validated design through dialogue |
 | `writing-plans` | turning a spec/design into a phased, verifiable implementation plan |
-| `software-development` | building backend/frontend software (TDD + DRY/YAGNI/KISS), incl. one planned phase with per-task model assignments, and adding tests |
-| `debugging` | diagnosing a bug before fixing — reproduce, isolate, verify cause, fix, confirm |
+| `software-development` | building backend/frontend software (TDD + DRY/YAGNI/KISS), one planned phase (honoring per-task models), or adding tests |
+| `debugging` | diagnosing a bug before fixing: reproduce, isolate, verify the cause, fix, confirm |
 | `code-review` | reviewing code for correctness, security and quality |
+| `online-research` | web research with independent, cited sources |
 
-> Status: **v2.0.0** — 8 skills (build-phase, writing-tests and security-review folded in on 2026-11-23, see `docs/validation-2026-11-23.md`). See [`plan.md`](./plan.md)
-> for the roadmap and [`docs/validation-2026-07-11.md`](./docs/validation-2026-07-11.md)
-> for the honest eval results.
+## orchestration
+
+Claude Code orchestrates and reviews; opencode on a local model implements. See
+[`plugins/orchestration/README.md`](./plugins/orchestration/README.md). The dispatch scripts check
+the model server only when `ORCHESTRA_LLM_URL` (and optionally `ORCHESTRA_LLM_TOKEN_FILE`) is set.
+
+| Skill | Role |
+|---|---|
+| `claude-orchestrate-development` | plan gate → task graph → write/dispatch/review/merge loop, one session per phase |
+| `claude-write-task` | one precise task spec for the implementer |
+| `claude-dispatch` | run one task with opencode in its own worktree |
+| `claude-review-merge` | check scope, tests and lint, then merge, send back or take over |
+| `claude-orchestrate-research` | split a research question across opencode researchers, verify, report |
+| `claude-fix-dependabot` | triage Dependabot alerts and fix them through the same loop |
+
+## Evaluation results
+
+Every number comes from `scripts/evals/abeval.py`: each case runs in a fresh isolated
+`claude -p --safe-mode` (Opus), once with and once without the skill (or against the previous
+version, or another skill); a blind judge grades each answer against objective assertions and
+must quote evidence. Raw answers, gradings and timings are in [`docs/evals/`](./docs/evals/).
+
+| Round | Result | Report |
+|---|---|---|
+| Token cut, all 15 Claude-side skills (2026-11-23) | 228/256 → **250/256** assertions, **−23 %** tokens per run (−35 to −46 % where a reference file was read) | [validation-2026-11-23](./docs/validation-2026-11-23.md) |
+| Consolidation (2026-11-23) | security-review **0.00** vs no skill (twice) and writing-tests +0.08 → folded; merged code-review 33/33, software-development 41/42 | same, Round 3 |
+| Skill authoring vs CLAUDE.md and Anthropic's skill-creator (2026-11-24) | skill-reviewer **+0.40** / **+0.38**; rewritten skill-creator 17/17 vs 13/17, and the skills it writes score 19/19 on held-out cases with the smallest pages | [validation-2026-11-24](./docs/validation-2026-11-24.md) |
+| First baselines (2026-07-11) | process skills help (+0.19 to +0.73); knowledge-restating skills don't | [validation-2026-07-11](./docs/validation-2026-07-11.md) |
+
+The main lesson: a skill earns its tokens by encoding a **process** the model doesn't already
+follow (stop points, ordering, formats, the mistakes it really makes), not by restating
+knowledge. Rerun or extend the evals with [`scripts/evals/README.md`](./scripts/evals/README.md).
 
 ## Developing / contributing
 
-Claude Code does not auto-load a bare `skills/` directory, so to work on these
-skills locally:
-
 ```bash
-claude --plugin-dir .        # load this repo as a live plugin
-/reload-plugins              # after editing a skill
-claude plugin validate .     # check the manifests
+claude --plugin-dir .                      # load this repo as a live plugin
+/reload-plugins                            # after editing a skill
+claude plugin validate .                   # check the manifests
+python3 plugins/skill-authoring/skills/skill-creator/scripts/check_skill.py <skill dir>
+for t in scripts/tests/*.sh; do bash "$t"; done
 ```
 
-See [`CLAUDE.md`](./CLAUDE.md) for the full authoring conventions (the 8 rules
-every skill must follow) and the eval workflow.
+See [`CLAUDE.md`](./CLAUDE.md) for the authoring rules and the eval workflow, and
+[`plan.md`](./plan.md) for the history.
 
 ## License
 

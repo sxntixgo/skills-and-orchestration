@@ -8,7 +8,7 @@ Guidance for Claude Code when working in this repository.
 packaged as a **Claude Code plugin** so it can be installed with:
 
 ```bash
-/plugin marketplace add sxntixgo/frugal-skills
+/plugin marketplace add sxntixgo/skills-and-orchestration
 /plugin install frugal-skills@frugal-skills   # plugin@marketplace
 ```
 

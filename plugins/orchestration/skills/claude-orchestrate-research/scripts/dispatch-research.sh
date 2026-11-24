@@ -30,11 +30,14 @@ for p in "$dir"/running/*.pid; do
 done
 (( alive < concurrency )) || { echo "no free slot ($alive running, concurrency $concurrency)" >&2; exit 3; }
 
-tok=/opt/secrets/atlas-token
-if [[ -r "$tok" ]]; then
-  code=$(curl -s -o /dev/null -m 15 -w '%{http_code}' -H "Authorization: Bearer $(cat "$tok")" \
-    https://llm.example.internal/v1/models)
-  [[ "$code" == 200 ]] || { echo "llm.h answered $code" >&2; exit 4; }
+# Endpoint up? Only when the model server is configured (the private devcontainers set both):
+#   ORCHESTRA_LLM_URL         OpenAI-compatible base URL, e.g. http://localhost:1234/v1
+#   ORCHESTRA_LLM_TOKEN_FILE  optional file holding its bearer token
+if [[ -n "${ORCHESTRA_LLM_URL:-}" ]]; then
+  auth=(); tok="${ORCHESTRA_LLM_TOKEN_FILE:-}"
+  [[ -n "$tok" && -r "$tok" ]] && auth=(-H "Authorization: Bearer $(cat "$tok")")
+  code=$(curl -s -o /dev/null -m 15 -w '%{http_code}' ${auth[@]+"${auth[@]}"} "${ORCHESTRA_LLM_URL%/}/models")
+  [[ "$code" == 200 ]] || { echo "model server answered $code" >&2; exit 4; }
 fi
 
 n=$(ls "$dir/logs/$id".*.jsonl 2>/dev/null | wc -l | tr -d ' '); n=$((n + 1))
