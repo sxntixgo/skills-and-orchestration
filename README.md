@@ -80,6 +80,7 @@ claude --plugin-dir .                      # load this repo as a live plugin
 claude plugin validate .                   # check the manifests
 python3 plugins/skill-authoring/skills/skill-creator/scripts/check_skill.py <skill dir>
 for t in scripts/tests/*.sh; do bash "$t"; done
+bash scripts/ci.sh                         # everything CI runs (no model calls)
 ```
 
 See [`CLAUDE.md`](./CLAUDE.md) for the authoring rules and the eval workflow, and

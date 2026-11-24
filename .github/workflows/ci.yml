@@ -1,0 +1,32 @@
+name: ci
+
+# Repo checks only: manifests, skill structure, JSON, script syntax, script tests, private data.
+# No model calls and no secrets (claude plugin validate works without a login).
+on:
+  push:
+    branches: [main, orchestration]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+      - name: Install Claude Code CLI (for plugin validation)
+        run: npm install -g @anthropic-ai/claude-code@2.1.331
+      - name: Run checks
+        run: bash scripts/ci.sh
