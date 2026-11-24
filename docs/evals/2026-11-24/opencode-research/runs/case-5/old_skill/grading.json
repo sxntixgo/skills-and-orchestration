@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "At least 4 searches with different wordings were run",
+      "passed": false,
+      "evidence": "No searches ran. All shell calls failed: \"Permission denied: shell\"; the tool list shows only skill, shell, glob, read and grep calls."
+    },
+    {
+      "text": "Status is partial, or every power figure is given low/medium confidence with the missing evidence under Gaps",
+      "passed": false,
+      "evidence": "There is no status field and no Gaps section. Figures such as \"~2–3 W\" and \"adapter loss of roughly 10–15%\" have no low/medium confidence label."
+    },
+    {
+      "text": "A macOS or screen-on figure is not presented as the headless-Linux answer without saying so",
+      "passed": true,
+      "evidence": "\"Answer: I could not obtain any source, so I am not giving a number.\" No macOS or screen-on figure is offered as the answer."
+    },
+    {
+      "text": "Every number in the reply appears in a quote from a fetched source (no invented number)",
+      "passed": false,
+      "evidence": "Nothing was fetched, yet the reply states \"adapter wattage (45 W or 60 W MagSafe 2)\", \"display draw (~2–3 W...)\" and \"roughly 10–15%\" with no source."
+    },
+    {
+      "text": "The final reply is in the findings format: frontmatter with id T5 and a status, then the sections Answer, Claims, Conflicts, Gaps, Sources and Notes, with no code fence around the whole reply and no chatter outside it",
+      "passed": false,
+      "evidence": "No frontmatter. The sections are Blocker, Confidence, What would resolve it and Notes, with no Claims, Conflicts, Gaps or Sources. Extra \"## Final reply\" and \"## Tool calls\" headers sit outside the format."
+    }
+  ],
+  "summary": {
+    "passed": 1,
+    "failed": 4,
+    "total": 5,
+    "pass_rate": 0.2
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 861,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4183
+  }
+}

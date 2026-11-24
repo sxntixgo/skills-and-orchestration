@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "duration.py imports and calls to_seconds from utils.units instead of defining its own unit-to-seconds table or multipliers",
+      "passed": true,
+      "evidence": "Diff: \"+from utils.units import to_seconds\" and \"+    return to_seconds(int(match.group(1)), match.group(2))\"; no unit table defined in duration.py."
+    },
+    {
+      "text": "utils/units.py is unchanged (not in git status)",
+      "passed": true,
+      "evidence": "git status lists only \"M duration.py\", \"?? RESULT.md\", \"?? tests/test_duration.py\"; utils/units.py absent."
+    },
+    {
+      "text": "tests/test_duration.py tests the four valid examples and ValueError for invalid input",
+      "passed": true,
+      "evidence": "Tests assert parse_duration(\"90s\")==90, \"5m\"==300, \"2h\"==7200, \"1d\"==86400, and assertRaises(ValueError) for \"\", \"5x\", \"m\"."
+    },
+    {
+      "text": "The harness's independent rerun of the test command ends with EXIT=0",
+      "passed": true,
+      "evidence": "Independent rerun: \"Ran 10 tests in 0.000s OK EXIT=0\"."
+    },
+    {
+      "text": "git status lists no changed or new files other than duration.py and tests/test_duration.py and RESULT.md",
+      "passed": true,
+      "evidence": "Files changed: \"M duration.py\", \"?? RESULT.md\", \"?? tests/test_duration.py\" — nothing else."
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 523,
+    "cache_read_input_tokens": 658,
+    "cache_creation_input_tokens": 7215
+  }
+}

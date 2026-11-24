@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "The tool calls include fetch-text of files/blog-measurement.md and at least one web search",
+      "passed": false,
+      "evidence": "Tool calls show 'read .../files/blog-measurement.md' (not fetch-text) and no search call; shell attempts failed with permission denied."
+    },
+    {
+      "text": "If the 85 MB figure has no second independent source, it is labelled secondary with confidence low or medium (not high)",
+      "passed": false,
+      "evidence": "Reply calls it 'a weak baseline' but never labels it 'secondary' or assigns a confidence level (low/medium)."
+    },
+    {
+      "text": "The reply notes that usage depends on the number of engines and/or uWSGI workers",
+      "passed": true,
+      "evidence": "\"Your numbers will differ with the number of engines and uWSGI workers you enable.\""
+    },
+    {
+      "text": "Any conflicting figure found is listed under Conflicts (passes if none was found and Conflicts says none)",
+      "passed": false,
+      "evidence": "No Conflicts section exists in the reply."
+    },
+    {
+      "text": "The final reply is in the findings format: frontmatter with id T10 and a status, then the sections Answer, Claims, Conflicts, Gaps, Sources and Notes, with no code fence around the whole reply and no chatter outside it",
+      "passed": false,
+      "evidence": "No frontmatter; sections are 'Bottom line', 'What the existing measurement says', 'Attempted verification', 'Gaps', 'Notes'. Answer, Claims, Conflicts, Sources missing."
+    }
+  ],
+  "summary": {
+    "passed": 1,
+    "failed": 4,
+    "total": 5,
+    "pass_rate": 0.2
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 517,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3738
+  }
+}

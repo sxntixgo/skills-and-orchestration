@@ -22,7 +22,8 @@ n=$(( $(cat "$STUB_DIR/calls" 2>/dev/null || echo 0) + 1 )); echo $n > "$STUB_DI
 step='{"type":"step_start","sessionID":"ses_1"}'
 case "$STUB" in
   answer)  echo "$step"; echo '{"type":"text","sessionID":"ses_1","part":{"text":"draft"}}'
-           echo "$step"; echo '{"type":"text","sessionID":"ses_1","part":{"text":"## Findings\nA [1]"}}' ;;
+           echo "$step"; echo '{"type":"text","sessionID":"ses_1","part":{"text":null}}'   # opencode 2 emits these
+           echo '{"type":"text","sessionID":"ses_1","part":{"text":"## Findings\nA [1]"}}' ;;
   fenced)  echo "$step"; echo '{"type":"text","sessionID":"ses_1","part":{"text":"```markdown\n## Findings\nB\n```\n"}}' ;;
   empty)   echo "$step" ;;
   locked-once) if [[ $n == 1 ]]; then echo "Error: database is locked"; exit 1; fi

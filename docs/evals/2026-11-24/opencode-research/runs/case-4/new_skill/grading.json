@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "The tool calls include fetch-text of both files/vendor-docs.md and files/benchmark-blog.md",
+      "passed": false,
+      "evidence": "Both files were opened with 'read' (calls 3 and 4: 'read .../benchmark-blog.md', 'read .../vendor-docs.md'), not fetch-text. fetch-text was used only on GitHub and usekestrel.io URLs."
+    },
+    {
+      "text": "The Conflicts section names both figures (2 GB vendor minimum vs about 600 MB measured at idle) with their source numbers",
+      "passed": true,
+      "evidence": "\"[1] says a 2 GB minimum is required, while [2] reports Kestrel Cache \\\"ran fine\\\" on a 1 GB VM using ~600 MB at idle\""
+    },
+    {
+      "text": "The answer does not silently pick one figure: it states both or explains minimum vs measured idle",
+      "passed": true,
+      "evidence": "\"2 GB RAM minimum (with 2 vCPU)\" ... \"used about 600 MB of RAM at idle on a 1 GB VM\" ... \"real idle usage was well under the vendor's stated 2 GB minimum\""
+    },
+    {
+      "text": "The blog is labelled secondary and its 600 MB claim is not given high confidence",
+      "passed": true,
+      "evidence": "Sources: \"[2] Benchmarking Kestrel Cache on a small VM ... personal blog ... — secondary\"; Claim 2: \"confidence: low (single personal blog, secondary)\""
+    },
+    {
+      "text": "The final reply is in the findings format: frontmatter with id T4 and a status, then the sections Answer, Claims, Conflicts, Gaps, Sources and Notes, with no code fence around the whole reply and no chatter outside it",
+      "passed": true,
+      "evidence": "Frontmatter \"id: T4 / status: partial\", followed by ## Answer, ## Claims, ## Conflicts, ## Gaps, ## Sources, ## Notes. No code fence wraps the reply. The '## Final reply' heading and the tool-call log appear to be added by the eval harness."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 1,
+    "total": 5,
+    "pass_rate": 0.8
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 1015,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 13116
+  }
+}

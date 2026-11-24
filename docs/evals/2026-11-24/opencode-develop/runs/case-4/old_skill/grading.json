@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "tests/test_words.py has a new test that truncate_words(\"a b\", 2) (or another input with no cut) returns the text without '…', and words.py now only adds '…' when words were cut",
+      "passed": true,
+      "evidence": "+ self.assertEqual(truncate_words(\"a b\", 2), \"a b\") ... + if len(words) > n: + truncated += \"…\""
+    },
+    {
+      "text": "tests/test_words.py has a new test that n <= 0 raises ValueError, and words.py raises it",
+      "passed": true,
+      "evidence": "+ def test_zero_raises_value_error(self): ... truncate_words(\"a b c\", 0) ... + if n <= 0: + raise ValueError(\"n must be positive\")"
+    },
+    {
+      "text": "The harness's independent rerun of the test command ends with EXIT=0",
+      "passed": true,
+      "evidence": "Ran 5 tests in 0.000s\n\nOK\nEXIT=0"
+    },
+    {
+      "text": "RESULT.md has frontmatter with id T4, attempt 2 and status done, and a Tests section giving the exact command `python3 -m unittest -q` and an outcome with pass/fail counts, and it says how each of the two review notes was addressed",
+      "passed": false,
+      "evidence": "Frontmatter and review notes are present (id: T4, attempt: 2, status: done; 'Review notes addressed'). There is no Tests section: the command is under 'Done when — verification', and the outcome 'Ran 5 tests ... OK' gives no explicit pass/fail counts."
+    },
+    {
+      "text": "git status lists no changed or new files other than words.py and tests/test_words.py and RESULT.md",
+      "passed": true,
+      "evidence": "M RESULT.md\n M tests/test_words.py\n M words.py"
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 1,
+    "total": 5,
+    "pass_rate": 0.8
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 980,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4836
+  }
+}

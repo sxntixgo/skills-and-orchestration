@@ -86,8 +86,9 @@ fmtime() { stat -c %Y "$1" 2>/dev/null || stat -f %m "$1"; }
 run_once() {
   local start now size grp=()
   command -v setsid >/dev/null && grp=(setsid)     # own process group: the kill reaches its tools too
-  ${grp[@]+"${grp[@]}"} ${tmo[@]+"${tmo[@]}"} opencode run --agent implementer --model "$model" --format json --dir "$wt" \
-    --title "$run/$id#$n" ${session_args[@]+"${session_args[@]}"} "$msg" -f "$task" > "$log" 2>&1 &   # -f is greedy: keep it last
+  # opencode 2 has no --dir: it works in its current directory (the worktree)
+  ( cd "$wt" && exec ${grp[@]+"${grp[@]}"} ${tmo[@]+"${tmo[@]}"} opencode run --agent implementer --model "$model" \
+    --format json --title "$run/$id#$n" ${session_args[@]+"${session_args[@]}"} "$msg" -f "$task" ) > "$log" 2>&1 &
   local opid=$! stalled=0
   start=$(date +%s)
   while kill -0 "$opid" 2>/dev/null; do

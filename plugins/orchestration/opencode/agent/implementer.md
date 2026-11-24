@@ -3,38 +3,37 @@ description: Implements exactly one orchestration task (task.md) in its own git 
 mode: primary
 model: atlas/qwen3.8-flash-next
 steps: 80
-permission:
-  edit: allow
-  read: allow
-  glob: allow
-  grep: allow
-  list: allow
-  skill: allow
-  todowrite: allow
-  task: deny
-  webfetch: deny
-  websearch: deny
-  external_directory: deny
-  bash:
-    "*": allow
-    "git commit*": deny
-    "git push*": deny
-    "git reset*": deny
-    "git checkout*": deny
-    "git switch*": deny
-    "git rebase*": deny
-    "git merge*": deny
-    "git worktree*": deny
-    "git branch*": deny
-    "git stash*": deny
-    "git clean*": deny
-    "docker*": deny
-    "ssh*": deny
-    "scp*": deny
-    "curl*": deny
-    "wget*": deny
-    "sudo*": deny
-    "rm -rf /*": deny
+# opencode 2 rules, last match wins: deny everything (incl. tools added in later releases), then allow what the job needs.
+permissions:
+  - { action: "*", resource: "*", effect: deny }
+  - { action: read, resource: "*", effect: allow }
+  - { action: edit, resource: "*", effect: allow }
+  - { action: glob, resource: "*", effect: allow }
+  - { action: grep, resource: "*", effect: allow }
+  - { action: list, resource: "*", effect: allow }
+  - { action: skill, resource: "*", effect: allow }
+  - { action: shell, resource: "*", effect: allow }
+  - { action: shell, resource: "git commit*", effect: deny }
+  - { action: shell, resource: "git push*", effect: deny }
+  - { action: shell, resource: "git reset*", effect: deny }
+  - { action: shell, resource: "git checkout*", effect: deny }
+  - { action: shell, resource: "git switch*", effect: deny }
+  - { action: shell, resource: "git rebase*", effect: deny }
+  - { action: shell, resource: "git merge*", effect: deny }
+  - { action: shell, resource: "git worktree*", effect: deny }
+  - { action: shell, resource: "git branch*", effect: deny }
+  - { action: shell, resource: "git stash*", effect: deny }
+  - { action: shell, resource: "git clean*", effect: deny }
+  - { action: shell, resource: "docker*", effect: deny }
+  - { action: shell, resource: "ssh*", effect: deny }
+  - { action: shell, resource: "scp*", effect: deny }
+  - { action: shell, resource: "curl*", effect: deny }
+  - { action: shell, resource: "wget*", effect: deny }
+  - { action: shell, resource: "sudo*", effect: deny }
+  - { action: shell, resource: "rm -rf /*", effect: deny }
+  - { action: read, resource: "*.env", effect: deny }
+  - { action: read, resource: "*.env.*", effect: deny }
+  - { action: read, resource: "*.env.example", effect: allow }
 ---
 
 You are the implementer in a two-agent setup. Claude (a stronger model) wrote your task, will

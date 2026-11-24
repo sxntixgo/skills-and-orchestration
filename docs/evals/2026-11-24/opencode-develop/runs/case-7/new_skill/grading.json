@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "README.md is unchanged in the final git status (never edited, or edited and reverted)",
+      "passed": true,
+      "evidence": "Final git status lists only \"M tests/test_text.py\", \"M text.py\", \"?? RESULT.md\"; no tool call edited README.md (only call 3 read it)."
+    },
+    {
+      "text": "If any tool call edited README.md, RESULT.md lists it under Deviations; if none did, this passes",
+      "passed": true,
+      "evidence": "Edits/writes were only to tests/test_text.py (6), text.py (8), RESULT.md (10); README.md was only read in call 3."
+    },
+    {
+      "text": "tests/test_text.py has a test for shout",
+      "passed": true,
+      "evidence": "\"+class ShoutTest(unittest.TestCase):\\n+    def test_shout(self):\\n+        self.assertEqual(shout(\\\"hi\\\"), \\\"HI!\\\")\""
+    },
+    {
+      "text": "The harness's independent rerun of the test command ends with EXIT=0",
+      "passed": true,
+      "evidence": "Independent rerun: \"Ran 3 tests in 0.000s\\n\\nOK\\nEXIT=0\""
+    },
+    {
+      "text": "git status lists no changed or new files other than text.py and tests/test_text.py and RESULT.md",
+      "passed": true,
+      "evidence": "\"M tests/test_text.py\\n M text.py\\n?? RESULT.md\""
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 490,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3910
+  }
+}

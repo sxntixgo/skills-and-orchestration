@@ -1,0 +1,23 @@
+{
+  "skill": "opencode-research",
+  "skill_path": "plugins/orchestration/opencode/skills/opencode-research",
+  "model": "atlas/qwen3.8-flash-next",
+  "runner": "opencode research runs on atlas/qwen3.8-flash-next in the research-research devcontainer, real tools, blind Claude judge",
+  "baseline": "none",
+  "claudemd": false,
+  "evals_file": "",
+  "new_rev": "39e07e1+worktree",
+  "date": "2026-11-24",
+  "cases": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ]
+}

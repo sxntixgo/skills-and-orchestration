@@ -17,3 +17,9 @@ git worktree.
 
 Install (Claude side): `/plugin install orchestration@frugal-skills` once this marketplace is added.
 In the homestack devcontainers the opencode side is installed by the `devcontainer` repo.
+
+**Requires opencode 2** (tested with 2.4.1, since 2026-11-24). The npm package `opencode-ai` still
+installs 1.x; get v2 from `@opencode/cli` or the GitHub release tarballs. The dispatch scripts run
+opencode inside the worktree (v2 has no `--dir`), and the agents use v2's native `permissions`
+list: deny everything first, then allow only what each role needs, so tools added in later
+opencode releases stay off until allowed. Also set `"automations": false` in `opencode.json`.

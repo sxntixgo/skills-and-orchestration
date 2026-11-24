@@ -325,7 +325,7 @@ def cmd_report(a):
         base += "; both with the repo's CLAUDE.md"
     lines = [f"# {meta['skill']} — eval {meta['date']}", "",
              f"new = working tree ({meta['new_rev']}), baseline = {base}; model {meta['model']}; "
-             f"`claude -p --safe-mode`, dry runs, blind judge.", "",
+             + (meta.get("runner") or "`claude -p --safe-mode`, dry runs, blind judge") + ".", "",
              "| Case | new | baseline |", "|---|:---:|:---:|"]
     for cid in meta["cases"]:
         cells = []

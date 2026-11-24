@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "The tool calls include fetch-media of the YouTube URL with --frames",
+      "passed": false,
+      "evidence": "No fetch-media call in the tool list; shell calls only ran `which search fetch-text fetch-media` and the reply says 'every shell invocation... returned Permission denied'."
+    },
+    {
+      "text": "The reply gives simple's origin as one fold/braid/twist (sim-plex) and easy's as near / at hand / adjacent",
+      "passed": true,
+      "evidence": "\"simple = Latin sim-plex, 'one fold/braid'... easy = ease < aise < adjacens, 'lie near'\""
+    },
+    {
+      "text": "Claims cite timestamps (mm:ss) in the talk",
+      "passed": true,
+      "evidence": "\"From the YouTube captions transcript of the talk itself, `[01:05]`–`[01:38]`\"; also \"The 'Word Origins' slide (~00:01:21)\""
+    },
+    {
+      "text": "The final reply is in the findings format: frontmatter with id T6 and a status, then the sections Answer, Claims, Conflicts, Gaps, Sources and Notes, with no code fence around the whole reply and no chatter outside it",
+      "passed": false,
+      "evidence": "No frontmatter (starts '## Findings — T6: ...'); no Answer, Claims, Conflicts or Sources sections, only numbered sections, 'Bottom line', 'Gaps / uncertainty', 'Notes'."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 2,
+    "total": 4,
+    "pass_rate": 0.5
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 495,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 6999
+  }
+}

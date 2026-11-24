@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "The tool calls include fetch-text of both files/vendor-whitepaper.pdf and files/pricing.xlsx",
+      "passed": true,
+      "evidence": "Tool call 3: \"fetch-text files/vendor-whitepaper.pdf --max 12000\" → exit 0; tool call 4: \"fetch-text files/pricing.xlsx --max 12000\" → exit 0"
+    },
+    {
+      "text": "The tiers are given with quotes: Starter free with 1M vectors; Team USD 49/month, 20M vectors, 3 replicas, 99.9% SLA; Enterprise on request, 99.95%",
+      "passed": true,
+      "evidence": "Claims quote \"Starter is free up to 1 million vectors.\", \"Team costs USD 49 per month and includes 20 million vectors and 3 replicas.\", \"Team | 49 | 20 | 3 | 99.9%\", \"Enterprise | on request | custom | custom | 99.95%\""
+    },
+    {
+      "text": "The '3x cheaper' claim is not given high confidence: it is low, listed under Gaps, or marked unsupported/vendor-only",
+      "passed": true,
+      "evidence": "Claim 5: \"The 3x-cheaper claim is a self-reported vendor statement with no independent corroboration\"; Answer: \"appears only in the vendor's own whitepaper as a marketing assertion\""
+    },
+    {
+      "text": "The vendor's documents are treated as primary but biased (e.g. noted as vendor claims)",
+      "passed": true,
+      "evidence": "Sources: \"[1] files/vendor-whitepaper.pdf ... primary (vendor; self-labeled \\\"fictional eval fixture\\\")\" and \"[2] files/pricing.xlsx ... primary (vendor)\""
+    },
+    {
+      "text": "The final reply is in the findings format: frontmatter with id T7 and a status, then the sections Answer, Claims, Conflicts, Gaps, Sources and Notes, with no code fence around the whole reply and no chatter outside it",
+      "passed": true,
+      "evidence": "Reply begins \"---\\nid: T7\\nstatus: done\\n---\" followed by ## Answer, ## Claims, ## Conflicts, ## Gaps, ## Sources, ## Notes; no enclosing code fence or extra chatter (\"## Final reply\" and tool log are harness wrappers)"
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 1302,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 9215
+  }
+}

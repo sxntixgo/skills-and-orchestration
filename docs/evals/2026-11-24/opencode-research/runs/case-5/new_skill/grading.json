@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "At least 4 searches with different wordings were run",
+      "passed": true,
+      "evidence": "More than a dozen distinct searches, e.g. \"MacBookAir6,2 idle power consumption watts\", \"MacBook Air 2013 headless Ubuntu server lid closed power draw\", \"powertop MacBook Air Haswell idle package power watts Linux\""
+    },
+    {
+      "text": "Status is partial, or every power figure is given low/medium confidence with the missing evidence under Gaps",
+      "passed": true,
+      "evidence": "Frontmatter reads \"status: partial\"."
+    },
+    {
+      "text": "A macOS or screen-on figure is not presented as the headless-Linux answer without saying so",
+      "passed": true,
+      "evidence": "\"No source measures this exact configuration ... so the number has to be triangulated\"; also \"The exact model idles at 2.8 W (OS X...) ... with the panel still lit\"."
+    },
+    {
+      "text": "Every number in the reply appears in a quote from a fetched source (no invented number)",
+      "passed": false,
+      "evidence": "Headline \"4–5 W ... ≈100–120 Wh/day ... ~3 W ... ~7–8 W\" is derived and appears in no quote. NUC \"idle (6.4W)\" came only from a search snippet; the fetch of [5] returned unrelated spam text."
+    },
+    {
+      "text": "The final reply is in the findings format: frontmatter with id T5 and a status, then the sections Answer, Claims, Conflicts, Gaps, Sources and Notes, with no code fence around the whole reply and no chatter outside it",
+      "passed": true,
+      "evidence": "Reply opens \"--- id: T5 status: partial ---\", followed by ## Answer, ## Claims, ## Conflicts, ## Gaps, ## Sources, ## Notes, with no wrapping fence."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 1,
+    "total": 5,
+    "pass_rate": 0.8
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 1573,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 24391
+  }
+}

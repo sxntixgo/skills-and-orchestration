@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "The tool calls include a search with --time month or --time year, or fetch-text of github.com/caddyserver/caddy/releases",
+      "passed": true,
+      "evidence": "shell `search \"Caddy web server latest stable release\" --time month --n 8`; also `fetch-text https://github.com/caddyserver/caddy/releases --max 9000`"
+    },
+    {
+      "text": "The version and date are quoted from a page fetched with fetch-text, not taken from a search snippet alone",
+      "passed": true,
+      "evidence": "Claim 2 quotes `\"published_at\": \"2026-11-05T01:30:24Z\"` from [2], which was fetched via `fetch-text \"https://api.github.com/repos/caddyserver/caddy/releases/latest\"`. The releases/latest fetch shows `v2.11.8...v2.11.9`."
+    },
+    {
+      "text": "Every claim in Claims cites a source number and includes a short quote in quotation marks",
+      "passed": true,
+      "evidence": "Claim 1 [2] `\"name\": \"v2.11.9\"`; Claim 2 [2] `\"published_at\"...`; Claim 3 [1] \"This is a quick follow-up on top of 2.11.8...\"; Claim 4 [4] \"| 2 | 6 years ago...| 2.11.9 (04 Nov 2026) |\""
+    },
+    {
+      "text": "The final reply is in the findings format: frontmatter with id T3 and a status, then the sections Answer, Claims, Conflicts, Gaps, Sources and Notes, with no code fence around the whole reply and no chatter outside it",
+      "passed": true,
+      "evidence": "Reply starts \"---\\nid: T3\\nstatus: done\\n---\" and has ## Answer, ## Claims, ## Conflicts, ## Gaps, ## Sources, ## Notes, with no wrapping fence. The \"Final reply\" and \"Tool calls\" headings are harness transcript."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 995,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 5090
+  }
+}

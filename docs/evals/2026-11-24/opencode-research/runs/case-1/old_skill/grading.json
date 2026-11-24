@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "The tool calls include fetch-text of at least one page on docs.searxng.org or github.com/searxng",
+      "passed": false,
+      "evidence": "Tool calls are only skill, shell (which/ls/echo), and glob; no fetch-text call. Answer admits \"tooling was unavailable\"."
+    },
+    {
+      "text": "At least 3 searches with different wordings were run",
+      "passed": false,
+      "evidence": "No search command was run; the globs are local file listings (\"glob **/*research*\"), not web searches."
+    },
+    {
+      "text": "The update procedure is answered from a fetched page with a quote; for requirements, either a quoted figure or a Gap saying the docs give none",
+      "passed": false,
+      "evidence": "\"No claims about SearXNG's hardware requirements or update procedure are reported below, because none could be sourced\"; there is no fetched page and no Gap section."
+    },
+    {
+      "text": "Every claim in Claims cites a source number and includes a short quote in quotation marks",
+      "passed": false,
+      "evidence": "There is no Claims section and no cited claims. The reply reports \"Findings: none\", so the assertion has no evidence to pass on."
+    },
+    {
+      "text": "The final reply is in the findings format: frontmatter with id T1 and a status, then the sections Answer, Claims, Conflicts, Gaps, Sources and Notes, with no code fence around the whole reply and no chatter outside it",
+      "passed": false,
+      "evidence": "There is no frontmatter. The sections are \"Result\", \"What happened (attempted steps)\", \"Notes\" and \"Sources consulted\". Answer, Claims, Conflicts and Gaps are missing."
+    }
+  ],
+  "summary": {
+    "passed": 0,
+    "failed": 5,
+    "total": 5,
+    "pass_rate": 0.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 554,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3043
+  }
+}

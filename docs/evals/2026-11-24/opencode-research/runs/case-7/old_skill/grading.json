@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "The tool calls include fetch-text of both files/vendor-whitepaper.pdf and files/pricing.xlsx",
+      "passed": false,
+      "evidence": "Tool calls list only skill, shell, glob, read, grep; no fetch-text. Answer admits 'no web searching or fetching was possible at all.'"
+    },
+    {
+      "text": "The tiers are given with quotes: Starter free with 1M vectors; Team USD 49/month, 20M vectors, 3 replicas, 99.9% SLA; Enterprise on request, 99.95%",
+      "passed": false,
+      "evidence": "Team row says 'SLA not stated'; the 99.9% SLA for Team is missing. The other tiers are quoted correctly."
+    },
+    {
+      "text": "The '3x cheaper' claim is not given high confidence: it is low, listed under Gaps, or marked unsupported/vendor-only",
+      "passed": true,
+      "evidence": "\"No — it is an unsupported vendor self-claim, and independent verification was impossible.\""
+    },
+    {
+      "text": "The vendor's documents are treated as primary but biased (e.g. noted as vendor claims)",
+      "passed": true,
+      "evidence": "\"(primary, vendor-authored...)\" and \"A universal superlative ('any competing') stated by the vendor about itself carries no independent evidentiary weight.\""
+    },
+    {
+      "text": "The final reply is in the findings format: frontmatter with id T7 and a status, then the sections Answer, Claims, Conflicts, Gaps, Sources and Notes, with no code fence around the whole reply and no chatter outside it",
+      "passed": false,
+      "evidence": "No frontmatter, id T7 or status. The sections are 'Findings', numbered items and 'Notes / limitations', not Answer/Claims/Conflicts/Gaps/Sources/Notes."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 3,
+    "total": 5,
+    "pass_rate": 0.4
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 616,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 4005
+  }
+}

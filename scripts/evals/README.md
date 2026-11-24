@@ -31,8 +31,32 @@ How it works (this is `skill-reviewer`'s Stage B, scripted):
 - **Cost:** each run and each grading is one `claude -p` call (about $0.10 and 20–40 s with Opus);
   `--jobs` sets parallelism.
 
+## opencode skills (`oceval.py`)
+
+`opencode-develop` and `opencode-research` run for real, on the local model, inside the
+devcontainer that has their tools; grading and the report reuse `abeval.py`:
+
+```bash
+python3 scripts/evals/oceval.py run --skill plugins/orchestration/opencode/skills/opencode-develop --out .claude-skills-work/oceval/develop
+python3 scripts/evals/abeval.py grade  --out .claude-skills-work/oceval/develop
+python3 scripts/evals/abeval.py report --out .claude-skills-work/oceval/develop
+```
+
+- `evals.json` names the runner: `"runner": {"kind": "develop"|"research", "container": "<docker
+  name prefix>", "agent": "implementer"|"researcher"}`. Develop cases point at a fixture repo
+  (`evals/files/<fixture>/`, committed fresh per run) and give `test_cmd`; research cases may copy
+  `files` into the run's `files/` dir. Each case has the task file (`task`) and `assertions`.
+- **Isolation:** every run gets its own opencode config dir (the container's `opencode.json`, the
+  agent, and the skill only for `new_skill`) and its own data dir; Claude Code prompts and skills
+  are off. The baseline is the agent prompt alone, so the delta is what the skill adds.
+- **What the judge sees:** the final reply, every tool call in order (shell commands with exit
+  code and output tail), and for develop the git status, the diff, `RESULT.md` and the harness's
+  own rerun of the test command.
+- **Cost:** no API spend for the runs (local model; `--jobs 2` = the server's slots), one Claude
+  judge call per run. A develop run takes a few minutes, a research run up to 20.
+
 Results are committed under `docs/evals/<date>/<skill>/` (`benchmark.json`, `report.md`, every
 answer, timing and grading), with a summary in `docs/validation-<date>.md`. The scratch workspace
 `.claude-skills-work/` stays uncommitted.
 
-Script tests: `bash scripts/tests/test_review_check.sh`.
+Script tests: `for t in scripts/tests/*.sh; do bash "$t"; done` (or `bash scripts/ci.sh`).

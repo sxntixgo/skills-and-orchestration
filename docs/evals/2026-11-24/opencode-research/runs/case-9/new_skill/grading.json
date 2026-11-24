@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "(a) is answered with a version and date quoted from a fetched page",
+      "passed": true,
+      "evidence": "Claim 2: [1] '\"published_at\": \"2026-11-05T01:30:24Z\"' (GitHub API, 2026-11-24); Claim 1 quotes '\"name\": \"v2.11.9\"', '\"prerelease\": false'"
+    },
+    {
+      "text": "(b) is not answered with an invented number: it is reported as unknown/not findable (ideally noting GitHub Sponsors launched in May 2019) under Gaps or with low confidence",
+      "passed": true,
+      "evidence": "'Zero' is derived from the premise being false ('beta was only announced on 2019-05-23'), not invented. Gaps: 'a numeric sponsor count for any past date (including 2019-03-01) is unrecoverable'"
+    },
+    {
+      "text": "(c) is not answered with an invented codename: it is reported as not found under Gaps",
+      "passed": true,
+      "evidence": "Gaps: 'Part (c): no source names any internal codename for Caddy 3, and no Caddy 3 has been announced'"
+    },
+    {
+      "text": "Status is partial, or (b) and (c) are explicitly listed under Gaps",
+      "passed": true,
+      "evidence": "Frontmatter 'status: partial'; Gaps has bullets for 'Part (b):' and 'Part (c):'"
+    },
+    {
+      "text": "The final reply is in the findings format: frontmatter with id T9 and a status, then the sections Answer, Claims, Conflicts, Gaps, Sources and Notes, with no code fence around the whole reply and no chatter outside it",
+      "passed": true,
+      "evidence": "Frontmatter '---\\nid: T9\\nstatus: partial\\n---', then '## Answer', '## Claims', '## Conflicts', '## Gaps', '## Sources', '## Notes' in order. No enclosing fence and no chatter. 'Final reply' and 'Tool calls' read as harness wrapper."
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 1221,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 18802
+  }
+}

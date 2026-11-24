@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "The tool calls include fetch-text of at least one page on docs.searxng.org or github.com/searxng",
+      "passed": true,
+      "evidence": "Tool call 4: \"fetch-text https://docs.searxng.org/admin/update-searxng.html --max 12000\" → exit 0; also call 6 fetched github.com/searxng/searxng/discussions/3884"
+    },
+    {
+      "text": "At least 3 searches with different wordings were run",
+      "passed": true,
+      "evidence": "Calls 2, 3, 5, 9, 12, 20 and others, e.g. \"SearXNG documentation administrator installation requirements\", \"SearXNG how to update instance documentation admin\", \"SearXNG minimum hardware requirements RAM CPU memory\""
+    },
+    {
+      "text": "The update procedure is answered from a fetched page with a quote; for requirements, either a quoted figure or a Gap saying the docs give none",
+      "passed": true,
+      "evidence": "Claim 10 quotes fetched update-searxng.html: \"use the `update` command from the utils/searxng.sh script\". Gap: \"No official statement of minimum CPU/RAM/disk anywhere in the fetched admin documentation\""
+    },
+    {
+      "text": "Every claim in Claims cites a source number and includes a short quote in quotation marks",
+      "passed": true,
+      "evidence": "All 16 claims carry [n] plus a quote, e.g. claim 3: [2] \"You need a working Docker or Podman installation on your system.\"; claim 16: [12] \"SearXNG is growing rapidly...\""
+    },
+    {
+      "text": "The final reply is in the findings format: frontmatter with id T1 and a status, then the sections Answer, Claims, Conflicts, Gaps, Sources and Notes, with no code fence around the whole reply and no chatter outside it",
+      "passed": true,
+      "evidence": "Reply starts \"---\\nid: T1\\nstatus: done\\n---\", followed in order by ## Answer, ## Claims, ## Conflicts, ## Gaps, ## Sources, ## Notes. There is no wrapping fence and no prose outside these sections; the \"## Final reply\" and \"## Tool calls\" headers belong to the harness transcript."
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 1118,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 12683
+  }
+}

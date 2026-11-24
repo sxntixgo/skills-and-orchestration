@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "The tool calls include a search with --time month or --time year, or fetch-text of github.com/caddyserver/caddy/releases",
+      "passed": true,
+      "evidence": "Tool call 14: shell `fetch-text \"https://github.com/caddyserver/caddy/releases/tag/v2.11.9\"` → exit 0 (no --time flag was used, but the releases fetch satisfies the alternative)"
+    },
+    {
+      "text": "The version and date are quoted from a page fetched with fetch-text, not taken from a search snippet alone",
+      "passed": true,
+      "evidence": "Claim 3: [1] `\"published_at\": \"2026-11-05T01:30:24Z\"` from the fetched releases API (tool call 11); Claim 1: `\"name\": \"v2.11.9\"`"
+    },
+    {
+      "text": "Every claim in Claims cites a source number and includes a short quote in quotation marks",
+      "passed": true,
+      "evidence": "Each of claims 1–5 cites [1], [2] or [3] with a quoted string, e.g. Claim 4: [2] \"This is a quick follow-up on top of 2.11.8, to fix a regression...\""
+    },
+    {
+      "text": "The final reply is in the findings format: frontmatter with id T3 and a status, then the sections Answer, Claims, Conflicts, Gaps, Sources and Notes, with no code fence around the whole reply and no chatter outside it",
+      "passed": true,
+      "evidence": "Reply opens with \"---\\nid: T3\\nstatus: done\\n---\", then ## Answer, ## Claims, ## Conflicts, ## Gaps, ## Sources, ## Notes, all unfenced. The 'Tool calls' list appears to be harness transcript, not reply chatter."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 1015,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 5362
+  }
+}

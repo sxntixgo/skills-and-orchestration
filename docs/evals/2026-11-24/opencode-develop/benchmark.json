@@ -1,0 +1,60 @@
+{
+  "meta": {
+    "skill": "opencode-develop",
+    "skill_path": "plugins/orchestration/opencode/skills/opencode-develop",
+    "model": "atlas/qwen3.8-flash-next",
+    "runner": "opencode develop runs on atlas/qwen3.8-flash-next in the homestack devcontainer, real tools, blind Claude judge",
+    "baseline": "none",
+    "claudemd": false,
+    "evals_file": "",
+    "new_rev": "39e07e1+worktree",
+    "date": "2026-11-24",
+    "cases": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "run_summary": {
+    "new_skill": {
+      "pass_rate": {
+        "mean": 0.971
+      },
+      "assertions": "33/34",
+      "tokens": {
+        "mean": 67028.286
+      },
+      "time_seconds": {
+        "mean": 78.886
+      },
+      "cost_usd": {
+        "mean": null
+      }
+    },
+    "old_skill": {
+      "pass_rate": {
+        "mean": 0.829
+      },
+      "assertions": "28/34",
+      "tokens": {
+        "mean": 73077.429
+      },
+      "time_seconds": {
+        "mean": 114.143
+      },
+      "cost_usd": {
+        "mean": null
+      }
+    },
+    "delta": {
+      "pass_rate": 0.142,
+      "tokens": -6049.143,
+      "time_seconds": -35.257,
+      "cost_usd": null
+    }
+  }
+}

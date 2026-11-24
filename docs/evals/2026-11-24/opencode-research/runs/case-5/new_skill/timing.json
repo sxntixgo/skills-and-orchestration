@@ -1,0 +1,10 @@
+{
+  "duration_ms": 629900,
+  "num_turns": 26,
+  "tool_calls": 34,
+  "exit": 0,
+  "tokens": {
+    "total": 829584
+  },
+  "cost_usd": null
+}

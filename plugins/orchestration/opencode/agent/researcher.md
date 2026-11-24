@@ -3,23 +3,19 @@ description: Researches ONE sub-question from an attached task file with the sea
 mode: primary
 model: atlas/qwen3.8-flash-next
 steps: 60
-permission:
-  read: allow
-  glob: allow
-  grep: allow
-  list: allow
-  skill: allow
-  todowrite: allow
-  edit: deny
-  task: deny
-  webfetch: deny
-  websearch: deny
-  external_directory: deny
-  bash:
-    "*": deny
-    "search *": allow
-    "fetch-text *": allow
-    "fetch-media *": allow
+# opencode 2 rules, last match wins: deny everything (incl. tools added in later releases), then allow what the job needs.
+permissions:
+  - { action: "*", resource: "*", effect: deny }
+  - { action: read, resource: "*", effect: allow }
+  - { action: glob, resource: "*", effect: allow }
+  - { action: grep, resource: "*", effect: allow }
+  - { action: list, resource: "*", effect: allow }
+  - { action: skill, resource: "*", effect: allow }
+  - { action: shell, resource: "search *", effect: allow }
+  - { action: shell, resource: "fetch-text *", effect: allow }
+  - { action: shell, resource: "fetch-media *", effect: allow }
+  - { action: read, resource: "*.env", effect: deny }
+  - { action: read, resource: "*.env.*", effect: deny }
 ---
 
 You are a researcher in a team. Claude (a stronger model) gave you one sub-question, will check

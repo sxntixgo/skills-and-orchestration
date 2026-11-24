@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "tests/test_words.py has a new test that truncate_words(\"a b\", 2) (or another input with no cut) returns the text without '…', and words.py now only adds '…' when words were cut",
+      "passed": true,
+      "evidence": "Test: \"self.assertEqual(truncate_words(\"a b\", 2), \"a b\")\". words.py: \"if len(words) > n: text += \"…\"\""
+    },
+    {
+      "text": "tests/test_words.py has a new test that n <= 0 raises ValueError, and words.py raises it",
+      "passed": true,
+      "evidence": "Test: \"test_nonpositive_n_raises ... assertRaises(ValueError): truncate_words(\"a b\", 0)\". words.py: \"if n <= 0: raise ValueError(\"n must be positive\")\""
+    },
+    {
+      "text": "The harness's independent rerun of the test command ends with EXIT=0",
+      "passed": true,
+      "evidence": "The independent rerun reports \"Ran 3 tests in 0.000s OK EXIT=0\""
+    },
+    {
+      "text": "RESULT.md has frontmatter with id T4, attempt 2 and status done, and a Tests section giving the exact command `python3 -m unittest -q` and an outcome with pass/fail counts, and it says how each of the two review notes was addressed",
+      "passed": true,
+      "evidence": "Frontmatter: \"id: T4 / attempt: 2 / status: done\". Tests section: \"command: `python3 -m unittest -q` outcome: 3 passed, 0 failed\". Changed section: \"raises ValueError for n <= 0 and appends '…' only when words were actually cut (fixes review note...)\""
+    },
+    {
+      "text": "git status lists no changed or new files other than words.py and tests/test_words.py and RESULT.md",
+      "passed": true,
+      "evidence": "git status shows only \"M RESULT.md\", \" M tests/test_words.py\" and \" M words.py\""
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 905,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3920
+  }
+}

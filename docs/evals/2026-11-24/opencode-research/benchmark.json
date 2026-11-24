@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "skill": "opencode-research",
+    "skill_path": "plugins/orchestration/opencode/skills/opencode-research",
+    "model": "atlas/qwen3.8-flash-next",
+    "runner": "opencode research runs on atlas/qwen3.8-flash-next in the research-research devcontainer, real tools, blind Claude judge",
+    "baseline": "none",
+    "claudemd": false,
+    "evals_file": "",
+    "new_rev": "39e07e1+worktree",
+    "date": "2026-11-24",
+    "cases": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ]
+  },
+  "run_summary": {
+    "new_skill": {
+      "pass_rate": {
+        "mean": 0.94
+      },
+      "assertions": "44/47",
+      "tokens": {
+        "mean": 434251.9
+      },
+      "time_seconds": {
+        "mean": 374.49
+      },
+      "cost_usd": {
+        "mean": null
+      }
+    },
+    "old_skill": {
+      "pass_rate": {
+        "mean": 0.35
+      },
+      "assertions": "16/47",
+      "tokens": {
+        "mean": 74806.6
+      },
+      "time_seconds": {
+        "mean": 120.3
+      },
+      "cost_usd": {
+        "mean": null
+      }
+    },
+    "delta": {
+      "pass_rate": 0.59,
+      "tokens": 359445.3,
+      "time_seconds": 254.19,
+      "cost_usd": null
+    }
+  }
+}

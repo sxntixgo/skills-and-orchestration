@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "The tool calls include fetch-media of the YouTube URL with --frames",
+      "passed": true,
+      "evidence": "Tool call 2: shell `fetch-media \"https://www.youtube.com/watch?v=SxdOUGdseq4\" --frames 2>&1 | head -c 6000`; calls 10–12 repeat it with --frames."
+    },
+    {
+      "text": "The reply gives simple's origin as one fold/braid/twist (sim-plex) and easy's as near / at hand / adjacent",
+      "passed": true,
+      "evidence": "\"simple = sim- + plex, \\\"one fold/braid\\\" ... and easy = ease < aise < adjacens, \\\"lie near\\\"\"; Claim 3 adds \"the root of \\\"adjacent\\\"\"."
+    },
+    {
+      "text": "Claims cite timestamps (mm:ss) in the talk",
+      "passed": true,
+      "evidence": "\"(Strange Loop 2011 talk, official captions at ~2:00–2:20)\", \"(~2:47)\", \"(~5:33–6:09)\", \"(~58:32–59:02)\""
+    },
+    {
+      "text": "The final reply is in the findings format: frontmatter with id T6 and a status, then the sections Answer, Claims, Conflicts, Gaps, Sources and Notes, with no code fence around the whole reply and no chatter outside it",
+      "passed": true,
+      "evidence": "Begins \"---\\nid: T6\\nstatus: done\\n---\", then ## Answer, ## Claims, ## Conflicts, ## Gaps, ## Sources, ## Notes in order. It has no wrapping fence and no prose outside the sections. \"## Final reply\" and \"## Tool calls\" are the eval harness's labels."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 898,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 11625
+  }
+}

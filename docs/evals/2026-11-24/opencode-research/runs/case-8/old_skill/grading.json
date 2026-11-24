@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "The tool calls include fetch-text of postgresql.org/support/versioning",
+      "passed": false,
+      "evidence": "Tool calls list only skill, shell, glob, grep; reply says fetch-text commands \"do not exist among my available tools in this run.\""
+    },
+    {
+      "text": "Supported versions and EOL dates are quoted from that page",
+      "passed": false,
+      "evidence": "\"I am reporting **zero verified findings**... No supported-version list or EOL dates are included above as claims.\""
+    },
+    {
+      "text": "Sources are numbered and each is labelled primary or secondary",
+      "passed": false,
+      "evidence": "Sources section reads \"None — no web page could be fetched\"; the one intended source is a bullet with no number and no primary/secondary label."
+    },
+    {
+      "text": "The final reply is in the findings format: frontmatter with id T8 and a status, then the sections Answer, Claims, Conflicts, Gaps, Sources and Notes, with no code fence around the whole reply and no chatter outside it",
+      "passed": false,
+      "evidence": "No frontmatter (no id T8 or status); the sections are \"**Findings**\", \"**Sources**\", \"**Notes**\", and Answer, Claims, Conflicts and Gaps are missing."
+    }
+  ],
+  "summary": {
+    "passed": 0,
+    "failed": 4,
+    "total": 4,
+    "pass_rate": 0.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 424,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3102
+  }
+}

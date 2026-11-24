@@ -1,0 +1,36 @@
+{
+  "assertion_results": [
+    {
+      "text": "The tool calls include fetch-text of postgresql.org/support/versioning",
+      "passed": true,
+      "evidence": "Tool call 3: \"shell `fetch-text https://www.postgresql.org/support/versioning/ --max 12000` → exit 0\""
+    },
+    {
+      "text": "Supported versions and EOL dates are quoted from that page",
+      "passed": true,
+      "evidence": "Claims 2-6 quote table rows from [1], e.g. \"| 15 | 15.20 | Yes | October 13, 2022 | November 11, 2027 |\". [1] is postgresql.org/support/versioning, read via its r.jina.ai render."
+    },
+    {
+      "text": "Sources are numbered and each is labelled primary or secondary",
+      "passed": true,
+      "evidence": "\"[1] Versioning Policy ... — primary\"; \"[2] ... — primary (archived)\"; \"[5] PostgreSQL — endoflife.date ... — secondary\". [3] and [4] are also marked primary."
+    },
+    {
+      "text": "The final reply is in the findings format: frontmatter with id T8 and a status, then the sections Answer, Claims, Conflicts, Gaps, Sources and Notes, with no code fence around the whole reply and no chatter outside it",
+      "passed": true,
+      "evidence": "Reply opens \"---\\nid: T8\\nstatus: done\\n---\", followed by ## Answer, ## Claims, ## Conflicts, ## Gaps, ## Sources and ## Notes in order. There is no wrapping fence. The \"## Final reply\" and \"## Tool calls\" headings are transcript scaffolding."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 906,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 8608
+  }
+}

@@ -66,3 +66,47 @@ after ~30 uses on tokens alone. Against Anthropic's it is cheaper both to run an
 Caveat: 2 skills, 1 run per case.
 
 **Decision (2026-11-24, user):** keep the rewritten skill-creator and skill-reviewer in the `skill-authoring` plugin.
+
+## opencode skills: first real measurement (opencode 2.4.1)
+
+Until now `opencode-develop` and `opencode-research` had only dry-run cases and no numbers. New
+runner `scripts/evals/oceval.py`: each case runs **for real** with opencode 2.4.1 on the local
+model (qwen3.8-flash-next) inside the devcontainer that has the tools (homestack for develop,
+research for research), once with the skill and once with the agent prompt alone; same blind
+Claude judge as the other skills. The judge sees the final reply, every tool call, and for
+develop the diff, `RESULT.md` and the harness's own rerun of the test command. Develop cases are
+7 small fixture repos (`evals/files/<fixture>/`); research cases are 10 live sub-questions,
+3 with local files (one with a planted prompt injection). Records:
+[`docs/evals/2026-11-24/opencode-develop`](./evals/2026-11-24/opencode-develop/report.md),
+[`opencode-research`](./evals/2026-11-24/opencode-research/report.md) (raw opencode logs not committed).
+
+| Skill | with skill | agent only | delta | tokens/run | time/run |
+|---|:---:|:---:|:---:|---:|---:|
+| opencode-develop | **33/34** | 28/34 | **+0.14** | 67k vs 73k (−8 %) | 79 s vs 114 s |
+| opencode-research | **44/47** | 16/47 | **+0.59** | 434k vs 75k (5.8×) | 374 s vs 120 s |
+
+Reading:
+- **develop** helps and costs nothing: the agent alone mostly does the work but skips the
+  RESULT.md contract (no frontmatter, no Tests section) that `claude-review-merge` reads, and
+  when the task's test command can't run (case 5: pytest only in another venv) it declares
+  success with a different command; with the skill it reports `blocked`. Neither noticed the
+  out-of-scope bug in case 3 (the only miss with the skill).
+- **research** is the skill that matters most: without it the researcher often doesn't find or
+  use `search`/`fetch-text` (case 1: no search at all, "tooling was unavailable"), answers from
+  memory, and never uses the findings format the orchestrator parses. The extra tokens are the
+  research itself (pages read); they cost local-model time, not API money. Worth trimming later
+  (fetch fewer pages, smaller slices); case 5 with the skill still derived a number no source
+  quoted.
+- Harness fix during the round: Python bytecode showed up as changed files; the runner now
+  excludes `__pycache__`/`*.pyc` and the develop round was rerun clean.
+- Caveat: 1 run per case, one model.
+
+### opencode 2 upgrade (same day)
+opencode 2 changed what the plugin relies on: `opencode run` has no `--dir` (the dispatchers now
+run it inside the worktree / run dir), the shell tool is `shell`, some text events have
+`text: null`, and agents start from allow-all with new tools (Code Mode `execute`, worktree,
+automations, image/video generation). The two agents now use v2's native `permissions` list,
+deny by default, then allow only what each role needs; `"automations": false` in the
+containers' `opencode.json`. Both dispatchers were tested end to end on 2.4.1 (dispatch, research
+with `--continue` on the same session). npm's `opencode-ai` package stays on 1.x: v2 is
+`@opencode/cli` or the GitHub release tarballs.

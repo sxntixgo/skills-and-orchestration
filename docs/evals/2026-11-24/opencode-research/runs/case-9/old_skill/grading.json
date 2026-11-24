@@ -1,0 +1,41 @@
+{
+  "assertion_results": [
+    {
+      "text": "(a) is answered with a version and date quoted from a fetched page",
+      "passed": false,
+      "evidence": "\"(a) Latest stable Caddy release + date | Not answered — unverified\"; no pages were fetched."
+    },
+    {
+      "text": "(b) is not answered with an invented number: it is reported as unknown/not findable (ideally noting GitHub Sponsors launched in May 2019) under Gaps or with low confidence",
+      "passed": true,
+      "evidence": "\"Not answered — likely unverifiable even with tools | GitHub does not expose historical sponsor-count snapshots\". No number is invented, though the May 2019 launch is not mentioned."
+    },
+    {
+      "text": "(c) is not answered with an invented codename: it is reported as not found under Gaps",
+      "passed": false,
+      "evidence": "No codename is invented (\"Not answered — premise unconfirmed\"), but there is no Gaps section. It appears only in a 'Per-part status' table."
+    },
+    {
+      "text": "Status is partial, or (b) and (c) are explicitly listed under Gaps",
+      "passed": false,
+      "evidence": "Status is \"UNABLE TO RESEARCH — no web access available in this session\", not partial, and there is no Gaps section."
+    },
+    {
+      "text": "The final reply is in the findings format: frontmatter with id T9 and a status, then the sections Answer, Claims, Conflicts, Gaps, Sources and Notes, with no code fence around the whole reply and no chatter outside it",
+      "passed": false,
+      "evidence": "There is no frontmatter. The sections are 'Status', 'What happened', 'Per-part status' and 'Notes', with no Answer, Claims, Conflicts, Gaps or Sources."
+    }
+  ],
+  "summary": {
+    "passed": 1,
+    "failed": 4,
+    "total": 5,
+    "pass_rate": 0.2
+  },
+  "judge_tokens": {
+    "input_tokens": 2,
+    "output_tokens": 836,
+    "cache_read_input_tokens": 1720,
+    "cache_creation_input_tokens": 3422
+  }
+}

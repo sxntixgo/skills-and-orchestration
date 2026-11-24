@@ -57,8 +57,9 @@ echo $$ > "$dir/running/$id.pid"
 # opencode keeps its state in SQLite: two runs starting at the same moment can fail with
 # "database is locked" before a session exists. Retry those (only those) after a random pause.
 for try in 1 2 3; do
-  ${tmo[@]+"${tmo[@]}"} opencode run --agent researcher --model "$model" --format json --dir "$root/$dir" \
-  --title "research $run/$id#$n" ${session_args[@]+"${session_args[@]}"} "$msg" -f "$task" > "$log" 2>&1   # -f last: greedy
+  # opencode 2 has no --dir: it works in its current directory (the run dir)
+  ( cd "$root/$dir" && exec ${tmo[@]+"${tmo[@]}"} opencode run --agent researcher --model "$model" --format json \
+    --title "research $run/$id#$n" ${session_args[@]+"${session_args[@]}"} "$msg" -f "$task" ) > "$log" 2>&1
   rc=$?
   grep -q '"sessionID"' "$log" || ! grep -q "database is locked" "$log" || [[ $try == 3 ]] && break
   sleep "${DISPATCH_RETRY_S:-$((3 + RANDOM % 8))}"
@@ -69,7 +70,7 @@ sid=$(grep -o '"sessionID":"[^"]*"' "$log" | head -1 | cut -d'"' -f4)
 [[ -n "$sid" ]] && echo "$sid" > "$dir/logs/$id.session"
 # Final answer = the text parts after the last step_start
 out=$(grep '^{' "$log" | jq -rs '(map(.type) | rindex("step_start")) as $i
-        | if $i == null then "" else (.[$i:] | map(select(.type == "text") | .part.text) | join("")) end' 2>/dev/null)
+        | if $i == null then "" else (.[$i:] | map(select(.type == "text") | (.part.text // "")) | join("")) end' 2>/dev/null)
 f=no
 # Models sometimes wrap the whole reply in a ```markdown fence: drop an outer fence only.
 out=$(printf '%s\n' "$out" | awk 'NF && !s {s=1; if ($0 ~ /^```/) next} {l[++n]=$0}
